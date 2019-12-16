@@ -1,0 +1,4 @@
+<camera position="(0, 1, 50)" lookat="(0, 0, 0)"/>
+<light center="(0, 20, 100)" intensity="0.8" color="#FFFFFF"/>
+<cylinder radius="3" center="(0, 0, 0)" color="(255, 150, 50)" axis="(0, 1, 0)"/>
+<plane center="(0, 0, 0)" normal="(0, 1, 0)" color="(50, 150, 50)"/>

@@ -1,0 +1,18 @@
+<camera position="(0, 0, 110)" lookat="(0, 0, -30)" fov="10"/>
+<light center="(0, 0, 20)" intensity="0.8" color="#FFFFFF"/>
+<cone center="(0, 0, 0)" color="(154, 157, 159)" axis="(0, 1, 0)" rotation="(0, 0, 45)"/>
+<cone center="(0, 0, 0)" color="(154, 157, 159)" axis="(0, 1, 0)" rotation="(0, 0, -45)"/>
+<cone center="(0, 0, 0)" color="(140, 28, 3)" axis="(0, 1, 0)"/>
+<cone center="(0, 0, 0)" color="(140, 28, 3)" axis="(0, 1, 0)" rotation="(0, 0, 90)"/>
+<plane center="(0, 20, 0)" color="(0, 0, 0)" normal="(0, 1, 0)"/>
+<plane center="(0, -20, 0)" color="(0, 0, 0)" normal="(0, 1, 0)"/>
+<plane center="(20, 0, 0)" color="(0, 0, 0)" normal="(1, 0, 0)"/>
+<plane center="(-20, 0, 0)" color="(0, 0, 0)" normal="(1, 0, 0)"/>
+<sphere center="(8, 0, 60)" color="(0, 0, 0)" radius="4"/>
+<sphere center="(-8, 0, 60)" color="(0, 0, 0)" radius="4"/>
+<sphere center="(0, 8, 60)" color="(0, 0, 0)" radius="4"/>
+<sphere center="(0, -8, 60)" color="(0, 0, 0)" radius="4"/>
+<sphere center="(5.6, -5.6, 60)" color="(0, 0, 0)" radius="4"/>
+<sphere center="(-5.6, -5.6, 60)" color="(0, 0, 0)" radius="4"/>
+<sphere center="(5.6, 5.6, 60)" color="(0, 0, 0)" radius="4"/>
+<sphere center="(-5.6, 5.6, 60)" color="(0, 0, 0)" radius="4"/>
