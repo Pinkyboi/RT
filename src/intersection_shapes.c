@@ -6,11 +6,12 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2019/12/16 06:11:03 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/21 17:37:45 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
 
 int				ft_check_min_distance(double *x1, double x2, double min)
 {
@@ -31,7 +32,6 @@ double			ft_cylinder_intersection(t_cam *cam,
 		t_cylinder *cylinder, double *min)
 {
 	double		abc[3];
-	double		x[2];
 	double		delta;
 	t_vector	dist;
 
@@ -47,20 +47,19 @@ double			ft_cylinder_intersection(t_cam *cam,
 	delta = (B * B) - (4 * A * C);
 	if (delta < 0)
 		return (0);
-	x[0] = (-B + sqrt(delta)) / (2 * A);
-	x[1] = (-B - sqrt(delta)) / (2 * A);
-	if (ft_check_min_distance(&x[0], x[1], *min))
-		ft_cylinder_normal(cam, cylinder, x[0]);
+	cylinder->soluce[0] = (-B + sqrt(delta)) / (2 * A);
+	cylinder->soluce[1] = (-B - sqrt(delta)) / (2 * A);
+	if (ft_check_min_distance(&cylinder->soluce[0], cylinder->soluce[1], *min))
+		ft_cylinder_normal(cam, cylinder, cylinder->soluce[0]);
 	else
-		x[0] = 0;
-	return ((cylinder->limited && (fabs(cylinder->lenght) >=
-		cylinder->max_lenght / 2)) ? 0 : x[0]);
+		cylinder->soluce[0] = 0;
+	return ((cylinder->max_lenght > 0 && (fabs(cylinder->lenght) >=
+		cylinder->max_lenght / 2)) ? 0 : cylinder->soluce[0]);
 }
 
 double			ft_cone_intersection(t_cam *cam, t_cone *cone, double *min)
 {
 	double		abc[3];
-	double		x[2];
 	double		delta;
 	t_vector	dist;
 
@@ -75,21 +74,20 @@ double			ft_cone_intersection(t_cam *cam, t_cone *cone, double *min)
 	delta = (B * B) - (4 * A * C);
 	if (delta < 0)
 		return (0);
-	x[0] = (-B + sqrt(delta)) / (2 * A);
-	x[1] = (-B - sqrt(delta)) / (2 * A);
-	if (ft_check_min_distance(&x[0], x[1], *min))
-		ft_cone_normal(cam, cone, x[0]);
+	cone->soluce[0] = (-B + sqrt(delta)) / (2 * A);
+	cone->soluce[1] = (-B - sqrt(delta)) / (2 * A);
+	if (ft_check_min_distance(&cone->soluce[0], cone->soluce[1], *min))
+		ft_cone_normal(cam, cone, cone->soluce[0]);
 	else
-		x[0] = 0;
-	return ((cone->limited && ((cone->lenght >=
-		cone->max_lenght) || !cone->lenght)) ? 0 : x[0]);
+		cone->soluce[0] = 0;
+	return ((cone->max_lenght > 0 && ((cone->lenght >=
+		cone->max_lenght) || !cone->lenght)) ? 0 : cone->soluce[0]);
 }
 
 double			ft_sphere_intersection(t_cam *cam,
 		t_sphere *sphere, double *min)
 {
 	double	abc[3];
-	double	x[2];
 	double	delta;
 
 	A = 1;
@@ -100,18 +98,17 @@ double			ft_sphere_intersection(t_cam *cam,
 	delta = (B * B) - (4 * A * C);
 	if (delta < 0)
 		return (0);
-	x[0] = (-B + sqrt(delta)) / 2;
-	x[1] = (-B - sqrt(delta)) / 2;
-	if (ft_check_min_distance(&x[0], x[1], *min))
-		ft_sphere_normal(cam, sphere, x[0]);
+	sphere->soluce[0] = (-B + sqrt(delta)) / 2;
+	sphere->soluce[1] = (-B - sqrt(delta)) / 2;
+	if (ft_check_min_distance(&sphere->soluce[0], sphere->soluce[1], *min))
+		ft_sphere_normal(cam, sphere, sphere->soluce[0]);
 	else
-		x[0] = 0;
-	return (x[0]);
+		sphere->soluce[0] = 0;
+	return (sphere->soluce[0]);
 }
 
 double			ft_plane_intersection(t_cam *cam, t_plane *plane, double *min)
 {
-	double		k;
 	double		i;
 	t_vector	temp;
 
@@ -119,13 +116,16 @@ double			ft_plane_intersection(t_cam *cam, t_plane *plane, double *min)
 	if (fabs(i) > MIN_D)
 	{
 		temp = ft_sub_vector(plane->center, cam->position);
-		k = ft_dot_vector(temp, plane->normal) / i;
-		if (k < *min && k > MIN_D)
+		plane->soluce[0] = ft_dot_vector(temp, plane->normal) / i;
+		plane->soluce[1] = plane->soluce[0];
+		if (plane->soluce[0] < *min && plane->soluce[0] > MIN_D)
 		{
 			if (i > 0)
 				plane->normal = ft_scale_vector(plane->normal, -1);
-			ft_intersection_position(cam, k);
-			return (k);
+			ft_intersection_position(cam, plane->soluce[0]);
+			if(plane->radius < 0 || plane->radius >=
+				ft_vector_size(ft_sub_vector(plane->center, cam->intersection)))
+				return (plane->soluce[0]);
 		}
 	}
 	return (0);

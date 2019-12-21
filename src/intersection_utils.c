@@ -6,12 +6,12 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2019/12/15 23:44:08 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/20 17:27:19 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
+#include <stdio.h>
 double			ft_choose_intersection(t_object_list *object_node,
 					t_rtv *rtv, double *min)
 {
@@ -19,8 +19,10 @@ double			ft_choose_intersection(t_object_list *object_node,
 
 	temp_min = object_node->object.point.function(&(rtv->cam),
 		&object_node->object.point, min);
+
 	if (temp_min)
 		*min = temp_min;
+
 	return (temp_min);
 }
 
@@ -62,7 +64,7 @@ void			ft_color_best_node(t_rtv *rtv, t_color rgb)
 		ft_create_ray(rtv, sample);
 		while (object_node)
 		{
-			if (ft_choose_intersection(object_node, rtv, &rtv->min))
+			if (ft_choose_intersection(object_node, rtv, &rtv->min))	
 				best_node = object_node;
 			object_node = object_node->next;
 		}

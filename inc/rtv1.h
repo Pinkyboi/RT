@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/16 06:32:18 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/21 17:18:39 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define TYPE_CYLINDER 2
 # define TYPE_PLANE 3
 # define TYPE_CONE 4
-# define TYPE_PARSE_COUNT 6
+# define TYPE_PARSE_COUNT 7
 # define FT_SQR(X) ((X) * (X))
 # define FT_RAD(X) (((X) * M_PI) / 180)
 # define AA 4
@@ -82,6 +82,10 @@ typedef struct	s_sphere
 	t_vector				center;
 	double					radius;
 	t_vector				translation;
+	double					max_lenght;
+	t_vector				cut_orientation;
+	double					soluce[2];
+		t_vector	limit;
 }				t_sphere;
 
 typedef struct	s_cylinder
@@ -95,8 +99,10 @@ typedef struct	s_cylinder
 	t_vector				rotation;
 	t_vector				translation;
 	int						limited;
-	double						lenght;
-	double						max_lenght;
+	double					lenght;
+	double					max_lenght;
+	double					soluce[2];
+		t_vector	limit;
 }				t_cylinder;
 
 typedef struct	s_cone
@@ -112,8 +118,10 @@ typedef struct	s_cone
 	t_vector				rotation;
 	t_vector				translation;
 	int						limited;
-	double						lenght;
-	double						max_lenght;
+	double					lenght;
+	double					max_lenght;
+	double					soluce[2];
+		t_vector	limit;
 }				t_cone;
 
 typedef struct	s_plane
@@ -124,6 +132,10 @@ typedef struct	s_plane
 	t_vector				center;
 	t_vector				rotation;
 	t_vector				translation;
+	double					soluce[2];
+	double					radius;
+	double					side;
+		t_vector	limit;
 }				t_plane;
 
 typedef union	u_object
@@ -263,6 +275,7 @@ t_xml_element	*ft_get_tag_parsing_function(char *name);
 int				ft_add_sphere(t_xml_tag *tag, t_rtv *env);
 int				ft_add_cylinder(t_xml_tag *tag, t_rtv *env);
 int				ft_add_plane(t_xml_tag *tag, t_rtv *env);
+int				ft_add_disk(t_xml_tag *tag, t_rtv *env);
 int				ft_add_cone(t_xml_tag *tag, t_rtv *env);
 int				ft_add_light(t_xml_tag *tag, t_rtv *env);
 int				ft_load_camera(t_xml_tag *tag, t_rtv *env);

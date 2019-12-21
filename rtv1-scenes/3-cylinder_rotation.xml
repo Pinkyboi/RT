@@ -1,3 +1,5 @@
-<camera position="(0, 0, 50)" lookat="(0, 0, 0)" fov="35"/>
-<light center="(0, 0, 50)" intensity="0.8" color="#FFFFFF"/>
-<cylinder center="(0, 0, 0)" color="(255, 150, 50)" axis="(0, 1, 0)" radius="2" rotation="(90, 90, 0)"/>
+<camera position="(0, 20, 50)" lookat="(0, 0, 0)" fov="35"/>
+<light center="(0, 100, 50)" intensity="0.8" color="#FFFFFF"/>
+<sphere lenght="8" orientation="(0, 1, 1)" limit="(10000000, 3,20)" center="(0, 0, 0)" color="(255, 100, 0)" radius="6"/>
+<dis1k center="(0, 0, 0)" normal="(0, 1, 0)" color="(255, 100, 0)" radius="6"/>
+<c1ylinder limit="(10000000, 0,20)" center="(0, 0, 0)" color="(255, 150, 50)" axis="(0, 1, 0)" radius="4"/>

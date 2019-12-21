@@ -6,7 +6,7 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 15:53:41 by azarzor           #+#    #+#              #
-#    Updated: 2019/12/05 16:43:41 by abenaiss         ###   ########.fr        #
+#    Updated: 2019/12/20 17:06:03 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ AR = ar rc
 NAME = libftmaths.a
 FILENAMES = vectors.c\
 			vectors2.c\
-			rotation.c
+			rotation.c\
+			compare.c
 HEADER_FILE = ./inc/ft_maths.h
 SRC_DIR = ./src
 OBJ_DIR = ./obj
