@@ -6,17 +6,30 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2019/12/16 05:20:06 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/21 23:46:23 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <stdio.h>
 
 void	ft_sphere_normal(t_cam *cam, t_sphere *sphere, double distance)
 {
 	t_vector	radius;
+	t_vector	cut_center;
 
 	ft_intersection_position(cam, distance);
+	if(sphere->max_lenght > 0){
+		
+		cut_center = ft_add_vector(ft_scale_vector(
+				sphere->cut_orientation, -sphere->radius + sphere->max_lenght),sphere->center);
+		if((sphere->radius <= sphere->max_lenght) && ft_dot_vector(ft_add_vector(cut_center,sphere->cut_orientation),
+			ft_sub_vector(cut_center, cam->intersection)) < 0)
+				sphere->soluce[0] = 0;
+		else if((sphere->radius > sphere->max_lenght) && ft_dot_vector(ft_add_vector(cut_center,sphere->cut_orientation),
+			ft_sub_vector(cut_center, cam->intersection)) > 0)
+				sphere->soluce[0] = 0;		
+	}
 	radius = ft_sub_vector(cam->intersection, sphere->center);
 	sphere->normal = ft_normalise_vector(radius);
 }
@@ -28,8 +41,9 @@ void	ft_cylinder_normal(t_cam *cam, t_cylinder *cylinder,
 	t_vector	scaled_axis;
 	double		scale;
 
-	cylinder->axis = ft_normalise_vector(cylinder->axis);
+	
 	ft_intersection_position(cam, distance);
+	cylinder->axis = ft_normalise_vector(cylinder->axis);
 	scale = ft_dot_vector(cam->ray_direction, cylinder->axis) * distance;
 	scale += ft_dot_vector(ft_sub_vector(cam->position,
 				cylinder->center), cylinder->axis);
@@ -46,8 +60,9 @@ void	ft_cone_normal(t_cam *cam, t_cone *cone, double distance)
 	t_vector	scaled_axis;
 	double		scale;
 
-	cone->axis = ft_normalise_vector(cone->axis);
+	
 	ft_intersection_position(cam, distance);
+	cone->axis = ft_normalise_vector(cone->axis);
 	scale = ft_dot_vector(cam->ray_direction, cone->axis) * distance;
 	scale += ft_dot_vector(ft_sub_vector(cam->position,
 				cone->center), cone->axis);

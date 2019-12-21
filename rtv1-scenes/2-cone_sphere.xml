@@ -1,4 +1,4 @@
-<camera position="(0, 0, 50)" lookat="(0, 0, 0)" fov="60"/>
-<light center="(0, 0, 50)" intensity="0.8" color="#FFFFFF"/>
-<cone center="(0, 0, 0)" color="(50, 150, 50)" axis="(0, 1, 0)"/>
+<camera position="(0, 10, 50)" lookat="(0, 0, 0)" fov="60"/>
+<light  center="(0, 0, 50)" intensity="0.8" color="#FFFFFF"/>
+<plane  center="(0, 0, 0)" color="(50, 150, 50)" axis="(0, 1, 0)"/>
 <sphere center="(0, 0, 0)" color="(150, 50, 50)" radius="5"/>

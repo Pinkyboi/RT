@@ -1,7 +1,7 @@
 <camera position="(0, 0, 50)" lookat="(0, 0, 0)" fov="35"/>
-<light center="(0, 0, -50)" intensity="0.8" color="#FFFFFF"/>
-<cylinder limited="1" lenght="15" radius="3" center="(0, 0, -10)" color="(255, 150, 50)" axis="(0, 1, 0)" rotation="(0, 0, 45)"/>
-<cylinder limited="1" lenght="15" radius="3" center="(0, 0, -10)" color="(255, 150, 50)" axis="(0, 1, 0)" rotation="(0, 0, 0)"/>
-<cylinder limited="1" lenght="15" radius="3" center="(0, 0, -10)" color="(255, 150, 50)" axis="(0, 1, 0)" rotation="(0, 0, 90)"/>
-<cylinder limited="1" lenght="15" radius="3" center="(0, 0, -10)" color="(255, 150, 50)" axis="(0, 1, 0)" rotation="(0, 0, -45)"/>
+<light center="(0, 0, 50)" intensity="0.8" color="#FFFFFF"/>
+<cone radius="3" center="(0, 0, -10)" color="(255, 150, 50)" axis="(0, 1, 0)" rotation="(0, 0, 45)"/>
+<cone radius="3" center="(0, 0, -10)" color="(255, 150, 50)" axis="(0, 1, 0)" rotation="(0, 0, 0)"/>
+<cone radius="3" center="(0, 0, -10)" color="(255, 150, 50)" axis="(0, 1, 0)" rotation="(0, 0, 90)"/>
+<cone radius="3" center="(0, 0, -10)" color="(255, 150, 50)" axis="(0, 1, 0)" rotation="(0, 0, -45)"/>
 <sphere center="(0, 0, -3)" color="(150, 50, 50)" radius="3"/>

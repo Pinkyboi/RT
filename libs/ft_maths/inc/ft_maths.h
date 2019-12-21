@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:24:45 by azarzor           #+#    #+#             */
-/*   Updated: 2019/12/06 23:11:20 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/20 17:04:09 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ double				ft_dot_vector(t_vector v1, t_vector v2);
 t_vector			ft_rotate_vectorx(t_vector a, double angle);
 t_vector			ft_rotate_vectory(t_vector a, double angle);
 t_vector			ft_rotate_vectorz(t_vector a, double angle);
+int     			ft_vector_null(t_vector v);
+int					ft_vector_limit(t_vector v1, t_vector v2);
 
 #endif

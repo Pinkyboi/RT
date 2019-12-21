@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:47:13 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/06 23:19:27 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/18 18:04:19 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ const t_xml_element_parse	g_xml_element_parser[] = {
 	{.type_name = "sphere", .function = &ft_add_sphere},
 	{.type_name = "cylinder", .function = &ft_add_cylinder},
 	{.type_name = "plane", .function = &ft_add_plane},
+	{.type_name = "disk", .function = &ft_add_disk},
 	{.type_name = "cone", .function = &ft_add_cone},
 	{.type_name = "camera", .function = &ft_load_camera},
 	{.type_name = "light", .function = &ft_add_light}
