@@ -1,3 +1,5 @@
-<camera position="(0, 0, 50)" lookat="(0, 0, 0)" fov="35"/>
-<light center="(0, 0, 50)" intensity="0.8" color="#FFFFFF"/>
-<cone center="(0, 0, 0)" angle="20" lenght="10" color="(50, 150, 50)" axis="(0, -1,0.4)" radius="1"/>
+<camera position="(0, 10, 50)" lookat="(0, 0, 0)" fov="35"/>
+<light center="(0, 100, 0)" intensity="0.8" color="#FFFFFF"/>
+<cone center="(0, 0, 0)" angle="60" lenght="8" color="(50, 150, 50)" axis="(0, 1, 0)" radius="1"/>
+<cydlinder lenght="10" radius="3" center="(0, 0, -10)" color="(255, 150, 50)" axis="(0, 1, 0.2)"/>
+<plane center="(0, 0, 0)" color="(255, 255, 255)" normal="(0, 1, 0)"/>

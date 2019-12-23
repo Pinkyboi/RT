@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 16:18:44 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/22 17:23:13 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/23 07:14:24 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_vector		ft_parse_vector(char *string, int *status)
 	return (result);
 }
 
-t_coor		ft_parse_coor(char *string, int *status)
+t_coor			ft_parse_coor(char *string, int *status)
 {
 	t_coor		result;
 	size_t		index;

@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/22 21:50:24 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/23 07:39:19 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,13 @@ typedef struct	s_cone
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				axis;
-	double					radius;
 	double					angle;
 	double					tilt;
 	t_vector				rotation;
 	t_vector				translation;
 	int						limited;
 	double					lenght;
+	double					radius;
 	double					max_lenght;
 	double					soluce[2];
 		t_vector	limit;
@@ -301,5 +301,9 @@ t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color);
 void            ft_sphere_cut(t_rtv *env, t_object object);
 void			ft_cylinder_cut(t_rtv *env, t_object object);
 void			ft_cone_cut(t_rtv *env, t_object object);
+
+void			ft_sphere_limit(t_sphere *sphere, t_cam cam);
+void			ft_cone_limit(t_cone *cone, t_cam cam);
+void			ft_cylinder_limit(t_cylinder *cylinder);
 
 #endif
