@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/21 17:18:39 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/22 21:50:24 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <time.h>
+
+#include <stdio.h>
+
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
 # define A abc[0]
@@ -291,6 +294,12 @@ void			ft_sepia_filter(t_color *color);
 
 int				ft_antialiasing(t_rtv *rtv, t_vector normal, t_color color);
 
-t_color				ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color);
+t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color);
+
+
+
+void            ft_sphere_cut(t_rtv *env, t_object object);
+void			ft_cylinder_cut(t_rtv *env, t_object object);
+void			ft_cone_cut(t_rtv *env, t_object object);
 
 #endif

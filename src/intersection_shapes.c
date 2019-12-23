@@ -6,12 +6,12 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2019/12/21 17:37:45 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/23 02:17:59 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
+#include <stdio.h>
 
 int				ft_check_min_distance(double *x1, double x2, double min)
 {
@@ -80,8 +80,7 @@ double			ft_cone_intersection(t_cam *cam, t_cone *cone, double *min)
 		ft_cone_normal(cam, cone, cone->soluce[0]);
 	else
 		cone->soluce[0] = 0;
-	return ((cone->max_lenght > 0 && ((cone->lenght >=
-		cone->max_lenght) || !cone->lenght)) ? 0 : cone->soluce[0]);
+	return (cone->soluce[0]);
 }
 
 double			ft_sphere_intersection(t_cam *cam,

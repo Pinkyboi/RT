@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2019/12/21 23:46:23 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/23 02:32:16 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,30 @@ void	ft_cone_normal(t_cam *cam, t_cone *cone, double distance)
 	t_vector	center_to_point;
 	t_vector	scaled_axis;
 	double		scale;
-
-	
+	t_vector	cut_center;
+			
 	ft_intersection_position(cam, distance);
+	if (cone->max_lenght > 0)
+	{
+		cut_center = ft_add_vector(ft_scale_vector(
+			cone->axis, cone->max_lenght), cone->center);
+		if(ft_dot_vector(ft_add_vector(cut_center,cone->axis),
+			ft_sub_vector(cut_center, cam->intersection)) < 0)
+			cone->soluce[0] = 0;
+		else if(ft_dot_vector(ft_add_vector(cone->center,cone->axis),
+			ft_sub_vector(cone->center, cam->intersection)) > 0)
+			cone->soluce[0] = 0;
+	}
 	cone->axis = ft_normalise_vector(cone->axis);
 	scale = ft_dot_vector(cam->ray_direction, cone->axis) * distance;
 	scale += ft_dot_vector(ft_sub_vector(cam->position,
 				cone->center), cone->axis);
-	cone->lenght = (scale > 0) ? scale : 0;
 	center_to_point = ft_sub_vector(cam->intersection, cone->center);
 	scaled_axis = ft_scale_vector(ft_scale_vector(cone->axis, scale),
 								(1 + FT_SQR(cone->tilt)));
 	cone->normal = ft_normalise_vector(ft_sub_vector(center_to_point,
-				scaled_axis));
+				scaled_axis));		
+
 }
 
 void	ft_refracted_ray(t_cam *cam, t_light *light, t_vector normal)

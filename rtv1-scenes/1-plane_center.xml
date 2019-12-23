@@ -1,3 +1,3 @@
 <camera position="(0, 0, 50)" lookat="(0, 0, 0)"/>
 <light center="(0, 100, 0)" intensity="0.5" color="#FFFFFF"/>
-<plane center="(0, 0, 0)" normal="(0, 1, 0)" color="(50, 150, 50)"/>
+<disk radius="6" center="(0, -1, 0)" normal="(0, 1, 0)" color="(50, 150, 50)"/>

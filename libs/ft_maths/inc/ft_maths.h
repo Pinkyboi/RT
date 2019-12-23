@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:24:45 by azarzor           #+#    #+#             */
-/*   Updated: 2019/12/20 17:04:09 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/22 16:44:21 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ typedef struct		s_vector
 	double	y;
 	double	z;
 }					t_vector;
+
+typedef struct		s_coor
+{
+	double	x;
+	double	y;
+}					t_coor;
 
 t_vector			ft_new_vector(double x, double y, double z);
 t_vector			ft_add_vector(t_vector u, t_vector v);
