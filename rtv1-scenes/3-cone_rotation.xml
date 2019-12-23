@@ -1,3 +1,3 @@
 <camera position="(0, 0, 50)" lookat="(0, 0, 0)" fov="35"/>
 <light center="(0, 0, 50)" intensity="0.8" color="#FFFFFF"/>
-<cone center="(0, 0, 0)" color="(50, 150, 50)" axis="(0, 1, 0)" radius="1" rotation="(20, 0, 30)"/>
+<cone center="(0, 0, 0)" angle="20" lenght="10" color="(50, 150, 50)" axis="(0, -1,0.4)" radius="1"/>

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_parsers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 16:18:44 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/06 15:17:58 by abiri            ###   ########.fr       */
+/*   Updated: 2019/12/22 17:23:13 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,30 @@ t_vector		ft_parse_vector(char *string, int *status)
 	if (string[index] != ',' && !(*status = 0))
 		return (result);
 	result.z = ft_atof(&string[index + 1], &size);
+	index += size;
+	if ((string[index] != ')' || string[index + 1] != '\0') && !(*status = 0))
+		return (result);
+	return (result);
+}
+
+t_coor		ft_parse_coor(char *string, int *status)
+{
+	t_coor		result;
+	size_t		index;
+	int			size;
+
+	index = 0;
+	result = (t_coor){0, 0};
+	if (string[0] != '(')
+	{
+		*status = 0;
+		return (result);
+	}
+	result.x = ft_atof(&string[1], &size);
+	index += size;
+	if (string[index] != ',' && !(*status = 0))
+		return (result);
+	result.y = ft_atof(&string[index + 1], &size);
 	index += size;
 	if ((string[index] != ')' || string[index + 1] != '\0') && !(*status = 0))
 		return (result);

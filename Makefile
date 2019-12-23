@@ -6,7 +6,7 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2019/12/14 22:53:33 by abenaiss         ###   ########.fr        #
+#    Updated: 2019/12/22 21:33:35 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ FILENAMES = cam_utils.c\
 	string_parsers.c\
 	ft_atof.c\
 	xml_parser_tools.c\
-	filter.c
+	filter.c\
+	shapes_cut.c
 
 HEADER_FILE = rtv1.h
 

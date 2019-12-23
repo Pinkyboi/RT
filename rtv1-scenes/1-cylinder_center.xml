@@ -1,7 +1,6 @@
-<camera position="(0, 0, 50)" lookat="(0, 0, 0)" fov="35"/>
-<light center="(0, 0, 50)" intensity="0.8" color="#FFFFFF"/>
-<cone radius="3" center="(0, 0, -10)" color="(255, 150, 50)" axis="(0, 1, 0)" rotation="(0, 0, 45)"/>
-<cone radius="3" center="(0, 0, -10)" color="(255, 150, 50)" axis="(0, 1, 0)" rotation="(0, 0, 0)"/>
-<cone radius="3" center="(0, 0, -10)" color="(255, 150, 50)" axis="(0, 1, 0)" rotation="(0, 0, 90)"/>
-<cone radius="3" center="(0, 0, -10)" color="(255, 150, 50)" axis="(0, 1, 0)" rotation="(0, 0, -45)"/>
-<sphere center="(0, 0, -3)" color="(150, 50, 50)" radius="3"/>
+<camera position="(0, 10, 50)" lookat="(0, 0, 0)" fov="35"/>
+<light center="(0, 0, 100)" intensity="0.8" color="#FFFFFF"/>
+<light center="(-20, 0, 20)" intensity="0.1" color="#FFFFFF"/>
+<cylinder lenght="10" radius="3" center="(0, 0, -10)" color="(255, 150, 50)" axis="(0, 1, 0)"/>
+<disdk radius="3" center="(0, 0, -10)" color="(255, 150, 50)" normal="(0, 0, 1)"/> 
+<disdk radius="3" center="(0, 0, -5)" color="(255, 150, 50)" normal="(0, 0, 1)" />
