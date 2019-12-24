@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/23 05:58:25 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/24 04:14:36 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,7 @@ int				ft_add_sphere(t_xml_tag *tag, t_rtv *env)
 				"translation", "(0,0,0)"), &status);
 	object.sphere.center = ft_add_vector(object.sphere.center,
 			object.sphere.translation);
-	object.sphere.limit = ft_parse_vector(ft_xml_get_value(tag,
-				"limit", "(0,0,0)"), &status);
-	object.sphere.max_lenght = ft_clamp_min(-1, ft_parse_float(ft_xml_get_value(tag, "lenght",
-				"-1"), &status));
-	object.sphere.cut_orientation = ft_normalise_vector(ft_parse_vector(ft_xml_get_value(tag,
-				"orientation", "(0,1,0)"), &status));
-	ft_sphere_cut(env, object);
+	ft_sphere_cut(env, tag, &object, &status);
 	object.sphere.function = &ft_sphere_intersection;
 	status &= ft_object_push(env, object, TYPE_SPHERE);
 	return (status);
@@ -62,11 +56,7 @@ int				ft_add_cylinder(t_xml_tag *tag, t_rtv *env)
 			object.cylinder.translation);
 	object.cylinder.axis = ft_normalise_vector(ft_rotate_vector(
 				object.cylinder.axis, object.cylinder.rotation));
-	object.cylinder.max_lenght = ft_clamp_min(-1, ft_parse_float(ft_xml_get_value(tag, "lenght",
-				"-1"), &status));
-	ft_cylinder_cut(env, object);
-	object.cylinder.limit = ft_parse_vector(ft_xml_get_value(tag,
-				"limit", "(0,0,0)"), &status);
+	ft_cylinder_cut(env, tag, &object, &status);
 	object.point.function = &ft_cylinder_intersection;
 	status &= ft_object_push(env, object, TYPE_CYLINDER);
 	return (status);
@@ -84,8 +74,8 @@ int				ft_add_plane(t_xml_tag *tag, t_rtv *env)
 				"(0,0,0)"), &status);
 	object.plane.color = ft_parse_color(ft_xml_get_value(tag, "color",
 				"(255,255,255)"), &status);
-	object.plane.rotation = ft_parse_vector(ft_xml_get_value(tag, "rotation",
-			"(0,0,0)"), &status);
+	object.plane.rotation = ft_parse_vector(
+				ft_xml_get_value(tag, "rotation", "(0,0,0)"), &status);
 	object.plane.translation = ft_parse_vector(ft_xml_get_value(tag,
 				"translation", "(0,0,0)"), &status);
 	object.plane.center = ft_add_vector(object.plane.center,
@@ -93,10 +83,8 @@ int				ft_add_plane(t_xml_tag *tag, t_rtv *env)
 	object.plane.normal = ft_rotate_vector(object.plane.normal,
 			object.plane.rotation);
 	object.plane.normal = ft_normalise_vector(object.plane.normal);
-	object.plane.radius = ft_clamp_min(-1, ft_parse_float(ft_xml_get_value(tag, "radius",
-				"-1"), &status));
-	object.plane.limit = ft_parse_vector(ft_xml_get_value(tag,
-				"limit", "(0,0,0)"), &status);
+	object.plane.radius = ft_clamp_min(-1, ft_parse_float(
+				ft_xml_get_value(tag, "radius", "-1"), &status));
 	object.point.function = &ft_plane_intersection;
 	status &= ft_object_push(env, object, TYPE_PLANE);
 	return (status);
@@ -123,8 +111,8 @@ int				ft_add_disk(t_xml_tag *tag, t_rtv *env)
 	object.plane.normal = ft_rotate_vector(object.plane.normal,
 			object.plane.rotation);
 	object.plane.normal = ft_normalise_vector(object.plane.normal);
-	object.plane.radius = ft_clamp_min(0, ft_parse_float(ft_xml_get_value(tag, "radius",
-				"6"), &status));
+	object.plane.radius = ft_clamp_min(0, ft_parse_float(
+		ft_xml_get_value(tag, "radius", "6"), &status));
 	object.plane.limit = ft_parse_vector(ft_xml_get_value(tag,
 				"limit", "(0,0,0)"), &status);
 	object.point.function = &ft_plane_intersection;
@@ -155,11 +143,7 @@ int				ft_add_cone(t_xml_tag *tag, t_rtv *env)
 			object.cone.translation);
 	object.cone.axis = ft_normalise_vector(ft_rotate_vector(object.cone.axis,
 				object.cone.rotation));
-	object.cone.max_lenght = ft_clamp_min(-1, ft_parse_float(ft_xml_get_value(tag, "lenght",
-				"-1"), &status));
-	object.cone.limit = ft_parse_vector(ft_xml_get_value(tag,
-				"limit", "(0,0,0)"), &status);
-	ft_cone_cut(env, object);
+	ft_cone_cut(env, tag, &object, &status);
 	object.point.function = &ft_cone_intersection;
 	status &= ft_object_push(env, object, TYPE_CONE);
 	return (status);

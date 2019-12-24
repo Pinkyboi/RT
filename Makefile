@@ -40,7 +40,8 @@ FILENAMES = cam_utils.c\
 	xml_parser_tools.c\
 	filter.c\
 	shapes_cut.c\
-	shapes_limit.c
+	shapes_limit.c\
+	cut_helper.c
 
 HEADER_FILE = rtv1.h
 

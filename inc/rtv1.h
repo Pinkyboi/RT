@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/23 07:39:19 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/24 05:25:07 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,13 @@ typedef struct	s_point
 	t_intersection_function	*function;
 }				t_point;
 
+typedef struct s_limit
+{
+	t_coor	x_limit;
+	t_coor	y_limit;
+	t_coor	z_limit;
+}				t_limit;
+
 typedef struct	s_sphere
 {
 	t_vector				normal;
@@ -88,6 +95,7 @@ typedef struct	s_sphere
 	double					max_lenght;
 	t_vector				cut_orientation;
 	double					soluce[2];
+	t_limit					limits;
 		t_vector	limit;
 }				t_sphere;
 
@@ -101,10 +109,10 @@ typedef struct	s_cylinder
 	double					radius;
 	t_vector				rotation;
 	t_vector				translation;
-	int						limited;
-	double					lenght;
 	double					max_lenght;
 	double					soluce[2];
+	double					lenght;
+	t_limit					limits;
 		t_vector	limit;
 }				t_cylinder;
 
@@ -119,11 +127,9 @@ typedef struct	s_cone
 	double					tilt;
 	t_vector				rotation;
 	t_vector				translation;
-	int						limited;
-	double					lenght;
-	double					radius;
 	double					max_lenght;
 	double					soluce[2];
+	t_limit					limits;
 		t_vector	limit;
 }				t_cone;
 
@@ -136,6 +142,7 @@ typedef struct	s_plane
 	t_vector				rotation;
 	t_vector				translation;
 	double					soluce[2];
+	t_limit					limits;
 	double					radius;
 	double					side;
 		t_vector	limit;
@@ -298,12 +305,22 @@ t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color);
 
 
 
-void            ft_sphere_cut(t_rtv *env, t_object object);
-void			ft_cylinder_cut(t_rtv *env, t_object object);
-void			ft_cone_cut(t_rtv *env, t_object object);
+void            ft_sphere_cut(t_rtv *env,
+	t_xml_tag *tag, t_object *object, int *status);
+void			ft_cylinder_cut(t_rtv *env,
+	t_xml_tag *tag, t_object *object, int *status);
+void			ft_cone_cut(t_rtv *env,
+	t_xml_tag *tag, t_object *object, int *status);
 
 void			ft_sphere_limit(t_sphere *sphere, t_cam cam);
 void			ft_cone_limit(t_cone *cone, t_cam cam);
-void			ft_cylinder_limit(t_cylinder *cylinder);
+void			ft_cylinder_limit(t_cylinder *cylinder, t_cam cam);
 
+t_coor			ft_parse_coor(char *string, int *status);
+
+t_plane			ft_define_plane(t_vector center, t_vector normal,
+					t_color color, double radius);
+t_coor			ft_swap_limits(t_coor limits);
+void			ft_define_limits(t_xml_tag *tag,
+	t_limit *limit, int *status);
 #endif
