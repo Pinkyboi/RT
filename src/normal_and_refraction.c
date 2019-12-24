@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2019/12/23 07:39:39 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/24 04:12:06 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,19 @@ void	ft_sphere_normal(t_cam *cam, t_sphere *sphere, double distance)
 }
 
 void	ft_cylinder_normal(t_cam *cam, t_cylinder *cylinder,
-								double distance)
+	double distance)
 {
 	t_vector	center_to_point;
 	t_vector	scaled_axis;
 	double		scale;
 
 	ft_intersection_position(cam, distance);
-	
 	cylinder->axis = ft_normalise_vector(cylinder->axis);
 	scale = ft_dot_vector(cam->ray_direction, cylinder->axis) * distance;
 	scale += ft_dot_vector(ft_sub_vector(cam->position,
 				cylinder->center), cylinder->axis);
 	cylinder->lenght = scale;
-	ft_cylinder_limit(cylinder);
+	ft_cylinder_limit(cylinder, *cam);
 	center_to_point = ft_sub_vector(cam->intersection, cylinder->center);
 	scaled_axis = ft_scale_vector(cylinder->axis, scale);
 	cylinder->normal = ft_normalise_vector(ft_sub_vector(center_to_point,
