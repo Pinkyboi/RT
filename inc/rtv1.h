@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/24 05:25:07 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/25 22:52:10 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
+# define NOISE_W 1000
+# define NOISE_H 1000
 # define A abc[0]
 # define B abc[1]
 # define C abc[2]
@@ -39,6 +41,8 @@
 # define FT_SQR(X) ((X) * (X))
 # define FT_RAD(X) (((X) * M_PI) / 180)
 # define AA 4
+
+double      perlin_noise[NOISE_H][NOISE_W];
 
 typedef struct	s_img
 {
@@ -323,4 +327,7 @@ t_plane			ft_define_plane(t_vector center, t_vector normal,
 t_coor			ft_swap_limits(t_coor limits);
 void			ft_define_limits(t_xml_tag *tag,
 	t_limit *limit, int *status);
+
+t_color        ft_noise(t_rtv rtv, t_color color);
+void        	ft_create_noise();
 #endif
