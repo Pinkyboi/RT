@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2019/12/23 06:53:51 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/25 23:03:29 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void			ft_ray_shooter(t_rtv *rtv)
 {
 	t_color	rgb;
 
+	ft_create_noise();
 	rtv->row = -1;
 	while (++rtv->row < WIN_WIDTH)
 	{

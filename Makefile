@@ -6,7 +6,7 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2019/12/23 07:16:49 by abenaiss         ###   ########.fr        #
+#    Updated: 2019/12/25 21:40:45 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ FILENAMES = cam_utils.c\
 	filter.c\
 	shapes_cut.c\
 	shapes_limit.c\
-	cut_helper.c
+	cut_helper.c\
+	noise.c
 
 HEADER_FILE = rtv1.h
 
