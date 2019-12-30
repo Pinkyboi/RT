@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/30 08:37:40 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/30 13:55:21 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,4 +334,8 @@ void			ft_define_limits(t_xml_tag *tag,
 
 t_color        ft_noise(t_rtv rtv, t_color color);
 void        	ft_create_noise();
+
+
+t_light_list	*copy_lights(t_light_list* head);
+t_object_list	*copy_objects(t_object_list* head);
 #endif
