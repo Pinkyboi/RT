@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2019/12/05 16:38:32 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/30 05:08:46 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			ft_key_stroke(int key, void *test)
 
 void		ft_put_pixel(t_rtv *rtv, int color)
 {
-	if (rtv->row >= 0 && rtv->row <= WIN_WIDTH &&
+	if (rtv->row >= 0 && rtv->row < WIN_WIDTH &&
 		rtv->column >= 0 && rtv->column <= WIN_HEIGHT)
 		rtv->mlx.img.data[(int)(rtv->column * WIN_WIDTH + rtv->row)] = color;
 }

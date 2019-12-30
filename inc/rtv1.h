@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/25 22:52:10 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/30 08:37:40 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <time.h>
+# include <pthread.h>
 
 #include <stdio.h>
 
@@ -41,6 +42,7 @@
 # define FT_SQR(X) ((X) * (X))
 # define FT_RAD(X) (((X) * M_PI) / 180)
 # define AA 4
+# define NUM_THREAD 4
 
 double      perlin_noise[NOISE_H][NOISE_W];
 
@@ -224,6 +226,8 @@ typedef	struct	s_rtv
 	double			min;
 	double			row;
 	double			column;
+	double			min_w;
+	double			max_w;
 	double			mapped_row;
 	double			mapped_column;
 }				t_rtv;
