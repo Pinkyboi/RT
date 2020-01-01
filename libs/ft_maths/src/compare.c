@@ -6,11 +6,11 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 16:21:20 by abenaiss          #+#    #+#             */
-/*   Updated: 2019/12/20 17:08:14 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/01 02:15:50 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/ft_maths.h"
+#include "ft_maths.h"
 
 int     ft_vector_null(t_vector v)
 {

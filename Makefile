@@ -6,7 +6,7 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2019/12/30 12:06:26 by abenaiss         ###   ########.fr        #
+#    Updated: 2020/01/01 02:16:23 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ FILENAMES = cam_utils.c\
 	shapes_limit.c\
 	cut_helper.c\
 	noise.c\
-	copy_list.c
+	copy_list.c\
+	colors_operations.c
 
 HEADER_FILE = rtv1.h
 
@@ -55,6 +56,7 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(FILENAMES:.c=.o))
 
 HEADER_FILES = $(addprefix $(INC_DIR)/, $(HEADER_FILE))
 
+#FLAGS = -Wall -Werror -Wextra
 FLAGS = -Wall -Werror -Wextra
 
 FTMATHS = ./libs/ft_maths

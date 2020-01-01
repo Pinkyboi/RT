@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2019/12/25 19:55:33 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/31 18:27:29 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ double			ft_plane_intersection(t_cam *cam, t_plane *plane, double *min)
 			if (i > 0)
 				plane->normal = ft_scale_vector(plane->normal, -1);
 			ft_intersection_position(cam, plane->soluce[0]);
-			// plane->normal = ft_normalise_vector(ft_scale_vector(plane->normal , cos(cam->intersection.x + cam->intersection.y)));
 			if (plane->radius < 0 || plane->radius >=
 				ft_vector_size(ft_sub_vector(plane->center, cam->intersection)))
 				return (plane->soluce[0]);

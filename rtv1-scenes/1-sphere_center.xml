@@ -1,3 +1,4 @@
-<camera position="(0, 0, 50)" lookat="(0, 0, 0)" fov="35"/>
+<camera position="(30, 0, 50)" lookat="(0, 0, 0)" fov="35"/>
 <light center="(0, 0, 20)" intensity="0.4" color="#FFFFFF"/>
-<sphere lenght="8" orientation="(0.8, 1, 0.2)" center="(0, 0, 0)" color="(150, 50, 50)" radius="7"/>
+<demisphere center="(0, 0, 0)" color="(150, 50, 50)" radius="7" rotation="(-20, -40, 0)"/>
+<pl1ane center="(0, 0, -30)" color="(255, 250, 250)" normal="(0, 0, 1)"/>

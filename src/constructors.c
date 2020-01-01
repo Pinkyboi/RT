@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/24 04:14:36 by abenaiss         ###   ########.fr       */
+/*   Updated: 2019/12/31 17:07:11 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,29 @@ int				ft_add_sphere(t_xml_tag *tag, t_rtv *env)
 	return (status);
 }
 
+int				ft_add_demi_sphere(t_xml_tag *tag, t_rtv *env)
+{
+	t_object	object;
+	int			status;
+
+	status = 1;
+	object.sphere.center = ft_parse_vector(ft_xml_get_value(tag, "center",
+				"(0,0,0)"), &status);
+	object.sphere.radius = ft_parse_float(ft_xml_get_value(tag, "radius",
+				"5"), &status);
+	object.sphere.color = ft_parse_color(ft_xml_get_value(tag, "color",
+				"(255,255,255)"), &status);
+	object.sphere.translation = ft_parse_vector(ft_xml_get_value(tag,
+				"translation", "(0,0,0)"), &status);
+	object.sphere.rotation = ft_parse_vector(ft_xml_get_value(tag, "rotation",
+			"(0,0,0)"), &status);
+	object.sphere.center = ft_add_vector(object.sphere.center,
+			object.sphere.translation);
+	ft_demi_sphere_cut(env, tag, &object, &status);
+	object.sphere.function = &ft_sphere_intersection;
+	status &= ft_object_push(env, object, TYPE_SPHERE);
+	return (status);
+}
 int				ft_add_cylinder(t_xml_tag *tag, t_rtv *env)
 {
 	t_object	object;

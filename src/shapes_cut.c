@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2019/12/24 05:44:31 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/01 02:35:58 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,30 @@ void			ft_sphere_cut(t_rtv *env,
 		disk.point.function = &ft_plane_intersection;
 		ft_object_push(env, disk, TYPE_PLANE);
 	}
+}
+
+void			ft_demi_sphere_cut(t_rtv *env,
+	t_xml_tag *tag, t_object *object, int *status)
+{
+	t_object	disk;
+	t_vector	cut_center;
+	double		new_radius;
+
+	ft_define_limits(tag, &(object->sphere.limits), status);
+	object->sphere.max_lenght = object->sphere.radius;
+	object->sphere.cut_orientation = (t_vector){0, 1, 0};
+	object->sphere.cut_orientation = ft_normalise_vector(ft_rotate_vector(
+				object->sphere.cut_orientation, object->sphere.rotation));
+	cut_center = ft_add_vector(
+	ft_scale_vector(object->sphere.cut_orientation, -object->sphere.radius
+		+ object->sphere.max_lenght), object->sphere.center);
+	new_radius = sqrt(FT_SQR(object->sphere.radius) -
+		FT_SQR(ft_vector_size(ft_sub_vector(cut_center,
+			object->sphere.center))));
+	disk.plane = ft_define_plane(cut_center,
+		object->sphere.cut_orientation, object->sphere.color, new_radius);
+	disk.point.function = &ft_plane_intersection;
+	ft_object_push(env, disk, TYPE_PLANE);
 }
 
 void			ft_cylinder_cut(t_rtv *env,

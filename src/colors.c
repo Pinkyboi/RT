@@ -6,31 +6,11 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 22:04:25 by azarzor           #+#    #+#             */
-/*   Updated: 2019/12/15 05:39:31 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/01 02:15:31 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-t_color			ft_add_colors(t_color first, t_color second)
-{
-	t_color	result;
-
-	result.r = first.r + second.r;
-	result.g = first.g + second.g;
-	result.b = first.b + second.b;
-	return (result);
-}
-
-t_color			ft_scale_colors(t_color first, double scalar)
-{
-	t_color	result;
-
-	result.r = first.r * scalar;
-	result.g = first.g * scalar;
-	result.b = first.b * scalar;
-	return (result);
-}
 
 double			ft_check_shadow(t_rtv *rtv, t_light light,
 					t_vector normal, t_color *color)

@@ -6,52 +6,80 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/15 05:38:33 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/01 02:49:17 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#include <stdio.h>
 
-void	ft_assign_color(double r, double g,
-	double b, t_color *color)
-{
-	color->r = r;
-	color->g = g;
-	color->b = b;
-}
-
-void	ft_gray_filter(t_color *color)
+t_color	ft_gray_filter(t_color color)
 {
 	double	light_scale;
 	double	gray_scale;
 
-	light_scale = (.2126 * color->r) +
-		(.7152 * color->g) + (.0722 * color->b);
+	light_scale = (.2126 * color.r) +
+		(.7152 * color.g) + (.0722 * color.b);
 	if (light_scale <= 0.0031308)
 		gray_scale = 12.92 * light_scale;
 	else
 		gray_scale = 1.055 * pow(light_scale, 1 / 2.4) - 0.055;
-	ft_assign_color(gray_scale, gray_scale, gray_scale, color);
+	return (ft_assign_color(gray_scale, gray_scale, gray_scale));
 }
 
-void	ft_negatif_filter(t_color *color)
-{
-	ft_assign_color(1 - color->r, 1 - color->g,
-		1 - color->b, color);
-}
-
-void	ft_sepia_filter(t_color *color)
+t_color	ft_sepia_filter(t_color color)
 {
 	double	r;
 	double	g;
 	double	b;
 
-	r = (color->r * .393) +
-		(color->g * .769) + (color->b * .189);
-	g = (color->r * .349) +
-		(color->g * .686) + (color->b * .168);
-	b = (color->r * .272) +
-		(color->g * .534) + (color->b * .131);
-	ft_assign_color(r, g, b, color);
+	r = (color.r * .393) +
+		(color.g * .769) + (color.b * .189);
+	g = (color.r * .349) +
+		(color.g * .686) + (color.b * .168);
+	b = (color.r * .272) +
+		(color.g * .534) + (color.b * .131);
+	return (ft_assign_color(r, g, b));
+}
+
+t_color	ft_cartoon_filter(t_rtv rtv, t_object object, t_color color)
+{
+	t_object_list	*object_node;
+	t_object_list	*best_node;
+	int				sample;
+
+	sample = 0;
+	while (++sample < 4)
+	{
+		object_node = rtv.objects;
+		rtv.min = MAX_D;
+		best_node = NULL;
+		ft_create_ray(&rtv, sample);
+		while (object_node)
+		{
+			if (ft_choose_intersection(object_node, &rtv, &rtv.min))
+				best_node = object_node;
+			object_node = object_node->next;
+		}
+		if (best_node)
+			if (ft_diff_color(object.point.color,
+				best_node->object.point.color))
+				color = (t_color){0, 0, 0};
+	}
+	return (color);
+}
+
+t_color	ft_select_filter(t_rtv rtv, t_object object, t_color color)
+{
+	if (rtv.effects == 1)
+		return (ft_gray_filter(color));
+	if (rtv.effects == 2)
+		return (ft_sepia_filter(color));
+	if (rtv.effects == 3)
+	{
+		return (ft_assign_color(1 - color.r, 1 - color.g,
+		1 - color.b));
+	}
+	if (rtv.effects == 4)
+		return (ft_cartoon_filter(rtv, object, color));
+	return (color);
 }
