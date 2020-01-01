@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/30 13:55:21 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/01 02:51:46 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #include <stdio.h>
 
 # define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_HEIGHT 1000
 # define NOISE_W 1000
 # define NOISE_H 1000
 # define A abc[0]
@@ -38,7 +38,7 @@
 # define TYPE_CYLINDER 2
 # define TYPE_PLANE 3
 # define TYPE_CONE 4
-# define TYPE_PARSE_COUNT 7
+# define TYPE_PARSE_COUNT 8
 # define FT_SQR(X) ((X) * (X))
 # define FT_RAD(X) (((X) * M_PI) / 180)
 # define AA 4
@@ -98,6 +98,7 @@ typedef struct	s_sphere
 	t_vector				center;
 	double					radius;
 	t_vector				translation;
+	t_vector				rotation;
 	double					max_lenght;
 	t_vector				cut_orientation;
 	double					soluce[2];
@@ -192,7 +193,7 @@ typedef	struct	s_ray
 	double		t;
 }				t_ray;
 
-struct			s_cam
+typedef struct			s_cam
 {
 	t_vector	position;
 	t_vector	look_at;
@@ -213,7 +214,7 @@ struct			s_cam
 	double		grid_w;
 	double		grid_h;
 	double		fov;
-};
+}						t_cam;
 
 typedef	struct	s_rtv
 {
@@ -230,6 +231,7 @@ typedef	struct	s_rtv
 	double			max_w;
 	double			mapped_row;
 	double			mapped_column;
+	int				effects;
 }				t_rtv;
 
 typedef int		t_xml_element(t_xml_tag *tag, t_rtv *env);
@@ -296,6 +298,7 @@ int				ft_add_plane(t_xml_tag *tag, t_rtv *env);
 int				ft_add_disk(t_xml_tag *tag, t_rtv *env);
 int				ft_add_cone(t_xml_tag *tag, t_rtv *env);
 int				ft_add_light(t_xml_tag *tag, t_rtv *env);
+int				ft_add_demi_sphere(t_xml_tag *tag, t_rtv *env);
 int				ft_load_camera(t_xml_tag *tag, t_rtv *env);
 int				ft_object_push(t_rtv *env, t_object object,
 		int type);
@@ -303,9 +306,9 @@ size_t			ft_escape_whitespaces(char *str);
 t_vector		ft_rotate_vector(t_vector a, t_vector angles);
 
 
-void			ft_gray_filter(t_color *color);
-void			ft_negatif_filter(t_color *color);
-void			ft_sepia_filter(t_color *color);
+t_color			ft_gray_filter(t_color color);
+t_color			ft_negatif_filter(t_color color);
+t_color			ft_sepia_filter(t_color color);
 
 int				ft_antialiasing(t_rtv *rtv, t_vector normal, t_color color);
 
@@ -319,7 +322,8 @@ void			ft_cylinder_cut(t_rtv *env,
 	t_xml_tag *tag, t_object *object, int *status);
 void			ft_cone_cut(t_rtv *env,
 	t_xml_tag *tag, t_object *object, int *status);
-
+void			ft_demi_sphere_cut(t_rtv *env,
+	t_xml_tag *tag, t_object *object, int *status);
 void			ft_sphere_limit(t_sphere *sphere, t_cam cam);
 void			ft_cone_limit(t_cone *cone, t_cam cam);
 void			ft_cylinder_limit(t_cylinder *cylinder, t_cam cam);
@@ -338,4 +342,11 @@ void        	ft_create_noise();
 
 t_light_list	*copy_lights(t_light_list* head);
 t_object_list	*copy_objects(t_object_list* head);
+
+int				ft_diff_color(t_color c1, t_color c2);
+
+t_color			ft_cartoon_filter(t_rtv rtv, t_object object, t_color color);
+t_color			ft_select_filter(t_rtv rtv, t_object object, t_color color);
+t_color			ft_assign_color(double r, double g, double b);
+
 #endif

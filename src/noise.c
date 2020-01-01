@@ -6,12 +6,12 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 21:29:47 by abenaiss          #+#    #+#             */
-/*   Updated: 2019/12/25 22:58:39 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/01 02:51:07 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
+/**
 void        ft_create_noise()
 {
     int i;
@@ -61,10 +61,13 @@ t_color        ft_noise(t_rtv rtv, t_color color)
     double xPeriod = 1.0;
     double yPeriod = 5.0;
     double turbPower = 50.0;
-    double turbSize = 155.0;
-    double xyValue = rtv.row * xPeriod / NOISE_W + rtv.column * yPeriod / NOISE_H + turbPower * ft_turbulence(rtv.row, rtv.column, turbSize);
+    double turbSize = 200.0;
+    double xyValue = rtv.row * xPeriod / NOISE_W +
+        rtv.column * yPeriod / NOISE_H + turbPower *
+        ft_turbulence(rtv.row, rtv.column, turbSize);
     double sineValue = fabs(sin(xyValue * 3.14159));
     double color_noise =  sineValue;
     color = (t_color){color_noise,color_noise,color_noise};
     return(color);
 }
+**/

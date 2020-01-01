@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2019/12/30 14:07:01 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/01 02:48:05 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,24 +72,22 @@ void			ft_color_best_node(t_rtv *rtv, t_color rgb)
 	}
 	rgb = ft_scale_colors(rgb, (double)1 / (AA + 1));
 	if (best_node)
-		ft_put_pixel(rtv, ft_rgb_to_int(rgb));
+		ft_put_pixel(rtv, ft_rgb_to_int(
+			ft_select_filter(*rtv, best_node->object, rgb)));
 }
-
 
 void			*ft_ray_loop(void *data)
 {
 	t_color	rgb;
 	t_rtv	*rtv;
 
-	
-	ft_create_noise();
 	rtv = data;
 	rtv->objects = copy_objects(rtv->objects);
 	rtv->lights = copy_lights(rtv->lights);
 	rtv->column = -1;
 	while (++rtv->column < WIN_HEIGHT)
 	{
-		rtv->row = rtv->min_w -1;
+		rtv->row = rtv->min_w - 1;
 		while (++rtv->row < rtv->max_w)
 		{
 			rgb = (t_color){0, 0, 0};
@@ -99,12 +97,13 @@ void			*ft_ray_loop(void *data)
 	return (NULL);
 }
 
-void	ft_ray_shooter(t_rtv *rtv)
+void			ft_ray_shooter(t_rtv *rtv)
 {
 	pthread_t	thread[NUM_THREAD];
 	t_rtv		rtv_cpy[NUM_THREAD];
 	int			i;
 
+	rtv->effects = 4;
 	i = -1;
 	while (++i < NUM_THREAD)
 	{

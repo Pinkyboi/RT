@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2019/12/16 00:26:30 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/01 02:17:05 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		ft_create_ray(t_rtv *rtv, int sample)
 		{-1.0 / 4.0, 3.0 / 4.0},
 		{3.0 / 4.0, 1.0 / 4.0},
 		{-3.0 / 4.0, -1.0 / 4.0},
-		{ 1.0 / 6.0, -3.0 / 4.0},
+		{ 1.0 / 4.0, -3.0 / 4.0},
 		{-1.0 / 4.0, -1.0 / 4.0},
 		{1.0 / 4.0, 1.0 / 4.0},
 		{3.0 / 4.0, 3.0 / 4.0},
@@ -65,9 +65,9 @@ void		ft_init_cam(t_cam *cam)
 	cam->foreward = ft_normalise_vector(ft_sub_vector(cam->look_at,
 			cam->position));
 	cam->right = ft_normalise_vector(
-				ft_cross_product(cam->foreward, n_up));
+					ft_cross_product(cam->foreward, n_up));
 	cam->up = ft_normalise_vector(ft_cross_product(cam->right,
-			ft_scale_vector(cam->foreward, -1)));
+					ft_scale_vector(cam->foreward, -1)));
 	cam->ratio = (double)WIN_HEIGHT / (double)WIN_WIDTH;
 	cam->half_height = tan(FT_RAD(cam->fov) / 2);
 	cam->half_width = cam->half_height / cam->ratio;
