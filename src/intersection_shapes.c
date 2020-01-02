@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/02 16:17:17 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/02 19:14:23 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,34 @@ double			ft_cylinder_intersection(t_cam *cam,
 	else
 		cylinder->soluce[0] = 0;
 	return (cylinder->soluce[0]);
+}
+
+double			ft_hyperboloid_intersection(t_cam *cam,
+		t_hyperboloid *hyperboloid, double *min)
+{
+	double		abc[3];
+	double		delta;
+	t_vector	dist;
+
+	dist = ft_sub_vector(cam->position, hyperboloid->center);
+	A = FT_SQR(cam->ray_direction.x) +
+		FT_SQR(cam->ray_direction.z) - FT_SQR(cam->ray_direction.y);
+	B = 2.0 * ((dist.x * cam->ray_direction.x) +
+		(dist.z * cam->ray_direction.z) - (dist.y * cam->ray_direction.y));
+	C = FT_SQR(dist.x) + FT_SQR(dist.z) - (FT_SQR(dist.y) +
+		((hyperboloid->sheets == 1) ?
+		hyperboloid->coefficient : -hyperboloid->coefficient));
+	delta = (B * B) - (4 * A * C);
+	if (delta < 0)
+		return (0);
+	hyperboloid->soluce[0] = (-B + sqrt(delta)) / (2 * A);
+	hyperboloid->soluce[1] = (-B - sqrt(delta)) / (2 * A);
+	if (ft_check_min_distance(&hyperboloid->soluce[0],
+		hyperboloid->soluce[1], *min))
+		ft_hyperboloid_normal(cam, hyperboloid, hyperboloid->soluce[0]);
+	else
+		hyperboloid->soluce[0] = 0;
+	return (hyperboloid->soluce[0]);
 }
 
 double			ft_cone_intersection(t_cam *cam, t_cone *cone, double *min)
