@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:24:45 by azarzor           #+#    #+#             */
-/*   Updated: 2019/12/22 16:44:21 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/02 11:09:55 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_vector			ft_sub_vector(t_vector v1, t_vector v2);
 t_vector			ft_mult_vector(t_vector v1, t_vector v2);
 t_vector			ft_cross_product(t_vector a, t_vector b);
 t_vector			ft_origin(t_vector *o);
-t_vector			ft_div_vector(t_vector v1, double k);
+t_vector			ft_div_vector(t_vector v1, t_vector v2);
 double				ft_dot_vector(t_vector v1, t_vector v2);
 t_vector			ft_rotate_vectorx(t_vector a, double angle);
 t_vector			ft_rotate_vectory(t_vector a, double angle);

@@ -4,7 +4,7 @@
 <sphere center="(0, 30, 20)" translation="(3, 0, 0)" color="(27, 188, 155)" radius="3" translation="(0, 2, 0)"/>
 <sphere center="(-20, 10, 10)" translation="(3, 0, 0)" color="(190, 219, 57)" radius="3" translation="(0, 2, 0)"/>
 <sphere center="(-30, 20, 0)" translation="(3, 0, 0)" color="(41, 98, 255)" radius="6" translation="(0, 2, 0)"/>
-<sphere center="(30, 3, -10)" translation="(3, 0, 0)" color="(122, 43, 43)" radius="4" translation="(0, 2, 0)"/>
+<ellipsoid center="(30, 3, -10)" translation="(3, 0, 0)" color="(122, 43, 43)" radius="4" translation="(0, 2, 0)"/>
 <sphere center="(30, 30, -5)" translation="(3, 0, 0)" color="(250, 91, 15)" radius="3" translation="(0, 2, 0)"/>
 <sphere center="(-10, 20, 20)" translation="(3, 0, 0)" color="(171, 71, 188)" radius="5" translation="(0, 2, 0)"/>
 <sphere center="(-30, 30, 60)" translation="(3, 0, 0)" color="(116, 103, 220)" radius="3" translation="(0, 2, 0)"/>
