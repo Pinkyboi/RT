@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/02 16:16:31 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/02 18:09:44 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,20 @@ void	ft_ellipsoid_normal(t_cam *cam, t_ellipsoid *ellipsoid, double distance)
 	normal.y = 2 * radius.y / FT_SQR(ellipsoid->axis.y);
 	normal.z = 2 * radius.z / FT_SQR(ellipsoid->axis.z);
 	ellipsoid->normal = ft_normalise_vector(normal);
+}
+
+void	ft_hyperboloid_normal(t_cam *cam, t_hyperboloid *hyperboloid,
+	double distance)
+{
+	t_vector	normal;
+	t_vector	radius;
+
+	ft_intersection_position(cam, distance);
+	radius = ft_sub_vector(cam->intersection, hyperboloid->center);
+	normal.x = 2 * radius.x;
+	normal.y = -2 * radius.y;
+	normal.z = 2 * radius.z;
+	hyperboloid->normal = ft_normalise_vector(normal);
 }
 
 void	ft_cylinder_normal(t_cam *cam, t_cylinder *cylinder,

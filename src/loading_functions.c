@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:47:13 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/02 15:07:50 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/02 19:00:57 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ const t_xml_element_parse	g_xml_element_parser[] = {
 	{.type_name = "disk", .function = &ft_add_disk},
 	{.type_name = "cone", .function = &ft_add_cone},
 	{.type_name = "ellipsoid", .function = &ft_add_ellipsoid},
+	{.type_name = "hyperboloid", .function = &ft_add_hyperboloid},
 	{.type_name = "camera", .function = &ft_load_camera},
 	{.type_name = "light", .function = &ft_add_light}
 };

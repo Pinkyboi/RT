@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/02 16:04:05 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/02 19:00:54 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define TYPE_PLANE 3
 # define TYPE_CONE 4
 # define TYPE_ELLIPSOID 5
-# define TYPE_PARSE_COUNT 9
+# define TYPE_PARSE_COUNT 10
 # define FT_SQR(X) ((X) * (X))
 # define FT_RAD(X) (((X) * M_PI) / 180)
 # define AA 4
@@ -137,6 +137,21 @@ typedef struct	s_cylinder
 	t_vector				limit;
 }				t_cylinder;
 
+typedef struct	s_hyperboloid
+{
+	t_vector				normal;
+	t_color					color;
+	t_intersection_function	*function;
+	t_vector				center;
+	t_vector				rotation;
+	t_vector				translation;
+	double					soluce[2];
+	int						sheets;
+	double					coefficient;
+	t_limit					limits;	
+	t_vector				limit;
+}				t_hyperboloid;
+
 typedef struct	s_cone
 {
 	t_vector				normal;
@@ -171,12 +186,13 @@ typedef struct	s_plane
 
 typedef union	u_object
 {
-	t_point		point;
-	t_sphere	sphere;
-	t_plane		plane;
-	t_cylinder	cylinder;
-	t_cone		cone;
-	t_ellipsoid	ellipsoid;
+	t_point			point;
+	t_sphere		sphere;
+	t_plane			plane;
+	t_cylinder		cylinder;
+	t_cone			cone;
+	t_ellipsoid		ellipsoid;
+	t_hyperboloid	hyperboloid;
 }				t_object;
 
 typedef struct	s_object_list
@@ -321,6 +337,7 @@ int				ft_add_cone(t_xml_tag *tag, t_rtv *env);
 int				ft_add_light(t_xml_tag *tag, t_rtv *env);
 int				ft_add_demi_sphere(t_xml_tag *tag, t_rtv *env);
 int				ft_add_ellipsoid(t_xml_tag *tag, t_rtv *env);
+int				ft_add_hyperboloid(t_xml_tag *tag, t_rtv *env);
 int				ft_load_camera(t_xml_tag *tag, t_rtv *env);
 int				ft_object_push(t_rtv *env, t_object object,
 		int type);
@@ -373,4 +390,7 @@ t_color			ft_assign_color(double r, double g, double b);
 
 
 void	ft_ellipsoid_normal(t_cam *cam, t_ellipsoid *ellipsoid, double distance);
+double	ft_hyperboloid_intersection(t_cam *cam,
+		t_hyperboloid *hyperboloid, double *min);
+void	ft_hyperboloid_normal(t_cam *cam, t_hyperboloid *hyperboloid, double distance);
 #endif
