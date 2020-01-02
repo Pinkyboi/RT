@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/01 02:51:46 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/02 16:04:05 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #include <stdio.h>
 
 # define WIN_WIDTH 1920
-# define WIN_HEIGHT 1000
+# define WIN_HEIGHT 1080
 # define NOISE_W 1000
 # define NOISE_H 1000
 # define A abc[0]
@@ -38,7 +38,8 @@
 # define TYPE_CYLINDER 2
 # define TYPE_PLANE 3
 # define TYPE_CONE 4
-# define TYPE_PARSE_COUNT 8
+# define TYPE_ELLIPSOID 5
+# define TYPE_PARSE_COUNT 9
 # define FT_SQR(X) ((X) * (X))
 # define FT_RAD(X) (((X) * M_PI) / 180)
 # define AA 4
@@ -103,8 +104,21 @@ typedef struct	s_sphere
 	t_vector				cut_orientation;
 	double					soluce[2];
 	t_limit					limits;
-		t_vector	limit;
+	t_vector				axis;
 }				t_sphere;
+
+typedef struct	s_ellipsoid
+{
+	t_vector				normal;
+	t_color					color;
+	t_intersection_function	*function;
+	t_vector				center;
+	t_vector				translation;
+	t_vector				rotation;
+	t_vector				axis;
+	double					soluce[2];
+	t_limit					limits;
+}				t_ellipsoid;
 
 typedef struct	s_cylinder
 {
@@ -119,8 +133,8 @@ typedef struct	s_cylinder
 	double					max_lenght;
 	double					soluce[2];
 	double					lenght;
-	t_limit					limits;
-		t_vector	limit;
+	t_limit					limits;	
+	t_vector				limit;
 }				t_cylinder;
 
 typedef struct	s_cone
@@ -136,8 +150,8 @@ typedef struct	s_cone
 	t_vector				translation;
 	double					max_lenght;
 	double					soluce[2];
-	t_limit					limits;
-		t_vector	limit;
+	t_limit					limits;	
+	t_vector				limit;
 }				t_cone;
 
 typedef struct	s_plane
@@ -162,6 +176,7 @@ typedef union	u_object
 	t_plane		plane;
 	t_cylinder	cylinder;
 	t_cone		cone;
+	t_ellipsoid	ellipsoid;
 }				t_object;
 
 typedef struct	s_object_list
@@ -252,6 +267,8 @@ double			ft_plane_intersection(t_cam *cam, t_plane *plane, double *min);
 double			ft_cylinder_intersection(t_cam *cam,
 		t_cylinder *cylinder, double *min);
 double			ft_cone_intersection(t_cam *cam, t_cone *cone, double *min);
+double			ft_ellipsoid_intersection(t_cam *cam,
+		t_ellipsoid *ellipsoid, double *min);
 double			ft_clamp_min(int min, double value);
 double			ft_clamp_max(int max, double value);
 double			ft_clamp_min_max(int min, int max, double value);
@@ -273,7 +290,11 @@ void			ft_init_cam(t_cam *cam);
 void			ft_print_vect(t_vector v, char *name);
 void			ft_ray_shooter(t_rtv *rtv);
 void			ft_intersection_position(t_cam *cam, double first_intersection);
+
+
 void			ft_sphere_normal(t_cam *cam, t_sphere *sphere, double distance);
+
+
 void			ft_cylinder_normal(t_cam *cam, t_cylinder *cylinder,
 		double distance);
 void			ft_cone_normal(t_cam *cam, t_cone *cone, double distance);
@@ -299,6 +320,7 @@ int				ft_add_disk(t_xml_tag *tag, t_rtv *env);
 int				ft_add_cone(t_xml_tag *tag, t_rtv *env);
 int				ft_add_light(t_xml_tag *tag, t_rtv *env);
 int				ft_add_demi_sphere(t_xml_tag *tag, t_rtv *env);
+int				ft_add_ellipsoid(t_xml_tag *tag, t_rtv *env);
 int				ft_load_camera(t_xml_tag *tag, t_rtv *env);
 int				ft_object_push(t_rtv *env, t_object object,
 		int type);
@@ -349,4 +371,6 @@ t_color			ft_cartoon_filter(t_rtv rtv, t_object object, t_color color);
 t_color			ft_select_filter(t_rtv rtv, t_object object, t_color color);
 t_color			ft_assign_color(double r, double g, double b);
 
+
+void	ft_ellipsoid_normal(t_cam *cam, t_ellipsoid *ellipsoid, double distance);
 #endif

@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:23:08 by azarzor           #+#    #+#             */
-/*   Updated: 2019/12/06 21:41:05 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/02 15:08:54 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,12 @@ t_vector	ft_mult_vector(t_vector v1, t_vector v2)
 	return (res);
 }
 
-t_vector	ft_div_vector(t_vector v1, double k)
+t_vector	ft_div_vector(t_vector v1, t_vector v2)
 {
 	t_vector	res;
 
-	if (k != 0)
-	{
-		res.x = v1.x / k;
-		res.y = v1.y / k;
-		res.z = v1.z / k;
-	}
-	else
-		return ((t_vector){0, 0, 0});
+	res.x = (double)v1.x / v2.x;
+	res.y = (double)v1.y / v2.y;
+	res.z = (double)v1.z / v2.z;
 	return (res);
 }

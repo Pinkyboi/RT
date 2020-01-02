@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/01 02:48:05 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/02 16:14:51 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void			ft_ray_shooter(t_rtv *rtv)
 	t_rtv		rtv_cpy[NUM_THREAD];
 	int			i;
 
-	rtv->effects = 4;
+	rtv->effects = 0;
 	i = -1;
 	while (++i < NUM_THREAD)
 	{

@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2019/12/31 18:27:29 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/02 16:17:17 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,34 @@ double			ft_sphere_intersection(t_cam *cam,
 	else
 		sphere->soluce[0] = 0;
 	return (sphere->soluce[0]);
+}
+
+double			ft_ellipsoid_intersection(t_cam *cam,
+		t_ellipsoid *ellipsoid, double *min)
+{
+	double	abc[3];
+	double	delta;
+
+	A = FT_SQR(ft_vector_size(
+		ft_div_vector(cam->ray_direction, ellipsoid->axis)));
+	B = 2 * ft_dot_vector(
+			ft_div_vector(cam->ray_direction, ellipsoid->axis),
+			ft_sub_vector(ft_div_vector(cam->position, ellipsoid->axis),
+			ft_div_vector(ellipsoid->center, ellipsoid->axis)));
+	C = FT_SQR(ft_vector_size(ft_sub_vector(
+		ft_div_vector(cam->position, ellipsoid->axis),
+		ft_div_vector(ellipsoid->center, ellipsoid->axis)))) - 1;
+	delta = (B * B) - (4 * A * C);
+	if (delta < 0)
+		return (0);
+	ellipsoid->soluce[0] = (-B + sqrt(delta)) / (2 * A);
+	ellipsoid->soluce[1] = (-B - sqrt(delta)) / (2 * A);
+	if (ft_check_min_distance(&ellipsoid->soluce[0],
+		ellipsoid->soluce[1], *min))
+		ft_ellipsoid_normal(cam, ellipsoid, ellipsoid->soluce[0]);
+	else
+		ellipsoid->soluce[0] = 0;
+	return (ellipsoid->soluce[0]);
 }
 
 double			ft_plane_intersection(t_cam *cam, t_plane *plane, double *min)
