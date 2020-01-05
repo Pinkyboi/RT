@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "/Users/abenaiss/Desktop/RT-/rtv1",
             "args": [
-                "/Users/abenaiss/Desktop/RT-/rtv1-scenes/3-cylinder_rotation.xml"
+                "/Users/abenaiss/Desktop/RT-/rtv1-scenes/1-plane_center.xml"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

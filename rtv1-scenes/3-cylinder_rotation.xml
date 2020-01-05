@@ -1,4 +1,4 @@
-<camera position="(60, 20, 30)" lookat="(0, 0, 0)" fov="40"/>
+<camera position="(60, 20, 30)" color="(255, 255, 0)" lookat="(0, 0, 0)" fov="90"/>
 <light center="(0, 10, 50)" intensity="0.8" color="#FFFFFF"/>
-<sphere lenght="7" orientation="(1, 1, 0)" limit="(10000000, 3,20)" center="(0, 0, 0)" color="(255, 100, 0)" radius="6"/>
+<sphere lenght="10" orientation="(0, 1, 0)" limit="(10000000, 3,20)" center="(0, 0, 0)" color="(255, 100, 0)" radius="6"/>
 <plane center="(0, -1, 0)" normal="(0, 1, 0)" color="(50, 150, 50)"/>
