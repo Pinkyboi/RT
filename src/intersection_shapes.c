@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/02 19:14:23 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/05 10:47:27 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,35 @@ double			ft_plane_intersection(t_cam *cam, t_plane *plane, double *min)
 			if (plane->radius < 0 || plane->radius >=
 				ft_vector_size(ft_sub_vector(plane->center, cam->intersection)))
 				return (plane->soluce[0]);
+		}
+	}
+	return (0);
+}
+
+double			ft_triangle_intersection(t_cam *cam,
+	t_triangle *triangle, double *min)
+{
+	double		det;
+	double		test[2];
+	t_vector	temp[3];
+
+	temp[0] = ft_cross_product(cam->ray_direction, triangle->side[1]);
+	det = ft_dot_vector(triangle->side[0], temp[0]);
+	if (det > MIN_D)
+	{
+		temp[1] = ft_sub_vector(cam->position, triangle->center);
+		test[0] = ft_dot_vector(temp[1], temp[0]) / det;
+		if (test[0] < MIN_D || test[0] > 1)
+			return (0);
+		temp[2] = ft_cross_product(temp[1], triangle->side[0]);
+		test[1] = ft_dot_vector(cam->ray_direction, temp[2]) / det;
+		if (test[1] < MIN_D || test[0] + test[1] > 1.0)
+			return (0);
+		triangle->soluce[0] = ft_dot_vector(triangle->side[1], temp[2]) / det;
+		if ((triangle->soluce[0]) < *min && triangle->soluce[0] > MIN_D)
+		{
+			ft_intersection_position(cam, triangle->soluce[0]);
+			return (triangle->soluce[0]);
 		}
 	}
 	return (0);

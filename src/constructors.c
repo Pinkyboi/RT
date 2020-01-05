@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/02 19:14:22 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/05 13:06:29 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,26 @@ int				ft_add_plane(t_xml_tag *tag, t_rtv *env)
 				ft_xml_get_value(tag, "radius", "-1"), &status));
 	object.point.function = &ft_plane_intersection;
 	status &= ft_object_push(env, object, TYPE_PLANE);
+	return (status);
+}
+
+int				ft_add_triangle(t_xml_tag *tag, t_rtv *env)
+{
+	t_object	object;
+	int			status;
+
+	status = 1;
+	object.triangle.center = ft_parse_vector(ft_xml_get_value(tag, "center",
+				"(0,0,0)"), &status);
+	object.triangle.color = ft_parse_color(ft_xml_get_value(tag, "color",
+				"(255,255,255)"), &status);
+	object.triangle.translation = ft_parse_vector(ft_xml_get_value(tag,
+				"translation", "(0,0,0)"), &status);
+	object.triangle.center = ft_add_vector(object.triangle.center,
+			object.plane.translation);
+	ft_sides_handle(tag, &object, &status);
+	object.point.function = &ft_triangle_intersection;
+	status &= ft_object_push(env, object, TYPE_TRIANGLE);
 	return (status);
 }
 
