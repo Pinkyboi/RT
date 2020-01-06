@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/06 10:13:51 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/06 17:52:53 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define TYPE_PARSE_COUNT 12
 # define FT_SQR(X) ((X) * (X))
 # define FT_RAD(X) (((X) * M_PI) / 180)
-# define AA 0
+# define AA 4
 # define NUM_THREAD 1
 
 double      perlin_noise[NOISE_H][NOISE_W];
