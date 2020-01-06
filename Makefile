@@ -6,7 +6,7 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2020/01/02 13:25:46 by abenaiss         ###   ########.fr        #
+#    Updated: 2020/01/06 10:35:22 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ FILENAMES = cam_utils.c\
 	colors_utils.c\
 	constructors.c\
 	constructors2.c\
-	intersection_shapes.c\
+	basic_intersection.c\
 	intersection_utils.c\
 	key_managing.c\
 	loading_functions.c\
@@ -44,7 +44,9 @@ FILENAMES = cam_utils.c\
 	cut_helper.c\
 	noise.c\
 	copy_list.c\
-	colors_operations.c
+	colors_operations.c\
+	quadrics_intersection.c\
+	quadrics_constructors.c
 
 HEADER_FILE = rtv1.h
 

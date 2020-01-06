@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/02 18:09:44 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/06 09:34:58 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,20 @@ void	ft_hyperboloid_normal(t_cam *cam, t_hyperboloid *hyperboloid,
 	normal.y = -2 * radius.y;
 	normal.z = 2 * radius.z;
 	hyperboloid->normal = ft_normalise_vector(normal);
+}
+
+void	ft_paraboloid_normal(t_cam *cam, t_paraboloid *paraboloid,
+	double distance)
+{
+	t_vector	normal;
+	t_vector	radius;
+
+	ft_intersection_position(cam, distance);
+	radius = ft_sub_vector(cam->intersection, paraboloid->center);
+	normal.x = 2 * radius.x;
+	normal.y = -1;
+	normal.z = 2 * radius.z;
+	paraboloid->normal = ft_normalise_vector(normal);
 }
 
 void	ft_cylinder_normal(t_cam *cam, t_cylinder *cylinder,
