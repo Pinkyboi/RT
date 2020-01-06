@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/06 10:36:30 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/06 19:27:37 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,37 @@ double			ft_sphere_intersection(t_cam *cam,
 		sphere->soluce[0] = 0;
 	return (sphere->soluce[0]);
 }
+t_color			ft_cheeker_texture(double x, double y, double scale)
+{
+	if((x * scale) - floor(x * scale) < 0.5 ||
+		(y * scale) - floor(y * scale) < 0.5)
+	{
+		if((x * scale) - floor(x * scale) < 0.5 &&
+			(y * scale) - floor(y * scale) < 0.5)
+			return ((t_color){0, 0, 0});
+		else
+			return ((t_color){1, 1, 1});
+	}
+	else
+		return ((t_color){0, 0, 0});
+}
+
+int			ft_map_texture(t_cam cam, t_plane *plane)
+{
+	t_vector up;
+	t_vector sides[2];
+	double x[2];
+
+	up = ft_cross_product(ft_rotate_vector(plane->normal, (t_vector){90, 90, 90}),plane->normal);
+	sides[0] = ft_normalise_vector(ft_cross_product(up , plane->normal));
+	sides[1] = ft_normalise_vector(ft_cross_product(sides[0], plane->normal));
+	x[0] =  ft_dot_vector(ft_sub_vector(cam.intersection, plane->center), sides[0]);
+	x[1] =  ft_dot_vector(ft_sub_vector(cam.intersection, plane->center), sides[1]);
+	if(fabs(x[0]) > 20 || fabs(x[1]) > 10)
+		return(1);
+	return(0);
+	// plane->normal.y += cos(x / 10) * (ft_vector_size(plane->normal) / 10);
+}
 
 double			ft_plane_intersection(t_cam *cam, t_plane *plane, double *min)
 {
@@ -94,6 +125,9 @@ double			ft_plane_intersection(t_cam *cam, t_plane *plane, double *min)
 			if (i > 0)
 				plane->normal = ft_scale_vector(plane->normal, -1);
 			ft_intersection_position(cam, plane->soluce[0]);
+			
+			if(ft_map_texture(*cam, plane))
+				return(plane->soluce[0] = 0);
 			if (plane->radius < 0 || plane->radius >=
 				ft_vector_size(ft_sub_vector(plane->center, cam->intersection)))
 				return (plane->soluce[0]);

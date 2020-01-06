@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 05:58:14 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/05 12:59:22 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/06 18:58:26 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ void			ft_sides_handle(t_xml_tag *tag,
 {
 	t_vector vertex_edge[2];
 
-	object->triangle.rotation = ft_parse_vector(
-				ft_xml_get_value(tag, "rotation", "(0,0,0)"), status);
 	vertex_edge[0] = ft_parse_vector(ft_xml_get_value(tag,
 		"side1", "(10,0,0)"), status);
 	vertex_edge[1] = ft_parse_vector(ft_xml_get_value(tag,
