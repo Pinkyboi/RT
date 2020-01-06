@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/05 12:59:27 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/06 10:13:51 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 #include <stdio.h>
 
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 720
 # define NOISE_W 1000
 # define NOISE_H 1000
 # define A abc[0]
@@ -39,12 +39,14 @@
 # define TYPE_PLANE 3
 # define TYPE_CONE 4
 # define TYPE_ELLIPSOID 5
-# define TYPE_TRIANGLE 6
-# define TYPE_PARSE_COUNT 11
+# define TYPE_TRIANGLE 7
+# define TYPE_PARABALOID 8
+# define TYPE_HYPERBOILD 6
+# define TYPE_PARSE_COUNT 12
 # define FT_SQR(X) ((X) * (X))
 # define FT_RAD(X) (((X) * M_PI) / 180)
-# define AA 4
-# define NUM_THREAD 4
+# define AA 0
+# define NUM_THREAD 1
 
 double      perlin_noise[NOISE_H][NOISE_W];
 
@@ -153,6 +155,21 @@ typedef struct	s_hyperboloid
 	t_vector				limit;
 }				t_hyperboloid;
 
+
+typedef struct	s_paraboloid
+{
+	t_vector				normal;
+	t_color					color;
+	t_intersection_function	*function;
+	t_vector				center;
+	t_vector				rotation;
+	t_vector				translation;
+	double					soluce[2];
+	double					coefficient;
+	t_limit					limits;	
+	t_vector				limit;
+}				t_paraboloid;
+
 typedef struct	s_cone
 {
 	t_vector				normal;
@@ -209,6 +226,7 @@ typedef union	u_object
 	t_cone			cone;
 	t_ellipsoid		ellipsoid;
 	t_hyperboloid	hyperboloid;
+	t_paraboloid	paraboloid;
 	t_triangle		triangle;
 }				t_object;
 
@@ -415,5 +433,11 @@ void	ft_hyperboloid_normal(t_cam *cam, t_hyperboloid *hyperboloid, double distan
 void			ft_sides_handle(t_xml_tag *tag,
 	t_object *object, int *status);
 int				ft_add_triangle(t_xml_tag *tag, t_rtv *env);
+int				ft_add_paraboloid(t_xml_tag *tag, t_rtv *env);
 double			ft_triangle_intersection(t_cam *cam, t_triangle *triangle, double *min);
+double			ft_paraboloid_intersection(t_cam *cam,
+		t_paraboloid *paraboloid, double *min);
+int				ft_check_min_distance(double *x1, double x2, double min);
+void	ft_paraboloid_normal(t_cam *cam, t_paraboloid *paraboloid,
+	double distance);
 #endif

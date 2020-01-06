@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/05 13:06:29 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/06 09:44:16 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,6 @@ int				ft_add_sphere(t_xml_tag *tag, t_rtv *env)
 	ft_sphere_cut(env, tag, &object, &status);
 	object.sphere.function = &ft_sphere_intersection;
 	status &= ft_object_push(env, object, TYPE_SPHERE);
-	return (status);
-}
-
-int				ft_add_ellipsoid(t_xml_tag *tag, t_rtv *env)
-{
-	t_object	object;
-	int			status;
-
-	status = 1;
-	object.ellipsoid.center = ft_parse_vector(ft_xml_get_value(tag, "center",
-				"(0,0,0)"), &status);
-	object.ellipsoid.axis = ft_parse_vector(ft_xml_get_value(tag, "axis",
-				"(3,3,3)"), &status);
-	object.ellipsoid.axis = (t_vector){fabs(object.ellipsoid.axis.x),
-		fabs(object.ellipsoid.axis.y), fabs(object.ellipsoid.axis.z)};
-	object.ellipsoid.color = ft_parse_color(ft_xml_get_value(tag, "color",
-				"(255,255,255)"), &status);
-	object.ellipsoid.translation = ft_parse_vector(ft_xml_get_value(tag,
-				"translation", "(0,0,0)"), &status);
-	object.ellipsoid.center = ft_add_vector(object.ellipsoid.center,
-			object.ellipsoid.translation);
-	ft_define_limits(tag, &(object.ellipsoid.limits), &status);
-	object.sphere.function = &ft_ellipsoid_intersection;
-	status &= ft_object_push(env, object, TYPE_ELLIPSOID);
 	return (status);
 }
 
@@ -106,30 +82,6 @@ int				ft_add_cylinder(t_xml_tag *tag, t_rtv *env)
 				object.cylinder.axis, object.cylinder.rotation));
 	ft_cylinder_cut(env, tag, &object, &status);
 	object.point.function = &ft_cylinder_intersection;
-	status &= ft_object_push(env, object, TYPE_CYLINDER);
-	return (status);
-}
-
-int				ft_add_hyperboloid(t_xml_tag *tag, t_rtv *env)
-{
-	t_object	object;
-	int			status;
-
-	status = 1;
-	object.hyperboloid.center = ft_parse_vector(ft_xml_get_value(tag, "center",
-				"(0,0,0)"), &status);
-	object.hyperboloid.coefficient = fabs(ft_parse_float(
-				ft_xml_get_value(tag, "coefficient", "10"), &status));
-	object.hyperboloid.sheets = ft_clamp_min_max(1, 2,
-				ft_parse_float(ft_xml_get_value(tag, "sheets", "1"), &status));
-	object.hyperboloid.color = ft_parse_color(ft_xml_get_value(tag, "color",
-				"(255,255,255)"), &status);
-	object.hyperboloid.translation = ft_parse_vector(ft_xml_get_value(tag,
-				"translation", "(0,0,0)"), &status);
-	object.hyperboloid.center = ft_add_vector(object.hyperboloid.center,
-			object.hyperboloid.translation);
-	ft_cylinder_cut(env, tag, &object, &status);
-	object.point.function = &ft_hyperboloid_intersection;
 	status &= ft_object_push(env, object, TYPE_CYLINDER);
 	return (status);
 }
@@ -209,34 +161,5 @@ int				ft_add_disk(t_xml_tag *tag, t_rtv *env)
 				"limit", "(0,0,0)"), &status);
 	object.point.function = &ft_plane_intersection;
 	status &= ft_object_push(env, object, TYPE_PLANE);
-	return (status);
-}
-
-int				ft_add_cone(t_xml_tag *tag, t_rtv *env)
-{
-	t_object	object;
-	int			status;
-
-	status = 1;
-	object.cone.center = ft_parse_vector(ft_xml_get_value(tag, "center",
-				"(0,0,0)"), &status);
-	object.cone.axis = ft_parse_vector(ft_xml_get_value(tag, "axis",
-				"(0, -1, 0)"), &status);
-	object.cone.color = ft_parse_color(ft_xml_get_value(tag, "color",
-				"(255,255,255)"), &status);
-	object.cone.angle = ft_parse_float(ft_xml_get_value(tag, "angle",
-				"30"), &status);
-	object.cone.tilt = tan(FT_RAD((object.cone.angle / 2)));
-	object.cone.rotation = ft_parse_vector(ft_xml_get_value(tag, "rotation",
-				"(0,0,0)"), &status);
-	object.cone.translation = ft_parse_vector(ft_xml_get_value(tag,
-				"translation", "(0,0,0)"), &status);
-	object.cone.center = ft_add_vector(object.cone.center,
-			object.cone.translation);
-	object.cone.axis = ft_normalise_vector(ft_rotate_vector(object.cone.axis,
-				object.cone.rotation));
-	ft_cone_cut(env, tag, &object, &status);
-	object.point.function = &ft_cone_intersection;
-	status &= ft_object_push(env, object, TYPE_CONE);
 	return (status);
 }
