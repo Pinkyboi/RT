@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/07 16:28:51 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/07 18:55:07 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,24 +79,23 @@ typedef struct	s_light_list
 
 typedef struct			s_intersection
 {
-	t_vector	soluces[2];
-	t_vector	postion;
+	double	soluces[2];
+	t_vector	position;
 	t_vector	normal;
 	t_color		color;
 }						t_intersection;
 
 typedef struct			s_cam
 {
-	t_vector	position;
-	t_vector	look_at;
-	t_vector	ray_direction;
-	t_vector	intersection;
-	t_vector	reversed_ray;
-	t_vector	translation;
-	t_vector	bottom_left;
-	t_vector	w_scalar;
-	t_vector	h_scalar;
-	double		fov;
+	t_vector		position;
+	t_vector		look_at;
+	t_vector		ray_direction;
+	t_intersection	hit;
+	t_vector		translation;
+	t_vector		bottom_left;
+	t_vector		w_scalar;
+	t_vector		h_scalar;
+	double			fov;
 }						t_cam;
 
 typedef	struct	s_rtv
@@ -112,8 +111,6 @@ typedef	struct	s_rtv
 	double			column;
 	double			min_w;
 	double			max_w;
-	double			mapped_row;
-	double			mapped_column;
 	int				effects;
 }				t_rtv;
 
@@ -188,9 +185,9 @@ void			ft_demi_sphere_cut(t_rtv *env,
 	t_xml_tag *tag, t_object *object, int *status);
 void			ft_sides_handle(t_xml_tag *tag,
 	t_object *object, int *status);
-void			ft_sphere_limit(t_sphere *sphere, t_cam cam);
-void			ft_cone_limit(t_cone *cone, t_cam cam);
-void			ft_cylinder_limit(t_cylinder *cylinder, t_cam cam);
+double		ft_sphere_limit(t_sphere sphere, t_cam cam);
+double		ft_cone_limit(t_cone cone, t_cam cam);
+double		ft_cylinder_limit(t_cylinder cylinder, t_cam cam);
 
 /*
 **	OTHER FUNCTION
@@ -221,7 +218,7 @@ void			ft_print_vect(t_vector v, char *name);
 void			ft_ray_shooter(t_rtv *rtv);
 void			ft_intersection_position(t_cam *cam, double first_intersection);
 void			ft_put_pixel(t_rtv *rtv, int color);
-void			ft_refracted_ray(t_cam *cam, t_light *light, t_vector normal);
+void			ft_refracted_ray(t_cam cam, t_light *light, t_vector normal);
 void			ft_init_win(t_rtv *rtv);
 t_color			ft_parse_color(char *string, int *status);
 t_vector				ft_parse_vector(char *string, int *status);

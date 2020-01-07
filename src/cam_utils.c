@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/07 16:29:14 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/07 16:38:19 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		ft_intersection_position(t_cam *cam, double first_intersection)
 	t_vector	distance;
 
 	distance = ft_scale_vector(cam->ray_direction, first_intersection);
-	cam->intersection = ft_add_vector(cam->position, distance);
+	cam->hit.position = ft_add_vector(cam->position, distance);
 }
 
 void		ft_create_ray(t_rtv *rtv, int sample)

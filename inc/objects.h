@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 14:41:56 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/07 14:41:57 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/07 21:07:50 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct	s_sphere
 	t_vector				rotation;
 	double					max_lenght;
 	t_vector				cut_orientation;
-	double					soluce[2];
 	t_limit					limits;
 	t_vector				axis;
 }				t_sphere;
@@ -69,7 +68,6 @@ typedef struct	s_ellipsoid
 	t_vector				translation;
 	t_vector				rotation;
 	t_vector				axis;
-	double					soluce[2];
 	t_limit					limits;
 }				t_ellipsoid;
 
@@ -84,7 +82,6 @@ typedef struct	s_cylinder
 	t_vector				rotation;
 	t_vector				translation;
 	double					max_lenght;
-	double					soluce[2];
 	double					lenght;
 	t_limit					limits;	
 	t_vector				limit;
@@ -98,7 +95,6 @@ typedef struct	s_hyperboloid
 	t_vector				center;
 	t_vector				rotation;
 	t_vector				translation;
-	double					soluce[2];
 	int						sheets;
 	double					coefficient;
 	t_limit					limits;	
@@ -114,7 +110,6 @@ typedef struct	s_paraboloid
 	t_vector				center;
 	t_vector				rotation;
 	t_vector				translation;
-	double					soluce[2];
 	double					coefficient;
 	t_limit					limits;	
 	t_vector				limit;
@@ -132,7 +127,7 @@ typedef struct	s_cone
 	t_vector				rotation;
 	t_vector				translation;
 	double					max_lenght;
-	double					soluce[2];
+	t_vector				lenght;
 	t_limit					limits;	
 	t_vector				limit;
 }				t_cone;
@@ -145,7 +140,6 @@ typedef struct	s_plane
 	t_vector				center;
 	t_vector				rotation;
 	t_vector				translation;
-	double					soluce[2];
 	t_limit					limits;
 	double					radius;
 	t_vector				side[2];
@@ -162,7 +156,6 @@ typedef struct	s_triangle
 	t_vector				center;
 	t_vector				rotation;
 	t_vector				translation;
-	double					soluce[2];
 	t_limit					limits;
 	t_vector				side[2];
 	t_vector	limit;

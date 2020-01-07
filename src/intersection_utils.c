@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/03 15:50:34 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/07 19:17:15 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void			ft_color_best_node(t_rtv *rtv, t_color rgb)
 		}
 		if (best_node)
 			rgb = ft_add_colors(rgb, ft_mix_colors(rtv,
-				best_node->object.point.normal, best_node->object.point.color));
+				rtv->cam.hit.normal, rtv->cam.hit.color));
 	}
 	rgb = ft_scale_colors(rgb, (double)1 / (AA + 1));
 	if (best_node)
@@ -82,8 +82,6 @@ void			*ft_ray_loop(void *data)
 	t_rtv	*rtv;
 
 	rtv = data;
-	rtv->objects = copy_objects(rtv->objects);
-	rtv->lights = copy_lights(rtv->lights);
 	rtv->column = -1;
 	while (++rtv->column < WIN_HEIGHT)
 	{
@@ -108,6 +106,8 @@ void			ft_ray_shooter(t_rtv *rtv)
 	while (++i < NUM_THREAD)
 	{
 		rtv_cpy[i] = *rtv;
+		rtv_cpy[i].objects = copy_objects(rtv->objects);
+		rtv_cpy[i].lights = copy_lights(rtv->lights);
 		rtv_cpy[i].min_w = (WIN_WIDTH / NUM_THREAD) * i;
 		rtv_cpy[i].max_w = (WIN_WIDTH / NUM_THREAD) * (i + 1);
 		pthread_create(&thread[i], NULL, ft_ray_loop, &rtv_cpy[i]);

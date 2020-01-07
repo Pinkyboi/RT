@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:26:02 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/07 16:28:12 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/07 16:38:19 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ double			ft_calculate_shadow(t_rtv rtv, double intersection_dist,
 	double	shadow_ratio;
 
 	light_distance = ft_vector_size(ft_sub_vector(light.center,
-		rtv.cam.intersection));
+		rtv.cam.hit.position));
 	intersection_distance = ft_vector_size(ft_add_vector(
 		ft_scale_vector(light.light_vect, intersection_dist),
-		rtv.cam.intersection));
+		rtv.cam.hit.position));
 	shadow_ratio = -(intersection_distance / light_distance);
 	if (shadow_ratio > -1)
 		return (shadow_ratio);

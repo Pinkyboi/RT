@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 22:04:25 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/07 16:28:12 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/07 19:15:51 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ double			ft_check_shadow(t_rtv *rtv, t_light light,
 	intersection_dist = 0.0;
 	light.center = ft_add_vector(light.center, ft_scale_vector(normal, MIN_D));
 	intersection_dist = ft_check_intersection(*rtv,
-	light.light_vect, rtv->cam.intersection);
+	light.light_vect, rtv->cam.hit.position);
 	dot = ft_dot_vector(light.light_vect, normal);
 	if ((intersection_dist = ft_check_intersection(*rtv,
-		light.light_vect, rtv->cam.intersection)))
+		light.light_vect, rtv->cam.hit.position)))
 	{
 		if ((intersection_dist > ft_vector_size(ft_sub_vector(light.center
-			, rtv->cam.intersection))) || dot < 0)
+			, rtv->cam.hit.position))) || dot < 0)
 			return (1);
 		if (dot >= 0)
 			return (0);
@@ -52,7 +52,7 @@ t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color)
 	light_node = rtv->lights;
 	while (light_node)
 	{
-		ft_refracted_ray(&(rtv->cam), &(light_node->light), normal);
+		ft_refracted_ray(rtv->cam, &(light_node->light), normal);
 		if (ft_check_shadow(rtv, light_node->light, normal, &color))
 		{
 			dif_col = ft_add_colors(dif_col,

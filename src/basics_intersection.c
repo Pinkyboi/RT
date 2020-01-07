@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/07 16:28:25 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/07 19:09:16 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ double			ft_cylinder_intersection(t_cam *cam,
 	delta = (B * B) - (4 * A * C);
 	if (delta < 0)
 		return (0);
-	cylinder->soluce[0] = (-B + sqrt(delta)) / (2 * A);
-	cylinder->soluce[1] = (-B - sqrt(delta)) / (2 * A);
-	if (ft_check_min_distance(&cylinder->soluce[0], cylinder->soluce[1], min))
-		ft_cylinder_normal(cam, cylinder, cylinder->soluce[0]);
+	cam->hit.soluces[0] = (-B + sqrt(delta)) / (2 * A);
+	cam->hit.soluces[1] = (-B - sqrt(delta)) / (2 * A);
+	if (ft_check_min_distance(&cam->hit.soluces[0], cam->hit.soluces[1], min))
+		ft_cylinder_normal(cam, cylinder, cam->hit.soluces[0]);
 	else
-		cylinder->soluce[0] = 0;
-	return (cylinder->soluce[0]);
+		cam->hit.soluces[0] = 0;
+	return (cam->hit.soluces[0]);
 }
 
 double			ft_sphere_intersection(t_cam *cam,
@@ -69,20 +69,21 @@ double			ft_sphere_intersection(t_cam *cam,
 	delta = (B * B) - (4 * A * C);
 	if (delta < 0)
 		return (0);
-	sphere->soluce[0] = (-B + sqrt(delta)) / 2;
-	sphere->soluce[1] = (-B - sqrt(delta)) / 2;
-	if (ft_check_min_distance(&sphere->soluce[0], sphere->soluce[1], min))
-		ft_sphere_normal(cam, sphere, sphere->soluce[0]);
+	cam->hit.soluces[0] = (-B + sqrt(delta)) / 2;
+	cam->hit.soluces[1] = (-B - sqrt(delta)) / 2;
+	if (ft_check_min_distance(&cam->hit.soluces[0], cam->hit.soluces[1], min))
+		ft_sphere_normal(cam, sphere, cam->hit.soluces[0]);
 	else
-		sphere->soluce[0] = 0;
-	return (sphere->soluce[0]);
+		cam->hit.soluces[0] = 0;
+	return (cam->hit.soluces[0]);
 }
+
 t_color			ft_cheeker_texture(double x, double y, double scale)
 {
-	if((x * scale) - floor(x * scale) < 0.5 ||
+	if ((x * scale) - floor(x * scale) < 0.5 ||
 		(y * scale) - floor(y * scale) < 0.5)
 	{
-		if((x * scale) - floor(x * scale) < 0.5 &&
+		if ((x * scale) - floor(x * scale) < 0.5 &&
 			(y * scale) - floor(y * scale) < 0.5)
 			return ((t_color){0, 0, 0});
 		else
@@ -92,21 +93,25 @@ t_color			ft_cheeker_texture(double x, double y, double scale)
 		return ((t_color){0, 0, 0});
 }
 
-int			ft_map_texture(t_cam cam, t_plane *plane)
+int				ft_map_texture(t_cam cam, t_plane *plane)
 {
-	t_vector up;
-	t_vector sides[2];
-	double x[2];
+	t_vector	up;
+	t_vector	sides[2];
+	double		x[2];
 
-	up = ft_cross_product(ft_rotate_vector(plane->normal, (t_vector){90, 90, 90}),plane->normal);
-	sides[0] = ft_normalise_vector(ft_cross_product(up , plane->normal));
-	sides[1] = ft_normalise_vector(ft_cross_product(sides[0], plane->normal));
-	x[0] =  ft_dot_vector(ft_sub_vector(cam.intersection, plane->center), sides[0]);
-	x[1] =  ft_dot_vector(ft_sub_vector(cam.intersection, plane->center), sides[1]);
-	if(fabs(x[0]) > 20 || fabs(x[1]) > 10)
-		return(1);
-	return(0);
-	// plane->normal.y += cos(x / 10) * (ft_vector_size(plane->normal) / 10);
+	up = ft_cross_product(ft_rotate_vector(plane->normal,
+		(t_vector){90, 90, 90}), plane->normal);
+	sides[0] = ft_normalise_vector(
+			ft_cross_product(up, plane->normal));
+	sides[1] = ft_normalise_vector(
+			ft_cross_product(sides[0], plane->normal));
+	x[0] = ft_dot_vector(
+			ft_sub_vector(cam.hit.position, plane->center), sides[0]);
+	x[1] = ft_dot_vector(
+			ft_sub_vector(cam.hit.position, plane->center), sides[1]);
+	if (fabs(x[0]) > 20 || fabs(x[1]) > 10)
+		return (1);
+	return (0);
 }
 
 double			ft_plane_intersection(t_cam *cam, t_plane *plane, double min)
@@ -118,16 +123,18 @@ double			ft_plane_intersection(t_cam *cam, t_plane *plane, double min)
 	if (fabs(i) > MIN_D)
 	{
 		temp = ft_sub_vector(plane->center, cam->position);
-		plane->soluce[0] = ft_dot_vector(temp, plane->normal) / i;
-		plane->soluce[1] = plane->soluce[0];
-		if (plane->soluce[0] < min && plane->soluce[0] > MIN_D)
+		cam->hit.soluces[0] = ft_dot_vector(temp, plane->normal) / i;
+		if (cam->hit.soluces[0] < min && cam->hit.soluces[0] > MIN_D)
 		{
-			if (i > 0)
-				plane->normal = ft_scale_vector(plane->normal, -1);
-			ft_intersection_position(cam, plane->soluce[0]);
+			ft_intersection_position(cam, cam->hit.soluces[0]);
 			if (plane->radius < 0 || plane->radius >=
-				ft_vector_size(ft_sub_vector(plane->center, cam->intersection)))
-				return (plane->soluce[0]);
+				ft_vector_size(ft_sub_vector(plane->center, cam->hit.position)))
+			{
+				cam->hit.normal = (i > 0) ?
+					ft_scale_vector(plane->normal, -1) : plane->normal;
+				cam->hit.color = plane->color;
+				return (cam->hit.soluces[0]);
+			}
 		}
 	}
 	return (0);
@@ -150,13 +157,14 @@ double			ft_triangle_intersection(t_cam *cam,
 			return (0);
 		temp[2] = ft_cross_product(temp[1], triangle->side[0]);
 		test[1] = ft_dot_vector(cam->ray_direction, temp[2]) / det;
-		if (test[1] < MIN_D || test[0] + test[1] > 1.0)
-			return (0);
-		triangle->soluce[0] = ft_dot_vector(triangle->side[1], temp[2]) / det;
-		if ((triangle->soluce[0]) < min && triangle->soluce[0] > MIN_D)
+		cam->hit.soluces[0] = ft_dot_vector(triangle->side[1], temp[2]) / det;
+		if (!(test[1] < MIN_D || test[0] + test[1] > 1.0)
+			&& ((cam->hit.soluces[0]) < min && cam->hit.soluces[0] > MIN_D))
 		{
-			ft_intersection_position(cam, triangle->soluce[0]);
-			return (triangle->soluce[0]);
+			cam->hit.normal = triangle->normal;
+			cam->hit.color = triangle->color;
+			ft_intersection_position(cam, cam->hit.soluces[0]);
+			return (cam->hit.soluces[0]);
 		}
 	}
 	return (0);
