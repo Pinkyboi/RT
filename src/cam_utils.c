@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/01 02:17:05 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/07 16:29:14 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,25 @@ void		ft_create_ray(t_rtv *rtv, int sample)
 
 void		ft_init_cam(t_cam *cam)
 {
-	t_vector n_up;
+	t_vector	n_up;
+	t_vector	cam_vects[4];
+	double		cam_utils[3];
 
-	n_up = ft_new_vector(MIN_D, 1, MIN_D);
-	n_up = ft_normalise_vector(ft_rotate_vector(n_up, cam->rotation));
+	n_up = ft_new_vector(MIN_D, 1 + MIN_D, MIN_D);
 	cam->position = ft_add_vector(cam->position, cam->translation);
-	cam->foreward = ft_normalise_vector(ft_sub_vector(cam->look_at,
+	CAM_FOREWORD = ft_normalise_vector(ft_sub_vector(cam->look_at,
 			cam->position));
-	cam->right = ft_normalise_vector(
-					ft_cross_product(cam->foreward, n_up));
-	cam->up = ft_normalise_vector(ft_cross_product(cam->right,
-					ft_scale_vector(cam->foreward, -1)));
-	cam->ratio = (double)WIN_HEIGHT / (double)WIN_WIDTH;
-	cam->half_height = tan(FT_RAD(cam->fov) / 2);
-	cam->half_width = cam->half_height / cam->ratio;
+	CAM_RIGHT = ft_normalise_vector(
+					ft_cross_product(CAM_FOREWORD, n_up));
+	CAM_UP = ft_normalise_vector(ft_cross_product(CAM_RIGHT,
+					ft_scale_vector(CAM_FOREWORD, -1)));
+	RATIO = (double)WIN_HEIGHT / (double)WIN_WIDTH;
+	HALF_HEIGHT = tan(FT_RAD(cam->fov) / 2);
+	HALF_WIDTH = HALF_HEIGHT / RATIO;
 	cam->bottom_left = ft_sub_vector(cam->position, ft_add_vector(
-					ft_scale_vector(cam->up, cam->half_height),
-					ft_scale_vector(cam->right, cam->half_width)));
-	cam->bottom_left = ft_add_vector(cam->bottom_left, cam->foreward);
-	cam->w_scalar = ft_scale_vector(cam->right, 2.0 * cam->half_width);
-	cam->h_scalar = ft_scale_vector(cam->up, 2.0 * cam->half_height);
+					ft_scale_vector(CAM_UP, HALF_HEIGHT),
+					ft_scale_vector(CAM_RIGHT, HALF_WIDTH)));
+	cam->bottom_left = ft_add_vector(cam->bottom_left, CAM_FOREWORD);
+	cam->w_scalar = ft_scale_vector(CAM_RIGHT, 2.0 * HALF_WIDTH);
+	cam->h_scalar = ft_scale_vector(CAM_UP, 2.0 * HALF_HEIGHT);
 }
