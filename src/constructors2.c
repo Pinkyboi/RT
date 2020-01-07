@@ -36,8 +36,6 @@ int				ft_load_camera(t_xml_tag *tag, t_rtv *env)
 	status = 1;
 	env->cam.position = ft_parse_vector(ft_xml_get_value(tag, "position",
 				"(0,0,0)"), &status);
-	env->cam.rotation = ft_parse_vector(ft_xml_get_value(tag, "rotation",
-				"(0,0,0)"), &status);
 	env->cam.look_at = ft_parse_vector(ft_xml_get_value(tag, "lookat",
 				"(0,0,-1)"), &status);
 	env->cam.fov = ft_parse_float(ft_xml_get_value(tag, "fov",

@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/06 19:27:37 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/07 16:28:25 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int				ft_check_min_distance(double *x1, double x2, double min)
 }
 
 double			ft_cylinder_intersection(t_cam *cam,
-		t_cylinder *cylinder, double *min)
+		t_cylinder *cylinder, double min)
 {
 	double		abc[3];
 	double		delta;
@@ -48,7 +48,7 @@ double			ft_cylinder_intersection(t_cam *cam,
 		return (0);
 	cylinder->soluce[0] = (-B + sqrt(delta)) / (2 * A);
 	cylinder->soluce[1] = (-B - sqrt(delta)) / (2 * A);
-	if (ft_check_min_distance(&cylinder->soluce[0], cylinder->soluce[1], *min))
+	if (ft_check_min_distance(&cylinder->soluce[0], cylinder->soluce[1], min))
 		ft_cylinder_normal(cam, cylinder, cylinder->soluce[0]);
 	else
 		cylinder->soluce[0] = 0;
@@ -56,7 +56,7 @@ double			ft_cylinder_intersection(t_cam *cam,
 }
 
 double			ft_sphere_intersection(t_cam *cam,
-		t_sphere *sphere, double *min)
+		t_sphere *sphere, double min)
 {
 	double	abc[3];
 	double	delta;
@@ -71,7 +71,7 @@ double			ft_sphere_intersection(t_cam *cam,
 		return (0);
 	sphere->soluce[0] = (-B + sqrt(delta)) / 2;
 	sphere->soluce[1] = (-B - sqrt(delta)) / 2;
-	if (ft_check_min_distance(&sphere->soluce[0], sphere->soluce[1], *min))
+	if (ft_check_min_distance(&sphere->soluce[0], sphere->soluce[1], min))
 		ft_sphere_normal(cam, sphere, sphere->soluce[0]);
 	else
 		sphere->soluce[0] = 0;
@@ -109,7 +109,7 @@ int			ft_map_texture(t_cam cam, t_plane *plane)
 	// plane->normal.y += cos(x / 10) * (ft_vector_size(plane->normal) / 10);
 }
 
-double			ft_plane_intersection(t_cam *cam, t_plane *plane, double *min)
+double			ft_plane_intersection(t_cam *cam, t_plane *plane, double min)
 {
 	double		i;
 	t_vector	temp;
@@ -120,14 +120,11 @@ double			ft_plane_intersection(t_cam *cam, t_plane *plane, double *min)
 		temp = ft_sub_vector(plane->center, cam->position);
 		plane->soluce[0] = ft_dot_vector(temp, plane->normal) / i;
 		plane->soluce[1] = plane->soluce[0];
-		if (plane->soluce[0] < *min && plane->soluce[0] > MIN_D)
+		if (plane->soluce[0] < min && plane->soluce[0] > MIN_D)
 		{
 			if (i > 0)
 				plane->normal = ft_scale_vector(plane->normal, -1);
 			ft_intersection_position(cam, plane->soluce[0]);
-			
-			if(ft_map_texture(*cam, plane))
-				return(plane->soluce[0] = 0);
 			if (plane->radius < 0 || plane->radius >=
 				ft_vector_size(ft_sub_vector(plane->center, cam->intersection)))
 				return (plane->soluce[0]);
@@ -137,7 +134,7 @@ double			ft_plane_intersection(t_cam *cam, t_plane *plane, double *min)
 }
 
 double			ft_triangle_intersection(t_cam *cam,
-	t_triangle *triangle, double *min)
+	t_triangle *triangle, double min)
 {
 	double		det;
 	double		test[2];
@@ -156,7 +153,7 @@ double			ft_triangle_intersection(t_cam *cam,
 		if (test[1] < MIN_D || test[0] + test[1] > 1.0)
 			return (0);
 		triangle->soluce[0] = ft_dot_vector(triangle->side[1], temp[2]) / det;
-		if ((triangle->soluce[0]) < *min && triangle->soluce[0] > MIN_D)
+		if ((triangle->soluce[0]) < min && triangle->soluce[0] > MIN_D)
 		{
 			ft_intersection_position(cam, triangle->soluce[0]);
 			return (triangle->soluce[0]);

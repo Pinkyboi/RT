@@ -18,7 +18,7 @@ double			ft_choose_intersection(t_object_list *object_node,
 	double			temp_min;
 
 	temp_min = object_node->object.point.function(&(rtv->cam),
-		&object_node->object.point, min);
+		&object_node->object.point, *min);
 	if (temp_min)
 		*min = temp_min;
 	return (temp_min);

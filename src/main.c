@@ -15,7 +15,6 @@
 void			ft_init_default_camera(t_cam *cam)
 {
 	cam->position = (t_vector){0, 0, 0};
-	cam->rotation = (t_vector){0, 0, 0};
 	cam->look_at = (t_vector){0, 0, -1};
 	cam->fov = 65;
 	cam->translation = (t_vector){0, 0, 0};

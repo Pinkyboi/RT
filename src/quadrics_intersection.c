@@ -13,7 +13,7 @@
 #include "rtv1.h"
 
 double			ft_hyperboloid_intersection(t_cam *cam,
-		t_hyperboloid *hyperboloid, double *min)
+		t_hyperboloid *hyperboloid, double min)
 {
 	double		abc[3];
 	double		delta;
@@ -33,7 +33,7 @@ double			ft_hyperboloid_intersection(t_cam *cam,
 	hyperboloid->soluce[0] = (-B + sqrt(delta)) / (2 * A);
 	hyperboloid->soluce[1] = (-B - sqrt(delta)) / (2 * A);
 	if (ft_check_min_distance(&hyperboloid->soluce[0],
-		hyperboloid->soluce[1], *min))
+		hyperboloid->soluce[1], min))
 		ft_hyperboloid_normal(cam, hyperboloid, hyperboloid->soluce[0]);
 	else
 		hyperboloid->soluce[0] = 0;
@@ -41,7 +41,7 @@ double			ft_hyperboloid_intersection(t_cam *cam,
 }
 
 double			ft_paraboloid_intersection(t_cam *cam,
-		t_paraboloid *paraboloid, double *min)
+		t_paraboloid *paraboloid, double min)
 {
 	double		abc[3];
 	double		delta;
@@ -59,7 +59,7 @@ double			ft_paraboloid_intersection(t_cam *cam,
 	paraboloid->soluce[0] = (-B + sqrt(delta)) / (2 * A);
 	paraboloid->soluce[1] = (-B - sqrt(delta)) / (2 * A);
 	if (ft_check_min_distance(&paraboloid->soluce[0],
-		paraboloid->soluce[1], *min))
+		paraboloid->soluce[1], min))
 		ft_paraboloid_normal(cam, paraboloid, paraboloid->soluce[0]);
 	else
 		paraboloid->soluce[0] = 0;
@@ -67,7 +67,7 @@ double			ft_paraboloid_intersection(t_cam *cam,
 }
 
 double			ft_ellipsoid_intersection(t_cam *cam,
-		t_ellipsoid *ellipsoid, double *min)
+		t_ellipsoid *ellipsoid, double min)
 {
 	double	abc[3];
 	double	delta;
@@ -87,14 +87,14 @@ double			ft_ellipsoid_intersection(t_cam *cam,
 	ellipsoid->soluce[0] = (-B + sqrt(delta)) / (2 * A);
 	ellipsoid->soluce[1] = (-B - sqrt(delta)) / (2 * A);
 	if (ft_check_min_distance(&ellipsoid->soluce[0],
-		ellipsoid->soluce[1], *min))
+		ellipsoid->soluce[1], min))
 		ft_ellipsoid_normal(cam, ellipsoid, ellipsoid->soluce[0]);
 	else
 		ellipsoid->soluce[0] = 0;
 	return (ellipsoid->soluce[0]);
 }
 
-double			ft_cone_intersection(t_cam *cam, t_cone *cone, double *min)
+double			ft_cone_intersection(t_cam *cam, t_cone *cone, double min)
 {
 	double		abc[3];
 	double		delta;
@@ -114,7 +114,7 @@ double			ft_cone_intersection(t_cam *cam, t_cone *cone, double *min)
 		return (0);
 	cone->soluce[0] = (-B + sqrt(delta)) / (2 * A);
 	cone->soluce[1] = (-B - sqrt(delta)) / (2 * A);
-	if (ft_check_min_distance(&cone->soluce[0], cone->soluce[1], *min))
+	if (ft_check_min_distance(&cone->soluce[0], cone->soluce[1], min))
 		ft_cone_normal(cam, cone, cone->soluce[0]);
 	else
 		cone->soluce[0] = 0;
