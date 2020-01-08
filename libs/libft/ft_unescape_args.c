@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unescape_args.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 20:37:10 by abiri             #+#    #+#             */
-/*   Updated: 2019/05/22 16:53:00 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/08 17:07:41 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	*ft_strunescape(char *str)
 		counter++;
 		i++;
 	}
-	ft_printf("Counter len is : %d\n", counter);
 	result = ft_memalloc(counter + 1);
 	i = -1;
 	counter = 0;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   basic_intersection.c                               :+:      :+:    :+:   */
+/*   basics_intersection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/07 19:09:16 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/08 14:16:38 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,26 +93,24 @@ t_color			ft_cheeker_texture(double x, double y, double scale)
 		return ((t_color){0, 0, 0});
 }
 
-int				ft_map_texture(t_cam cam, t_plane *plane)
+t_color				ft_map_texture(t_cam *cam, t_plane plane)
 {
 	t_vector	up;
 	t_vector	sides[2];
 	double		x[2];
 
-	up = ft_cross_product(ft_rotate_vector(plane->normal,
-		(t_vector){90, 90, 90}), plane->normal);
+	up = ft_cross_product(ft_rotate_vector(plane.normal,
+		(t_vector){90, 90, 90}), plane.normal);
 	sides[0] = ft_normalise_vector(
-			ft_cross_product(up, plane->normal));
+			ft_cross_product(up, plane.normal));
 	sides[1] = ft_normalise_vector(
-			ft_cross_product(sides[0], plane->normal));
+			ft_cross_product(sides[0], plane.normal));
 	x[0] = ft_dot_vector(
-			ft_sub_vector(cam.hit.position, plane->center), sides[0]);
+			ft_sub_vector(cam->hit.position, plane.center), sides[0]);
 	x[1] = ft_dot_vector(
-			ft_sub_vector(cam.hit.position, plane->center), sides[1]);
-	if (fabs(x[0]) > 20 || fabs(x[1]) > 10)
-		return (1);
-	return (0);
-}
+			ft_sub_vector(cam->hit.position, plane.center), sides[1]);
+	return(ft_cheeker_texture(x[1], x[0], 5));
+}	
 
 double			ft_plane_intersection(t_cam *cam, t_plane *plane, double min)
 {

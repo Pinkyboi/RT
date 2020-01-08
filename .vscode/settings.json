@@ -18,6 +18,9 @@
         "utility": "c",
         "iterator": "c",
         "ft_maths.h": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "bitset": "c",
+        "complex": "c",
+        "cmath": "c"
     }
 }
