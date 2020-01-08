@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/07 18:55:07 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/08 20:08:54 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define RATIO cam_utils[0]
 # define HALF_HEIGHT cam_utils[1]	
 # define HALF_WIDTH cam_utils[2]
-# define WIN_WIDTH 1280
-# define WIN_HEIGHT 720
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
 # define NOISE_W 1000
 # define NOISE_H 1000
 # define MAX_D 1e30
@@ -38,7 +38,16 @@
 # define AMBIANT 0.5
 # define FT_SQR(X) ((X) * (X))
 # define FT_RAD(X) (((X) * M_PI) / 180)
+
+# define EXIT 53
+# define FOREWORD 12
+# define BACKWARD 14
+# define UP 13
+# define LEFT 0
+# define RIGHT 2
+# define DOWN 1
 # define AA 4
+# define PIXEL_SIZE 5
 # define NUM_THREAD 4
 
 double      perlin_noise[NOISE_H][NOISE_W];
@@ -98,6 +107,11 @@ typedef struct			s_cam
 	double			fov;
 }						t_cam;
 
+typedef	struct			s_actions
+{
+	char			mouvement;
+}						t_actions;
+
 typedef	struct	s_rtv
 {
 	t_cam			cam;
@@ -105,6 +119,7 @@ typedef	struct	s_rtv
 	t_object_list	*last_object;
 	t_light_list	*lights;
 	t_light_list	*last_light;
+	t_actions		actions;
 	t_mlx			mlx;
 	double			min;
 	double			row;
@@ -112,6 +127,10 @@ typedef	struct	s_rtv
 	double			min_w;
 	double			max_w;
 	int				effects;
+	int				render_offset;
+	int				render_y_offset;
+	int				anti_aliasing;
+	int				pixel_size;
 }				t_rtv;
 
 typedef int		t_xml_element(t_xml_tag *tag, t_rtv *env);
@@ -205,7 +224,7 @@ double			ft_choose_intersection(t_object_list *object_node,
 int				ft_light_push(t_rtv *env, t_light light);
 int				ft_load_shapes(t_xml_data *data, t_rtv *env);
 int				ft_rgb_to_int(t_color color);
-int				ft_key_stroke(int key, void *test);
+int				ft_key_stroke(int key, t_rtv *rtv);
 t_color			ft_add_colors(t_color first, t_color second);
 t_color			ft_scale_colors(t_color first, double scalar);
 t_color			ft_diffuse(t_light light, t_vector normal, t_color color);

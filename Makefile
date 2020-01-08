@@ -6,7 +6,7 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2020/01/07 18:55:07 by abenaiss         ###   ########.fr        #
+#    Updated: 2020/01/08 13:30:15 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(FILENAMES:.c=.o))
 
 HEADER_FILES = $(addprefix $(INC_DIR)/, $(HEADER_FILE))
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = 
 
 FTMATHS = ./libs/ft_maths
 

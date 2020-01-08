@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/07 21:16:50 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/08 13:37:04 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	ft_cone_normal(t_cam *cam, t_cone *cone, double distance)
 void	ft_refracted_ray(t_cam cam, t_light *light, t_vector normal)
 {
 	t_vector	scaled_normal;
+	t_vector	light_vect;
 	double		normal_scalar;
 
 	light->light_vect = ft_normalise_vector(ft_sub_vector(light->center,
