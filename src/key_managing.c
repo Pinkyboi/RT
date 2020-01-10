@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/08 20:07:35 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/10 16:54:32 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int			ft_exit(t_rtv *rtv)
 int			ft_key_stroke(int key, t_rtv *rtv)
 {
 	(key == EXIT) ? ft_exit(rtv) : 1;
-	//ft_clear_mlx(&rtv->mlx);
 	if (key == LEFT || key == RIGHT || key == UP ||
 		key == DOWN || key == FOREWORD || key == BACKWARD)
 	{
@@ -47,10 +46,8 @@ int			ft_key_stroke(int key, t_rtv *rtv)
 		(key == RIGHT) ? rtv->cam.position.x += 3 : 0;
 		(key == UP) ? rtv->cam.position.y += 3 : 0;
 		(key == DOWN) ? rtv->cam.position.y -= 3 : 0;
-		if (key == FOREWORD)
-			rtv->cam.position = ft_add_vector(rtv->cam.position, move);
-		if (key == BACKWARD)
-			rtv->cam.position = ft_sub_vector(rtv->cam.position, move);
+		(key == FOREWORD) ? rtv->cam.position.z += 3 : 0;
+		(key == BACKWARD) ? rtv->cam.position.z -= 3 : 0;
 		ft_init_cam(&(rtv->cam));
 	}
 	return (0);

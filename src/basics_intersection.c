@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/08 14:16:38 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/10 17:30:46 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,29 @@ double			ft_sphere_intersection(t_cam *cam,
 
 t_color			ft_cheeker_texture(double x, double y, double scale)
 {
-	if ((x * scale) - floor(x * scale) < 0.5 ||
-		(y * scale) - floor(y * scale) < 0.5)
+	if ((double)((x * scale)) - floor((x * scale)) < 0.5 ||
+		((double)(y * scale)) - floor((double)(y * scale)) < 0.5)
 	{
-		if ((x * scale) - floor(x * scale) < 0.5 &&
-			(y * scale) - floor(y * scale) < 0.5)
+		if ((double)((x * scale)) - floor((x * scale)) < 0.5 &&
+			((double)(y * scale)) - floor((y * scale)) < 0.5)
 			return ((t_color){0, 0, 0});
 		else
 			return ((t_color){1, 1, 1});
 	}
 	else
 		return ((t_color){0, 0, 0});
+}
+
+t_color			ft_brick_texture(double x,double y)
+{
+	int	tx;
+	int	ty;
+
+	tx = (int) 4 * x;
+	ty = (int) 4 * y;
+	double oddity = ((tx & 0x01) == ((ty & 0x01))? 1 : 0);
+	double edge = ((((4.0 * x) - tx < 0.1) && oddity) || (((4.0 * y) - ty < 0.1) && oddity)) ? 1 : 0;
+ 	return (edge ? (t_color){1, 1, 1} : (t_color){1, 0, 0});
 }
 
 t_color				ft_map_texture(t_cam *cam, t_plane plane)
@@ -109,7 +121,7 @@ t_color				ft_map_texture(t_cam *cam, t_plane plane)
 			ft_sub_vector(cam->hit.position, plane.center), sides[0]);
 	x[1] = ft_dot_vector(
 			ft_sub_vector(cam->hit.position, plane.center), sides[1]);
-	return(ft_cheeker_texture(x[1], x[0], 5));
+	return(ft_cheeker_texture(x[1], x[0], 0.08));
 }	
 
 double			ft_plane_intersection(t_cam *cam, t_plane *plane, double min)

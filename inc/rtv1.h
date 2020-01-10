@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/08 20:08:54 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/10 17:51:02 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define RATIO cam_utils[0]
 # define HALF_HEIGHT cam_utils[1]	
 # define HALF_WIDTH cam_utils[2]
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 720
 # define NOISE_W 1000
 # define NOISE_H 1000
 # define MAX_D 1e30
@@ -46,7 +46,7 @@
 # define LEFT 0
 # define RIGHT 2
 # define DOWN 1
-# define AA 4
+# define AA 2
 # define PIXEL_SIZE 5
 # define NUM_THREAD 4
 
@@ -212,8 +212,7 @@ double		ft_cylinder_limit(t_cylinder cylinder, t_cam cam);
 **	OTHER FUNCTION
 */
 
-double			ft_check_intersection(t_rtv rtv, t_vector light_vector,
-		t_vector intersection_point);
+double			ft_check_intersection(t_rtv rtv);
 double			ft_calculate_shadow(t_rtv rtv,
 		double intersection_dist, t_light light);
 double			ft_clamp_min(int min, double value);

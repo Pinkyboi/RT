@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/08 17:47:12 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/10 17:51:11 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,12 @@ double			ft_choose_intersection(t_object_list *object_node,
 	return (temp_min);
 }
 
-double			ft_check_intersection(t_rtv rtv,
-			t_vector light_vector, t_vector intersection_point)
+double			ft_check_intersection(t_rtv rtv)
 {
 	t_object_list	*object_node;
 	double			min;
 	double			temp_min;
 
-	rtv.cam.position = intersection_point;
-	rtv.cam.ray_direction = light_vector;
 	min = MAX_D;
 	object_node = rtv.objects;
 	while (object_node)
