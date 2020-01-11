@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/10 17:51:11 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/10 23:29:12 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void			ft_color_best_node(t_rtv *rtv, t_color rgb)
 	t_object_list	*object_node;
 	t_object_list	*best_node;
 	int				sample;
+	t_color			node_color;
 
 	sample = -1;
 	while (++sample < rtv->anti_aliasing + 1)
@@ -64,13 +65,19 @@ void			ft_color_best_node(t_rtv *rtv, t_color rgb)
 			object_node = object_node->next;
 		}
 		if (best_node)
-			rgb = ft_add_colors(rgb, ft_mix_colors(rtv,
-				rtv->cam.hit.normal, rtv->cam.hit.color));
+		{
+			node_color = ft_mix_colors(rtv,
+				rtv->cam.hit.normal, rtv->cam.hit.color);
+			node_color = ft_reflect_ray(*rtv, &node_color, 1);
+			rgb = ft_add_colors(rgb, node_color);
+		}
 	}
 	rgb = ft_scale_colors(rgb, (double)1 / (rtv->anti_aliasing + 1));
 	if (best_node)
+	{
 		ft_put_pixel(rtv, ft_rgb_to_int(
 			ft_select_filter(*rtv, best_node->object, rgb)));
+	}
 	else
 		ft_put_pixel(rtv, 0x0);
 }

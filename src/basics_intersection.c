@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basics_intersection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/10 17:30:46 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/10 23:40:36 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ double			ft_plane_intersection(t_cam *cam, t_plane *plane, double min)
 				cam->hit.normal = (i > 0) ?
 					ft_scale_vector(plane->normal, -1) : plane->normal;
 				cam->hit.color = plane->color;
+				cam->hit.reflection = plane->reflection;
 				return (cam->hit.soluces[0]);
 			}
 		}
@@ -173,6 +174,7 @@ double			ft_triangle_intersection(t_cam *cam,
 		{
 			cam->hit.normal = triangle->normal;
 			cam->hit.color = triangle->color;
+			cam->hit.reflection = triangle->reflection;
 			ft_intersection_position(cam, cam->hit.soluces[0]);
 			return (cam->hit.soluces[0]);
 		}

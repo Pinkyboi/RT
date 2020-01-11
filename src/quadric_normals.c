@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quadric_normals.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 23:15:12 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/07 23:52:58 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/10 23:41:48 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_ellipsoid_normal(t_cam *cam, t_ellipsoid *ellipsoid, double distance)
 	{
 		cam->hit.normal = ft_normalise_vector(normal);
 		cam->hit.color = ellipsoid->color;
+		cam->hit.reflection = ellipsoid->reflection;
 	}
 }
 
@@ -44,6 +45,7 @@ void	ft_hyperboloid_normal(t_cam *cam, t_hyperboloid *hyperboloid,
 	{
 		cam->hit.normal = ft_normalise_vector(normal);
 		cam->hit.color = hyperboloid->color;
+		cam->hit.reflection = hyperboloid->reflection;
 	}
 }
 
@@ -62,5 +64,6 @@ void	ft_paraboloid_normal(t_cam *cam, t_paraboloid *paraboloid,
 	{
 		cam->hit.normal = ft_normalise_vector(normal);
 		cam->hit.color = paraboloid->color;
+		cam->hit.reflection = paraboloid->reflection;
 	}
 }

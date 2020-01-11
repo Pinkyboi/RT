@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 22:04:25 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/10 17:52:05 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/10 23:09:02 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ double			ft_check_shadow(t_rtv rtv, t_light light,
 	double dot;
 
 	intersection_dist = 0.0;
-	light.center = ft_add_vector(light.center, ft_scale_vector(normal, MIN_D));
 	rtv.cam.position = rtv.cam.hit.position;
 	rtv.cam.ray_direction = light.light_vect;
 	intersection_dist = ft_check_intersection(rtv);
@@ -52,7 +51,7 @@ t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color)
 	light_node = rtv->lights;
 	while (light_node)
 	{
-		ft_refracted_ray(rtv->cam, &(light_node->light), normal);
+		ft_reflected_light_ray(rtv->cam, &(light_node->light), normal);
 		if (ft_check_shadow(*rtv, light_node->light, normal, &color))
 		{
 			dif_col = ft_add_colors(dif_col,

@@ -12,8 +12,8 @@
 <sphere center="(0, 14, 15)" color="#000000" radius="1.6"/>
 <cylinder center="(0, 0, 15)" color="#000000" radius="0.6"/>
 <cylinder center="(0, 14, 15)" color="#000000" radius="0.6" rotation="(0, 0, 90)"/>
-<plane center="(-10, 0, 0)" normal="(-1, 0, 0)" color="#D3D3D3"/>
-<plane center="(10, 0, -40)" normal="(1, 0, 0)" color="#D3D3D3"/>
-<plane center="(0, -1, 0)" normal="(0, 1, 0)" color="#D3D3D3"/>
-<plane center="(0, 0, -40)" normal="(0, 0, 1)" color="#D3D3D3"/>
-<plane center="(0, 20, 0)" normal="(0, -1, 0)" color="#D3D3D3"/>
+<plane center="(-10, 0, 0)" normal="(-1, 0, 0)" color="#D3D3D3" reflection="0.5"/>
+<plane center="(10, 0, -40)" normal="(1, 0, 0)" color="#D3D3D3" reflection="0.5"/>
+<plane center="(0, -1, 0)" normal="(0, 1, 0)" color="#D3D3D3" reflection="0.5"/>
+<plane center="(0, 0, -40)" normal="(0, 0, 1)" color="#D3D3D3" reflection="0.5"/>
+<plane center="(0, 20, 0)" normal="(0, -1, 0)" color="#D3D3D3" reflection="0.5"/>
