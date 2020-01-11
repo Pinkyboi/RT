@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal_and_refraction.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/09 20:26:33 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/10 23:39:27 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_sphere_normal(t_cam *cam, t_sphere *sphere, double distance)
 	{
 		cam->hit.normal = ft_normalise_vector(radius);
 		cam->hit.color = sphere->color;
+		cam->hit.reflection = sphere->reflection;
 	}
 }
 
@@ -47,6 +48,7 @@ void	ft_cylinder_normal(t_cam *cam, t_cylinder *cylinder,
 		cam->hit.normal = ft_normalise_vector(ft_sub_vector(center_to_point,
 					scaled_axis));
 		cam->hit.color = cylinder->color;
+		cam->hit.reflection = cylinder->reflection;
 	}
 }
 
@@ -70,10 +72,11 @@ void	ft_cone_normal(t_cam *cam, t_cone *cone, double distance)
 		cam->hit.normal = ft_normalise_vector(ft_sub_vector(center_to_point,
 					scaled_axis));
 		cam->hit.color = cone->color;
+		cam->hit.reflection = cone->reflection;
 	}
 }
 
-void	ft_refracted_ray(t_cam cam, t_light *light, t_vector normal)
+void	ft_reflected_light_ray(t_cam cam, t_light *light, t_vector normal)
 {
 	t_vector	scaled_normal;
 	t_vector	light_vect;

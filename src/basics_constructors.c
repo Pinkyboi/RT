@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basics_constructors.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/07 23:52:58 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/10 23:45:47 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int				ft_add_sphere(t_xml_tag *tag, t_rtv *env)
 				"translation", "(0,0,0)"), &status);
 	object.sphere.center = ft_add_vector(object.sphere.center,
 			object.sphere.translation);
+	object.point.reflection = ft_parse_float(ft_xml_get_value(tag,
+			"reflection", "1"), &status);
 	ft_sphere_cut(env, tag, &object, &status);
 	object.sphere.function = &ft_sphere_intersection;
 	status &= ft_object_push(env, object, TYPE_SPHERE);
@@ -56,6 +58,8 @@ int				ft_add_cylinder(t_xml_tag *tag, t_rtv *env)
 			object.cylinder.translation);
 	object.cylinder.axis = ft_normalise_vector(ft_rotate_vector(
 				object.cylinder.axis, object.cylinder.rotation));
+	object.point.reflection = ft_parse_float(ft_xml_get_value(tag,
+			"reflection", "1"), &status);
 	ft_cylinder_cut(env, tag, &object, &status);
 	object.cylinder.function = &ft_cylinder_intersection;
 	status &= ft_object_push(env, object, TYPE_CYLINDER);
@@ -85,6 +89,8 @@ int				ft_add_plane(t_xml_tag *tag, t_rtv *env)
 	object.plane.normal = ft_normalise_vector(object.plane.normal);
 	object.plane.radius = ft_clamp_min(-1, ft_parse_float(
 				ft_xml_get_value(tag, "radius", "-1"), &status));
+	object.point.reflection = ft_parse_float(ft_xml_get_value(tag,
+			"reflection", "1"), &status);
 	object.plane.function = &ft_plane_intersection;
 	status &= ft_object_push(env, object, TYPE_PLANE);
 	return (status);

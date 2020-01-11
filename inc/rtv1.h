@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/10 17:51:02 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/11 00:05:21 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@
 # define AA 2
 # define PIXEL_SIZE 5
 # define NUM_THREAD 4
+# define REFLECTION_DEPTH 6
+
 
 double      perlin_noise[NOISE_H][NOISE_W];
 
@@ -92,6 +94,7 @@ typedef struct			s_intersection
 	t_vector	position;
 	t_vector	normal;
 	t_color		color;
+	double		reflection;
 }						t_intersection;
 
 typedef struct			s_cam
@@ -236,8 +239,8 @@ void			ft_print_vect(t_vector v, char *name);
 void			ft_ray_shooter(t_rtv *rtv);
 void			ft_intersection_position(t_cam *cam, double first_intersection);
 void			ft_put_pixel(t_rtv *rtv, int color);
-void			ft_refracted_ray(t_cam cam, t_light *light, t_vector normal);
 void			ft_init_win(t_rtv *rtv);
+void			ft_reflected_light_ray(t_cam cam, t_light *light, t_vector normal);
 t_color			ft_parse_color(char *string, int *status);
 t_vector				ft_parse_vector(char *string, int *status);
 double			ft_atof(char *string, int *size);
@@ -282,5 +285,6 @@ t_color			ft_cartoon_filter(t_rtv rtv, t_object object, t_color color);
 t_color			ft_select_filter(t_rtv rtv, t_object object, t_color color);
 t_color			ft_assign_color(double r, double g, double b);
 int				ft_check_min_distance(double *x1, double x2, double min);
+t_color			ft_reflect_ray(t_rtv rtv, t_color *color, int depth);
 
 #endif

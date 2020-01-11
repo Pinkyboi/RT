@@ -6,7 +6,7 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2020/01/08 13:30:15 by abenaiss         ###   ########.fr        #
+#    Updated: 2020/01/11 01:46:52 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,10 +48,13 @@ FILENAMES = cam_utils.c\
 	colors_operations.c\
 	quadrics_intersection.c\
 	quadrics_constructors.c\
-	quadrics_normals.c
+	quadrics_normals.c\
+	reflection.c
 
 
-HEADER_FILE = rtv1.h
+HEADER_FILE = objects.h\
+			  parser.h\
+			  rtv1.h
 
 SRC_DIR = ./src
 OBJ_DIR = ./obj
@@ -91,7 +94,7 @@ $(NAME): $(OBJ) $(LIBFT) $(LIBFTMATHS)
 	@echo "$(CC) $(_lYELLOW)$(FLAGS)$(_END) $(_lCYAN)$(OBJ)$(_END)\n$(_lGREEN)$(LIBRARIES)$(_END) -I$(_RED)$(INC_DIR)$(_END)$(_RED)$(INCLUDES)$(_END) -o $(_lBLUE)$(NAME)$(_lEND)$(_RED)\n"
 	@$(CC) $(FLAGS) $(OBJ) $(LIBRARIES) $(INCLUDES) -o $(NAME)
 
-$(OBJ): $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | $(OBJ_DIR)
+$(OBJ): $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c $(HEADER_FILES) | $(OBJ_DIR)
 	$(CC) $(FLAGS) -c $< -o $@ -I $(INC_DIR) $(INCLUDES)
 
 $(OBJ_DIR):
