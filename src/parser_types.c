@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 17:18:42 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/04 16:01:36 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/12 17:35:23 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static size_t	ft_parse_string(char *str)
 	size_t	index;
 
 	index = 0;
-	while (str[index] && ft_isalnum(str[index]))
+	while (str[index] && ft_ischarin(PROP_CHARACTERS, ft_tolower(str[index])))
 		index++;
 	return (index);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   constructors2.c                                    :+:      :+:    :+:   */
+/*   world_constructors.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <kerneloverseer@pm.me>               +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:59:48 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/05 22:00:08 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/12 19:41:39 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,38 @@ int				ft_load_camera(t_xml_tag *tag, t_rtv *env)
 	env->cam.fov = ft_clamp_min(1, env->cam.fov);
 	env->cam.translation = ft_parse_vector(ft_xml_get_value(tag, "translation",
 				"(0,0,0)"), &status);
+	return (status);
+}
+
+int				ft_parse_filter(char *filter_name)
+{
+	if(!ft_strcmp(filter_name, "gray scale"))
+		return (1);
+	if(!ft_strcmp(filter_name, "sepia"))
+		return (2);
+	if(!ft_strcmp(filter_name, "negatif"))
+		return (3);
+	if (!ft_strcmp(filter_name, "outline"))
+		return (4);
+	if (!ft_strcmp(filter_name, "purple scale"))
+		return (5);
+	if (!ft_strcmp(filter_name, "yellow scale"))
+		return (6);
+	return (-1);
+}
+int				ft_load_scene(t_xml_tag *tag, t_rtv *env)
+{
+	int			status;
+
+	status = 1;
+	env->scene.ambiant = ft_parse_float(ft_xml_get_value(tag, "ambiant",
+				"0.4"), &status);
+	env->scene.filter = ft_parse_filter(ft_xml_get_value(tag, "filter", "none"));
+	env->scene.aa = ft_clamp_max(8, ft_parse_float(ft_xml_get_value(tag, "AA",
+				"0"), &status));
+	env->scene.reflection_depth = ft_parse_float(ft_xml_get_value(tag, "reflection_depth",
+				"3"), &status);
+	env->scene.refraction_depth = ft_parse_float(ft_xml_get_value(tag, "refraction_depth",
+				"3"), &status);
 	return (status);
 }

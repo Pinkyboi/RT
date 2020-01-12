@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/10 16:54:32 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/12 17:07:49 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ int			ft_frame_loop(void *arg)
 	rtv = arg;
 	if (rtv->render_offset >= 0 && rtv->render_y_offset >= 0)
 		ft_ray_shooter(rtv);
-	else if (rtv->anti_aliasing != AA)
+	else if (rtv->anti_aliasing !=  rtv->scene.aa)
 	{
 		rtv->render_offset = 0;
 		rtv->render_y_offset = 0;
 		rtv->pixel_size = 1;
-		rtv->anti_aliasing = AA;
+		rtv->anti_aliasing = rtv->scene.aa;
 		ft_ray_shooter(rtv);
 	}
 	mlx_put_image_to_window(rtv->mlx.mlx_ptr, rtv->mlx.win,
@@ -94,7 +94,7 @@ void		ft_init_win(t_rtv *rtv)
 {
 	rtv->pixel_size = 1;
 	rtv->render_offset = 0;
-	rtv->anti_aliasing = AA;
+	rtv->anti_aliasing = rtv->scene.aa;
 	rtv->render_y_offset = 0;
 	rtv->actions.mouvement = 0;
 	rtv->mlx.mlx_ptr = mlx_init();

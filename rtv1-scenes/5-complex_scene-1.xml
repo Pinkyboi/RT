@@ -1,3 +1,4 @@
+<scene ambiant="0.5" AA="2" reflection_depth="0" filter=" "/>
 <camera position="(0, 0, 60)" lookat="(0, 0, -30)" fov="65"/>
 <light center="(-5, 10, 30)" intensity="0.8" color="#FFFFFF"/>
 <light center="(5, 10, 30)" intensity="0.8" color="#FFFFFF"/>

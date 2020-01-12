@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reflection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 21:35:10 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/11 00:01:54 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/12 18:17:15 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ t_color	ft_reflect_ray(t_rtv rtv, t_color *color, int depth)
 	t_color	other_colors;
 	double	reflection;
 
-	(void)color;
-	if (depth >= REFLECTION_DEPTH)
+	
+	if (!rtv.scene.reflection_depth || depth > rtv.scene.reflection_depth)
 		return (*color);
 	rtv.cam.position = rtv.cam.hit.position;
 	rtv.cam.ray_direction = ft_reflected_ray(rtv.cam.hit.normal,
@@ -58,7 +58,7 @@ t_color	ft_reflect_ray(t_rtv rtv, t_color *color, int depth)
 	reflection = rtv.cam.hit.reflection;
 	my_color = ft_scale_colors(ft_mix_colors(&rtv, rtv.cam.hit.normal,
 		rtv.cam.hit.color), reflection);
-	if (ft_intersect_reflected(&rtv))
+	if (ft_intersect_reflected(&rtv) &&  1 - reflection > MIN_D)
 		other_colors = ft_scale_colors(ft_reflect_ray(rtv, color, depth + 1),
 			1 - reflection);
 	else

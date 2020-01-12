@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:12:51 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/06 16:19:16 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/12 17:33:05 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define TYPE_TAGCLOSE 4
 # define TYPE_NONE 8
 # define TYPES_COUNT 3
+# define PROP_CHARACTERS "abcdefghijklmnopqrstuvwxyz0123456789_"
 
 typedef struct			s_xml_prop
 {

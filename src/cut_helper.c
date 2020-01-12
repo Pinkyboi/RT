@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 05:58:14 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/06 18:58:26 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/12 19:43:43 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_plane			ft_define_plane(t_vector center, t_vector normal,
 	plane.normal = normal;
 	plane.color = color;
 	plane.radius = radius;
+	plane.reflection = 1;
 	return (plane);
 }
 
@@ -42,13 +43,13 @@ void			ft_define_limits(t_xml_tag *tag,
 {
 	limit->x_limit = ft_swap_limits(ft_parse_coor(
 		ft_xml_get_value(tag,
-	"limitX", "(-1000000000000000000000,1000000000000000000000)"), status));
+	"limit_x", "(-1000000000000000000000,1000000000000000000000)"), status));
 	limit->y_limit = ft_swap_limits(ft_parse_coor(
 		ft_xml_get_value(tag,
-	"limitY", "(-1000000000000000000000,1000000000000000000000)"), status));
+	"limit_y", "(-1000000000000000000000,1000000000000000000000)"), status));
 	limit->z_limit = ft_swap_limits(ft_parse_coor(
 		ft_xml_get_value(tag,
-	"limitZ", "(-1000000000000000000000,1000000000000000000000)"), status));
+	"limit_z", "(-1000000000000000000000,1000000000000000000000)"), status));
 }
 
 void			ft_sides_handle(t_xml_tag *tag,
@@ -60,6 +61,7 @@ void			ft_sides_handle(t_xml_tag *tag,
 		"side1", "(10,0,0)"), status);
 	vertex_edge[1] = ft_parse_vector(ft_xml_get_value(tag,
 		"side2", "(0,10,0)"), status);
+	ft_define_limits(tag, &(object->triangle.limits), status);
 	object->triangle.side[0] = ft_sub_vector(vertex_edge[0],
 		object->triangle.center);
 	object->triangle.side[1] = ft_sub_vector(vertex_edge[1],

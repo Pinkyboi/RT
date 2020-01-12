@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/10 23:29:12 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/12 18:00:35 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void			ft_color_best_node(t_rtv *rtv, t_color rgb)
 		{
 			node_color = ft_mix_colors(rtv,
 				rtv->cam.hit.normal, rtv->cam.hit.color);
-			node_color = ft_reflect_ray(*rtv, &node_color, 1);
+			node_color = ft_reflect_ray(*rtv, &node_color, 0);
 			rgb = ft_add_colors(rgb, node_color);
 		}
 	}
@@ -171,6 +171,4 @@ void			ft_ray_shooter(t_rtv *rtv)
 				rtv->render_offset = PIXEL_SIZE;
 		}
 	}
-	// mlx_put_image_to_window(rtv->mlx.mlx_ptr, rtv->mlx.win,
-	// 	rtv->mlx.img.img_ptr, 0, 0);
 }
