@@ -5,10 +5,10 @@
 <sphere center="(0, 30, 20)" translation="(3, 0, 0)" color="(27, 188, 155)" radius="3" translation="(0, 2, 0)"/>
 <sphere center="(-20, 10, 10)" translation="(3, 0, 0)" color="(190, 219, 57)" radius="3" translation="(0, 2, 0)"/>
 <sphere center="(-30, 20, 0)" translation="(3, 0, 0)" color="(41, 98, 255)" radius="6" translation="(0, 2, 0)"/>
-<ellipsoid center="(30, 3, -10)" axis="(10,5, 5)" translation="(3, 0, 0)" color="(122, 43, 43)" radius="4" translation="(0, 2, 0)" reflection="0.2"/>
+<ellipsoid center="(30, 3, -10)" axis="(10,5, 5)" translation="(3, 0, 0)" color="(122, 43, 43)" radius="4" translation="(0, 2, 0)"/>
 <sphere center="(30, 30, -5)" translation="(3, 0, 0)" color="(250, 91, 15)" radius="3" translation="(0, 2, 0)"/>
 <sphere center="(-10, 20, 20)" translation="(3, 0, 0)" color="(171, 71, 188)" radius="5" translation="(0, 2, 0)"/>
-<sphere center="(-30, 30, 60)" translation="(3, 0, 0)" color="(116, 103, 220)" radius="3" translation="(0, 2, 0)"/>
-<cylinder lenght="200" center="(0, 10, 0)" color="(255, 64, 129)" axis="(0, 1, 0)" radius="6"/>
-<plane center="(0, -1, 0)" normal="(0, 1, 0)" color="#D3D3D3" reflection="0.5"/>
+<ssphere center="(-30, 30, 60)" translation="(3, 0, 0)" color="(116, 103, 220)" radius="3" translation="(0, 2, 0)" reflection="0.20"/>
+<cylinder lenght="200" center="(0, 10, 0)" color="(255, 64, 129)" axis="(0, 1, 0)" radius="6" reflection="1.2"/>
+<plane center="(0, -1, 0)" normal="(0, 1, 0)" color="#D3D3D3"/>
 <plane center="(0, 0, -40)" normal="(0, 0, 1)" color="#D3D3D3"/>

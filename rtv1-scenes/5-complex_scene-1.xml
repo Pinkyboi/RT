@@ -18,3 +18,4 @@
 <plane center="(0, -1, 0)" normal="(0, 1, 0)" color="#D3D3D3" reflection="0.5"/>
 <plane center="(0, 0, -40)" normal="(0, 0, 1)" color="#D3D3D3" reflection="0.5"/>
 <plane center="(0, 20, 0)" normal="(0, -1, 0)" color="#D3D3D3" reflection="0.5"/>
+<sphere center="(-30, 30, 60)" translation="(3, 0, 0)" color="(116, 103, 220)" radius="3" translation="(0, 2, 0)" reflection="0.20"/>
