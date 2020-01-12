@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 22:04:25 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/10 23:09:02 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/12 16:54:07 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color)
 		light_node = light_node->next;
 	}
 	color = ft_add_colors(dif_col, ft_add_colors(spec_col,
-		ft_scale_colors(color, AMBIANT)));
+		ft_scale_colors(color, rtv->scene.ambiant)));
 	return (color);
 }

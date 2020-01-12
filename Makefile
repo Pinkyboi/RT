@@ -6,7 +6,7 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2020/01/11 01:46:52 by abiri            ###   ########.fr        #
+#    Updated: 2020/01/12 19:34:17 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ FILENAMES = cam_utils.c\
 	colors_utils.c\
 	basics_constructors.c\
 	limited_constructors.c\
-	constructors2.c\
+	world_constructors.c\
 	basics_intersection.c\
 	intersection_utils.c\
 	key_managing.c\

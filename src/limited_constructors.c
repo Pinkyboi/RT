@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   limited_constructors.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 23:21:45 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/10 23:46:12 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/12 19:46:04 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ int				ft_add_disk(t_xml_tag *tag, t_rtv *env)
 		ft_rotate_vector(object.plane.normal, object.plane.rotation));
 	object.plane.radius = ft_clamp_min(0, ft_parse_float(
 		ft_xml_get_value(tag, "radius", "6"), &status));
-	object.plane.limit = ft_parse_vector(ft_xml_get_value(tag,
-				"limit", "(0,0,0)"), &status);
+	ft_define_limits(tag, &(object.plane.limits), &status);
 	object.point.reflection = ft_parse_float(ft_xml_get_value(tag,
 			"reflection", "1"), &status);
 	object.plane.function = &ft_plane_intersection;

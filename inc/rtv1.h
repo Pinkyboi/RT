@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/11 00:05:21 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/12 17:21:08 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,8 @@
 # define LEFT 0
 # define RIGHT 2
 # define DOWN 1
-# define AA 2
 # define PIXEL_SIZE 5
 # define NUM_THREAD 4
-# define REFLECTION_DEPTH 6
 
 
 double      perlin_noise[NOISE_H][NOISE_W];
@@ -115,6 +113,15 @@ typedef	struct			s_actions
 	char			mouvement;
 }						t_actions;
 
+typedef struct			s_scene
+{
+	double	ambiant;
+	int 	filter;
+	int		aa;
+	int		reflection_depth;
+	int		refraction_depth;
+}						t_scene;
+
 typedef	struct	s_rtv
 {
 	t_cam			cam;
@@ -129,6 +136,7 @@ typedef	struct	s_rtv
 	double			column;
 	double			min_w;
 	double			max_w;
+	t_scene			scene;
 	int				effects;
 	int				render_offset;
 	int				render_y_offset;
@@ -252,6 +260,7 @@ t_xml_element	*ft_get_tag_parsing_function(char *name);
 int				ft_add_light(t_xml_tag *tag, t_rtv *env);
 
 int				ft_load_camera(t_xml_tag *tag, t_rtv *env);
+int				ft_load_scene(t_xml_tag *tag, t_rtv *env);
 int				ft_object_push(t_rtv *env, t_object object,
 		int type);
 size_t			ft_escape_whitespaces(char *str);

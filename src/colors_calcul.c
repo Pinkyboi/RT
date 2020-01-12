@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:26:02 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/09 20:27:36 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/12 21:19:38 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ t_color			ft_diffuse(t_light light, t_vector normal, t_color color)
 {
 	t_color		rgb;
 
-	rgb.r = ft_clamp_min(0, ft_dot_vector(normal, light.light_vect))
+	rgb.r = ft_clamp_min_max(0,1, ft_dot_vector(normal, light.light_vect))
 		* color.r * light.color.r * light.intensity;
-	rgb.g = ft_clamp_min(0, ft_dot_vector(normal, light.light_vect))
+	rgb.g = ft_clamp_min_max(0,1, ft_dot_vector(normal, light.light_vect))
 		* color.g * light.color.g * light.intensity;
-	rgb.b = ft_clamp_min(0, ft_dot_vector(normal, light.light_vect))
+	rgb.b = ft_clamp_min_max(0,1, ft_dot_vector(normal, light.light_vect))
 		* color.b * light.color.b * light.intensity;
 	return (rgb);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 14:41:56 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/10 23:35:22 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/12 17:03:21 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define TYPE_TRIANGLE 7
 # define TYPE_PARABALOID 8
 # define TYPE_HYPERBOILD 6
-# define TYPE_PARSE_COUNT 12
+# define TYPE_PARSE_COUNT 13
 # define A abc[0]
 # define B abc[1]
 # define C abc[2]
