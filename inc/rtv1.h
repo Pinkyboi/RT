@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/12 17:21:08 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/12 22:35:50 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <fcntl.h>
 # include <time.h>
 # include <pthread.h>
-#include <stdio.h>
+# include <stdio.h>
 
 # define CAM_FOREWORD cam_vects[0]
 # define CAM_RIGHT cam_vects[1]
@@ -294,6 +294,8 @@ t_color			ft_cartoon_filter(t_rtv rtv, t_object object, t_color color);
 t_color			ft_select_filter(t_rtv rtv, t_object object, t_color color);
 t_color			ft_assign_color(double r, double g, double b);
 int				ft_check_min_distance(double *x1, double x2, double min);
+int				ft_intersect_reflected(t_rtv *rtv);
 t_color			ft_reflect_ray(t_rtv rtv, t_color *color, int depth);
+t_color			ft_refract_ray(t_rtv rtv, t_color *color, int depth);
 
 #endif

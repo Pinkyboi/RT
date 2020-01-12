@@ -16,3 +16,4 @@
 <sphere center="(-5.6, -5.6, 60)" color="(0, 0, 0)" radius="4"/>
 <sphere center="(5.6, 5.6, 60)" color="(0, 0, 0)" radius="4"/>
 <sphere center="(-5.6, 5.6, 60)" color="(0, 0, 0)" radius="4"/>
+<sphere center="(-30, 30, 60)" translation="(3, 0, 0)" color="(116, 103, 220)" radius="3" translation="(0, 2, 0)" reflection="0.20"/>
