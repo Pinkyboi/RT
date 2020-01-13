@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_managing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/12 17:07:49 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/13 11:37:43 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,11 @@ int			ft_frame_loop(void *arg)
 
 void		ft_init_win(t_rtv *rtv)
 {
-	rtv->pixel_size = 1;
-	rtv->render_offset = 0;
-	rtv->anti_aliasing = rtv->scene.aa;
-	rtv->render_y_offset = 0;
+	rtv->anti_aliasing = 0;
+	rtv->render_offset = PIXEL_SIZE;
+	rtv->render_y_offset = PIXEL_SIZE;
+	rtv->pixel_size = PIXEL_SIZE;
+	rtv->anti_aliasing = 0;
 	rtv->actions.mouvement = 0;
 	rtv->mlx.mlx_ptr = mlx_init();
 	rtv->mlx.img.img_ptr = mlx_new_image(rtv->mlx.mlx_ptr,
@@ -104,7 +105,7 @@ void		ft_init_win(t_rtv *rtv)
 			&rtv->mlx.img.bpp, &rtv->mlx.img.size_l, &rtv->mlx.img.endian);
 	rtv->mlx.win = mlx_new_window(rtv->mlx.mlx_ptr, WIN_WIDTH,
 			WIN_HEIGHT, "RTV1");
-	ft_ray_shooter(rtv);
+	//ft_ray_shooter(rtv);
 	mlx_hook(rtv->mlx.win, 2, 0, &ft_key_stroke, rtv);
 	mlx_hook(rtv->mlx.win, 17, 1, (*ft_exit), &rtv);
 	mlx_loop_hook(rtv->mlx.mlx_ptr, &ft_frame_loop, rtv);

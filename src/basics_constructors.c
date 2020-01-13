@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/10 23:45:47 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/13 10:40:30 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int				ft_add_sphere(t_xml_tag *tag, t_rtv *env)
 			object.sphere.translation);
 	object.point.reflection = ft_parse_float(ft_xml_get_value(tag,
 			"reflection", "1"), &status);
+	object.point.refraction = ft_parse_float(ft_xml_get_value(tag,
+			"refraction", "1"), &status);
 	ft_sphere_cut(env, tag, &object, &status);
 	object.sphere.function = &ft_sphere_intersection;
 	status &= ft_object_push(env, object, TYPE_SPHERE);
@@ -60,6 +62,8 @@ int				ft_add_cylinder(t_xml_tag *tag, t_rtv *env)
 				object.cylinder.axis, object.cylinder.rotation));
 	object.point.reflection = ft_parse_float(ft_xml_get_value(tag,
 			"reflection", "1"), &status);
+	object.point.refraction = ft_parse_float(ft_xml_get_value(tag,
+			"refraction", "1"), &status);
 	ft_cylinder_cut(env, tag, &object, &status);
 	object.cylinder.function = &ft_cylinder_intersection;
 	status &= ft_object_push(env, object, TYPE_CYLINDER);
@@ -91,6 +95,8 @@ int				ft_add_plane(t_xml_tag *tag, t_rtv *env)
 				ft_xml_get_value(tag, "radius", "-1"), &status));
 	object.point.reflection = ft_parse_float(ft_xml_get_value(tag,
 			"reflection", "1"), &status);
+	object.point.refraction = ft_parse_float(ft_xml_get_value(tag,
+			"refraction", "1"), &status);
 	object.plane.function = &ft_plane_intersection;
 	status &= ft_object_push(env, object, TYPE_PLANE);
 	return (status);

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 21:35:10 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/12 22:52:49 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/13 10:16:04 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,26 @@ int		ft_intersect_reflected(t_rtv *rtv)
 	return (0);
 }
 
-t_color	ft_reflect_ray(t_rtv rtv, t_color *color, int depth)
+t_color	ft_reflect_ray(t_rtv rtv, int depth)
 {
-	double	intersection_dist;
-	t_color	my_color;
 	t_color	other_colors;
 	double	reflection;
 
-	
 	if (!rtv.scene.reflection_depth || depth > rtv.scene.reflection_depth)
-		return (*color);
+		return ((t_color){0, 0, 0});
 	rtv.cam.position = rtv.cam.hit.position;
 	rtv.cam.ray_direction = ft_reflected_ray(rtv.cam.hit.normal,
 		rtv.cam.ray_direction);
 	reflection = rtv.cam.hit.reflection;
-	my_color = ft_scale_colors(ft_mix_colors(&rtv, rtv.cam.hit.normal,
-		rtv.cam.hit.color), reflection);
-	if (ft_intersect_reflected(&rtv) &&  1 - reflection > MIN_D)
+
+	if (ft_intersect_reflected(&rtv))
+		return (ft_get_node_color(rtv, depth + 1));
+		//ft_get_node_color(&rtv, depth + 1));
+	return ((t_color){0, 0, 0});
+/*	if (ft_intersect_reflected(&rtv) &&  1 - reflection > MIN_D)
 		other_colors = ft_scale_colors(ft_reflect_ray(rtv, color, depth + 1),
 			1 - reflection);
 	else
-		other_colors = (t_color){0, 0, 0};
-	return (ft_add_colors(my_color, other_colors));
+		other_colors = (t_color){0, 0, 0};*/
+//	return (ft_add_colors(my_color, other_colors));
 }

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/12 22:35:50 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/13 15:24:14 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ typedef struct			s_intersection
 	t_vector	normal;
 	t_color		color;
 	double		reflection;
+	double		refraction;
+	t_object	*object;
 }						t_intersection;
 
 typedef struct			s_cam
@@ -295,7 +297,8 @@ t_color			ft_select_filter(t_rtv rtv, t_object object, t_color color);
 t_color			ft_assign_color(double r, double g, double b);
 int				ft_check_min_distance(double *x1, double x2, double min);
 int				ft_intersect_reflected(t_rtv *rtv);
-t_color			ft_reflect_ray(t_rtv rtv, t_color *color, int depth);
-t_color			ft_refract_ray(t_rtv rtv, t_color *color, int depth);
+t_color			ft_reflect_ray(t_rtv rtv, int depth);
+t_color			ft_get_node_color(t_rtv rtv, int depth);
+t_color			ft_refract_ray(t_rtv rtv, int depth);
 
 #endif

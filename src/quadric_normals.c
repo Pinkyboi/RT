@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 23:15:12 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/10 23:41:48 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/13 10:38:47 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_ellipsoid_normal(t_cam *cam, t_ellipsoid *ellipsoid, double distance)
 		cam->hit.normal = ft_normalise_vector(normal);
 		cam->hit.color = ellipsoid->color;
 		cam->hit.reflection = ellipsoid->reflection;
+		cam->hit.refraction = ellipsoid->refraction;
 	}
 }
 
@@ -46,6 +47,7 @@ void	ft_hyperboloid_normal(t_cam *cam, t_hyperboloid *hyperboloid,
 		cam->hit.normal = ft_normalise_vector(normal);
 		cam->hit.color = hyperboloid->color;
 		cam->hit.reflection = hyperboloid->reflection;
+		cam->hit.refraction = hyperboloid->refraction;
 	}
 }
 
@@ -65,5 +67,6 @@ void	ft_paraboloid_normal(t_cam *cam, t_paraboloid *paraboloid,
 		cam->hit.normal = ft_normalise_vector(normal);
 		cam->hit.color = paraboloid->color;
 		cam->hit.reflection = paraboloid->reflection;
+		cam->hit.refraction = paraboloid->refraction;
 	}
 }

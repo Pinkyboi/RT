@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/10 23:39:27 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/13 10:34:30 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_sphere_normal(t_cam *cam, t_sphere *sphere, double distance)
 		cam->hit.normal = ft_normalise_vector(radius);
 		cam->hit.color = sphere->color;
 		cam->hit.reflection = sphere->reflection;
+		cam->hit.refraction = sphere->refraction;
 	}
 }
 
@@ -49,6 +50,7 @@ void	ft_cylinder_normal(t_cam *cam, t_cylinder *cylinder,
 					scaled_axis));
 		cam->hit.color = cylinder->color;
 		cam->hit.reflection = cylinder->reflection;
+		cam->hit.refraction = cylinder->refraction;
 	}
 }
 
@@ -73,6 +75,7 @@ void	ft_cone_normal(t_cam *cam, t_cone *cone, double distance)
 					scaled_axis));
 		cam->hit.color = cone->color;
 		cam->hit.reflection = cone->reflection;
+		cam->hit.refraction = cone->refraction;
 	}
 }
 
