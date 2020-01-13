@@ -6,11 +6,12 @@
 /*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/12 22:36:13 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/13 13:18:45 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+# define DEFAULT_TRANSPARENCY 0.8
 
 double			ft_choose_intersection(t_object_list *object_node,
 					t_rtv *rtv, double *min)
@@ -20,7 +21,10 @@ double			ft_choose_intersection(t_object_list *object_node,
 	temp_min = object_node->object.point.function(&(rtv->cam),
 		&object_node->object.point, *min);
 	if (temp_min)
+	{
+		rtv->cam.hit.object = &object_node->object;
 		*min = temp_min;
+	}
 	return (temp_min);
 }
 
@@ -42,6 +46,28 @@ double			ft_check_intersection(t_rtv rtv)
 	if (min)
 		return (min);
 	return (0);
+}
+
+t_color			ft_get_node_color(t_rtv rtv, int depth)
+{
+	t_color	node_color;
+	t_color	reflection_color;
+	t_color reflection_and_node;
+	t_color	refraction_color;
+
+	node_color = ft_scale_colors(
+		ft_mix_colors(&rtv, rtv.cam.hit.normal, rtv.cam.hit.color),
+		rtv.cam.hit.reflection);
+	reflection_color = ft_scale_colors(
+		ft_reflect_ray(rtv, depth),
+		1 - rtv.cam.hit.reflection);
+	reflection_and_node = ft_add_colors(node_color, reflection_color);
+	refraction_color = ft_refract_ray(rtv, depth);
+	if (rtv.cam.hit.refraction == 1)
+		return (reflection_and_node);
+	return (ft_add_colors(ft_scale_colors(reflection_and_node,
+		1 - DEFAULT_TRANSPARENCY), ft_scale_colors(refraction_color,
+		DEFAULT_TRANSPARENCY)));
 }
 
 void			ft_color_best_node(t_rtv *rtv, t_color rgb)
@@ -66,10 +92,12 @@ void			ft_color_best_node(t_rtv *rtv, t_color rgb)
 		}
 		if (best_node)
 		{
-			node_color = ft_mix_colors(rtv,
+			/*node_color = ft_mix_colors(rtv,
 				rtv->cam.hit.normal, rtv->cam.hit.color);
-			//node_color = ft_reflect_ray(*rtv, &node_color, 0);
+			node_color = ft_reflect_ray(*rtv, &node_color, 0);
 			node_color = ft_refract_ray(*rtv, &node_color, 0);
+			*/
+			node_color = ft_get_node_color(*rtv, 1);
 			rgb = ft_add_colors(rgb, node_color);
 		}
 	}

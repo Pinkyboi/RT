@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   limited_constructors.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 23:21:45 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/12 19:46:04 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/13 10:40:39 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int				ft_add_demi_sphere(t_xml_tag *tag, t_rtv *env)
 			object.sphere.translation);
 	object.point.reflection = ft_parse_float(ft_xml_get_value(tag,
 			"reflection", "1"), &status);
+	object.point.refraction = ft_parse_float(ft_xml_get_value(tag,
+			"refraction", "1"), &status);
 	ft_demi_sphere_cut(env, tag, &object, &status);
 	object.sphere.function = &ft_sphere_intersection;
 	status &= ft_object_push(env, object, TYPE_SPHERE);
@@ -54,6 +56,8 @@ int				ft_add_triangle(t_xml_tag *tag, t_rtv *env)
 			object.plane.translation);
 	object.point.reflection = ft_parse_float(ft_xml_get_value(tag,
 			"reflection", "1"), &status);
+	object.point.refraction = ft_parse_float(ft_xml_get_value(tag,
+			"refraction", "1"), &status);
 	ft_sides_handle(tag, &object, &status);
 	object.triangle.function = &ft_triangle_intersection;
 	status &= ft_object_push(env, object, TYPE_TRIANGLE);
@@ -85,6 +89,8 @@ int				ft_add_disk(t_xml_tag *tag, t_rtv *env)
 	ft_define_limits(tag, &(object.plane.limits), &status);
 	object.point.reflection = ft_parse_float(ft_xml_get_value(tag,
 			"reflection", "1"), &status);
+	object.point.refraction = ft_parse_float(ft_xml_get_value(tag,
+			"refraction", "1"), &status);
 	object.plane.function = &ft_plane_intersection;
 	status &= ft_object_push(env, object, TYPE_PLANE);
 	return (status);
