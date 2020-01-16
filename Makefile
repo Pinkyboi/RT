@@ -6,7 +6,7 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2020/01/12 22:36:55 by abiri            ###   ########.fr        #
+#    Updated: 2020/01/16 22:16:14 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ FILENAMES = cam_utils.c\
 	quadrics_constructors.c\
 	quadrics_normals.c\
 	reflection.c\
-	refraction.c
+	refraction.c\
+	destroy.c
 
 
 HEADER_FILE = objects.h\

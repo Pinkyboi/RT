@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   refraction.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 20:48:50 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/13 14:33:37 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/16 21:43:35 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-# define MAX_REFRACTION_DEPTH 3
-# define REFRACTION_INDEX 1.3
 
 static void	ft_swap(double *n1, double *n2)
 {
@@ -53,7 +51,7 @@ t_color	ft_refract_ray(t_rtv rtv, int depth)
 
 	n1 = 1;
 	n2 = rtv.cam.hit.refraction;
-	if (depth >= MAX_REFRACTION_DEPTH)
+	if (depth >= rtv.scene.refraction_depth)
 		return ((t_color){0, 0, 0});
 	NdotI = ft_dot_vector(rtv.cam.hit.normal, rtv.cam.ray_direction);
 	Nrefr = rtv.cam.hit.normal;

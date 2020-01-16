@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/13 13:18:45 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/16 21:24:30 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-# define DEFAULT_TRANSPARENCY 0.8
 
 double			ft_choose_intersection(t_object_list *object_node,
 					t_rtv *rtv, double *min)
@@ -66,8 +65,8 @@ t_color			ft_get_node_color(t_rtv rtv, int depth)
 	if (rtv.cam.hit.refraction == 1)
 		return (reflection_and_node);
 	return (ft_add_colors(ft_scale_colors(reflection_and_node,
-		1 - DEFAULT_TRANSPARENCY), ft_scale_colors(refraction_color,
-		DEFAULT_TRANSPARENCY)));
+		1.0 - rtv.cam.hit.transparency), ft_scale_colors(refraction_color,
+		rtv.cam.hit.transparency)));
 }
 
 void			ft_color_best_node(t_rtv *rtv, t_color rgb)
@@ -92,11 +91,6 @@ void			ft_color_best_node(t_rtv *rtv, t_color rgb)
 		}
 		if (best_node)
 		{
-			/*node_color = ft_mix_colors(rtv,
-				rtv->cam.hit.normal, rtv->cam.hit.color);
-			node_color = ft_reflect_ray(*rtv, &node_color, 0);
-			node_color = ft_refract_ray(*rtv, &node_color, 0);
-			*/
 			node_color = ft_get_node_color(*rtv, 1);
 			rgb = ft_add_colors(rgb, node_color);
 		}
@@ -117,32 +111,32 @@ void			ft_display_loading(t_rtv *rtv)
 	int y;
 	int	max;
 
-	y = WIN_HEIGHT - 5;
+	y = rtv->scene.height - 5;
 	x = 0;
-	while (x < WIN_WIDTH)
+	while (x < rtv->scene.width)
 	{
-		y = WIN_HEIGHT - 5;
-		while (y < WIN_HEIGHT)
+		y = rtv->scene.height - 5;
+		while (y < rtv->scene.height)
 		{
-			if (x >= 0 && x < WIN_WIDTH &&
-					y >= 0 && y < WIN_HEIGHT)
-				rtv->mlx.img.data[(int)(y * WIN_WIDTH + x)] = 0x0;
+			if (x >= 0 && x < rtv->scene.width &&
+					y >= 0 && y < rtv->scene.height)
+				rtv->mlx.img.data[(int)(y * rtv->scene.width + x)] = 0x0;
 			y++;
 		}
 		x++;
 	}
-	y = WIN_HEIGHT - 5;
+	y = rtv->scene.height - 5;
 	x = 0;
-	max = (double)WIN_WIDTH - ((double)((rtv->render_y_offset) * rtv->pixel_size + (rtv->render_offset)) / (double)(rtv->pixel_size * rtv->pixel_size + rtv->pixel_size)) * (double)WIN_WIDTH;
-	max = (max == WIN_WIDTH) ? 0 : max;
+	max = (double)rtv->scene.width - ((double)((rtv->render_y_offset) * rtv->pixel_size + (rtv->render_offset)) / (double)(rtv->pixel_size * rtv->pixel_size + rtv->pixel_size)) * (double)rtv->scene.width;
+	max = (max == rtv->scene.width) ? 0 : max;
 	while (x < max)
 	{
-		y = WIN_HEIGHT - 5;
-		while (y < WIN_HEIGHT)
+		y = rtv->scene.height - 5;
+		while (y < rtv->scene.height)
 		{
-			if (x >= 0 && x < WIN_WIDTH &&
-					y >= 0 && y < WIN_HEIGHT)
-				rtv->mlx.img.data[(int)(y * WIN_WIDTH + x)] = 0xFF00FF;
+			if (x >= 0 && x < rtv->scene.width &&
+					y >= 0 && y < rtv->scene.height)
+				rtv->mlx.img.data[(int)(y * rtv->scene.width + x)] = 0xFF00FF;
 			y++;
 		}
 		x++;
@@ -156,16 +150,16 @@ void			*ft_ray_loop(void *data)
 
 	rtv = data;
 	rtv->column = rtv->render_y_offset;
-	while (rtv->column <= WIN_HEIGHT)
+	while (rtv->column <= rtv->scene.height)
 	{
 		rtv->row = rtv->min_w + rtv->render_offset;
 		while (rtv->row <= rtv->max_w)
 		{
 			rgb = (t_color){0, 0, 0};
 			ft_color_best_node(rtv, rgb);
-			rtv->row += rtv->pixel_size;;//(rtv->actions.mouvement != 0) ? 2 : 1; 
+			rtv->row += rtv->pixel_size;
 		}
-		rtv->column += rtv->pixel_size;//(rtv->actions.mouvement != 0) ? 2 : 1;
+		rtv->column += rtv->pixel_size;
 		ft_display_loading(rtv);
 	}
 	return (NULL);
@@ -183,8 +177,8 @@ void			ft_ray_shooter(t_rtv *rtv)
 	{
 		rtv_cpy[i] = *rtv;
 		rtv_cpy[i].lights = copy_lights(rtv->lights);
-		rtv_cpy[i].min_w = (WIN_WIDTH / NUM_THREAD) * i;
-		rtv_cpy[i].max_w = (WIN_WIDTH / NUM_THREAD) * (i + 1);
+		rtv_cpy[i].min_w = (rtv->scene.width / NUM_THREAD) * i;
+		rtv_cpy[i].max_w = (rtv->scene.width / NUM_THREAD) * (i + 1);
 		pthread_create(&thread[i], NULL, ft_ray_loop, &rtv_cpy[i]);
 	}
 	while (i--)

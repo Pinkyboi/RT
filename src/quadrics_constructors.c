@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quadrics_constructors.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/13 10:41:21 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/16 19:16:13 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ int				ft_add_ellipsoid(t_xml_tag *tag, t_rtv *env)
 				"translation", "(0,0,0)"), &status);
 	object.ellipsoid.center = ft_add_vector(object.ellipsoid.center,
 			object.ellipsoid.translation);
-	object.point.reflection = ft_parse_float(ft_xml_get_value(tag,
-			"reflection", "1"), &status);
-	object.point.refraction = ft_parse_float(ft_xml_get_value(tag,
-			"refraction", "1"), &status);
+	ft_add_material(tag, &object, &status);
 	ft_define_limits(tag, &(object.ellipsoid.limits), &status);
 	object.ellipsoid.function = &ft_ellipsoid_intersection;
 	status &= ft_object_push(env, object, TYPE_ELLIPSOID);
@@ -50,7 +47,7 @@ int				ft_add_hyperboloid(t_xml_tag *tag, t_rtv *env)
 				"(0,0,0)"), &status);
 	object.hyperboloid.coefficient = fabs(ft_parse_float(
 				ft_xml_get_value(tag, "coefficient", "10"), &status));
-	object.hyperboloid.sheets = ft_clamp_min_max(1, 2,
+	object.hyperboloid.sheets = ft_clip_min_max(1, 2,
 				ft_parse_float(ft_xml_get_value(tag, "sheets", "1"), &status));
 	object.hyperboloid.color = ft_parse_color(ft_xml_get_value(tag, "color",
 				"(255,255,255)"), &status);
@@ -58,10 +55,7 @@ int				ft_add_hyperboloid(t_xml_tag *tag, t_rtv *env)
 				"translation", "(0,0,0)"), &status);
 	object.hyperboloid.center = ft_add_vector(object.hyperboloid.center,
 		object.hyperboloid.translation);
-	object.point.reflection = ft_parse_float(ft_xml_get_value(tag,
-			"reflection", "1"), &status);
-	object.point.refraction = ft_parse_float(ft_xml_get_value(tag,
-			"refraction", "1"), &status);
+	ft_add_material(tag, &object, &status);
 	ft_define_limits(tag, &(object.hyperboloid.limits), &status);
 	object.hyperboloid.function = &ft_hyperboloid_intersection;
 	status &= ft_object_push(env, object, TYPE_CYLINDER);
@@ -84,10 +78,7 @@ int				ft_add_paraboloid(t_xml_tag *tag, t_rtv *env)
 				"translation", "(0,0,0)"), &status);
 	object.paraboloid.center = ft_add_vector(object.paraboloid.center,
 			object.paraboloid.translation);
-	object.point.reflection = ft_parse_float(ft_xml_get_value(tag,
-			"reflection", "1"), &status);
-	object.point.refraction = ft_parse_float(ft_xml_get_value(tag,
-			"refraction", "1"), &status);
+	ft_add_material(tag, &object, &status);
 	ft_define_limits(tag, &(object.paraboloid.limits), &status);
 	object.paraboloid.function = &ft_paraboloid_intersection;
 	status &= ft_object_push(env, object, TYPE_PARABALOID);
@@ -117,10 +108,7 @@ int				ft_add_cone(t_xml_tag *tag, t_rtv *env)
 			object.cone.translation);
 	object.cone.axis = ft_normalise_vector(ft_rotate_vector(object.cone.axis,
 				object.cone.rotation));
-	object.point.reflection = ft_parse_float(ft_xml_get_value(tag,
-			"reflection", "1"), &status);
-	object.point.refraction = ft_parse_float(ft_xml_get_value(tag,
-			"refraction", "1"), &status);
+	ft_add_material(tag, &object, &status);
 	ft_cone_cut(env, tag, &object, &status);
 	object.cone.function = &ft_cone_intersection;
 	status &= ft_object_push(env, object, TYPE_CONE);

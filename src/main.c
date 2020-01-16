@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 15:50:29 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/12 17:25:04 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/16 22:20:50 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,18 @@ void			ft_init_default_camera(t_cam *cam)
 	cam->fov = 65;
 	cam->translation = (t_vector){0, 0, 0};
 }
- 
- void			ft_init_default_scene(t_scene *scene)
- {
+
+void			ft_init_default_scene(t_scene *scene)
+{
 	scene->ambiant = 0;
-	scene->filter = -1;
+	scene->filter = 0;
 	scene->aa = 0;
 	scene->reflection_depth = 3;
 	scene->refraction_depth = 3;
- }
- 
+	scene->width = 1.7777777778 * 720;
+	scene->width = 720;
+}
+
 int				main(int argc, char **argv)
 {
 	t_rtv		rtv;
@@ -53,7 +55,7 @@ int				main(int argc, char **argv)
 	ft_init_default_camera(&(rtv.cam));
 	ft_init_default_scene(&(rtv.scene));
 	ft_load_shapes(data, &rtv);
-	ft_init_cam(&(rtv.cam));
+	ft_init_cam(&rtv);
 	ft_init_win(&rtv);
 	return (0);
 }
