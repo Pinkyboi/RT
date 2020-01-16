@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quadric_normals.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 23:15:12 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/13 10:38:47 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/16 22:25:36 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,8 @@ void	ft_ellipsoid_normal(t_cam *cam, t_ellipsoid *ellipsoid, double distance)
 	normal.x = 2 * radius.x / FT_SQR(ellipsoid->axis.x);
 	normal.y = 2 * radius.y / FT_SQR(ellipsoid->axis.y);
 	normal.z = 2 * radius.z / FT_SQR(ellipsoid->axis.z);
-	if (cam->hit.soluces[0])
-	{
-		cam->hit.normal = ft_normalise_vector(normal);
-		cam->hit.color = ellipsoid->color;
-		cam->hit.reflection = ellipsoid->reflection;
-		cam->hit.refraction = ellipsoid->refraction;
-	}
+	ft_get_hit_info(ft_normalise_vector(normal),
+		(t_point *)ellipsoid, cam);
 }
 
 void	ft_hyperboloid_normal(t_cam *cam, t_hyperboloid *hyperboloid,
@@ -42,13 +37,8 @@ void	ft_hyperboloid_normal(t_cam *cam, t_hyperboloid *hyperboloid,
 	normal.x = 2 * radius.x;
 	normal.y = -2 * radius.y;
 	normal.z = 2 * radius.z;
-	if (cam->hit.soluces[0])
-	{
-		cam->hit.normal = ft_normalise_vector(normal);
-		cam->hit.color = hyperboloid->color;
-		cam->hit.reflection = hyperboloid->reflection;
-		cam->hit.refraction = hyperboloid->refraction;
-	}
+	ft_get_hit_info(ft_normalise_vector(normal),
+		(t_point *)hyperboloid, cam);
 }
 
 void	ft_paraboloid_normal(t_cam *cam, t_paraboloid *paraboloid,
@@ -62,11 +52,6 @@ void	ft_paraboloid_normal(t_cam *cam, t_paraboloid *paraboloid,
 	normal.x = 2 * radius.x;
 	normal.y = -1;
 	normal.z = 2 * radius.z;
-	if (cam->hit.soluces[0])
-	{
-		cam->hit.normal = ft_normalise_vector(normal);
-		cam->hit.color = paraboloid->color;
-		cam->hit.reflection = paraboloid->reflection;
-		cam->hit.refraction = paraboloid->refraction;
-	}
+	ft_get_hit_info(ft_normalise_vector(normal),
+		(t_point *)paraboloid, cam);
 }

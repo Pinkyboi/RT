@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/12 17:11:15 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/16 21:57:16 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,7 @@ t_color	ft_select_filter(t_rtv rtv, t_object object, t_color color)
 	if (rtv.scene.filter == 2)
 		return (ft_sepia_filter(color));
 	if (rtv.scene.filter == 3)
-		return (ft_assign_color(1 - color.r, 1 - color.g,
-		1 - color.b));
+		return (ft_assign_color(1 - color.r, 1 - color.g, 1 - color.b));
 	if (rtv.scene.filter == 4)
 		return (ft_cartoon_filter(rtv, object, color));
 	if (rtv.scene.filter == 5)

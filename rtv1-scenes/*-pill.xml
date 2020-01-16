@@ -1,5 +1,6 @@
+<scene ambiant="0.5" AA="4" reflection_depth="0" resolution="720"/>
 <camera position="(0, 10, 50)" lookat="(0, 0, 0)" fov="35"/>
-<light center="(0, 0, 100)" intensity="0.8" color="#FFFFFF"/>
+<light center="(0, 0, -10)" intensity="0.8" color="#FFFFFF"/>
 <light center="(-20, 0, 20)" intensity="0.1" color="#FFFFFF"/>
 <cylinder lenght="5" radius="3" center="(0, 2.5, -10)" color="(255, 0, 0)" axis="(0, -1, 0)"/>
 <cylinder lenght="5" radius="3" center="(0, -2.5, -10)" color="(0, 0, 250)" axis="(0, 1, 0)"/>
