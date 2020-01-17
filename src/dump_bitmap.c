@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dump_bitmap.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:15:46 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/17 12:38:10 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/18 00:05:40 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-# define BMP_MAGIC_HEADER 19778
-# define BMP_INFO_HEADER_SIZE 40
-# define BMP_PLANES_NUMBER 1
-# define BMP_BITS_PER_PIXEL 32
-# define BMP_INFO_HEADER_ADVANCED "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-# define BMP_ALL_HEADERS_SIZE 54
 
 int	ft_write_header(int fd, t_img *image)
 {
@@ -50,7 +44,7 @@ int	ft_write_bitmap_info(int fd, t_img *image)
 	int_4bytes = image->width;
 	if (write(fd, &int_4bytes, 4) != 4)
 		return (ERROR);
-	int_4bytes = image->height;
+	int_4bytes = image->height * -1;
 	if (write(fd, &int_4bytes, 4) != 4)
 		return (ERROR);
 	int_2bytes = BMP_PLANES_NUMBER;
@@ -64,40 +58,23 @@ int	ft_write_bitmap_info(int fd, t_img *image)
 	return (SUCCESS);
 }
 
-int	ft_write_pixels(int fd, t_img *image)
+int	ft_dump_bitmap(t_img *image)
 {
-	int size;
-	int	i;
-	int j;
+	int		fd;
+	int		size;
+	char	*screenshot;
 
+	screenshot = ft_strjoin(ft_itoa(time(NULL) % INT_MAX), ".bmp");
 	size = image->width * image->height * 4;
-	i = image->height - 1;
-	while (i >= 0)
-	{
-		j = 0;
-		while (j < image->width)
-		{
-			write(fd, &image->data[i * image->width + j], 4);
-			j++;
-		}
-		i--;
-	}
-	/*if (write(fd, image->data, size) != size)
-		return (ERROR);*/
-	return (SUCCESS);
-}
-
-int	ft_dump_bitmap(char *filename, t_img *image)
-{
-	int fd;
-
-	if ((fd = open(filename, O_WRONLY | O_CREAT, S_IRWXU | S_IRWXG | S_IRWXO)) < 0)
+	if ((fd = open(screenshot, O_WRONLY |
+		O_CREAT, S_IRWXU | S_IRWXG | S_IRWXO)) < 0)
 		return (ERROR);
 	if (!ft_write_header(fd, image))
 		return (ERROR);
 	if (!ft_write_bitmap_info(fd, image))
 		return (ERROR);
-	if (!ft_write_pixels(fd, image))
+	if (write(fd, image->data, size) != size)
 		return (ERROR);
+	ft_strdel(&screenshot);
 	return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_managing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/17 12:32:45 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/18 00:08:36 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 int			ft_key_stroke(int key, t_rtv *rtv)
 {
 	t_vector move;
+
 	(key == EXIT) ? ft_exit(rtv) : 1;
 	if (key == SAVE)
-		ft_dump_bitmap("testfile.bmp", &rtv->mlx.img);
+		ft_dump_bitmap(&rtv->mlx.img);
 	if (key == LEFT || key == RIGHT || key == UP ||
 		key == DOWN || key == FOREWORD || key == BACKWARD)
 	{
@@ -84,7 +85,7 @@ int			ft_frame_loop(void *arg)
 	return (0);
 }
 
-void		ft_init_win(t_rtv *rtv)
+void		ft_init_rendrering(t_rtv *rtv)
 {
 	rtv->anti_aliasing = 0;
 	rtv->render_offset = PIXEL_SIZE;
@@ -92,16 +93,20 @@ void		ft_init_win(t_rtv *rtv)
 	rtv->pixel_size = PIXEL_SIZE;
 	rtv->anti_aliasing = 0;
 	rtv->actions.mouvement = 0;
+}
+
+void		ft_init_win(t_rtv *rtv)
+{
+	ft_init_rendrering(rtv);
 	rtv->mlx.mlx_ptr = mlx_init();
 	rtv->mlx.img.img_ptr = mlx_new_image(rtv->mlx.mlx_ptr,
 			rtv->scene.width, rtv->scene.height);
 	rtv->mlx.img.data = (int*)mlx_get_data_addr(rtv->mlx.img.img_ptr,
 			&rtv->mlx.img.bpp, &rtv->mlx.img.size_l, &rtv->mlx.img.endian);
 	rtv->mlx.win = mlx_new_window(rtv->mlx.mlx_ptr, rtv->scene.width,
-		 rtv->scene.height, "RTV1");
+		rtv->scene.height, "RTV1");
 	rtv->mlx.img.height = rtv->scene.height;
 	rtv->mlx.img.width = rtv->scene.width;
-	//ft_ray_shooter(rtv);
 	mlx_hook(rtv->mlx.win, 2, 0, &ft_key_stroke, rtv);
 	mlx_hook(rtv->mlx.win, 17, 1, (*ft_exit), &rtv);
 	mlx_loop_hook(rtv->mlx.mlx_ptr, &ft_frame_loop, rtv);

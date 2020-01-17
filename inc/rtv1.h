@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/17 12:32:29 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/18 00:07:29 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <time.h>
 # include <pthread.h>
 # include <stdio.h>
+# include <limits.h>
 
 # define CAM_FOREWORD cam_vects[0]
 # define CAM_RIGHT cam_vects[1]
@@ -29,6 +30,8 @@
 # define RATIO cam_utils[0]
 # define HALF_HEIGHT cam_utils[1]
 # define HALF_WIDTH cam_utils[2]
+# define LIGHT_VECTOR light_vect[0]
+# define REFLECTED_LIGHT_VECTOR  light_vect[1]
 # define NOISE_W 1000
 # define NOISE_H 1000
 # define MAX_D 1e30
@@ -36,6 +39,19 @@
 # define FT_SQR(X) ((X) * (X))
 # define FT_RAD(X) (((X) * M_PI) / 180)
 
+/*
+** BMP FILE MACROS
+*/
+#define BMP_MAGIC_HEADER 19778
+#define BMP_INFO_HEADER_SIZE 40
+#define BMP_PLANES_NUMBER 1
+#define BMP_BITS_PER_PIXEL 32
+#define BMP_INFO_HEADER_ADVANCED "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+#define BMP_ALL_HEADERS_SIZE 54
+
+/*
+**	EVENTS MACROS
+*/
 # define EXIT 53
 # define FOREWORD 12
 # define BACKWARD 14
@@ -236,10 +252,14 @@ double			ft_clip_min_max(int min, int max, double value);
 **	REFLECTION REFRACTION AND PHONG ILLUMINATION
 */
 
-t_color			ft_diffuse(t_light light, t_vector normal, t_color color);
-t_color			ft_specular(t_light light, t_vector normal);
-double			ft_calculate_shadow(t_rtv rtv,
-		double intersection_dist, t_light light);
+// t_color			ft_diffuse(t_light light, t_vector normal, t_color color);
+// t_color			ft_specular(t_light light, t_vector normal);
+t_color			ft_specular(t_light light, t_vector normal, t_vector reflected_light_vect);
+t_color			ft_diffuse(t_light light,t_vector light_vect, t_vector normal, t_color color);
+// double			ft_calculate_shadow(t_rtv rtv,
+// 		double intersection_dist, t_light light);
+double			ft_calculate_shadow(t_rtv rtv, double intersection_dist,
+					t_light light, t_vector light_vect);
 t_color			ft_reflect_ray(t_rtv rtv, int depth);
 t_color			ft_get_node_color(t_rtv rtv, int depth);
 t_color			ft_refract_ray(t_rtv rtv, int depth);
@@ -255,10 +275,6 @@ int				ft_diff_color(t_color c1, t_color c2);
 int				ft_rgb_to_int(t_color color);
 
 /*
-**	OTHER FUNCTION
-*/
-
-/*
 **	FILTERS AND EFFECTS
 */
 
@@ -269,6 +285,9 @@ t_color			ft_cartoon_filter(t_rtv rtv, t_object object, t_color color);
 t_color			ft_select_filter(t_rtv rtv, t_object object, t_color color);
 t_color			ft_assign_color(double r, double g, double b);
 
+/*
+**	OTHER FUNCTION
+*/
 
 double			ft_check_intersection(t_rtv rtv);
 
@@ -289,9 +308,11 @@ void			ft_ray_shooter(t_rtv *rtv);
 void			ft_intersection_position(t_cam *cam, double first_intersection);
 void			ft_put_pixel(t_rtv *rtv, int color);
 void			ft_init_win(t_rtv *rtv);
-void			ft_reflected_light_ray(t_cam cam, t_light *light, t_vector normal);
+// void			ft_reflected_light_ray(t_cam cam, t_light *light, t_vector normal);
+// z
+t_vector	ft_reflected_light_ray(t_cam cam, t_light *light, t_vector light_vect, t_vector normal);
 t_color			ft_parse_color(char *string, int *status);
-t_vector				ft_parse_vector(char *string, int *status);
+t_vector		ft_parse_vector(char *string, int *status);
 double			ft_atof(char *string, int *size);
 
 int				ft_int_len(char *string);
@@ -335,7 +356,7 @@ int				ft_intersect_reflected(t_rtv *rtv);
 **	BMP_SAVING
 */
 
-int	ft_dump_bitmap(char *filename, t_img *image);
+int	ft_dump_bitmap(t_img *image);
 
 
 int			ft_exit(t_rtv *rtv);

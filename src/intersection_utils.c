@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/16 21:24:30 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/17 22:48:54 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void			ft_ray_shooter(t_rtv *rtv)
 	while (++i < NUM_THREAD)
 	{
 		rtv_cpy[i] = *rtv;
-		rtv_cpy[i].lights = copy_lights(rtv->lights);
+		// rtv_cpy[i].lights = copy_lights(rtv->lights);
 		rtv_cpy[i].min_w = (rtv->scene.width / NUM_THREAD) * i;
 		rtv_cpy[i].max_w = (rtv->scene.width / NUM_THREAD) * (i + 1);
 		pthread_create(&thread[i], NULL, ft_ray_loop, &rtv_cpy[i]);

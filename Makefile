@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abiri <abiri@student.42.fr>                +#+  +:+       +#+         #
+#    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2020/01/17 12:32:17 by abiri            ###   ########.fr        #
+#    Updated: 2020/01/18 00:13:31 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ FILENAMES = cam_utils.c\
 	key_managing.c\
 	loading_functions.c\
 	main.c\
-	normal_and_refraction.c\
+	basics_normals.c\
 	parser_main.c\
 	parser_tools.c\
 	parser_types.c\
