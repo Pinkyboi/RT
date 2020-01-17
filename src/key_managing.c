@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_managing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/13 11:37:43 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/16 19:01:58 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	ft_clear_mlx(t_mlx *mlx)
 	mlx->img.img_ptr = mlx_new_image(mlx->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	mlx->img.data = (int*)mlx_get_data_addr(mlx->img.img_ptr, &mlx->img.bpp,
 			&mlx->img.size_l, &mlx->img.endian);
+	mlx->img.width = WIN_WIDTH;
+	mlx->img.height = WIN_HEIGHT;
 }
 
 int			ft_exit(t_rtv *rtv)
@@ -29,6 +31,13 @@ int			ft_exit(t_rtv *rtv)
 
 int			ft_key_stroke(int key, t_rtv *rtv)
 {
+	if (key == SAVE)
+	{
+		if (ft_dump_bitmap("testfile.bmp", &rtv->mlx.img))
+			write(1, "OK", 2);
+		else
+			write(1, "KO", 2);
+	}
 	(key == EXIT) ? ft_exit(rtv) : 1;
 	if (key == LEFT || key == RIGHT || key == UP ||
 		key == DOWN || key == FOREWORD || key == BACKWARD)
@@ -105,6 +114,8 @@ void		ft_init_win(t_rtv *rtv)
 			&rtv->mlx.img.bpp, &rtv->mlx.img.size_l, &rtv->mlx.img.endian);
 	rtv->mlx.win = mlx_new_window(rtv->mlx.mlx_ptr, WIN_WIDTH,
 			WIN_HEIGHT, "RTV1");
+	rtv->mlx.img.height = WIN_HEIGHT;
+	rtv->mlx.img.width = WIN_WIDTH;
 	//ft_ray_shooter(rtv);
 	mlx_hook(rtv->mlx.win, 2, 0, &ft_key_stroke, rtv);
 	mlx_hook(rtv->mlx.win, 17, 1, (*ft_exit), &rtv);
