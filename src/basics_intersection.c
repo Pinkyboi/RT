@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basics_intersection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/13 10:28:59 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/16 23:01:11 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,52 +78,6 @@ double			ft_sphere_intersection(t_cam *cam,
 	return (cam->hit.soluces[0]);
 }
 
-t_color			ft_cheeker_texture(double x, double y, double scale)
-{
-	if ((double)((x * scale)) - floor((x * scale)) < 0.5 ||
-		((double)(y * scale)) - floor((double)(y * scale)) < 0.5)
-	{
-		if ((double)((x * scale)) - floor((x * scale)) < 0.5 &&
-			((double)(y * scale)) - floor((y * scale)) < 0.5)
-			return ((t_color){0, 0, 0});
-		else
-			return ((t_color){1, 1, 1});
-	}
-	else
-		return ((t_color){0, 0, 0});
-}
-
-t_color			ft_brick_texture(double x,double y)
-{
-	int	tx;
-	int	ty;
-
-	tx = (int) 4 * x;
-	ty = (int) 4 * y;
-	double oddity = ((tx & 0x01) == ((ty & 0x01))? 1 : 0);
-	double edge = ((((4.0 * x) - tx < 0.1) && oddity) || (((4.0 * y) - ty < 0.1) && oddity)) ? 1 : 0;
- 	return (edge ? (t_color){1, 1, 1} : (t_color){1, 0, 0});
-}
-
-t_color				ft_map_texture(t_cam *cam, t_plane plane)
-{
-	t_vector	up;
-	t_vector	sides[2];
-	double		x[2];
-
-	up = ft_cross_product(ft_rotate_vector(plane.normal,
-		(t_vector){90, 90, 90}), plane.normal);
-	sides[0] = ft_normalise_vector(
-			ft_cross_product(up, plane.normal));
-	sides[1] = ft_normalise_vector(
-			ft_cross_product(sides[0], plane.normal));
-	x[0] = ft_dot_vector(
-			ft_sub_vector(cam->hit.position, plane.center), sides[0]);
-	x[1] = ft_dot_vector(
-			ft_sub_vector(cam->hit.position, plane.center), sides[1]);
-	return(ft_cheeker_texture(x[1], x[0], 0.08));
-}	
-
 double			ft_plane_intersection(t_cam *cam, t_plane *plane, double min)
 {
 	double		i;
@@ -142,9 +96,7 @@ double			ft_plane_intersection(t_cam *cam, t_plane *plane, double min)
 			{
 				cam->hit.normal = (i > 0) ?
 					ft_scale_vector(plane->normal, -1) : plane->normal;
-				cam->hit.color = plane->color;
-				cam->hit.reflection = plane->reflection;
-				cam->hit.refraction = plane->refraction;
+				ft_get_hit_info(cam->hit.normal, (t_point*)plane, cam);
 				return (cam->hit.soluces[0]);
 			}
 		}
@@ -173,10 +125,7 @@ double			ft_triangle_intersection(t_cam *cam,
 		if (!(test[1] < MIN_D || test[0] + test[1] > 1.0)
 			&& ((cam->hit.soluces[0]) < min && cam->hit.soluces[0] > MIN_D))
 		{
-			cam->hit.normal = triangle->normal;
-			cam->hit.color = triangle->color;
-			cam->hit.reflection = triangle->reflection;
-			cam->hit.refraction = triangle->refraction;
+			ft_get_hit_info(triangle->normal, (t_point*)triangle, cam);
 			ft_intersection_position(cam, cam->hit.soluces[0]);
 			return (cam->hit.soluces[0]);
 		}

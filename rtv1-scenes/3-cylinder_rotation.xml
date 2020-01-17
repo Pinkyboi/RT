@@ -1,5 +1,5 @@
-<scene ambiant="0.5" AA="4"/>
-<camera position="(0, 0, 100)" color="(255, 255, 0)" lookat="(0, 0, 0)" fov="90"/>
+<scene ambiant="0.5" AA="4" />
+<camera position="(0, 20, 100)" lookat="(0, 0, 0)" fov="40"/>
 <light center="(0, 10, 50)" intensity="0.8" color="#FFFFFF"/>
-<sphere lenght="8" orientation="(0, 1, 1)" limit="(10000000, 3,20)" center="(0, 0, 0)" color="(255, 100, 0)" radius="6"/>
-<plane center="(0, -1, 0)" normal="(0, 1, 0)" color="(50, 150, 50)"/>
+<sphere lenght="7" orientation="(0, 1, 0)" limit="(10000000, 3,20)" center="(0, 0, 50)" color="(255, 100, 0)" radius="6"/>
+<plane center="(0, -1, 0)" normal="(0, -1, 0)" color="(50, 150, 50)"/>

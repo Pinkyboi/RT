@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/07 23:52:58 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/16 21:55:57 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,21 @@ int		ft_axis_limit(t_vector intersection,
 double	ft_sphere_limit(t_sphere sphere, t_cam cam)
 {
 	t_vector	cut_center;
+	t_vector	cut_to_center;
 
 	if (sphere.max_lenght > 0)
 	{
 		cut_center = ft_add_vector(ft_scale_vector(sphere.cut_orientation,
-			-sphere.radius + sphere.max_lenght), sphere.center);
+			sphere.max_lenght - sphere.radius), sphere.center);
+		cut_to_center = ft_normalise_vector(ft_sub_vector(sphere.center,
+			cut_center));
 		if ((sphere.radius <= sphere.max_lenght) &&
-			ft_dot_vector(ft_add_vector(cut_center, sphere.cut_orientation),
-				ft_sub_vector(cut_center, cam.hit.position)) < 0)
+		ft_dot_vector(ft_sub_vector(cam.hit.position, cut_center),
+			cut_to_center) < 0)
 			return (0);
-		else if ((sphere.radius > sphere.max_lenght) &&
-			ft_dot_vector(ft_add_vector(cut_center, sphere.cut_orientation),
-				ft_sub_vector(cut_center, cam.hit.position)) > 0)
+		if ((sphere.radius > sphere.max_lenght) &&
+			ft_dot_vector(ft_sub_vector(cam.hit.position, cut_center),
+			cut_to_center) > 0)
 			return (0);
 	}
 	if (ft_axis_limit(cam.hit.position, sphere.limits))
@@ -74,9 +77,26 @@ double	ft_cone_limit(t_cone cone, t_cam cam)
 
 double	ft_cylinder_limit(t_cylinder cylinder, t_cam cam)
 {
+	t_vector	cut_center[2];
+	t_vector	cut_to_center[2];
+
 	if (cylinder.max_lenght > 0)
-		if (fabs(cylinder.lenght) > cylinder.max_lenght / 2)
+	{
+		cut_center[0] = ft_add_vector(ft_scale_vector(cylinder.axis,
+			cylinder.max_lenght / 2), cylinder.center);
+		cut_center[1] = ft_add_vector(ft_scale_vector(cylinder.axis,
+			-cylinder.max_lenght / 2), cylinder.center);
+		cut_to_center[0] = ft_normalise_vector(ft_sub_vector(cylinder.center,
+			cut_center[0]));
+		cut_to_center[1] = ft_normalise_vector(ft_sub_vector(cylinder.center,
+			cut_center[1]));
+		if (ft_dot_vector(ft_sub_vector(cam.hit.position, cut_center[0]),
+			cut_to_center[0]) < 0)
 			return (0);
+		if (ft_dot_vector(ft_sub_vector(cam.hit.position, cut_center[1]),
+			cut_to_center[1]) < 0)
+			return (0);
+	}
 	if (ft_axis_limit(cam.hit.position, cylinder.limits))
 		return (0);
 	return (cam.hit.soluces[0]);

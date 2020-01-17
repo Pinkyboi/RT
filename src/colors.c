@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 22:04:25 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/12 16:54:07 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/16 22:02:46 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ double			ft_check_shadow(t_rtv rtv, t_light light,
 	double intersection_dist;
 	double dot;
 
-	intersection_dist = 0.0;
 	rtv.cam.position = rtv.cam.hit.position;
 	rtv.cam.ray_direction = light.light_vect;
 	intersection_dist = ft_check_intersection(rtv);
@@ -57,7 +56,7 @@ t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color)
 			dif_col = ft_add_colors(dif_col,
 				ft_diffuse(light_node->light, normal, color));
 			spec_col = ft_add_colors(spec_col,
-				ft_specular(light_node->light, normal));
+			ft_specular(light_node->light, normal));
 		}
 		light_node = light_node->next;
 	}
