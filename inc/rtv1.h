@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/13 15:24:14 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/16 18:52:08 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define CAM_RIGHT cam_vects[1]
 # define CAM_UP cam_vects[2]
 # define RATIO cam_utils[0]
-# define HALF_HEIGHT cam_utils[1]	
+# define HALF_HEIGHT cam_utils[1]
 # define HALF_WIDTH cam_utils[2]
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
@@ -46,6 +46,7 @@
 # define LEFT 0
 # define RIGHT 2
 # define DOWN 1
+# define SAVE 36
 # define PIXEL_SIZE 5
 # define NUM_THREAD 4
 
@@ -62,6 +63,8 @@ typedef struct	s_img
 	int			size_l;
 	int			bpp;
 	int			endian;
+	int			width;
+	int			height;
 }				t_img;
 
 typedef struct	s_mlx
@@ -168,7 +171,7 @@ int				ft_add_hyperboloid(t_xml_tag *tag, t_rtv *env);
 int				ft_add_paraboloid(t_xml_tag *tag, t_rtv *env);
 int				ft_add_triangle(t_xml_tag *tag, t_rtv *env);
 /*
-**  FUNCTIONS TO CALCULATE INTERSECTION FOR EVERY SHAPE 
+**  FUNCTIONS TO CALCULATE INTERSECTION FOR EVERY SHAPE
 */
 double			ft_sphere_intersection(t_cam *cam,
 		t_sphere *sphere, double min);
@@ -187,7 +190,7 @@ double			ft_paraboloid_intersection(t_cam *cam,
 double			ft_triangle_intersection(t_cam *cam,
         t_triangle *triangle, double min);
 /*
-**  FUNCTIONS TO CALCULATE NORMAL OF EVERY SHAPE 
+**  FUNCTIONS TO CALCULATE NORMAL OF EVERY SHAPE
 */
 void			ft_sphere_normal(t_cam *cam,
         t_sphere *sphere, double distance);
@@ -300,5 +303,11 @@ int				ft_intersect_reflected(t_rtv *rtv);
 t_color			ft_reflect_ray(t_rtv rtv, int depth);
 t_color			ft_get_node_color(t_rtv rtv, int depth);
 t_color			ft_refract_ray(t_rtv rtv, int depth);
+
+/*
+**	BMP_SAVING
+*/
+
+int	ft_dump_bitmap(char *filename, t_img *image);
 
 #endif
