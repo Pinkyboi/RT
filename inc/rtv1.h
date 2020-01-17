@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/16 18:52:08 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/17 12:32:29 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,10 @@
 # define RATIO cam_utils[0]
 # define HALF_HEIGHT cam_utils[1]
 # define HALF_WIDTH cam_utils[2]
-# define WIN_WIDTH 1280
-# define WIN_HEIGHT 720
 # define NOISE_W 1000
 # define NOISE_H 1000
 # define MAX_D 1e30
 # define MIN_D 1e-6
-# define AMBIANT 0.5
 # define FT_SQR(X) ((X) * (X))
 # define FT_RAD(X) (((X) * M_PI) / 180)
 
@@ -91,12 +88,13 @@ typedef struct	s_light_list
 
 typedef struct			s_intersection
 {
-	double	soluces[2];
+	double		soluces[2];
 	t_vector	position;
 	t_vector	normal;
 	t_color		color;
 	double		reflection;
 	double		refraction;
+	double		transparency;
 	t_object	*object;
 }						t_intersection;
 
@@ -121,6 +119,8 @@ typedef	struct			s_actions
 typedef struct			s_scene
 {
 	double	ambiant;
+	int		width;
+	int		height;
 	int 	filter;
 	int		aa;
 	int		reflection_depth;
@@ -225,29 +225,65 @@ double		ft_cone_limit(t_cone cone, t_cam cam);
 double		ft_cylinder_limit(t_cylinder cylinder, t_cam cam);
 
 /*
+**	CLIPPING FUNCTIONS
+*/
+
+double			ft_clip_min(int min, double value);
+double			ft_clip_max(int max, double value);
+double			ft_clip_min_max(int min, int max, double value);
+
+/*
+**	REFLECTION REFRACTION AND PHONG ILLUMINATION
+*/
+
+t_color			ft_diffuse(t_light light, t_vector normal, t_color color);
+t_color			ft_specular(t_light light, t_vector normal);
+double			ft_calculate_shadow(t_rtv rtv,
+		double intersection_dist, t_light light);
+t_color			ft_reflect_ray(t_rtv rtv, int depth);
+t_color			ft_get_node_color(t_rtv rtv, int depth);
+t_color			ft_refract_ray(t_rtv rtv, int depth);
+t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color);
+void			ft_add_material(t_xml_tag *tag, t_object *object, int *status);
+/*
+** COLOR OPERATIONS
+*/
+
+t_color			ft_add_colors(t_color first, t_color second);
+t_color			ft_scale_colors(t_color first, double scalar);
+int				ft_diff_color(t_color c1, t_color c2);
+int				ft_rgb_to_int(t_color color);
+
+/*
 **	OTHER FUNCTION
 */
 
+/*
+**	FILTERS AND EFFECTS
+*/
+
+t_color			ft_gray_filter(t_color color);
+t_color			ft_negatif_filter(t_color color);
+t_color			ft_sepia_filter(t_color color);
+t_color			ft_cartoon_filter(t_rtv rtv, t_object object, t_color color);
+t_color			ft_select_filter(t_rtv rtv, t_object object, t_color color);
+t_color			ft_assign_color(double r, double g, double b);
+
+
 double			ft_check_intersection(t_rtv rtv);
-double			ft_calculate_shadow(t_rtv rtv,
-		double intersection_dist, t_light light);
-double			ft_clamp_min(int min, double value);
-double			ft_clamp_max(int max, double value);
-double			ft_clamp_min_max(int min, int max, double value);
+
+
 double			ft_choose_intersection(t_object_list *object_node,
 		t_rtv *rtv, double *min);
 int				ft_light_push(t_rtv *env, t_light light);
 int				ft_load_shapes(t_xml_data *data, t_rtv *env);
-int				ft_rgb_to_int(t_color color);
+
 int				ft_key_stroke(int key, t_rtv *rtv);
-t_color			ft_add_colors(t_color first, t_color second);
-t_color			ft_scale_colors(t_color first, double scalar);
-t_color			ft_diffuse(t_light light, t_vector normal, t_color color);
-t_color			ft_specular(t_light light, t_vector normal);
+
+
 void			ft_create_ray(t_rtv *rtv, int sample);
-void			ft_init_cam(t_cam *cam);
+void			ft_init_cam(t_rtv *rtv);
 void			ft_map_coordinates(t_rtv *rtv);
-void			ft_init_cam(t_cam *cam);
 void			ft_print_vect(t_vector v, char *name);
 void			ft_ray_shooter(t_rtv *rtv);
 void			ft_intersection_position(t_cam *cam, double first_intersection);
@@ -272,13 +308,9 @@ size_t			ft_escape_whitespaces(char *str);
 t_vector		ft_rotate_vector(t_vector a, t_vector angles);
 
 
-t_color			ft_gray_filter(t_color color);
-t_color			ft_negatif_filter(t_color color);
-t_color			ft_sepia_filter(t_color color);
+
 
 int				ft_antialiasing(t_rtv *rtv, t_vector normal, t_color color);
-
-t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color);
 
 t_coor			ft_parse_coor(char *string, int *status);
 
@@ -293,16 +325,11 @@ void        	ft_create_noise(void);
 t_light_list	*copy_lights(t_light_list* head);
 t_object_list	*copy_objects(t_object_list* head);
 
-int				ft_diff_color(t_color c1, t_color c2);
 
-t_color			ft_cartoon_filter(t_rtv rtv, t_object object, t_color color);
-t_color			ft_select_filter(t_rtv rtv, t_object object, t_color color);
-t_color			ft_assign_color(double r, double g, double b);
+
+
 int				ft_check_min_distance(double *x1, double x2, double min);
 int				ft_intersect_reflected(t_rtv *rtv);
-t_color			ft_reflect_ray(t_rtv rtv, int depth);
-t_color			ft_get_node_color(t_rtv rtv, int depth);
-t_color			ft_refract_ray(t_rtv rtv, int depth);
 
 /*
 **	BMP_SAVING
@@ -310,4 +337,9 @@ t_color			ft_refract_ray(t_rtv rtv, int depth);
 
 int	ft_dump_bitmap(char *filename, t_img *image);
 
+
+int			ft_exit(t_rtv *rtv);
+void		ft_clear_mlx(t_mlx *mlx, t_rtv *rtv);
+
+void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
 #endif

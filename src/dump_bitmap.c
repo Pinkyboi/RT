@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:15:46 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/17 12:27:31 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/17 12:38:10 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ int	ft_write_pixels(int fd, t_img *image)
 	i = image->height - 1;
 	while (i >= 0)
 	{
-		j = image->width - 1;
-		while (j >= 0)
+		j = 0;
+		while (j < image->width)
 		{
 			write(fd, &image->data[i * image->width + j], 4);
-			j--;
+			j++;
 		}
 		i--;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 14:41:56 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/13 10:23:04 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/16 22:59:33 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct	s_sphere
 	t_color					color;
 	double					reflection;
 	double					refraction;
+	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	double					radius;
@@ -67,6 +68,7 @@ typedef struct	s_ellipsoid
 	t_color					color;
 	double					reflection;
 	double					refraction;
+	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				translation;
@@ -81,6 +83,7 @@ typedef struct	s_cylinder
 	t_color					color;
 	double					reflection;
 	double					refraction;
+	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				axis;
@@ -99,6 +102,7 @@ typedef struct	s_hyperboloid
 	t_color					color;
 	double					reflection;
 	double					refraction;
+	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				rotation;
@@ -116,6 +120,7 @@ typedef struct	s_paraboloid
 	t_color					color;
 	double					reflection;
 	double					refraction;
+	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				rotation;
@@ -131,6 +136,7 @@ typedef struct	s_cone
 	t_color					color;
 	double					reflection;
 	double					refraction;
+	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				axis;
@@ -150,6 +156,7 @@ typedef struct	s_plane
 	t_color					color;
 	double					reflection;
 	double					refraction;
+	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				rotation;
@@ -168,6 +175,7 @@ typedef struct	s_triangle
 	t_color					color;
 	double					reflection;
 	double					refraction;
+	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				rotation;
@@ -183,6 +191,7 @@ typedef struct	s_point
 	t_color					color;
 	double					reflection;
 	double					refraction;
+	double					transparency;
 	t_intersection_function	*function;
 }				t_point;
 

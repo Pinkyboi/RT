@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
+#    By: abiri <abiri@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2020/01/16 18:53:31 by abiri            ###   ########.fr        #
+#    Updated: 2020/01/17 12:32:17 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ FILENAMES = cam_utils.c\
 	quadrics_normals.c\
 	reflection.c\
 	refraction.c\
-	dump_bitmap.c
+	dump_bitmap.c\
+	destroy.c
 
 
 HEADER_FILE = objects.h\
@@ -66,7 +67,7 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(FILENAMES:.c=.o))
 
 HEADER_FILES = $(addprefix $(INC_DIR)/, $(HEADER_FILE))
 
-FLAGS = 
+FLAGS =
 
 FTMATHS = ./libs/ft_maths
 
