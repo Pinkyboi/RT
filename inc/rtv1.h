@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/18 22:42:50 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/25 20:05:47 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct			s_intersection
 	double		refraction;
 	double		transparency;
 	t_object	*object;
+	t_coor		uv;
 }						t_intersection;
 
 typedef struct			s_cam
@@ -119,11 +120,14 @@ typedef struct			s_cam
 	t_vector		position;
 	t_vector		look_at;
 	t_vector		ray_direction;
+	t_vector		ray_origin;
 	t_intersection	hit;
 	t_vector		translation;
 	t_vector		bottom_left;
 	t_vector		w_scalar;
 	t_vector		h_scalar;
+	t_vector		right;
+	t_vector		up;
 	double			fov;
 }						t_cam;
 
@@ -363,4 +367,12 @@ int			ft_exit(t_rtv *rtv);
 void		ft_clear_mlx(t_mlx *mlx, t_rtv *rtv);
 
 void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
+
+/*
+**	MAPPING_AND_TEXTURES
+*/
+
+t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
+t_color			ft_cheeker_texture(double x, double y, double scale);
+t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
 #endif

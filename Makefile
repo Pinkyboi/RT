@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
+#    By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2020/01/18 00:13:31 by abenaiss         ###   ########.fr        #
+#    Updated: 2020/01/25 17:01:27 by azarzor          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,9 @@ FILENAMES = cam_utils.c\
 	reflection.c\
 	refraction.c\
 	dump_bitmap.c\
-	destroy.c
+	destroy.c\
+	uv_mapping_utils.c\
+	procedural_textures.c
 
 
 HEADER_FILE = objects.h\
