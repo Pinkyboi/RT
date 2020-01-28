@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/28 01:11:59 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/28 18:55:40 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_cylinder_normal(t_cam *cam, t_cylinder *cylinder,
 	ft_intersection_position(cam, distance);
 	cylinder->axis = ft_normalise_vector(cylinder->axis);
 	scale = ft_dot_vector(cam->ray_direction, cylinder->axis) * distance;
-	scale += ft_dot_vector(ft_sub_vector(cam->position,
+	scale += ft_dot_vector(ft_sub_vector(cam->ray_origin,
 				cylinder->center), cylinder->axis);
 	cylinder->lenght = scale;
 	cam->hit.soluces[0] = ft_cylinder_limit(*cylinder, *cam);
@@ -99,7 +99,7 @@ void	ft_cone_normal(t_cam *cam, t_cone *cone, double distance)
 	cam->hit.soluces[0] = ft_cone_limit(*cone, *cam);
 	cone->axis = ft_normalise_vector(cone->axis);
 	scale = ft_dot_vector(cam->ray_direction, cone->axis) * distance;
-	scale += ft_dot_vector(ft_sub_vector(cam->position,
+	scale += ft_dot_vector(ft_sub_vector(cam->ray_origin,
 				cone->center), cone->axis);
 	center_to_point = ft_sub_vector(cam->hit.position, cone->center);
 	scaled_axis = ft_scale_vector(ft_scale_vector(cone->axis, scale),

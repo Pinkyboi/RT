@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 22:04:25 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/27 20:26:54 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/28 18:55:34 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ double	ft_check_shadow(t_rtv rtv, t_light *light, t_vector light_vec, t_color *c
 	double intersection_dist;
 	double dot;
 
-	rtv.cam.position = rtv.cam.hit.position;
+	rtv.cam.ray_origin = rtv.cam.hit.position;
 	rtv.cam.ray_direction = light_vect;
 	intersection_dist = ft_check_intersection(rtv);
 	dot = ft_dot_vector(light_vect, rtv.cam.hit.normal);
