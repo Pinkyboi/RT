@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cut_helper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 05:58:14 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/12 19:43:43 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/26 22:36:34 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_plane			ft_define_plane(t_vector center, t_vector normal,
 	plane.radius = radius;
 	plane.reflection = 1;
 	plane.refraction = 1;
-	plane.transparency = 1;
+	plane.transparency = 0;
 	return (plane);
 }
 

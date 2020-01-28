@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 15:50:29 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/16 22:20:50 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/27 19:41:16 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			ft_init_default_scene(t_scene *scene)
 	scene->reflection_depth = 3;
 	scene->refraction_depth = 3;
 	scene->width = 1.7777777778 * 720;
-	scene->width = 720;
+	scene->height = 720;
 }
 
 int				main(int argc, char **argv)
@@ -40,6 +40,7 @@ int				main(int argc, char **argv)
 	if (argc != 2)
 		return (-1);
 	ft_bzero(&rtv, sizeof(t_rtv));
+	ttslist_init(&rtv.textures);
 	data = ft_read_xml(argv[1]);
 	if (!data)
 	{

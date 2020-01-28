@@ -1,0 +1,15 @@
+<scene ambiant="0.5" AA="4" reflection_depth="0" refraction_depth="0" resolution="720"/>
+<camera position="(0, 0, 120)" lookat="(0, 20, 0)" fov="40"/>
+<light center="(0, 0, 300)" intensity="0.5" color="#FFFFFF"/>
+<light center="(0, 100, 100)" intensity="0.5" color="#FFFFFF"/>
+<sphere center="(-20, 10, 10)" translation="(3, 0, 0)" color="#FF0000" radius="3" translation="(0, 2, 0)" />
+<sphere center="(10, 70, 110)" translation="(3, 0, 0)" color="#FF00FF" radius="3" translation="(0, 2, 0)" refraction="1.6" transparency="0.8"/>
+<sphere center="(10, 70, 100)" translation="(3, 0, 0)" color="(137, 45, 50)" radius="3" translation="(0, 2, 0)" refraction="1.6" transparency="0.8"/>
+<sphere center="(-30, 20, 0)" translation="(3, 0, 0)" color="#0000FF" radius="6" translation="(0, 2, 0)" />
+<ellipsoid center="(30, 3, -10)" axis="(10,5, 5)" translation="(3, 0, 0)" color="#000000" radius="4" translation="(0, 2, 0)" />
+<sphere center="(30, 30, -5)" translation="(3, 0, 0)" color="#0FF00F" radius="3" translation="(0, 2, 0)"/>
+<sphere center="(-10, 20, 20)" translation="(3, 0, 0)" color="#0FFF0F" radius="5" translation="(0, 2, 0)" />
+<sphere center="(-30, 30, 60)" translation="(3, 0, 0)" color="#FF0FF0" radius="3" translation="(0, 2, 0)" texture="lava.tex"/>
+<cylinder lenght="60" center="(0, 10, 0)" color="#FF00FF" axis="(0, 1, 0)" radius="6"/>
+<plane center="(0, -1, 0)" normal="(0, 1, 0)" color="#D3D3D3" reflection="0.8" texture="lava.tex"/>
+<plane center="(0, 0, -40)" normal="(0, 0, 1)" color="#D3D3D3" reflection="1.3"/>

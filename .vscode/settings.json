@@ -26,6 +26,11 @@
 		"cmath": "c",
 		"rtv1.h": "c",
 		"limits.h": "c",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"__functional_03": "c",
+		"fcntl.h": "c",
+		"types.h": "c",
+		"libft.h": "c",
+		"__locale": "c"
 	}
 }

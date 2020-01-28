@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   world_constructors.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:59:48 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/16 21:42:13 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/25 17:06:48 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int				ft_load_scene(t_xml_tag *tag, t_rtv *env)
 				ft_xml_get_value(tag, "refraction_depth", "3"), &status);
 	env->scene.height = ft_parse_float(
 				ft_xml_get_value(tag, "resolution", "720"), &status);
+	if (env->scene.height < 50)
+		env->scene.height = 50;
 	env->scene.width = (1.77777777778 * env->scene.height);
 	return (status);
 }

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/18 22:42:50 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/27 21:42:23 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RTV1_H
 # define RTV1_H
 # include "libft.h"
+# include "ttslist.h"
 # include "parser.h"
 # include "objects.h"
 # include <mlx.h>
@@ -108,6 +109,7 @@ typedef struct			s_intersection
 	t_vector	position;
 	t_vector	normal;
 	t_color		color;
+	t_coor		uv;
 	double		reflection;
 	double		refraction;
 	double		transparency;
@@ -150,6 +152,7 @@ typedef	struct	s_rtv
 	t_object_list	*last_object;
 	t_light_list	*lights;
 	t_light_list	*last_light;
+	t_list_head		textures;
 	t_actions		actions;
 	t_mlx			mlx;
 	double			min;
@@ -264,7 +267,7 @@ t_color			ft_reflect_ray(t_rtv rtv, int depth);
 t_color			ft_get_node_color(t_rtv rtv, int depth);
 t_color			ft_refract_ray(t_rtv rtv, int depth);
 t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color);
-void			ft_add_material(t_xml_tag *tag, t_object *object, int *status);
+void			ft_add_material(t_xml_tag *tag, t_object *object, int *status, t_rtv *env);
 /*
 ** COLOR OPERATIONS
 */
@@ -351,6 +354,10 @@ t_object_list	*copy_objects(t_object_list* head);
 
 int				ft_check_min_distance(double *x1, double x2, double min);
 int				ft_intersect_reflected(t_rtv *rtv);
+t_vector		ft_get_refracted_ray(t_rtv rtv);
+t_coor			ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
+t_coor			ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
+t_coor			ft_cart_to_plane(t_cam *cam, t_plane *plane);
 
 /*
 **	BMP_SAVING

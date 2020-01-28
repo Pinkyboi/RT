@@ -1,26 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   normal_and_refraction.c                            :+:      :+:    :+:   */
+/*   basics_normals.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/18 00:12:06 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/28 01:11:59 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
+t_color	ft_get_texture_color(t_texture *texture, t_coor uv)
+{
+	u_int32_t	color;
+	t_color		result;
+
+	uv.x = abs((int)(uv.x * texture->width) % texture->width);
+	uv.y = abs((int)(uv.y * texture->height) % texture->height);
+	color = texture->pixels[(int)uv.y * texture->width + (int)uv.x];
+	result.r = (double)((color & 0xFF0000) >> 16) / 255.0;
+	result.g = (double)((color & 0xFF00) >> 8) / 255.0;
+	result.b = (double)(color & 0xFF) / 255.0;
+	return (result);
+}
+
 void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam)
 {
+	t_vector	bump;
+	t_color		color;
+
 	if (cam->hit.soluces[0])
 	{
 		cam->hit.normal = normal;
 		cam->hit.color = point->color;
+		if (point->texture)
+			cam->hit.color = ft_get_texture_color(point->texture, cam->hit.uv);
+		if (point->bump)
+		{
+			color = ft_get_texture_color(point->bump, cam->hit.uv);
+			bump = (t_vector){color.r, color.g, color.b};
+			cam->hit.normal.x *= bump.x;
+			cam->hit.normal.y *= bump.y;
+			cam->hit.normal.z *= bump.z;
+			cam->hit.normal = ft_normalise_vector(cam->hit.normal);
+		}
 		cam->hit.reflection = point->reflection;
 		cam->hit.refraction = point->refraction;
 		cam->hit.transparency = point->transparency;
+		cam->hit.uv = (t_coor){0, 0};
 	}
 }
 
@@ -30,6 +59,7 @@ void	ft_sphere_normal(t_cam *cam, t_sphere *sphere, double distance)
 	t_vector	normal;
 
 	ft_intersection_position(cam, distance);
+	cam->hit.uv = ft_cart_to_sphere(cam->hit.position, sphere);
 	cam->hit.soluces[0] = ft_sphere_limit(*sphere, *cam);
 	radius = ft_sub_vector(cam->hit.position, sphere->center);
 	normal = ft_normalise_vector(radius);

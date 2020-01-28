@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basics_intersection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/16 23:01:11 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/28 01:10:16 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ double			ft_cylinder_intersection(t_cam *cam,
 	cam->hit.soluces[0] = (-B + sqrt(delta)) / (2 * A);
 	cam->hit.soluces[1] = (-B - sqrt(delta)) / (2 * A);
 	if (ft_check_min_distance(&cam->hit.soluces[0], cam->hit.soluces[1], min))
+	{
 		ft_cylinder_normal(cam, cylinder, cam->hit.soluces[0]);
+		cam->hit.uv = ft_cart_to_cylinder(cam->hit.position, cylinder);
+	}
 	else
 		cam->hit.soluces[0] = 0;
 	return (cam->hit.soluces[0]);
@@ -96,6 +99,7 @@ double			ft_plane_intersection(t_cam *cam, t_plane *plane, double min)
 			{
 				cam->hit.normal = (i > 0) ?
 					ft_scale_vector(plane->normal, -1) : plane->normal;
+				cam->hit.uv = ft_cart_to_plane(cam, plane);
 				ft_get_hit_info(cam->hit.normal, (t_point*)plane, cam);
 				return (cam->hit.soluces[0]);
 			}

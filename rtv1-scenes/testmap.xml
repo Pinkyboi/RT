@@ -1,0 +1,5 @@
+<scene ambiant="0.5" AA="4" reflection_depth="0" refraction_depth="5" resolution="720"/>
+<camera position="(0, 0, -10)" lookat="(0, 0, 0)" fov="100"/>
+<light center="(0, 1000, 300)" intensity="0.5" color="#FFFFFF"/>
+<sphere center="(5, 5, 0)" color="#FF00FF" radius="10" transparency="0.5" refraction="1"/>
+<sphere center="(5, 5, 0)" color="#FF00FF" radius="3"/>

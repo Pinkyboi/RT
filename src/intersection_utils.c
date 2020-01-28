@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/17 22:48:54 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/26 22:37:10 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_color			ft_get_node_color(t_rtv rtv, int depth)
 		1 - rtv.cam.hit.reflection);
 	reflection_and_node = ft_add_colors(node_color, reflection_color);
 	refraction_color = ft_refract_ray(rtv, depth);
-	if (rtv.cam.hit.refraction == 1)
+	if (rtv.cam.hit.refraction == 0)
 		return (reflection_and_node);
 	return (ft_add_colors(ft_scale_colors(reflection_and_node,
 		1.0 - rtv.cam.hit.transparency), ft_scale_colors(refraction_color,

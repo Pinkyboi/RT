@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   limited_constructors.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 23:21:45 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/16 19:16:45 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/27 18:08:34 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int				ft_add_demi_sphere(t_xml_tag *tag, t_rtv *env)
 			"(0,0,0)"), &status);
 	object.sphere.center = ft_add_vector(object.sphere.center,
 			object.sphere.translation);
-	ft_add_material(tag, &object, &status);
+	ft_add_material(tag, &object, &status, env);
 	ft_demi_sphere_cut(env, tag, &object, &status);
 	object.sphere.function = &ft_sphere_intersection;
 	status &= ft_object_push(env, object, TYPE_SPHERE);
@@ -51,7 +51,7 @@ int				ft_add_triangle(t_xml_tag *tag, t_rtv *env)
 				"translation", "(0,0,0)"), &status);
 	object.triangle.center = ft_add_vector(object.triangle.center,
 			object.plane.translation);
-	ft_add_material(tag, &object, &status);
+	ft_add_material(tag, &object, &status, env);
 	ft_sides_handle(tag, &object, &status);
 	object.triangle.function = &ft_triangle_intersection;
 	status &= ft_object_push(env, object, TYPE_TRIANGLE);
@@ -81,7 +81,7 @@ int				ft_add_disk(t_xml_tag *tag, t_rtv *env)
 	object.plane.radius = ft_clip_min(0, ft_parse_float(
 		ft_xml_get_value(tag, "radius", "6"), &status));
 	ft_define_limits(tag, &(object.plane.limits), &status);
-	ft_add_material(tag, &object, &status);
+	ft_add_material(tag, &object, &status, env);
 	object.plane.function = &ft_plane_intersection;
 	status &= ft_object_push(env, object, TYPE_PLANE);
 	return (status);

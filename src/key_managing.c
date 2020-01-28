@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_managing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/18 00:08:36 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/28 00:18:02 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,34 @@ int			ft_key_stroke(int key, t_rtv *rtv)
 		rtv->render_offset = PIXEL_SIZE;
 		rtv->render_y_offset = PIXEL_SIZE;
 		rtv->pixel_size = PIXEL_SIZE;
+		move = (t_vector){0, 0, 0};
+		static double	angles[3] = {0, 0, 0};
+		if (key == RIGHT)
+			angles[0] += M_PI/36;
+		if (key == LEFT)
+			angles[0] -= M_PI/36;
+		if (key == UP)
+			angles[1] += M_PI/36;
+		if (key == DOWN)
+			angles[1] -= M_PI/36;
+		rtv->cam.look_at.x = 5 * cos(angles[0]);
+		rtv->cam.look_at.z = 5 * sin(angles[0]);
+		rtv->cam.look_at.y = 5 * sin(angles[1]);
+		if (key == FOREWORD)
+			rtv->cam.position = ft_add_vector(rtv->cam.position, ft_normalise_vector(rtv->cam.look_at));
+		if (key == BACKWARD)
+			rtv->cam.position = ft_sub_vector(rtv->cam.position, ft_normalise_vector(rtv->cam.look_at));
+		rtv->cam.look_at = ft_add_vector(rtv->cam.position, rtv->cam.look_at);
+		/*
 		move = ft_scale_vector(ft_normalise_vector(
-			ft_sub_vector(rtv->cam.look_at, rtv->cam.position)), 3);
-		(key == LEFT) ? rtv->cam.position.x -= 3 : 0;
+			ft_sub_vector(rtv->cam.look_at, rtv->cam.position)), 3);*/
+
+		/*(key == LEFT) ? rtv->cam.position.x -= 3 : 0;
 		(key == RIGHT) ? rtv->cam.position.x += 3 : 0;
 		(key == UP) ? rtv->cam.position.y += 3 : 0;
 		(key == DOWN) ? rtv->cam.position.y -= 3 : 0;
 		(key == FOREWORD) ? rtv->cam.position.z += 3 : 0;
-		(key == BACKWARD) ? rtv->cam.position.z -= 3 : 0;
+		(key == BACKWARD) ? rtv->cam.position.z -= 3 : 0;*/
 		ft_init_cam(rtv);
 	}
 	return (0);

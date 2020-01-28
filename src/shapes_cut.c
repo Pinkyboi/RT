@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes_cut.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/16 15:43:22 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/01/27 20:01:29 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void			ft_sphere_cut(t_rtv *env,
 	t_vector	cut_center;
 	double		new_radius;
 
+	ft_bzero(&disk, sizeof(t_object));
 	ft_define_limits(tag, &(object->sphere.limits), status);
 	object->sphere.max_lenght = ft_clip_min(-1, ft_parse_float(
 			ft_xml_get_value(tag, "lenght", "-1"), status));
@@ -47,6 +48,7 @@ void			ft_demi_sphere_cut(t_rtv *env,
 	t_vector	cut_center;
 	double		new_radius;
 
+	ft_bzero(&disk, sizeof(t_object));
 	ft_define_limits(tag, &(object->sphere.limits), status);
 	object->sphere.max_lenght = object->sphere.radius;
 	object->sphere.cut_orientation = (t_vector){0, 1, 0};
@@ -88,6 +90,10 @@ void			ft_cylinder_cut(t_rtv *env,
 			object->cylinder.color, object->cylinder.radius);
 		upper_disk.point.function = &ft_plane_intersection;
 		lower_disk.point.function = &ft_plane_intersection;
+		upper_disk.point.texture = NULL;
+		lower_disk.point.texture = NULL;
+		upper_disk.point.bump = NULL;
+		lower_disk.point.bump = NULL;
 		ft_object_push(env, upper_disk, TYPE_PLANE);
 		ft_object_push(env, lower_disk, TYPE_PLANE);
 	}
@@ -100,6 +106,7 @@ void			ft_cone_cut(t_rtv *env,
 	t_vector	cut_center;
 	double		new_radius;
 
+	ft_bzero(&disk, sizeof(t_object));
 	ft_define_limits(tag, &(object->cone.limits), status);
 	object->cone.max_lenght = ft_clip_min(-1, ft_parse_float(
 		ft_xml_get_value(tag, "lenght", "-1"), status));
