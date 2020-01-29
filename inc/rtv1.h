@@ -343,7 +343,6 @@ t_plane			ft_define_plane(t_vector center, t_vector normal,
 					t_color color, double radius);
 
 
-t_color        	ft_noise(t_rtv rtv, t_color color);
 void        	ft_create_noise(void);
 
 
@@ -375,4 +374,5 @@ void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
 t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
 t_color			ft_cheeker_texture(double x, double y, double scale);
 t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
+t_color        ft_noise(t_cam *cam);
 #endif

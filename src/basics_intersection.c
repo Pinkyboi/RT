@@ -12,6 +12,35 @@
 
 #include "rtv1.h"
 
+t_color			ft_get_color(int x, int y)
+{
+	static int *pixels = NULL;
+	static int	width;
+	static int height;
+
+	if(!pixels)
+	{
+		int fd;
+
+		fd = open("texture.tex", O_RDONLY);
+		read(fd, &width, 4);
+		read(fd, &height, 4);
+		printf("loaded image %d %d\n", width, height);
+		pixels = malloc(sizeof(int) * width * height);
+		read(fd, pixels, width * height * sizeof(int));
+		close(fd);
+		printf("loadedfile\n");
+	}
+	x %= width;
+	y %= height;
+	t_color color;
+
+	color.r = (double)((pixels[y * width + x] >> 16) & 0xff) / 255.0;
+	color.g = (double)((pixels[y * width + x] >> 8) & 0xff) / 255.0;
+	color.b = (double)(pixels[y * width + x] & 0xff) / 255.0;
+	return (color);
+}
+
 int				ft_check_min_distance(double *x1, double x2, double min)
 {
 	if ((x2 <= *x1 || *x1 < MIN_D) && x2 > MIN_D
@@ -52,7 +81,8 @@ double			ft_cylinder_intersection(t_cam *cam,
 	{
 		ft_cylinder_normal(cam, cylinder, cam->hit.soluces[0]);
 		cam->hit.uv = ft_cart_to_cylinder(cam->hit.position, cylinder);
-		cam->hit.color = ft_cheeker_texture(cam->hit.uv.x,cam->hit.uv.y, 4);
+		cam->hit.color = ft_get_color(cam->hit.uv.x * 565, 700 - (cam->hit.uv.y * 700));
+		// cam->hit.color = ft_cheeker_texture(cam->hit.uv.x,cam->hit.uv.y, 20);
 	}
 	else
 		cam->hit.soluces[0] = 0;
@@ -79,7 +109,9 @@ double			ft_sphere_intersection(t_cam *cam,
 	{
 		ft_sphere_normal(cam, sphere, cam->hit.soluces[0]);
 		cam->hit.uv = ft_cart_to_sphere(cam->hit.position, sphere);
-		cam->hit.color = ft_cheeker_texture(cam->hit.uv.x,cam->hit.uv.y, 10);
+		// cam->hit.color = ft_cheeker_texture(cam->hit.uv.x,cam->hit.uv.y, 20);
+		cam->hit.color = ft_get_color(cam->hit.uv.x * 700, 700 - (cam->hit.uv.y * 700));
+
 	}
 	else
 		cam->hit.soluces[0] = 0;

@@ -29,17 +29,20 @@ t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere)
 
 t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder)
 {
+	double		theta;
 	double		phi;
-	double		r;
 	t_coor		mapped;
+	double		length;
 
-	phi = atan2((vect.y - cylinder->center.y), vect.x - cylinder->center.x);
-	mapped.x = phi / (2 * M_PI);
-	mapped.y = ((vect.z - cylinder->center.z) + 1);
-
-
-
-
+	if (cylinder->max_lenght == -1)
+		length = 10000.00;
+	else if (cylinder->max_lenght >= 0)
+		length = cylinder->max_lenght;	
+	theta = atan2(-(vect.z - cylinder->center.z), vect.x - cylinder->center.x);
+	phi = acos(-(vect.y - cylinder->center.y) / length * 2.00);
+	
+	mapped.x = (theta + M_PI) / (2 * M_PI);
+	mapped.y = phi / M_PI;
 
 	return(mapped);
 }
