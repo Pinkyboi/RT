@@ -94,7 +94,7 @@ void		ft_create_ray(t_rtv *rtv, int sample)
 	world_point = ft_sub_vector(world_point, rtv->cam.position);
 	rtv->cam.ray_direction = ft_normalise_vector(world_point);
 	rtv->cam.ray_origin = rtv->cam.position;
-	// ft_depth_of_field(rtv, sample);
+	ft_depth_of_field(rtv, sample);
 }
 
 void		ft_init_cam(t_rtv *rtv)
