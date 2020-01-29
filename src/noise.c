@@ -56,17 +56,16 @@ double      ft_turbulence(double x, double y, double size)
     return((128.0 * value / first_size) / 256.0);
 }
 
-t_color        ft_noise(t_cam *cam)
+t_color        ft_noise(double x, double y)
 {
+	x *= 192.0;
+	y *= 108.0;
     double xPeriod = 1.0;
     double yPeriod = 5.0;
     double turbPower = 50.0;
-    double turbSize = 200.0;
-    double xyValue = cam->hit.uv.x * 10 * xPeriod / NOISE_W +
-        cam->hit.uv.y * 10 * yPeriod / NOISE_H + turbPower *
-        ft_turbulence(cam->hit.uv.x * 10, cam->hit.uv.y * 10, turbSize);
+    double turbSize = 155.0;
+    double xyValue = x * xPeriod / NOISE_W + y * yPeriod / NOISE_H + turbPower * ft_turbulence(x, y, turbSize);
     double sineValue = fabs(sin(xyValue * 3.14159));
     double color_noise =  sineValue;
     return((t_color){color_noise,color_noise,color_noise});
 }
-

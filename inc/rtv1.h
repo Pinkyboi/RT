@@ -32,8 +32,8 @@
 # define HALF_WIDTH cam_utils[2]
 # define LIGHT_VECTOR light_vect[0]
 # define REFLECTED_LIGHT_VECTOR  light_vect[1]
-# define NOISE_W 1000
-# define NOISE_H 1000
+# define NOISE_W 10000
+# define NOISE_H 10000
 # define MAX_D 1e30
 # define MIN_D 1e-6
 # define FT_SQR(X) ((X) * (X))
@@ -343,6 +343,7 @@ t_plane			ft_define_plane(t_vector center, t_vector normal,
 					t_color color, double radius);
 
 
+t_color        	ft_noise(double x, double y);
 void        	ft_create_noise(void);
 
 
@@ -374,5 +375,4 @@ void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
 t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
 t_color			ft_cheeker_texture(double x, double y, double scale);
 t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
-t_color        ft_noise(t_cam *cam);
 #endif

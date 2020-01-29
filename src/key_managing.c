@@ -97,6 +97,7 @@ void		ft_init_rendrering(t_rtv *rtv)
 
 void		ft_init_win(t_rtv *rtv)
 {
+	ft_create_noise();
 	ft_init_rendrering(rtv);
 	rtv->mlx.mlx_ptr = mlx_init();
 	rtv->mlx.img.img_ptr = mlx_new_image(rtv->mlx.mlx_ptr,
