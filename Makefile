@@ -6,7 +6,7 @@
 #    By: abiri <abiri@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2020/01/28 18:56:46 by abiri            ###   ########.fr        #
+#    Updated: 2020/01/28 21:54:06 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ FILENAMES = basics_constructors.c\
 			key_managing.c\
 			limited_constructors.c\
 			loading_functions.c\
+			headless_rendering.c\
 			main.c\
 			noise.c\
 			obj_parsing.c\

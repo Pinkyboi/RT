@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/28 18:57:16 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/28 21:54:33 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,7 +316,8 @@ void			ft_put_pixel(t_rtv *rtv, int color);
 void			ft_init_win(t_rtv *rtv);
 // void			ft_reflected_light_ray(t_cam cam, t_light *light, t_vector normal);
 // z
-t_vector	ft_reflected_light_ray(t_cam cam, t_light *light, t_vector light_vect, t_vector normal);
+t_vector		ft_reflected_light_ray(t_light *light,
+	t_vector light_vect, t_vector normal);
 t_color			ft_parse_color(char *string, int *status);
 t_vector		ft_parse_vector(char *string, int *status);
 double			ft_atof(char *string, int *size);
@@ -361,6 +362,7 @@ t_vector		ft_get_refracted_ray(t_rtv rtv);
 t_coor			ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
 t_coor			ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
 t_coor			ft_cart_to_plane(t_cam *cam, t_plane *plane);
+int				ft_headless_raytracer(t_rtv	*rtv);
 
 /*
 **	BMP_SAVING
