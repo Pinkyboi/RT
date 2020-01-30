@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/25 20:05:47 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/01/30 22:11:57 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define HALF_WIDTH cam_utils[2]
 # define LIGHT_VECTOR light_vect[0]
 # define REFLECTED_LIGHT_VECTOR  light_vect[1]
-# define NOISE_W 10000
-# define NOISE_H 10000
+# define NOISE_W 1000
+# define NOISE_H 1000
 # define MAX_D 1e30
 # define MIN_D 1e-6
 # define FT_SQR(X) ((X) * (X))
