@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/01 01:50:09 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/01 18:12:20 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void		ft_create_ray(t_rtv *rtv, int sample)
 	world_point = ft_sub_vector(world_point, rtv->cam.position);
 	rtv->cam.ray_direction = ft_normalise_vector(world_point);
 	rtv->cam.ray_origin = rtv->cam.position;
-	ft_depth_of_field(rtv, sample);
+	//ft_depth_of_field(rtv, sample);
 }
 
 void		ft_init_cam(t_rtv *rtv)

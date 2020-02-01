@@ -1,9 +1,6 @@
-<scene ambiant="0.2" AA="2" reflection_depth="0" refraction_depth="10" resolution="720"/>
-<camera position="(10, 30, 70)" lookat="(10, 30, 90)" fov="40"/>
-<light center="(0, 900, 300)" intensity="1" color="#FFFFFF"/>
-<ssphere center="(0, 0, 0)" color="#FFFFFF" radius="1000"/>
-<sphere center="(10, 30, 110)" color="#FFFFFF" radius="20" texture="/Users/abiri/Desktop/earth_diffuse.tex"/>
-<ssphere center="(110, 70, 110)" color="#FFFFFF" radius="20"/>
-<ssphere center="(110, 70, 110)" color="#FFFFFF" radius="20"/>
-<plane center="(0, 0, 0)" normal="(0, 1, 0)" color="#E3E3E3"/>
-<pplane center="(0, 50, 0)" color="#0077be" normal="(0, 1, 0)" bump="./animated_water/water119.tex" transparency="0.8" refraction="2.6"/>
+<scene ambiant="0.5" AA="2" reflection_depth="0" refraction_depth="10" resolution="720"/>
+<camera position="(0, 0, -1)" lookat="(0, 0, 0)" fov="40"/>
+<light center="(0, 500, -500)" intensity="0.8" color="#FFFFFF"/>
+<ssphere center="(0, 0, 20)" color="#0077be" radius="5" texture="/Users/abiri/Desktop/earth_diffuse.tex"/>
+<plane center="(0, 0, 10)" normal="(0, 0, -1)" color="#E3E3E3" texture="/Users/abiri/Desktop/earth_diffuse.tex"/>
+<plane center="(0, 0, 20)" normal="(0, 0, -1)" color="#FF00FF" texture="/Users/abiri/Desktop/test_transparent.tex"/>

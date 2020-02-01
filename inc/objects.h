@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 14:41:56 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/30 13:58:49 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/01 20:25:57 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@
 # define A abc[0]
 # define B abc[1]
 # define C abc[2]
+# define TEXTURE_MODE_FIT 1
+# define TEXTURE_MODE_CENTER 2
+# define TEXTURE_MODE_CUT 4
+# define TEXTURE_MODE_TRANSPARENCY 8
+# define TEXTURE_MODE_REPEAT 16
 
 typedef double	t_intersection_function();
 
@@ -52,14 +57,23 @@ typedef struct	s_texture
 	u_int32_t	*pixels;
 }				t_texture;
 
+typedef struct	s_material
+{
+	t_texture	*bump;
+	t_texture	*texture;
+	t_texture	*specular;
+	t_texture	*transparency;
+	t_texture	*reflection;
+	t_coor		offset;
+	double		scale;
+	int			mode;
+}				t_material;
 
 typedef struct	s_sphere
 {
 	t_vector				normal;
 	t_color					color;
-	t_texture				*texture;
-	t_texture				*bump;
-	t_texture				*specular;
+	t_material				material;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -78,9 +92,7 @@ typedef struct	s_ellipsoid
 {
 	t_vector				normal;
 	t_color					color;
-	t_texture				*texture;
-	t_texture				*bump;
-	t_texture				*specular;
+	t_material				material;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -96,9 +108,7 @@ typedef struct	s_cylinder
 {
 	t_vector				normal;
 	t_color					color;
-	t_texture				*texture;
-	t_texture				*bump;
-	t_texture				*specular;
+	t_material				material;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -118,9 +128,7 @@ typedef struct	s_hyperboloid
 {
 	t_vector				normal;
 	t_color					color;
-	t_texture				*texture;
-	t_texture				*bump;
-	t_texture				*specular;
+	t_material				material;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -139,9 +147,7 @@ typedef struct	s_paraboloid
 {
 	t_vector				normal;
 	t_color					color;
-	t_texture				*texture;
-	t_texture				*bump;
-	t_texture				*specular;
+	t_material material;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -158,9 +164,7 @@ typedef struct	s_cone
 {
 	t_vector				normal;
 	t_color					color;
-	t_texture				*texture;
-	t_texture				*bump;
-	t_texture				*specular;
+	t_material				material;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -181,9 +185,7 @@ typedef struct	s_plane
 {
 	t_vector				normal;
 	t_color					color;
-	t_texture				*texture;
-	t_texture				*bump;
-	t_texture				*specular;
+	t_material				material;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -203,9 +205,7 @@ typedef struct	s_triangle
 {
 	t_vector				normal;
 	t_color					color;
-	t_texture				*texture;
-	t_texture				*bump;
-	t_texture				*specular;
+	t_material				material;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -222,9 +222,7 @@ typedef struct	s_point
 {
 	t_vector				normal;
 	t_color					color;
-	t_texture				*texture;
-	t_texture				*bump;
-	t_texture				*specular;
+	t_material				material;
 	double					reflection;
 	double					refraction;
 	double					transparency;

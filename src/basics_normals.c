@@ -6,24 +6,76 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/30 21:18:05 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/01 21:59:16 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_color	ft_get_texture_color(t_texture *texture, t_coor uv)
+int	ft_modulus(int value, int modulus)
+{
+	if (value < 0)
+		return (modulus + value % modulus);
+	else
+		return (value % modulus);
+}
+
+t_color	ft_get_texture_color(t_texture *texture, t_coor uv, t_color original, int mode)
 {
 	u_int32_t	color;
 	t_color		result;
 
-	uv.x = abs((int)(uv.x * texture->width) % texture->width);
-	uv.y = abs((int)(uv.y * texture->height) % texture->height);
+	if (!(mode & TEXTURE_MODE_CENTER))
+	{
+		uv.x = ft_modulus((int)(uv.x * texture->width), texture->width);
+		uv.y = ft_modulus((int)(uv.y * texture->height), texture->height);
+	}
+	else
+	{
+		uv.x = (int)(uv.x * texture->width);
+		uv.y = (int)(uv.y * texture->height);
+	}
+	if (uv.y < 0 || uv.y >= texture->height || uv.x < 0 || uv.x >= texture->width)
+		return (original);
 	color = texture->pixels[(int)uv.y * texture->width + (int)uv.x];
 	result.r = (double)((color & 0xFF0000) >> 16) / 255.0;
 	result.g = (double)((color & 0xFF00) >> 8) / 255.0;
 	result.b = (double)(color & 0xFF) / 255.0;
 	return (result);
+}
+
+int		ft_get_texture_cut(t_material *material, t_coor uv)
+{
+	uv.x = (int)(uv.x * material->texture->width);
+	uv.y = (int)(uv.y * material->texture->height);
+	if (uv.x < 0 || uv.x >= material->texture->width || uv.y < 0 || uv.y >= material->texture->height)
+		return (1);
+	return (0);
+}
+
+int		ft_is_transparent(t_material *material, t_coor uv)
+{
+	u_int32_t	color;
+	t_color		result;
+	t_texture	*texture;
+
+	texture = material->texture;
+	if (!(material->mode & TEXTURE_MODE_CENTER))
+	{
+		uv.x = ft_modulus((int)(uv.x * texture->width), texture->width);
+		uv.y = ft_modulus((int)(uv.y * texture->height), texture->height);
+	}
+	else
+	{
+		uv.x = (int)(uv.x * texture->width);
+		uv.y = (int)(uv.y * texture->height);
+	}
+	if (uv.y < 0 || uv.y >= texture->height || uv.x < 0 || uv.x >= texture->width)
+		return (1);
+	color = texture->pixels[(int)uv.y * texture->width + (int)uv.x];
+	if (!((color & 0xFF000000) >> 24))
+		return (1);
+	return (0);
 }
 
 void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam)
@@ -35,20 +87,36 @@ void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam)
 	{
 		cam->hit.normal = normal;
 		cam->hit.color = point->color;
-		if (point->texture)
-			cam->hit.color = ft_get_texture_color(point->texture, cam->hit.uv);
-		if (point->bump)
+		cam->hit.reflection = point->reflection;
+		cam->hit.refraction = point->refraction;
+		cam->hit.transparency = point->transparency;
+		if ((point->material.mode & TEXTURE_MODE_CUT && ft_get_texture_cut(&point->material, cam->hit.uv))
+			|| (point->material.mode & TEXTURE_MODE_TRANSPARENCY && ft_is_transparent(&point->material, cam->hit.uv)))
 		{
-			color = ft_get_texture_color(point->bump, cam->hit.uv);
-			bump = (t_vector){color.r, color.g, color.b};
+			cam->hit.transparency = 1;
+			return ;
+		}
+		if (point->material.texture)
+			cam->hit.color = ft_get_texture_color(point->material.texture, cam->hit.uv, cam->hit.color, point->material.mode);
+		if (point->material.bump)
+		{
+			color = ft_get_texture_color(point->material.bump, cam->hit.uv, (t_color){0.5, 0.5, 0.5}, point->material.mode);
+			bump = (t_vector){color.r - 0.5, color.g - 0.5, color.b - 0.5};
 			cam->hit.normal.x += bump.x;
 			cam->hit.normal.y += bump.y;
 			cam->hit.normal.z += bump.z;
 			cam->hit.normal = ft_normalise_vector(cam->hit.normal);
 		}
-		cam->hit.reflection = point->reflection;
-		cam->hit.refraction = point->refraction;
-		cam->hit.transparency = point->transparency;
+		if (point->material.transparency)
+		{
+			color = ft_get_texture_color(point->material.transparency, cam->hit.uv, (t_color){1 - point->transparency, 0, 0}, point->material.mode);
+			cam->hit.transparency = 1 - color.r;
+		}
+		if (point->material.reflection)
+		{
+			color = ft_get_texture_color(point->material.reflection, cam->hit.uv, (t_color){point->reflection, 0, 0}, point->material.mode);
+			cam->hit.reflection = color.r;
+		}
 	}
 }
 

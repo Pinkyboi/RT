@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/01 01:28:44 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/01 20:47:59 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -383,6 +383,6 @@ void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
 t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
 t_color		ft_cheeker_texture(double x, double y, double scale);
 t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
-t_color		ft_get_texture_color(t_texture *texture, t_coor uv);
+t_color		ft_get_texture_color(t_texture *texture, t_coor uv, t_color original, int mode);
 t_color		ft_noise(t_cam *cam);
 #endif

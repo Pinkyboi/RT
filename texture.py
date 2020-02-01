@@ -2,7 +2,7 @@ from PIL import Image
 import sys
 #im = Image.open(input("enter image path : ")) # Can be many different formats.
 #outfile = open(input("enter output texture : "), "wb")
-im = Image.open(sys.argv[1]);
+im = Image.open(sys.argv[1]).convert('RGBA');
 pix = im.load()
 print (im.size)  # Get the width and hight of the image for iterating over
 outfile = open(sys.argv[2], "wb");
@@ -14,4 +14,4 @@ for y in range(im.size[1]):
         outfile.write((pix[x,y][2]).to_bytes(1, byteorder="little"));
         outfile.write((pix[x,y][1]).to_bytes(1, byteorder="little"));
         outfile.write((pix[x,y][0]).to_bytes(1, byteorder="little"));
-        outfile.write((0).to_bytes(1, byteorder="little"));
+        outfile.write((pix[x,y][3]).to_bytes(1, byteorder="little"));

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/31 20:05:52 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/01 20:52:52 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void			ft_cylinder_cut(t_rtv *env,
 	t_object lower_disk;
 	t_vector cut_center;
 
+	ft_bzero(&upper_disk, sizeof(t_object));
+	ft_bzero(&lower_disk, sizeof(t_object));
 	ft_define_limits(tag, &(object->cylinder.limits), status);
 	object->cylinder.max_lenght = ft_clip_min(-1,
 		ft_parse_float(ft_xml_get_value(tag, "lenght", "-1"), status));
@@ -90,12 +92,6 @@ void			ft_cylinder_cut(t_rtv *env,
 			object->cylinder.color, object->cylinder.radius);
 		upper_disk.point.function = &ft_plane_intersection;
 		lower_disk.point.function = &ft_plane_intersection;
-		upper_disk.point.texture = NULL;
-		lower_disk.point.texture = NULL;
-		upper_disk.point.bump = NULL;
-		lower_disk.point.bump = NULL;
-		upper_disk.point.specular = NULL;
-		lower_disk.point.specular = NULL;
 		ft_object_push(env, upper_disk, TYPE_PLANE);
 		ft_object_push(env, lower_disk, TYPE_PLANE);
 	}

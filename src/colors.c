@@ -6,12 +6,12 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 22:04:25 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/31 23:17:04 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/01 21:34:16 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#define LIGHT_SPHERE_COUNT 100.0
+#define LIGHT_SPHERE_COUNT 1.0
 
 t_object		*ft_get_intersection_object(t_rtv *rtv, double *min)
 {
@@ -53,7 +53,7 @@ t_light			ft_get_shadow_light(t_rtv rtv, t_light light, t_vector light_vec, int 
 	this_light.color = light.color;
 	if (shadow_object && (dist < ft_vector_size(ft_sub_vector(rtv.cam.position, light.center))))
 	{
-		this_light.intensity *= shadow_object->point.transparency;
+		this_light.intensity *= rtv.cam.hit.transparency;
 		this_light.color = ft_merge_color(this_light.color, rtv.cam.hit.color);
 		rtv.cam.ray_origin = rtv.cam.hit.position;
 		rtv.cam.position = rtv.cam.hit.position;
@@ -78,7 +78,7 @@ double	ft_check_shadow(t_rtv rtv, t_light *light, t_vector light_vec, t_color *c
 	rtv.cam.position = rtv.cam.hit.position;
 	rtv.cam.ray_direction = light_vec;
 	this_light = ft_get_shadow_light(rtv, *light, light_vec, 1);
-	light->color = this_light.color;
+	//light->color = this_light.color;
 	light->intensity = this_light.intensity;
 	return (this_light.intensity);
 	//shadow_object = NULL;
@@ -121,7 +121,7 @@ t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color)
 	{
 		light = light_node->light;
 		center = light.center;
-		radius = 500;
+		radius = 0.1;
 		for (int i = 0; i < LIGHT_SPHERE_COUNT; i++)
 		{
 			light.color = light_node->light.color;
@@ -141,9 +141,10 @@ t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color)
 				ft_diffuse(light, LIGHT_VECTOR, normal, color));
 			spec_col = ft_add_colors(spec_col,
 				ft_specular(light, normal, REFLECTED_LIGHT_VECTOR));
-			if (rtv->cam.hit.object->point.bump)
+			if (rtv->cam.hit.object->point.material.specular)
 			{
-				new_color = ft_get_texture_color(rtv->cam.hit.object->point.bump, rtv->cam.hit.uv);
+				new_color = ft_get_texture_color(rtv->cam.hit.object->point.material.specular,
+					rtv->cam.hit.uv, (t_color){1, 1, 1}, rtv->cam.hit.object->point.material.mode);
 				spec_col = ft_scale_colors(spec_col, new_color.r);
 			}
 		}

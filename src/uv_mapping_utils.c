@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 16:53:07 by azarzor           #+#    #+#             */
-/*   Updated: 2020/02/01 01:27:40 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/01 21:42:04 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere)
 	phi = acos(-(vect.y - sphere->center.y) / sphere->radius);
 	mapped.x = ((theta + M_PI) / (2 * M_PI));
 	mapped.y = (1 - phi / M_PI);
+	mapped.x = (mapped.x * sphere->material.scale) + sphere->material.offset.x;
+	mapped.y = (mapped.y * sphere->material.scale) + sphere->material.offset.y;
 	return(mapped);
 }
 
@@ -38,10 +40,10 @@ t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder)
 		length = cylinder->max_lenght;	
 	theta = atan2(-(vect.z - cylinder->center.z), vect.x - cylinder->center.x);
 	phi = acos(-(vect.y - cylinder->center.y) / length * 2.00);
-	
 	mapped.x = (theta + M_PI) / (2 * M_PI);
 	mapped.y = phi / M_PI;
-
+	mapped.x = (mapped.x * cylinder->material.scale) + cylinder->material.offset.x;
+	mapped.y = (mapped.y * cylinder->material.scale) + cylinder->material.offset.y;
 	return(mapped);
 }
 
@@ -61,7 +63,7 @@ t_coor		ft_cart_to_plane(t_cam *cam, t_plane *plane)
 			ft_sub_vector(cam->hit.position, plane->center), sides[0]);
 	uv.y = ft_dot_vector(
 			ft_sub_vector(cam->hit.position, plane->center), sides[1]);
-	uv.x /= 500;
-	uv.y /= 500;
+	uv.x = (uv.x + plane->material.offset.x) * plane->material.scale;
+	uv.y = (uv.y + plane->material.offset.y) * plane->material.scale;
 	return (uv);
 }
