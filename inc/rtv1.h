@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/28 21:54:33 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/30 16:25:48 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -362,13 +362,14 @@ t_vector		ft_get_refracted_ray(t_rtv rtv);
 t_coor			ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
 t_coor			ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
 t_coor			ft_cart_to_plane(t_cam *cam, t_plane *plane);
-int				ft_headless_raytracer(t_rtv	*rtv);
+int				ft_headless_raytracer(t_rtv	*rtv, char *filename);
 
 /*
 **	BMP_SAVING
 */
 
 int	ft_dump_bitmap(t_img *image);
+int	ft_save_bitmap(t_img *image, char *filename);
 
 
 int			ft_exit(t_rtv *rtv);
@@ -383,4 +384,5 @@ void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
 t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
 t_color			ft_cheeker_texture(double x, double y, double scale);
 t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
+t_color	ft_get_texture_color(t_texture *texture, t_coor uv);
 #endif

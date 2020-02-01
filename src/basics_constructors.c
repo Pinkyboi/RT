@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/27 20:03:38 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/30 13:58:12 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void			ft_add_material(t_xml_tag *tag, t_object *object, int *status, t_rtv *env
 		ft_parse_float(ft_xml_get_value(tag, "transparency", "0"), status));
 	object->point.texture = ft_load_texture(ft_xml_get_value(tag, "texture", NULL), env);
 	object->point.bump = ft_load_texture(ft_xml_get_value(tag, "bump", NULL), env);
+	object->point.specular = ft_load_texture(ft_xml_get_value(tag, "specular", NULL), env);
 }
 
 int				ft_add_sphere(t_xml_tag *tag, t_rtv *env)

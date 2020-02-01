@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 20:48:50 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/28 18:56:08 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/30 12:29:34 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ t_vector	ft_get_refracted_ray(t_rtv rtv)
 	if (NdotI < 0)
 		NdotI = -NdotI;
 	else
-	{
-		Nrefr = ft_scale_vector(Nrefr, -1);
 		ft_swap(&n1, &n2);
-	}
 	double	nn;
 
 	nn = n1 / n2;
@@ -80,41 +77,9 @@ t_vector	ft_get_refracted_ray(t_rtv rtv)
 
 t_color	ft_refract_ray(t_rtv rtv, int depth)
 {
-	t_vector	Nrefr;
-	double	n1, n2;
-	double	NdotI;
-
-	n1 = 1;
-	n2 = rtv.cam.hit.refraction;
-	if (depth >= rtv.scene.refraction_depth)
-		return ((t_color){0, 0, 0});
-	NdotI = ft_dot_vector(rtv.cam.hit.normal, rtv.cam.ray_direction);
-	Nrefr = rtv.cam.hit.normal;
-	if (NdotI < 0)
-		NdotI = -NdotI;
-	else
-	{
-		Nrefr = ft_scale_vector(Nrefr, -1);
-		ft_swap(&n1, &n2);
-	}
-	double	nn;
-
-	nn = n1 / n2;
-	double cosi;
-
-	double	k = 1 - nn * nn * (1 - NdotI * NdotI);
-	if (k < 0)
-		return ((t_color){0, 0, 0});
-	t_vector	t1;
-	t_vector	t2;
-	t_vector	result;
-
-	t1 = ft_scale_vector(rtv.cam.ray_direction, nn);
-	t2 = ft_scale_vector(rtv.cam.hit.normal, (nn * NdotI - sqrt(k)));
-	result = ft_add_vector(t1, t2);
-	rtv.cam.ray_direction = ft_normalise_vector(result);
+	rtv.cam.ray_direction = ft_get_refracted_ray(rtv);
 	rtv.cam.ray_origin = rtv.cam.hit.position;
-	//t_color	mycolor = ft_reflect_ray(rtv, color);
+
 	if (ft_intersect_refracted(&rtv, rtv.cam.hit.object))
 		return (ft_get_node_color(rtv, depth + 1));
 	else

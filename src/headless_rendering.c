@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:45:31 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/28 21:54:49 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/30 16:26:23 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void		ft_init_headless_renderer(t_rtv *rtv)
 	rtv->actions.mouvement = 0;
 }
 
-int	ft_headless_raytracer(t_rtv	*rtv)
+int	ft_headless_raytracer(t_rtv	*rtv, char *filename)
 {
 	ft_init_headless_renderer(rtv);
 	ft_init_rendering_image(rtv);
 	ft_ray_shooter(rtv);
-	ft_dump_bitmap(&rtv->mlx.img);
+	ft_save_bitmap(&rtv->mlx.img, filename);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/27 20:01:29 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/31 20:05:52 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void			ft_cylinder_cut(t_rtv *env,
 		lower_disk.point.texture = NULL;
 		upper_disk.point.bump = NULL;
 		lower_disk.point.bump = NULL;
+		upper_disk.point.specular = NULL;
+		lower_disk.point.specular = NULL;
 		ft_object_push(env, upper_disk, TYPE_PLANE);
 		ft_object_push(env, lower_disk, TYPE_PLANE);
 	}

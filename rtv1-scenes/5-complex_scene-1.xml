@@ -11,11 +11,11 @@
 <sphere center="(0, 14, 15)" color="#000000" radius="1.6" reflection="0.5" refraction="1.1" reflection="0.7" transparency="0.8"/>
 <cylinder center="(0, 0, 15)" color="#000000" radius="0.6" reflection="0.5" refraction="1.1" reflection="0.7" transparency="0.8"/>
 <cylinder center="(0, 14, 15)" color="#000000" radius="0.6" rotation="(0, 0, 90)" reflection="0.5" refraction="1.1" transparency="0.8"/>
-<plane center="(-10, 0, 0)" normal="(-1, 0, 0)" color="#D3D3D3" transparency="0.8"/>
-<plane center="(10, 0, -40)" normal="(1, 0, 0)" color="#D3D3D3" transparency="0.8"/>
-<plane center="(0, -1, 0)" normal="(0, 1, 0)" color="#D3D3D3" transparency="0.8"/>
-<plane center="(0, 0, -40)" normal="(0, 0, 1)" color="#D3D3D3" transparency="0.8"/>
-<plane center="(0, 20, 0)" normal="(0, -1, 0)" color="#D3D3D3" transparency="0.8"/>
+<plane center="(-10, 0, 0)" normal="(-1, 0, 0)" color="#D3D3D3"/>
+<plane center="(10, 0, -40)" normal="(1, 0, 0)" color="#D3D3D3"/>
+<plane center="(0, -1, 0)" normal="(0, 1, 0)" color="#D3D3D3"/>
+<plane center="(0, 0, -40)" normal="(0, 0, 1)" color="#D3D3D3"/>
+<plane center="(0, 20, 0)" normal="(0, -1, 0)" color="#D3D3D3"/>
 <sphere center="(-30, 30, 60)" translation="(3, 0, 0)" color="(116, 103, 220)" radius="3" translation="(0, 2, 0)" transparency="0.8"/>
 <triangle center="(0.232406, 3.867680, 32.843098)" side1="(-0.227475, 3.867680, 31.477731)" side2="(0.232406, 3.867680, 31.477731)" normal="(0, 1, 0)" color="#FF00FF" refraction="1.1" reflection="0.7" transparency="0.8"/>
 <triangle center="(0.232407, 5.733166, 31.133819)" side1="(-0.227475, 5.733166, 31.602813)" side2="(0.232406, 5.733166, 31.602814)" normal="(0, 1, 0)" color="#FF00FF" refraction="1.1" reflection="0.7" transparency="0.8"/>

@@ -6,12 +6,12 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 14:41:56 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/27 21:49:06 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/30 13:58:49 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #ifndef OBJECTS_H
-// # define OBJECTS_H
+#ifndef OBJECTS_H
+# define OBJECTS_H
 
 # include "ft_maths.h"
 
@@ -59,6 +59,7 @@ typedef struct	s_sphere
 	t_color					color;
 	t_texture				*texture;
 	t_texture				*bump;
+	t_texture				*specular;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -79,6 +80,7 @@ typedef struct	s_ellipsoid
 	t_color					color;
 	t_texture				*texture;
 	t_texture				*bump;
+	t_texture				*specular;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -96,6 +98,7 @@ typedef struct	s_cylinder
 	t_color					color;
 	t_texture				*texture;
 	t_texture				*bump;
+	t_texture				*specular;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -107,7 +110,7 @@ typedef struct	s_cylinder
 	t_vector				translation;
 	double					max_lenght;
 	double					lenght;
-	t_limit					limits;	
+	t_limit					limits;
 	t_vector				limit;
 }				t_cylinder;
 
@@ -117,6 +120,7 @@ typedef struct	s_hyperboloid
 	t_color					color;
 	t_texture				*texture;
 	t_texture				*bump;
+	t_texture				*specular;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -126,7 +130,7 @@ typedef struct	s_hyperboloid
 	t_vector				translation;
 	int						sheets;
 	double					coefficient;
-	t_limit					limits;	
+	t_limit					limits;
 	t_vector				limit;
 }				t_hyperboloid;
 
@@ -137,6 +141,7 @@ typedef struct	s_paraboloid
 	t_color					color;
 	t_texture				*texture;
 	t_texture				*bump;
+	t_texture				*specular;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -145,7 +150,7 @@ typedef struct	s_paraboloid
 	t_vector				rotation;
 	t_vector				translation;
 	double					coefficient;
-	t_limit					limits;	
+	t_limit					limits;
 	t_vector				limit;
 }				t_paraboloid;
 
@@ -155,6 +160,7 @@ typedef struct	s_cone
 	t_color					color;
 	t_texture				*texture;
 	t_texture				*bump;
+	t_texture				*specular;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -167,7 +173,7 @@ typedef struct	s_cone
 	t_vector				translation;
 	double					max_lenght;
 	t_vector				lenght;
-	t_limit					limits;	
+	t_limit					limits;
 	t_vector				limit;
 }				t_cone;
 
@@ -177,6 +183,7 @@ typedef struct	s_plane
 	t_color					color;
 	t_texture				*texture;
 	t_texture				*bump;
+	t_texture				*specular;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -198,6 +205,7 @@ typedef struct	s_triangle
 	t_color					color;
 	t_texture				*texture;
 	t_texture				*bump;
+	t_texture				*specular;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -216,6 +224,7 @@ typedef struct	s_point
 	t_color					color;
 	t_texture				*texture;
 	t_texture				*bump;
+	t_texture				*specular;
 	double					reflection;
 	double					refraction;
 	double					transparency;
@@ -241,3 +250,5 @@ typedef struct	s_object_list
 	int						type;
 	struct s_object_list	*next;
 }				t_object_list;
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 16:53:07 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/28 18:56:23 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/31 19:21:34 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere)
 
 	theta = atan2(-(vect.z - sphere->center.z), vect.x - sphere->center.x);
 	phi = acos(-(vect.y - sphere->center.y) / sphere->radius);
-	mapped.x = (theta + M_PI) / (2 * M_PI);
-	mapped.y = 1 - phi / M_PI;
+	mapped.x = ((theta + M_PI) / (2 * M_PI));
+	mapped.y = (1 - phi / M_PI);
 	return(mapped);
 }
 

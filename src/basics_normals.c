@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/29 04:26:04 by abiri            ###   ########.fr       */
+/*   Updated: 2020/01/30 21:18:05 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,14 @@ void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam)
 		{
 			color = ft_get_texture_color(point->bump, cam->hit.uv);
 			bump = (t_vector){color.r, color.g, color.b};
-			cam->hit.normal.x *= bump.x;
-			cam->hit.normal.y *= bump.y;
-			cam->hit.normal.z *= bump.z;
+			cam->hit.normal.x += bump.x;
+			cam->hit.normal.y += bump.y;
+			cam->hit.normal.z += bump.z;
 			cam->hit.normal = ft_normalise_vector(cam->hit.normal);
 		}
 		cam->hit.reflection = point->reflection;
 		cam->hit.refraction = point->refraction;
 		cam->hit.transparency = point->transparency;
-		cam->hit.uv = (t_coor){0, 0};
 	}
 }
 
