@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 14:41:56 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/16 22:59:33 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/01 20:36:26 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ typedef struct	s_cylinder
 	double					max_lenght;
 	double					lenght;
 	t_limit					limits;	
-	t_vector				limit;
 }				t_cylinder;
 
 typedef struct	s_hyperboloid
@@ -110,7 +109,6 @@ typedef struct	s_hyperboloid
 	int						sheets;
 	double					coefficient;
 	t_limit					limits;	
-	t_vector				limit;
 }				t_hyperboloid;
 
 
@@ -127,7 +125,6 @@ typedef struct	s_paraboloid
 	t_vector				translation;
 	double					coefficient;
 	t_limit					limits;	
-	t_vector				limit;
 }				t_paraboloid;
 
 typedef struct	s_cone
@@ -147,7 +144,6 @@ typedef struct	s_cone
 	double					max_lenght;
 	t_vector				lenght;
 	t_limit					limits;	
-	t_vector				limit;
 }				t_cone;
 
 typedef struct	s_plane
@@ -164,7 +160,6 @@ typedef struct	s_plane
 	t_limit					limits;
 	double					radius;
 	t_vector				side[2];
-	t_vector	limit;
 }				t_plane;
 
 
@@ -182,7 +177,6 @@ typedef struct	s_triangle
 	t_vector				translation;
 	t_limit					limits;
 	t_vector				side[2];
-	t_vector	limit;
 }				t_triangle;
 
 typedef struct	s_point

@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/16 21:55:57 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/01 23:51:09 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,27 @@ double	ft_cylinder_limit(t_cylinder cylinder, t_cam cam)
 			return (0);
 	}
 	if (ft_axis_limit(cam.hit.position, cylinder.limits))
+		return (0);
+	return (cam.hit.soluces[0]);
+}
+
+double	ft_plane_limit(t_plane plane, t_cam cam)
+{
+	t_vector	up;
+	t_vector	sides[2];
+	double		x[2];
+
+	up = ft_cross_product(ft_rotate_vector(plane.normal,
+		(t_vector){90, 90, 90}), plane.normal);
+	sides[0] = ft_normalise_vector(
+			ft_cross_product(up, plane.normal));
+	sides[1] = ft_normalise_vector(
+			ft_cross_product(sides[0], plane.normal));
+	x[0] = ft_dot_vector(
+			ft_sub_vector(cam.hit.position, plane.center), sides[0]);
+	x[1] = ft_dot_vector(
+			ft_sub_vector(cam.hit.position, plane.center), sides[1]);
+	if(fabs(x[0]) >= 50 || fabs(x[1]) >= 50)
 		return (0);
 	return (cam.hit.soluces[0]);
 }

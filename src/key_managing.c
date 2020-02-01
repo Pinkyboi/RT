@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/18 00:08:36 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/01 02:31:48 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ int			ft_key_stroke(int key, t_rtv *rtv)
 		ft_init_cam(rtv);
 	}
 	return (0);
+}
+
+t_color		ft_int_to_rgb(int color)
+{
+	t_color rgb;
+
+	rgb.r = color / FT_SQR(256);
+	rgb.g = (color / 256) % 256;
+	rgb.b = color % 256;
+	return (rgb);
 }
 
 void		ft_put_pixel(t_rtv *rtv, int color)
@@ -97,7 +107,6 @@ void		ft_init_rendrering(t_rtv *rtv)
 
 void		ft_init_win(t_rtv *rtv)
 {
-	ft_create_noise();
 	ft_init_rendrering(rtv);
 	rtv->mlx.mlx_ptr = mlx_init();
 	rtv->mlx.img.img_ptr = mlx_new_image(rtv->mlx.mlx_ptr,

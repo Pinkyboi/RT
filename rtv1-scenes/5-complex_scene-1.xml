@@ -1,3 +1,4 @@
+<scene ambiant="0.5" AA="4" reflection_depth="3" filter=" "/>
 <camera position="(3, 5, 40)" lookat="(0, 0, 30)" fov="65"/>
 <light center="(-5, 10, 30)" intensity="0.8" color="#FFFFFF"/>
 <light center="(5, 10, 30)" intensity="0.8" color="#FFFFFF"/>
@@ -8,6 +9,7 @@
 <sphere center="(5, 15, 30)" color="#D3D3D3" radius="1"/>
 <sphere center="(-5, 15, 30)" color="#D3D3D3" radius="1"/>
 <sphere center="(5, 15, 0)" color="#D3D3D3" radius="1"/>
+<sphere center="(-5, 15, 0)" color="#D3D3D3" radius="1"/>
 <sphere center="(0, 14, 15)" color="#000000" radius="1.6" reflection="0.5" refraction="1.1" reflection="0.7" transparency="0.8"/>
 <cylinder center="(0, 0, 15)" color="#000000" radius="0.6" reflection="0.5" refraction="1.1" reflection="0.7" transparency="0.8"/>
 <cylinder center="(0, 14, 15)" color="#000000" radius="0.6" rotation="(0, 0, 90)" reflection="0.5" refraction="1.1" transparency="0.8"/>

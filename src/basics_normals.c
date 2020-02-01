@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basics_normals.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/20 18:57:40 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/02/02 00:34:19 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_cylinder_normal(t_cam *cam, t_cylinder *cylinder,
 	ft_intersection_position(cam, distance);
 	cylinder->axis = ft_normalise_vector(cylinder->axis);
 	scale = ft_dot_vector(cam->ray_direction, cylinder->axis) * distance;
-	scale += ft_dot_vector(ft_sub_vector(cam->ray_origin,
+	scale += ft_dot_vector(ft_sub_vector(cam->position,
 				cylinder->center), cylinder->axis);
 	cylinder->lenght = scale;
 	cam->hit.soluces[0] = ft_cylinder_limit(*cylinder, *cam);
@@ -69,7 +69,7 @@ void	ft_cone_normal(t_cam *cam, t_cone *cone, double distance)
 	cam->hit.soluces[0] = ft_cone_limit(*cone, *cam);
 	cone->axis = ft_normalise_vector(cone->axis);
 	scale = ft_dot_vector(cam->ray_direction, cone->axis) * distance;
-	scale += ft_dot_vector(ft_sub_vector(cam->ray_origin,
+	scale += ft_dot_vector(ft_sub_vector(cam->position,
 				cone->center), cone->axis);
 	center_to_point = ft_sub_vector(cam->hit.position, cone->center);
 	scaled_axis = ft_scale_vector(ft_scale_vector(cone->axis, scale),
@@ -77,4 +77,30 @@ void	ft_cone_normal(t_cam *cam, t_cone *cone, double distance)
 	normal = ft_normalise_vector(ft_sub_vector(center_to_point,
 					scaled_axis));
 	ft_get_hit_info(normal, (t_point *)cone, cam);
+}
+
+
+int		ft_axis_limit(t_vector intersection,
+	t_limit limits);
+
+double	ft_plane_limit(t_plane plane, t_cam cam);
+
+void 	ft_plane_normal(t_cam *cam, t_plane *plane, double distance, double i)
+{
+	t_vector normal;
+
+	normal = plane->normal;
+	ft_intersection_position(cam, cam->hit.soluces[0]);
+	if (plane->radius < 0 || plane->radius >=
+		ft_vector_size(ft_sub_vector(plane->center, cam->hit.position)))
+	{
+		cam->hit.soluces[0] = ft_plane_limit(*plane, *cam);
+		if(cam->hit.soluces[0])
+			cam->hit.normal = (i > 0) ?
+			ft_scale_vector(normal, -1) : normal;
+	}
+	else
+		cam->hit.soluces[0] = 0;
+	if(cam->hit.soluces[0])
+		ft_get_hit_info(normal, (t_point*)plane, cam);
 }

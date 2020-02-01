@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   refraction.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 20:48:50 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/21 15:23:05 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/01/16 21:43:35 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_color	ft_refract_ray(t_rtv rtv, int depth)
 	t2 = ft_scale_vector(rtv.cam.hit.normal, (nn * NdotI - sqrt(k)));
 	result = ft_add_vector(t1, t2);
 	rtv.cam.ray_direction = ft_normalise_vector(result);
-	rtv.cam.ray_origin = rtv.cam.hit.position;
+	rtv.cam.position = rtv.cam.hit.position;
 	//t_color	mycolor = ft_reflect_ray(rtv, color);
 	if (ft_intersect_refracted(&rtv, rtv.cam.hit.object))
 		return (ft_get_node_color(rtv, depth + 1));

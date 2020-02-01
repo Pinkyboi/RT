@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/30 22:11:57 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/01 20:24:17 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@
 /*
 **	EVENTS MACROS
 */
+
 # define EXIT 53
 # define FOREWORD 12
 # define BACKWARD 14
@@ -60,6 +61,8 @@
 # define RIGHT 2
 # define DOWN 1
 # define SAVE 36
+# define LEFT_ARROW 123
+# define RIGHT_ARROW 124
 # define PIXEL_SIZE 5
 # define NUM_THREAD 4
 
@@ -105,6 +108,7 @@ typedef struct	s_light_list
 typedef struct			s_intersection
 {
 	double		soluces[2];
+	double		delta;
 	t_vector	position;
 	t_vector	normal;
 	t_color		color;
@@ -112,7 +116,6 @@ typedef struct			s_intersection
 	double		refraction;
 	double		transparency;
 	t_object	*object;
-	t_coor		uv;
 }						t_intersection;
 
 typedef struct			s_cam
@@ -120,14 +123,11 @@ typedef struct			s_cam
 	t_vector		position;
 	t_vector		look_at;
 	t_vector		ray_direction;
-	t_vector		ray_origin;
 	t_intersection	hit;
 	t_vector		translation;
 	t_vector		bottom_left;
 	t_vector		w_scalar;
 	t_vector		h_scalar;
-	t_vector		right;
-	t_vector		up;
 	double			fov;
 }						t_cam;
 
@@ -147,9 +147,18 @@ typedef struct			s_scene
 	int		refraction_depth;
 }						t_scene;
 
+typedef	struct			s_cam_list	
+{
+	t_cam cam;
+	t_cam *cam_prev;
+	t_cam *cam_next;
+}						t_cam_list;
+
 typedef	struct	s_rtv
 {
 	t_cam			cam;
+	int				type_cam;
+	t_cam_list		*cam_list;
 	t_object_list	*objects;
 	t_object_list	*last_object;
 	t_light_list	*lights;
@@ -224,6 +233,8 @@ void            ft_hyperboloid_normal(t_cam *cam,
         t_hyperboloid *hyperboloid, double distance);
 void            ft_paraboloid_normal(t_cam *cam,
         t_paraboloid *paraboloid, double distance);
+void			ft_plane_normal(t_cam *cam,
+		t_plane *plane, double distance, double i);
 /*
 **  FUNCTIONS TO CALCULATE CAPPED OBJECTS AND LIMITED OBJECTS
 */
@@ -248,9 +259,9 @@ double		ft_cylinder_limit(t_cylinder cylinder, t_cam cam);
 **	CLIPPING FUNCTIONS
 */
 
-double			ft_clip_min(int min, double value);
-double			ft_clip_max(int max, double value);
-double			ft_clip_min_max(int min, int max, double value);
+double			ft_clip_min(double min, double value);
+double			ft_clip_max(double max, double value);
+double			ft_clip_min_max(double min, double max, double value);
 
 /*
 **	REFLECTION REFRACTION AND PHONG ILLUMINATION
@@ -312,9 +323,7 @@ void			ft_ray_shooter(t_rtv *rtv);
 void			ft_intersection_position(t_cam *cam, double first_intersection);
 void			ft_put_pixel(t_rtv *rtv, int color);
 void			ft_init_win(t_rtv *rtv);
-// void			ft_reflected_light_ray(t_cam cam, t_light *light, t_vector normal);
-// z
-t_vector	ft_reflected_light_ray(t_cam cam, t_light *light, t_vector light_vect, t_vector normal);
+t_vector		ft_reflected_light_ray(t_vector light_vect, t_vector normal);
 t_color			ft_parse_color(char *string, int *status);
 t_vector		ft_parse_vector(char *string, int *status);
 double			ft_atof(char *string, int *size);
@@ -343,7 +352,7 @@ t_plane			ft_define_plane(t_vector center, t_vector normal,
 					t_color color, double radius);
 
 
-t_color        	ft_noise(double x, double y);
+t_color        	ft_noise(t_rtv rtv, t_color color);
 void        	ft_create_noise(void);
 
 
@@ -367,12 +376,4 @@ int			ft_exit(t_rtv *rtv);
 void		ft_clear_mlx(t_mlx *mlx, t_rtv *rtv);
 
 void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
-
-/*
-**	MAPPING_AND_TEXTURES
-*/
-
-t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
-t_color			ft_cheeker_texture(double x, double y, double scale);
-t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
 #endif

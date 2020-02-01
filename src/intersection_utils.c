@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/17 22:48:54 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/01 02:29:34 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ double			ft_check_intersection(t_rtv rtv)
 			min = temp_min;
 		object_node = object_node->next;
 	}
-	if (min)
+	if (min != MAX_D)
 		return (min);
 	return (0);
 }
@@ -90,17 +90,12 @@ void			ft_color_best_node(t_rtv *rtv, t_color rgb)
 			object_node = object_node->next;
 		}
 		if (best_node)
-		{
-			node_color = ft_get_node_color(*rtv, 1);
-			rgb = ft_add_colors(rgb, node_color);
-		}
+			rgb = ft_add_colors(rgb, ft_get_node_color(*rtv, 1));
 	}
 	rgb = ft_scale_colors(rgb, (double)1 / (rtv->anti_aliasing + 1));
 	if (best_node)
-	{
 		ft_put_pixel(rtv, ft_rgb_to_int(
 			ft_select_filter(*rtv, best_node->object, rgb)));
-	}
 	else
 		ft_put_pixel(rtv, 0x0);
 }
@@ -172,11 +167,9 @@ void			ft_ray_shooter(t_rtv *rtv)
 	int			i;
 
 	i = -1;
-	rtv->effects = 0;
 	while (++i < NUM_THREAD)
 	{
 		rtv_cpy[i] = *rtv;
-		// rtv_cpy[i].lights = copy_lights(rtv->lights);
 		rtv_cpy[i].min_w = (rtv->scene.width / NUM_THREAD) * i;
 		rtv_cpy[i].max_w = (rtv->scene.width / NUM_THREAD) * (i + 1);
 		pthread_create(&thread[i], NULL, ft_ray_loop, &rtv_cpy[i]);

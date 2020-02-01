@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/16 15:43:22 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/01 21:09:49 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ void			ft_cylinder_cut(t_rtv *env,
 	ft_define_limits(tag, &(object->cylinder.limits), status);
 	object->cylinder.max_lenght = ft_clip_min(-1,
 		ft_parse_float(ft_xml_get_value(tag, "lenght", "-1"), status));
-	object->cylinder.limit = ft_parse_vector(
-		ft_xml_get_value(tag, "limit", "(0,0,0)"), status);
 	if (object->cylinder.max_lenght > 0)
 	{
 		cut_center = ft_add_vector(ft_scale_vector(object->cylinder.axis,
@@ -93,6 +91,7 @@ void			ft_cylinder_cut(t_rtv *env,
 	}
 }
 
+
 void			ft_cone_cut(t_rtv *env,
 	t_xml_tag *tag, t_object *object, int *status)
 {
@@ -103,8 +102,6 @@ void			ft_cone_cut(t_rtv *env,
 	ft_define_limits(tag, &(object->cone.limits), status);
 	object->cone.max_lenght = ft_clip_min(-1, ft_parse_float(
 		ft_xml_get_value(tag, "lenght", "-1"), status));
-	object->cone.limit = ft_parse_vector(
-		ft_xml_get_value(tag, "limit", "(0,0,0)"), status);
 	if (object->cone.max_lenght > 0)
 	{
 		cut_center = ft_add_vector(ft_scale_vector(object->cone.axis,
