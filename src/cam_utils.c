@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cam_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/25 20:07:09 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/02/01 01:50:09 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		ft_depth_of_field(t_rtv *rtv, int sample)
 	rd.x = rand() / (float)(RAND_MAX + 1);
 	rd.y = rand() / (float)(RAND_MAX + 1);
 	rd.z = 0.0;
-	radius = 2.0;
+	radius = 0.3;
 	offset = ft_add_vector(ft_scale_vector(rtv->cam.right, rd.x), ft_scale_vector(rtv->cam.up, rd.y));
 	world_point = ft_add_vector(rtv->cam.bottom_left,
 				ft_add_vector(ft_scale_vector(rtv->cam.h_scalar,
@@ -61,7 +61,7 @@ void		ft_depth_of_field(t_rtv *rtv, int sample)
 				ft_scale_vector(rtv->cam.w_scalar,
 				(rtv->row + anti_aliazing[sample][1] + 0.5) / rtv->scene.width)));
 	rtv->cam.ray_direction = ft_sub_vector(world_point, rtv->cam.position);
-	point_aim = ft_add_vector(rtv->cam.position, ft_scale_vector(rtv->cam.ray_direction, 25));
+	point_aim = ft_add_vector(rtv->cam.position, ft_scale_vector(rtv->cam.ray_direction, 20));
 	rtv->cam.ray_direction = ft_normalise_vector(rtv->cam.ray_direction);
 	rtv->cam.ray_origin = ft_sub_vector(rtv->cam.position,
 		ft_add_vector(ft_sub_vector(ft_scale_vector(rtv->cam.right, (double)radius / 2),
@@ -94,7 +94,7 @@ void		ft_create_ray(t_rtv *rtv, int sample)
 	world_point = ft_sub_vector(world_point, rtv->cam.position);
 	rtv->cam.ray_direction = ft_normalise_vector(world_point);
 	rtv->cam.ray_origin = rtv->cam.position;
-	// ft_depth_of_field(rtv, sample);
+	ft_depth_of_field(rtv, sample);
 }
 
 void		ft_init_cam(t_rtv *rtv)

@@ -1,6 +1,6 @@
 <camera position="(0, 0, 100)" lookat="(0, 0, 0)" fov="35"/>
 <light center="(0, 0, 30)" intensity="0.8" color="#FFFFFF"/>
-<sphere center="(10, 0, 10)" color="(150, 50, 50)" radius="4"/>
+<sphere center="(0, 0, 10)" color="(150, 50, 50)" radius="2"/>
 <plane center="(0, -5, 10)" normal="(0, 1, 0)" color="(128,128,128)"/>
 <plane center="(0, -5, -10)" normal="(0, 0, 1)" color="(128,128,128)"/>
 <plane center="(10, -5, 0)" normal="(1, 0, 0)" color="(128,128,128)"/>

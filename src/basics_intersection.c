@@ -6,11 +6,40 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/29 04:24:35 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/01 01:29:32 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+t_color			ft_get_color(int x, int y)
+{
+	static int *pixels = NULL;
+	static int	width;
+	static int height;
+
+	if(!pixels)
+	{
+		int fd;
+
+		fd = open("texture.tex", O_RDONLY);
+		read(fd, &width, 4);
+		read(fd, &height, 4);
+		printf("loaded image %d %d\n", width, height);
+		pixels = malloc(sizeof(int) * width * height);
+		read(fd, pixels, width * height * sizeof(int));
+		close(fd);
+		printf("loadedfile\n");
+	}
+	x %= width;
+	y %= height;
+	t_color color;
+
+	color.r = (double)((pixels[y * width + x] >> 16) & 0xff) / 255.0;
+	color.g = (double)((pixels[y * width + x] >> 8) & 0xff) / 255.0;
+	color.b = (double)(pixels[y * width + x] & 0xff) / 255.0;
+	return (color);
+}
 
 int				ft_check_min_distance(double *x1, double x2, double min)
 {
@@ -75,7 +104,10 @@ double			ft_sphere_intersection(t_cam *cam,
 	cam->hit.soluces[0] = (-B + sqrt(delta)) / 2;
 	cam->hit.soluces[1] = (-B - sqrt(delta)) / 2;
 	if (ft_check_min_distance(&cam->hit.soluces[0], cam->hit.soluces[1], min))
+	{
 		ft_sphere_normal(cam, sphere, cam->hit.soluces[0]);
+		cam->hit.uv = ft_cart_to_sphere(cam->hit.position, sphere);
+	}
 	else
 		cam->hit.soluces[0] = 0;
 	return (cam->hit.soluces[0]);

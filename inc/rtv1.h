@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/30 16:25:48 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/01 01:28:44 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,7 +346,6 @@ t_plane			ft_define_plane(t_vector center, t_vector normal,
 					t_color color, double radius);
 
 
-t_color        	ft_noise(t_rtv rtv, t_color color);
 void        	ft_create_noise(void);
 
 
@@ -382,7 +381,8 @@ void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
 */
 
 t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
-t_color			ft_cheeker_texture(double x, double y, double scale);
+t_color		ft_cheeker_texture(double x, double y, double scale);
 t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
-t_color	ft_get_texture_color(t_texture *texture, t_coor uv);
+t_color		ft_get_texture_color(t_texture *texture, t_coor uv);
+t_color		ft_noise(t_cam *cam);
 #endif
