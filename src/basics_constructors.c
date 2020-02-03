@@ -92,11 +92,13 @@ int				ft_add_plane(t_xml_tag *tag, t_rtv *env)
 				"translation", "(0,0,0)"), &status);
 	object.plane.center = ft_add_vector(object.plane.center,
 			object.plane.translation);
-	object.plane.normal = ft_rotate_vector(object.plane.normal,
-			object.plane.rotation);
-	object.plane.normal = ft_normalise_vector(object.plane.normal);
+	object.plane.normal = ft_normalise_vector(
+		ft_rotate_vector(object.plane.normal, object.plane.rotation));
 	object.plane.radius = ft_clip_min(-1, ft_parse_float(
 				ft_xml_get_value(tag, "radius", "-1"), &status));
+	object.plane.side = ft_clip_min(-1, ft_parse_float(
+				ft_xml_get_value(tag, "side", "-1"), &status));
+	ft_define_limits(tag, &(object.plane.limits), &status);
 	ft_add_material(tag, &object, &status);
 	object.plane.function = &ft_plane_intersection;
 	status &= ft_object_push(env, object, TYPE_PLANE);

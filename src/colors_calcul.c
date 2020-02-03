@@ -55,7 +55,7 @@ double			ft_calculate_shadow(t_rtv rtv, double intersection_dist,
 		ft_scale_vector(light_vect, intersection_dist),
 		rtv.cam.hit.position));
 	shadow_ratio = -(intersection_distance / light_distance);
-	if (shadow_ratio > -1)
+	// if (shadow_ratio > -1)
 		return (shadow_ratio);
 	return (0);
 }

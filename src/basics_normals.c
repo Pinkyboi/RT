@@ -85,7 +85,7 @@ int		ft_axis_limit(t_vector intersection,
 
 double	ft_plane_limit(t_plane plane, t_cam cam);
 
-void 	ft_plane_normal(t_cam *cam, t_plane *plane, double distance, double i)
+void 	ft_plane_normal(t_cam *cam, t_plane *plane, double i)
 {
 	t_vector normal;
 
@@ -95,12 +95,13 @@ void 	ft_plane_normal(t_cam *cam, t_plane *plane, double distance, double i)
 		ft_vector_size(ft_sub_vector(plane->center, cam->hit.position)))
 	{
 		cam->hit.soluces[0] = ft_plane_limit(*plane, *cam);
+		if(ft_axis_limit(cam->hit.position, plane->limits))
+			cam->hit.soluces[0] = 0;
 		if(cam->hit.soluces[0])
 			cam->hit.normal = (i > 0) ?
 			ft_scale_vector(normal, -1) : normal;
 	}
 	else
 		cam->hit.soluces[0] = 0;
-	if(cam->hit.soluces[0])
-		ft_get_hit_info(normal, (t_point*)plane, cam);
+	ft_get_hit_info(normal, (t_point*)plane, cam);
 }

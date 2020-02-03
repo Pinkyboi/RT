@@ -37,7 +37,7 @@ double			ft_check_shadow(t_rtv rtv, t_light light,
 	if (intersection_dist)
 	{
 		if ((intersection_dist > ft_vector_size(ft_sub_vector(light.center
-			, rtv.cam.hit.position))) || dot < 0)
+			, rtv.cam.hit.position))))
 			return (1);
 		if (dot >= 0)
 			return (0);

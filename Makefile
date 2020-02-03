@@ -52,7 +52,8 @@ FILENAMES = cam_utils.c\
 	reflection.c\
 	refraction.c\
 	dump_bitmap.c\
-	destroy.c
+	destroy.c\
+	composed_constrcutors.c
 
 
 HEADER_FILE = objects.h\

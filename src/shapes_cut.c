@@ -36,6 +36,7 @@ void			ft_sphere_cut(t_rtv *env,
 		disk.plane = ft_define_plane(cut_center,
 			object->sphere.cut_orientation, object->sphere.color, new_radius);
 		disk.point.function = &ft_plane_intersection;
+		disk.plane.limits = object->sphere.limits;
 		ft_object_push(env, disk, TYPE_PLANE);
 	}
 }
@@ -84,8 +85,10 @@ void			ft_cylinder_cut(t_rtv *env,
 			-object->cylinder.max_lenght / 2), object->cylinder.center);
 		lower_disk.plane = ft_define_plane(cut_center, object->cylinder.axis,
 			object->cylinder.color, object->cylinder.radius);
-		upper_disk.point.function = &ft_plane_intersection;
-		lower_disk.point.function = &ft_plane_intersection;
+		upper_disk.plane.function = &ft_plane_intersection;
+		lower_disk.plane.function = &ft_plane_intersection;
+		upper_disk.plane.limits = object->cylinder.limits;
+		lower_disk.plane.limits = object->cylinder.limits;
 		ft_object_push(env, upper_disk, TYPE_PLANE);
 		ft_object_push(env, lower_disk, TYPE_PLANE);
 	}
@@ -111,6 +114,7 @@ void			ft_cone_cut(t_rtv *env,
 		disk.plane = ft_define_plane(cut_center,
 			object->cone.axis, object->cone.color, new_radius);
 		disk.point.function = &ft_plane_intersection;
+		disk.plane.limits = object->cone.limits;
 		ft_object_push(env, disk, TYPE_PLANE);
 	}
 }

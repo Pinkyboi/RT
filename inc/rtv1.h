@@ -199,6 +199,7 @@ int				ft_add_ellipsoid(t_xml_tag *tag, t_rtv *env);
 int				ft_add_hyperboloid(t_xml_tag *tag, t_rtv *env);
 int				ft_add_paraboloid(t_xml_tag *tag, t_rtv *env);
 int				ft_add_triangle(t_xml_tag *tag, t_rtv *env);
+int				ft_add_pill(t_xml_tag *tag, t_rtv *env);
 /*
 **  FUNCTIONS TO CALCULATE INTERSECTION FOR EVERY SHAPE
 */
@@ -234,7 +235,7 @@ void            ft_hyperboloid_normal(t_cam *cam,
 void            ft_paraboloid_normal(t_cam *cam,
         t_paraboloid *paraboloid, double distance);
 void			ft_plane_normal(t_cam *cam,
-		t_plane *plane, double distance, double i);
+		t_plane *plane, double i);
 /*
 **  FUNCTIONS TO CALCULATE CAPPED OBJECTS AND LIMITED OBJECTS
 */
@@ -362,7 +363,7 @@ t_object_list	*copy_objects(t_object_list* head);
 
 
 
-int				ft_check_min_distance(double *x1, double x2, double min);
+int				ft_check_min_distance(double *x1, double *x2, double min);
 int				ft_intersect_reflected(t_rtv *rtv);
 
 /*
@@ -376,4 +377,6 @@ int			ft_exit(t_rtv *rtv);
 void		ft_clear_mlx(t_mlx *mlx, t_rtv *rtv);
 
 void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
+
+
 #endif

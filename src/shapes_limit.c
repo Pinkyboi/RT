@@ -118,7 +118,7 @@ double	ft_plane_limit(t_plane plane, t_cam cam)
 			ft_sub_vector(cam.hit.position, plane.center), sides[0]);
 	x[1] = ft_dot_vector(
 			ft_sub_vector(cam.hit.position, plane.center), sides[1]);
-	if(fabs(x[0]) >= 50 || fabs(x[1]) >= 50)
+	if(plane.side >= 0 && (fabs(x[0]) >= plane.side || fabs(x[1]) >= plane.side))
 		return (0);
 	return (cam.hit.soluces[0]);
 }

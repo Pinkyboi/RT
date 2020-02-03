@@ -32,7 +32,7 @@ double			ft_hyperboloid_intersection(t_cam *cam,
 	cam->hit.soluces[0] = (-B + sqrt(cam->hit.delta)) / (2 * A);
 	cam->hit.soluces[1] = (-B - sqrt(cam->hit.delta)) / (2 * A);
 	if (ft_check_min_distance(&cam->hit.soluces[0],
-		cam->hit.soluces[1], min))
+		&cam->hit.soluces[1], min))
 		ft_hyperboloid_normal(cam, hyperboloid, cam->hit.soluces[0]);
 	else
 		cam->hit.soluces[0] = 0;
@@ -57,7 +57,7 @@ double			ft_paraboloid_intersection(t_cam *cam,
 	cam->hit.soluces[0] = (-B + sqrt(cam->hit.delta)) / (2 * A);
 	cam->hit.soluces[1] = (-B - sqrt(cam->hit.delta)) / (2 * A);
 	if (ft_check_min_distance(&cam->hit.soluces[0],
-		cam->hit.soluces[1], min))
+		&cam->hit.soluces[1], min))
 		ft_paraboloid_normal(cam, paraboloid, cam->hit.soluces[0]);
 	else
 		cam->hit.soluces[0] = 0;
@@ -84,7 +84,7 @@ double			ft_ellipsoid_intersection(t_cam *cam,
 	cam->hit.soluces[0] = (-B + sqrt(cam->hit.delta)) / (2 * A);
 	cam->hit.soluces[1] = (-B - sqrt(cam->hit.delta)) / (2 * A);
 	if (ft_check_min_distance(&cam->hit.soluces[0],
-		cam->hit.soluces[1], min))
+		&cam->hit.soluces[1], min))
 		ft_ellipsoid_normal(cam, ellipsoid, cam->hit.soluces[0]);
 	else
 		cam->hit.soluces[0] = 0;
@@ -110,7 +110,7 @@ double			ft_cone_intersection(t_cam *cam, t_cone *cone, double min)
 		return (0);
 	cam->hit.soluces[0] = (-B + sqrt(cam->hit.delta)) / (2 * A);
 	cam->hit.soluces[1] = (-B - sqrt(cam->hit.delta)) / (2 * A);
-	if (ft_check_min_distance(&cam->hit.soluces[0], cam->hit.soluces[1], min))
+	if (ft_check_min_distance(&cam->hit.soluces[0], &cam->hit.soluces[1], min))
 		ft_cone_normal(cam, cone, cam->hit.soluces[0]);
 	else
 		cam->hit.soluces[0] = 0;

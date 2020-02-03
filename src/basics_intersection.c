@@ -12,15 +12,18 @@
 
 #include "rtv1.h"
 
-int				ft_check_min_distance(double *x1, double x2, double min)
+int				ft_check_min_distance(double *x1, double *x2, double min)
 {
-	if ((x2 <= *x1 || *x1 < MIN_D) && x2 > MIN_D
-			&& (x2 < min))
+	double temp;
+	if ((*x2 <= *x1 || *x1 < MIN_D) && *x2 > MIN_D
+			&& (*x2 < min))
 	{
-		*x1 = x2;
+		temp = *x1;
+		*x1 = *x2;
+		*x2 = temp;
 		return (1);
 	}
-	else if ((*x1 < x2 || x2 < MIN_D) && *x1 > MIN_D
+	else if ((*x1 < *x2 || *x2 < MIN_D) && *x1 > MIN_D
 			&& (*x1 < min))
 		return (1);
 	else
@@ -47,7 +50,7 @@ double			ft_cylinder_intersection(t_cam *cam,
 		return (0);
 	cam->hit.soluces[0] = (-B + sqrt(cam->hit.delta)) / (2 * A);
 	cam->hit.soluces[1] = (-B - sqrt(cam->hit.delta)) / (2 * A);
-	if (ft_check_min_distance(&cam->hit.soluces[0], cam->hit.soluces[1], min))
+	if (ft_check_min_distance(&cam->hit.soluces[0], &cam->hit.soluces[1], min))
 		ft_cylinder_normal(cam, cylinder, cam->hit.soluces[0]);
 	else
 		cam->hit.soluces[0] = 0;
@@ -69,7 +72,7 @@ double			ft_sphere_intersection(t_cam *cam,
 		return (0);
 	cam->hit.soluces[0] = (-B + sqrt(cam->hit.delta)) / 2;
 	cam->hit.soluces[1] = (-B - sqrt(cam->hit.delta)) / 2;
-	if (ft_check_min_distance(&cam->hit.soluces[0], cam->hit.soluces[1], min))
+	if (ft_check_min_distance(&cam->hit.soluces[0], &cam->hit.soluces[1], min))
 		ft_sphere_normal(cam, sphere, cam->hit.soluces[0]);
 	else
 		cam->hit.soluces[0] = 0;
@@ -89,7 +92,7 @@ double			ft_plane_intersection(t_cam *cam, t_plane *plane, double min)
 		cam->hit.soluces[0] = ft_dot_vector(temp, plane->normal) / i;
 		if (cam->hit.soluces[0] < min && cam->hit.soluces[0] > MIN_D)
 		{
-			ft_plane_normal(cam, plane, cam->hit.soluces[0], i);
+			ft_plane_normal(cam, plane, i);
 			return(cam->hit.soluces[0]);			
 		}
 	}

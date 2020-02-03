@@ -159,7 +159,7 @@ typedef struct	s_plane
 	t_vector				translation;
 	t_limit					limits;
 	double					radius;
-	t_vector				side[2];
+	double				side;
 }				t_plane;
 
 
