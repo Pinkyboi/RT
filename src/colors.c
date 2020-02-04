@@ -34,20 +34,20 @@ double			ft_check_shadow(t_rtv rtv, t_light light,
 	rtv.cam.ray_direction = light_vect;
 	intersection_dist = ft_check_intersection(rtv);
 	dot = ft_dot_vector(light_vect, rtv.cam.hit.normal);
-	if (intersection_dist)
-	{
-		if ((intersection_dist > ft_vector_size(ft_sub_vector(light.center
-			, rtv.cam.hit.position))))
-			return (1);
-		if (dot >= 0)
-			return (0);
-		else
-		{
-			*color = ft_add_colors(*color, ft_scale_colors(*color,
-			ft_calculate_shadow(rtv, intersection_dist, light, light_vect)));
-			return (0);
-		}
-	}
+	// if (intersection_dist)
+	// {
+	// 	if ((intersection_dist > ft_vector_size(ft_sub_vector(light.center
+	// 		, rtv.cam.hit.position))))
+	// 		return (1);
+	// 	if (dot >= 0)
+	// 		return (0);
+	// 	else
+	// 	{
+	// 		*color = ft_add_colors(*color, ft_scale_colors(*color,
+	// 		ft_calculate_shadow(rtv, intersection_dist, light, light_vect)));
+	// 		return (0);
+	// 	}
+	// }
 	return (1);
 }
 

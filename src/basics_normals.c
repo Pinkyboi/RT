@@ -104,4 +104,6 @@ void 	ft_plane_normal(t_cam *cam, t_plane *plane, double i)
 	else
 		cam->hit.soluces[0] = 0;
 	ft_get_hit_info(normal, (t_point*)plane, cam);
+	if(cam->hit.soluces[0])
+		cam->hit.color = ft_map_texture(cam, *plane);
 }

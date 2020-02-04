@@ -79,6 +79,8 @@ double			ft_sphere_intersection(t_cam *cam,
 	return (cam->hit.soluces[0]);
 }
 
+t_color			ft_map_texture(t_cam *cam, t_plane plane);
+
 double			ft_plane_intersection(t_cam *cam, t_plane *plane, double min)
 {
 	double		i;

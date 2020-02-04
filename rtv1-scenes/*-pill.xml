@@ -1,7 +1,4 @@
 <scene ambiant="0.5" AA="4" reflection_depth="0" resolution="720"/>
 <camera position="(0, 10, 50)" lookat="(0, 0, 0)" fov="35"/>
-<ligst center="(0, 0, -10)" intensity="0.8" color="#FFFFFF"/>
 <light center="(-20, 0, 20)" intensity="0.8" color="#FFFFFF"/>
 <pill lenght="5" radius="3" center="(0, 0, -10)" color="(255, 0, 0)" axis="(0, -1, 0)"/>
-<sphsere center="(0, 2.5, -10)" color="(255, 0, 0)" radius="3"/>
-<sphsere center="(0, -2.5, -10)" color="(255, 0, 0)" radius="3"/>

@@ -97,13 +97,12 @@ int			ft_add_cube(t_xml_tag *tag, t_rtv *env)
 	sides[3].plane.normal = sides[2].plane.normal;
 
 
-	sides[4].plane.sides.u = sides[0].plane.sides.v;
-	sides[4].plane.sides.v = sides[0].plane.normal;
+	sides[4].plane.sides.u = sides[0].plane.normal;
+	sides[4].plane.sides.v = sides[2].plane.normal;
 	sides[4].plane.normal = ft_normalise_vector(ft_cross_product(sides[4].plane.sides.u, sides[4].plane.sides.v));
 	sides[4].plane.center = ft_add_vector(ft_scale_vector(sides[4].plane.normal, sides[4].plane.side), center);
 	sides[5].plane.center = ft_add_vector(ft_scale_vector(sides[4].plane.normal, -sides[4].plane.side), center);
 	sides[5].plane.normal = sides[4].plane.normal;
-
 	i = -1;
 	while(++i < 6)
 		ft_object_push(env, sides[i], TYPE_PLANE);

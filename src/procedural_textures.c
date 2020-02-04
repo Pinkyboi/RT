@@ -58,5 +58,5 @@ t_color			ft_map_texture(t_cam *cam, t_plane plane)
 			ft_sub_vector(cam->hit.position, plane.center), sides[0]);
 	x[1] = ft_dot_vector(
 			ft_sub_vector(cam->hit.position, plane.center), sides[1]);
-	return (ft_cheeker_texture(x[1], x[0], 0.08));
+	return (ft_cheeker_texture(x[1], x[0], 0.1));
 }

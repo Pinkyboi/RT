@@ -378,4 +378,6 @@ void		ft_clear_mlx(t_mlx *mlx, t_rtv *rtv);
 
 void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
 int			ft_add_cube(t_xml_tag *tag, t_rtv *env);
+
+t_color			ft_map_texture(t_cam *cam, t_plane plane);
 #endif
