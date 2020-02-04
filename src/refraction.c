@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 20:48:50 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/30 12:29:34 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/02 00:18:51 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,8 @@ int		ft_intersect_refracted(t_rtv *rtv, t_object *current_object)
 	min = MAX_D;
 	while (node)
 	{
-		if (&node->object != current_object)
-		{
-			if (node->object.point.reflection == 1)
-				ft_choose_intersection(node, rtv, &min);
-		}
+		if (node->object.point.reflection == 1)
+			ft_choose_intersection(node, rtv, &min);
 		node = node->next;
 	}
 	if (min != MAX_D)

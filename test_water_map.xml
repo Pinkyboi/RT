@@ -1,6 +1,6 @@
 <scene ambiant="0.5" AA="2" reflection_depth="0" refraction_depth="10" resolution="720"/>
-<camera position="(0, 0, -1)" lookat="(0, 0, 0)" fov="40"/>
-<light center="(0, 500, -500)" intensity="0.8" color="#FFFFFF"/>
-<ssphere center="(0, 0, 20)" color="#0077be" radius="5" texture="/Users/abiri/Desktop/earth_diffuse.tex"/>
-<plane center="(0, 0, 10)" normal="(0, 0, -1)" color="#E3E3E3" texture="/Users/abiri/Desktop/earth_diffuse.tex"/>
-<plane center="(0, 0, 20)" normal="(0, 0, -1)" color="#FF00FF" texture="/Users/abiri/Desktop/test_transparent.tex"/>
+<camera position="(0, 0, 100)" lookat="(0, 0, 0)" fov="40"/>
+<light center="(0, 0, 50)" intensity="0.8" color="#FFFFFF"/>
+<plane center="(0, 0, 10)" normal="(0, 0, -1)" color="#E3E3E3" />
+<sphere center="(0, 0, 50)" color="#0077be" radius="5" transparency_mapping="/Users/abiri/Desktop/earth_specular.tex" mapping_mode="transparency"/>
+<pplane center="(0, 0, 20)" normal="(0, 0, -1)" color="#FF00FF"/>

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/01 21:52:50 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/02 00:12:07 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,52 @@ t_texture		*ft_load_texture(char *filename, t_rtv *env)
 	return (result);
 }
 
+int				ft_get_texture_mapping_type(t_xml_tag *tag)
+{
+	t_xml_prop	*prop;
+	int			result;
+
+	result = 0;	
+	prop = tag->props;
+	while (prop)
+	{
+		if (ft_strequ(prop->name, "mapping_type"))
+		{
+			if (ft_strequ(prop->value, "fit"))
+				result |= TEXTURE_MODE_FIT;
+			else if (ft_strequ(prop->value, "center"))
+				result |= TEXTURE_MODE_CENTER;
+			else if (ft_strequ(prop->value, "cut"))
+				result |= TEXTURE_MODE_CUT;
+			else if (ft_strequ(prop->value, "transparency"))
+				result |= TEXTURE_MODE_TRANSPARENCY;
+			else if (ft_strequ(prop->value, "repeat"))
+				result |= TEXTURE_MODE_REPEAT;
+		}
+		prop = prop->next;
+	}
+	return (result);
+}
+
 void			ft_add_material(t_xml_tag *tag, t_object *object, int *status, t_rtv *env)
 {
+	t_vector	offset;
+
 	object->point.reflection = ft_clip_max(1,
 		ft_parse_float(ft_xml_get_value(tag, "reflection", "1"), status));
 	object->point.refraction = ft_clip_min(1,
 		ft_parse_float(ft_xml_get_value(tag, "refraction", "1"), status));
 	object->point.transparency = ft_clip_max(1,
 		ft_parse_float(ft_xml_get_value(tag, "transparency", "0"), status));
-	object->point.material.texture = ft_load_texture(ft_xml_get_value(tag, "texture", NULL), env);
-	object->point.material.bump = ft_load_texture(ft_xml_get_value(tag, "bump", NULL), env);
-	object->point.material.specular = ft_load_texture(ft_xml_get_value(tag, "specular", NULL), env);
+	object->point.material.texture = ft_load_texture(ft_xml_get_value(tag, "texture_mapping", NULL), env);
+	object->point.material.bump = ft_load_texture(ft_xml_get_value(tag, "bump_mapping", NULL), env);
+	object->point.material.specular = ft_load_texture(ft_xml_get_value(tag, "specular_mapping", NULL), env);
 	object->point.material.transparency = ft_load_texture(ft_xml_get_value(tag, "transparency_mapping", NULL), env);
 	object->point.material.reflection = ft_load_texture(ft_xml_get_value(tag, "reflection_mapping", NULL), env);
-	object->point.material.offset = (t_coor){0, 0};
-	object->point.material.scale = 0.1;
-	object->point.material.mode = TEXTURE_MODE_CENTER | TEXTURE_MODE_TRANSPARENCY;
+	offset = ft_parse_vector(ft_xml_get_value(tag, "mapping_position", "(0, 0, 1)"), status);
+	object->point.material.offset = (t_coor){offset.x, offset.y};
+	object->point.material.scale = offset.z;
+	object->point.material.mode = ft_get_texture_mapping_type(tag);
 }
 
 int				ft_add_sphere(t_xml_tag *tag, t_rtv *env)

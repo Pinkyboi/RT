@@ -6,12 +6,12 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 22:04:25 by azarzor           #+#    #+#             */
-/*   Updated: 2020/02/01 21:34:16 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/02 00:28:45 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#define LIGHT_SPHERE_COUNT 1.0
+#define LIGHT_SPHERE_COUNT 50.0
 
 t_object		*ft_get_intersection_object(t_rtv *rtv, double *min)
 {
@@ -121,7 +121,7 @@ t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color)
 	{
 		light = light_node->light;
 		center = light.center;
-		radius = 0.1;
+		radius = 1;
 		for (int i = 0; i < LIGHT_SPHERE_COUNT; i++)
 		{
 			light.color = light_node->light.color;
