@@ -2,6 +2,6 @@
 <camera position="(0, 10, 50)" lookat="(0, 0, 0)" fov="35"/>
 <ligst center="(0, 0, -10)" intensity="0.8" color="#FFFFFF"/>
 <light center="(-20, 0, 20)" intensity="0.8" color="#FFFFFF"/>
-<cylinder lenght="5" radius="3" center="(0, 0, -10)" color="(255, 0, 0)" axis="(0, -1, 0)"/>
-<sphere center="(0, 2.5, -10)" color="(255, 0, 0)" radius="3"/>
-<sphere center="(0, -2.5, -10)" color="(255, 0, 0)" radius="3"/>
+<pill lenght="5" radius="3" center="(0, 0, -10)" color="(255, 0, 0)" axis="(0, -1, 0)"/>
+<sphsere center="(0, 2.5, -10)" color="(255, 0, 0)" radius="3"/>
+<sphsere center="(0, -2.5, -10)" color="(255, 0, 0)" radius="3"/>

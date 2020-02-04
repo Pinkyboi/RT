@@ -24,6 +24,7 @@ t_plane			ft_define_plane(t_vector center, t_vector normal,
 	plane.reflection = 1;
 	plane.refraction = 1;
 	plane.transparency = 1;
+	plane.side = -1;
 	return (plane);
 }
 

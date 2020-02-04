@@ -91,7 +91,7 @@ int				ft_add_plane(t_xml_tag *tag, t_rtv *env)
 	object.plane.translation = ft_parse_vector(ft_xml_get_value(tag,
 				"translation", "(0,0,0)"), &status);
 	object.plane.center = ft_add_vector(object.plane.center,
-			object.plane.translation);
+			object.plane.translation);	
 	object.plane.normal = ft_normalise_vector(
 		ft_rotate_vector(object.plane.normal, object.plane.rotation));
 	object.plane.radius = ft_clip_min(-1, ft_parse_float(

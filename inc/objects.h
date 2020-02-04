@@ -20,10 +20,10 @@
 # define TYPE_PLANE 3
 # define TYPE_CONE 4
 # define TYPE_ELLIPSOID 5
+# define TYPE_HYPERBOILD 6
 # define TYPE_TRIANGLE 7
 # define TYPE_PARABALOID 8
-# define TYPE_HYPERBOILD 6
-# define TYPE_PARSE_COUNT 13
+# define TYPE_PARSE_COUNT 17
 # define A abc[0]
 # define B abc[1]
 # define C abc[2]
@@ -146,6 +146,12 @@ typedef struct	s_cone
 	t_limit					limits;	
 }				t_cone;
 
+typedef struct	s_sides
+{
+	t_vector u;
+	t_vector v;
+}				t_sides;
+
 typedef struct	s_plane
 {
 	t_vector				normal;
@@ -160,6 +166,7 @@ typedef struct	s_plane
 	t_limit					limits;
 	double					radius;
 	double				side;
+	t_sides				sides;
 }				t_plane;
 
 

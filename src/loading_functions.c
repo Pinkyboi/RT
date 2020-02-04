@@ -25,6 +25,7 @@ const t_xml_element_parse	g_xml_element_parser[] = {
 	{.type_name = "triangle", .function = &ft_add_triangle},
 	{.type_name = "paraboloid", .function = &ft_add_paraboloid},
 	{.type_name = "pill", .function = &ft_add_pill},
+	{.type_name = "cube", .function = &ft_add_cube},
 	{.type_name = "camera", .function = &ft_load_camera},
 	{.type_name = "scene", .function = &ft_load_scene},
 	{.type_name = "light", .function = &ft_add_light}
