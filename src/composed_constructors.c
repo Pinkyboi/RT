@@ -51,17 +51,6 @@ int				ft_add_pill(t_xml_tag *tag, t_rtv *env)
 	return (status);
 }
 
-// int		ft_create_plane(t_sides sides, t_color color, t_vector center, t_rtv *env)
-// {
-// 	t_object object;
-
-// 	object.plane.normal = ft_normalise_vector(ft_cross_product(sides.u, sides.v)); 
-// 	object.plane.color = color; 
-// 	object.plane.center = center;
-// 	object.plane.function = &ft_plane_intersection;
-// 	ft_object_push(env, object, TYPE_PLANE);
-// }
-
 int			ft_add_cube(t_xml_tag *tag, t_rtv *env)
 {
 	t_object sides[6];
@@ -70,38 +59,47 @@ int			ft_add_cube(t_xml_tag *tag, t_rtv *env)
 	int status;
 
 	status = 1;
+	t_vector none = ft_parse_vector(ft_xml_get_value(tag, "lenght", "(5,5,0.1)"), &status);
 	center = ft_parse_vector(ft_xml_get_value(tag, "center",
 				"(0,0,0)"), &status);
 	sides[0].plane.side = ft_clip_min(10, ft_parse_float(
 				ft_xml_get_value(tag, "side", "-1"), &status));
-	sides[0].plane.sides.u = ft_normalise_vector(ft_parse_vector(ft_xml_get_value(tag, "U", "(0,1,0)"), &status));
-	sides[0].plane.sides.v = ft_normalise_vector(ft_parse_vector(ft_xml_get_value(tag, "V",
-	"(1,0,0)"), &status));
+	sides[0].plane.rotation = ft_parse_vector(
+				ft_xml_get_value(tag, "rotation", "(0,0,0)"), &status);
+	sides[0].plane.sides.u = ft_rotate_vector(ft_normalise_vector(ft_parse_vector(ft_xml_get_value(tag, "U", "(0,1,0)"), &status)),sides[0].plane.rotation);
+	sides[0].plane.sides.v = ft_rotate_vector(ft_normalise_vector(ft_parse_vector(ft_xml_get_value(tag, "V",
+	"(1,0,0)"), &status)),sides[0].plane.rotation);
+	sides[0].plane.lenght.u = none.x;
+	sides[0].plane.lenght.v = none.y;
 	sides[0].plane.color = ft_parse_color(ft_xml_get_value(tag, "color",
 				"(255,255,255)"), &status);
 	sides[0].plane.radius = -1;
 	sides[0].plane.normal = ft_normalise_vector(ft_cross_product(sides[0].plane.sides.u, sides[0].plane.sides.v));
-	sides[0].plane.center = ft_add_vector(ft_scale_vector(sides[0].plane.normal, sides[0].plane.side), center);
+	sides[0].plane.center = ft_add_vector(ft_scale_vector(sides[0].plane.normal, none.z), center);
 	sides[0].plane.function = &ft_plane_intersection;
 	ft_define_limits(tag, &(sides[0].plane.limits), &status);
 	ft_add_material(tag, &sides[0], &status);
 	while(++i < 6)
 		sides[i] = sides[0];
-
-	sides[1].plane.center = ft_add_vector(ft_scale_vector(sides[0].plane.normal, -sides[0].plane.side), center);
-	sides[2].plane.sides.u = sides[0].plane.normal;
+	sides[2].plane.lenght.u = none.x;
+	sides[2].plane.lenght.v = none.z;
+	sides[1].plane.center = ft_add_vector(ft_scale_vector(sides[0].plane.normal, -none.z), center);
+	sides[2].plane.sides.u = ft_scale_vector(sides[0].plane.normal, -1);
 	sides[2].plane.sides.v = sides[0].plane.sides.v;
+	sides[3] = sides[2];
 	sides[2].plane.normal = ft_normalise_vector(ft_cross_product(sides[2].plane.sides.u, sides[2].plane.sides.v));
-	sides[2].plane.center = ft_add_vector(ft_scale_vector(sides[2].plane.normal, sides[2].plane.side), center);
-	sides[3].plane.center = ft_add_vector(ft_scale_vector(sides[2].plane.normal, -sides[2].plane.side), center);
+	sides[2].plane.center = ft_add_vector(ft_scale_vector(sides[2].plane.normal, none.y), center);
+	sides[3].plane.center = ft_add_vector(ft_scale_vector(sides[2].plane.normal, -none.y), center);
 	sides[3].plane.normal = sides[2].plane.normal;
 
-
+	sides[4].plane.lenght.u = none.y;
+	sides[4].plane.lenght.v = none.z;
 	sides[4].plane.sides.u = sides[0].plane.normal;
 	sides[4].plane.sides.v = sides[2].plane.normal;
+	sides[5] = sides[4];
 	sides[4].plane.normal = ft_normalise_vector(ft_cross_product(sides[4].plane.sides.u, sides[4].plane.sides.v));
-	sides[4].plane.center = ft_add_vector(ft_scale_vector(sides[4].plane.normal, sides[4].plane.side), center);
-	sides[5].plane.center = ft_add_vector(ft_scale_vector(sides[4].plane.normal, -sides[4].plane.side), center);
+	sides[4].plane.center = ft_add_vector(ft_scale_vector(sides[4].plane.normal, none.x), center);
+	sides[5].plane.center = ft_add_vector(ft_scale_vector(sides[4].plane.normal, -none.x), center);
 	sides[5].plane.normal = sides[4].plane.normal;
 	i = -1;
 	while(++i < 6)

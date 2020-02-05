@@ -152,6 +152,12 @@ typedef struct	s_sides
 	t_vector v;
 }				t_sides;
 
+typedef struct	s_lenght
+{
+	double u;
+	double v;
+}				t_lenght;
+
 typedef struct	s_plane
 {
 	t_vector				normal;
@@ -165,8 +171,9 @@ typedef struct	s_plane
 	t_vector				translation;
 	t_limit					limits;
 	double					radius;
-	double				side;
+	t_lenght				lenght;
 	t_sides				sides;
+	double				side;
 }				t_plane;
 
 

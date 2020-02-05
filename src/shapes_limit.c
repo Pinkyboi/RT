@@ -105,20 +105,13 @@ double	ft_cylinder_limit(t_cylinder cylinder, t_cam cam)
 double	ft_plane_limit(t_plane plane, t_cam cam)
 {
 	t_vector	up;
-	t_vector	sides[2];
 	double		x[2];
 
-	up = ft_cross_product(ft_rotate_vector(plane.normal,
-		(t_vector){90, 90, 90}), plane.normal);
-	sides[0] = ft_normalise_vector(
-			ft_cross_product(up, plane.normal));
-	sides[1] = ft_normalise_vector(
-			ft_cross_product(sides[0], plane.normal));
 	x[0] = ft_dot_vector(
-			ft_sub_vector(cam.hit.position, plane.center), sides[0]);
+			ft_sub_vector(cam.hit.position, plane.center), plane.sides.u);
 	x[1] = ft_dot_vector(
-			ft_sub_vector(cam.hit.position, plane.center), sides[1]);
-	if(plane.side >= 0 && (fabs(x[0]) >= plane.side || fabs(x[1]) >= plane.side))
+			ft_sub_vector(cam.hit.position, plane.center), plane.sides.v);
+	if(plane.lenght.u >= 0 && (fabs(x[0]) >= plane.lenght.v || fabs(x[1]) >= plane.lenght.u))
 		return (0);
 	return (cam.hit.soluces[0]);
 }
