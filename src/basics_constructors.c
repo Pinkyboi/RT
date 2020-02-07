@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/16 21:58:36 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/07 03:50:36 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,30 +74,39 @@ int				ft_add_cylinder(t_xml_tag *tag, t_rtv *env)
 	return (status);
 }
 
+void			ft_get_plane_axis(t_xml_tag *tag, t_plane *plane, int *status, t_coor lenghts)
+{
+	plane->rotation = ft_parse_vector(
+		ft_xml_get_value(tag, "rotation", "(0,0,0)"), status);
+	plane->sides.u = ft_rotate_vector(ft_normalise_vector(ft_parse_vector(
+		ft_xml_get_value(tag, "U", "(1, 0, 0)"), status)),plane->rotation);
+	plane->sides.v = ft_rotate_vector(ft_normalise_vector(ft_parse_vector(
+		ft_xml_get_value(tag, "V", "(0, 0, 1)"), status)),plane->rotation);
+	plane->lenght.u = ft_clip_min(-1, lenghts.x);
+	plane->lenght.v = ft_clip_min(-1, lenghts.y);
+	plane->normal = ft_normalise_vector(ft_cross_product(plane->sides.u, plane->sides.v));
+
+}
+
 int				ft_add_plane(t_xml_tag *tag, t_rtv *env)
 {
 	t_object	object;
 	int			status;
+	t_coor		lenghts;
 
 	status = 1;
+	lenghts = ft_parse_coor(ft_xml_get_value(tag, "lenght", "(-1, -1)"), &status);
 	object.plane.center = ft_parse_vector(ft_xml_get_value(tag, "center",
-				"(0,0,0)"), &status);
-	object.plane.normal = ft_parse_vector(ft_xml_get_value(tag, "normal",
 				"(0,0,0)"), &status);
 	object.plane.color = ft_parse_color(ft_xml_get_value(tag, "color",
 				"(255,255,255)"), &status);
-	object.plane.rotation = ft_parse_vector(
-				ft_xml_get_value(tag, "rotation", "(0,0,0)"), &status);
 	object.plane.translation = ft_parse_vector(ft_xml_get_value(tag,
 				"translation", "(0,0,0)"), &status);
 	object.plane.center = ft_add_vector(object.plane.center,
 			object.plane.translation);	
-	object.plane.normal = ft_normalise_vector(
-		ft_rotate_vector(object.plane.normal, object.plane.rotation));
 	object.plane.radius = ft_clip_min(-1, ft_parse_float(
 				ft_xml_get_value(tag, "radius", "-1"), &status));
-	object.plane.side = ft_clip_min(-1, ft_parse_float(
-				ft_xml_get_value(tag, "side", "-1"), &status));
+	ft_get_plane_axis(tag, &object.plane, &status, lenghts);
 	ft_define_limits(tag, &(object.plane.limits), &status);
 	ft_add_material(tag, &object, &status);
 	object.plane.function = &ft_plane_intersection;

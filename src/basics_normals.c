@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/02 00:34:19 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/07 05:36:13 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ void 	ft_plane_normal(t_cam *cam, t_plane *plane, double i)
 	if (plane->radius < 0 || plane->radius >=
 		ft_vector_size(ft_sub_vector(plane->center, cam->hit.position)))
 	{
-		cam->hit.soluces[0] = ft_plane_limit(*plane, *cam);
+		if(plane->radius < 0)
+			cam->hit.soluces[0] = ft_plane_limit(*plane, *cam);
 		if(ft_axis_limit(cam->hit.position, plane->limits))
 			cam->hit.soluces[0] = 0;
 		if(cam->hit.soluces[0])
@@ -104,6 +105,4 @@ void 	ft_plane_normal(t_cam *cam, t_plane *plane, double i)
 	else
 		cam->hit.soluces[0] = 0;
 	ft_get_hit_info(normal, (t_point*)plane, cam);
-	if(cam->hit.soluces[0])
-		cam->hit.color = ft_map_texture(cam, *plane);
 }

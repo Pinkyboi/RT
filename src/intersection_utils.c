@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/01 02:29:34 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/07 05:42:10 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,11 @@ void			ft_color_best_node(t_rtv *rtv, t_color rgb)
 			rgb = ft_add_colors(rgb, ft_get_node_color(*rtv, 1));
 	}
 	rgb = ft_scale_colors(rgb, (double)1 / (rtv->anti_aliasing + 1));
-	if (best_node)
+	if (best_node){
 		ft_put_pixel(rtv, ft_rgb_to_int(
-			ft_select_filter(*rtv, best_node->object, rgb)));
+			ft_select_filter(*rtv, best_node->object, rgb)));		
+	}
+
 	else
 		ft_put_pixel(rtv, 0x0);
 }

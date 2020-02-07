@@ -6,12 +6,12 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 21:29:47 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/01 02:51:07 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/07 05:50:40 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-/**
+
 void        ft_create_noise()
 {
     int i;
@@ -70,4 +70,3 @@ t_color        ft_noise(t_rtv rtv, t_color color)
     color = (t_color){color_noise,color_noise,color_noise};
     return(color);
 }
-**/

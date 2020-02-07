@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 15:50:29 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/01 02:15:23 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/07 05:47:40 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ int				main(int argc, char **argv)
 	ft_load_shapes(data, &rtv);
 	ft_init_cam(&rtv);
 	ft_init_win(&rtv);
+	ft_create_noise();
 	return (0);
 }

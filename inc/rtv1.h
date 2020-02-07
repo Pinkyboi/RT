@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/01 20:24:17 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/07 05:48:42 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define HALF_WIDTH cam_utils[2]
 # define LIGHT_VECTOR light_vect[0]
 # define REFLECTED_LIGHT_VECTOR  light_vect[1]
+# define CENTER cube_utils[0]
+# define LENGHTS cube_utils[1]
 # define NOISE_W 1000
 # define NOISE_H 1000
 # define MAX_D 1e30
@@ -380,4 +382,6 @@ void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
 int			ft_add_cube(t_xml_tag *tag, t_rtv *env);
 
 t_color			ft_map_texture(t_cam *cam, t_plane plane);
+void			ft_get_plane_axis(t_xml_tag *tag, t_plane *plane,
+	int *status, t_coor lenghts);
 #endif

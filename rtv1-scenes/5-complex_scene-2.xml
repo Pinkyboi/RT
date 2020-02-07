@@ -11,5 +11,5 @@
 <sphere center="(-10, 20, 20)" translation="(3, 0, 0)" color="#0FFF0F" radius="5" translation="(0, 2, 0)" />
 <sphere center="(-30, 30, 60)" translation="(3, 0, 0)" color="#FF0FF0" radius="3" translation="(0, 2, 0)" />
 <cylinder lenght="60" center="(0, 10, 0)" color="#FF00FF" axis="(0, 1, 0)" radius="6"/>
-<plane center="(0, -1, 0)" side="50" normal="(0, 1, 0)" color="#D3D3D3" reflection="0.8"/>
-<plane center="(0, 0, -40)" side="50" normal="(0, 0, 1)" color="#D3D3D3" reflection="1.3"/>
+<plane center="(0, -1, 0)" side="50" lenght="(40, 20)" normal="(0, 1, 0)" color="#D3D3D3" reflection="0.8"/>
+<plane U="(1, 1, 0)" V="(1, 0, 0)"  lenght="(40, 20)" center="(0, 0, -40)" side="50" normal="(0, 0, 1)" color="#D3D3D3" reflection="1.3"/>

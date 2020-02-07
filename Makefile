@@ -6,7 +6,7 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2020/01/18 00:13:31 by abenaiss         ###   ########.fr        #
+#    Updated: 2020/02/07 05:42:49 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ FILENAMES = cam_utils.c\
 	refraction.c\
 	dump_bitmap.c\
 	destroy.c\
-	composed_constructors.c\
+	box_constructors.c\
 	procedural_textures.c
 
 
