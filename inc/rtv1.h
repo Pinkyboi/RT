@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/07 05:48:42 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/08 04:56:49 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,7 +379,9 @@ int			ft_exit(t_rtv *rtv);
 void		ft_clear_mlx(t_mlx *mlx, t_rtv *rtv);
 
 void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
-int			ft_add_cube(t_xml_tag *tag, t_rtv *env);
+int			ft_add_box(t_xml_tag *tag, t_rtv *env);
+int			ft_add_parallelepiped(t_xml_tag *tag, t_rtv *env);
+int			ft_add_pill(t_xml_tag *tag, t_rtv *env);
 
 t_color			ft_map_texture(t_cam *cam, t_plane plane);
 void			ft_get_plane_axis(t_xml_tag *tag, t_plane *plane,

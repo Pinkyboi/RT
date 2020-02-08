@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 14:41:56 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/01 20:36:26 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/07 21:55:26 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,12 +150,14 @@ typedef struct	s_sides
 {
 	t_vector u;
 	t_vector v;
+	t_vector w;
 }				t_sides;
 
 typedef struct	s_lenght
 {
 	double u;
 	double v;
+	double w;
 }				t_lenght;
 
 typedef struct	s_plane

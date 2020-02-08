@@ -6,7 +6,7 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2020/02/07 05:42:49 by abenaiss         ###   ########.fr        #
+#    Updated: 2020/02/08 05:01:09 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,9 @@ FILENAMES = cam_utils.c\
 	refraction.c\
 	dump_bitmap.c\
 	destroy.c\
-	box_constructors.c\
+	box_constructor.c\
+	pill_constructor.c\
+	parallelepiped_constructor.c\
 	procedural_textures.c
 
 

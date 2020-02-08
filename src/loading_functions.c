@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:47:13 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/19 01:53:55 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/08 04:31:12 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ const t_xml_element_parse	g_xml_element_parser[] = {
 	{.type_name = "triangle", .function = &ft_add_triangle},
 	{.type_name = "paraboloid", .function = &ft_add_paraboloid},
 	{.type_name = "pill", .function = &ft_add_pill},
-	{.type_name = "cube", .function = &ft_add_cube},
+	{.type_name = "box", .function = &ft_add_box},
+	{.type_name = "parallelepiped", .function = &ft_add_parallelepiped},
 	{.type_name = "camera", .function = &ft_load_camera},
 	{.type_name = "scene", .function = &ft_load_scene},
 	{.type_name = "light", .function = &ft_add_light}
