@@ -6,7 +6,7 @@
 #    By: abiri <abiri@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2020/01/28 21:54:06 by abiri            ###   ########.fr        #
+#    Updated: 2020/02/07 19:25:06 by abiri            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ FILENAMES = basics_constructors.c\
 			string_parsers.c\
 			uv_mapping_utils.c\
 			world_constructors.c\
+			fractals.c\
 			xml_parser_tools.c
 
 HEADER_FILE = objects.h\
@@ -70,7 +71,7 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(FILENAMES:.c=.o))
 
 HEADER_FILES = $(addprefix $(INC_DIR)/, $(HEADER_FILE))
 
-FLAGS =
+FLAGS = -Ofast -g
 
 FTMATHS = ./libs/ft_maths
 

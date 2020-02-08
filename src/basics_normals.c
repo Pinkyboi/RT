@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/01 21:59:16 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/07 19:15:45 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int		ft_get_texture_cut(t_material *material, t_coor uv)
 int		ft_is_transparent(t_material *material, t_coor uv)
 {
 	u_int32_t	color;
-	t_color		result;
 	t_texture	*texture;
 
 	texture = material->texture;

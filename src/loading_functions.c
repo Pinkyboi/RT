@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loading_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:47:13 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/12 16:52:34 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/07 19:14:26 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ const t_xml_element_parse	g_xml_element_parser[] = {
 	{.type_name = "paraboloid", .function = &ft_add_paraboloid},
 	{.type_name = "camera", .function = &ft_load_camera},
 	{.type_name = "scene", .function = &ft_load_scene},
-	{.type_name = "light", .function = &ft_add_light}
+	{.type_name = "light", .function = &ft_add_light},
+	{.type_name = "fractal", .function = &ft_add_fractal}
 };
 
 t_xml_element				*ft_get_tag_parsing_function(char *name)

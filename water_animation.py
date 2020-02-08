@@ -1,22 +1,29 @@
 import os
 import math
 
-frames = 300
+frames = 30
 angle = (2 * math.pi) / frames
 current_angle = 0
+radius = 5
 
-for i in range(frames):
-	x = 110 + 600 * math.cos(current_angle)
-	y = 10 + 600 * math.sin(current_angle)
+for i in range(20, frames):
+	x = radius * math.cos(current_angle)
+	y = radius * math.sin(current_angle)
 	current_angle += angle
 	myfile = open('test_water_map.xml', 'w')
-	myfile.write('''<scene ambiant="0.1" AA="2" reflection_depth="0" refraction_depth="10" resolution="720"/>
-	<camera position="(170, 30, -0)" lookat="(110, 30, 10)" fov="40"/>
-	<light center="(%f, 50, %f)" intensity="0.5" color="#FFFFFF"/>
-	<sphere center="(110, 30, 10)" color="#0077be" radius="20" texture="/Users/abiri/Downloads/Galvanized Metal/Metal_Galvanized_DIFF.jpg.tex" bump="/Users/abiri/Downloads/Galvanized Metal/Metal_Galvanized_BUMP.jpg.tex" specular="/Users/abiri/Downloads/Galvanized Metal/Metal_Galvanized_SPEC.jpg.tex"/>''' % (x, y))
+	myfile.write('''<scene ambiant="0.5" AA="0" reflection_depth="5" refraction_depth="5" resolution="1080"/>
+<camera position="(%f, 1.25, %f)" lookat="(0, 1, 0)" fov="40"/>
+<light center="(5, 100, 110)" intensity="0.5" color="#FFFFFF"/>
+<ssphere center="(10, 30, 110)" color="#FF00FF" radius="20" refraction="2.01" transparency="0.95"/>
+<ssphere center="(10, 30, 110)" color="#FF00FF" radius="3" refraction="2.6" transparency="0"/>
+<ssphere center="(15, 30, 110)" color="#FF00FF" radius="3" refraction="2.6" transparency="0.5"/>
+<ssphere center="(10, 30, 115)" color="#FF00FF" radius="3" refraction="2.6" transparency="0.8"/>
+<fractal center="(0, 1, 0)" color="#FF00FF"/>
+<ssphere center="(2.5, 1, -1)" color="#FFFFFF" radius="1" reflection="0.6" transparency="0.5" refraction="2.6"/>
+<plane center="(0, 0, 0)" normal="(0, 1, 0)" color="#FFFFFF" reflection="0.2"/>''' % (x, y))
 	myfile.close()
 	print("GENERATING IMAGE %d" % (i,))
-	os.system('./rtv1 --no_window earth%d.bmp test_water_map.xml' % (i,))
+	os.system('./rtv1 --no_window ~/goinfre/fractal%d.bmp test_water_map.xml' % (i,))
 exit (0)
 
 # for i in range(1, 120):

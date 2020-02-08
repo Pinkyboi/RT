@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 20:48:50 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/02 00:18:51 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/07 19:28:01 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ t_vector	ft_get_refracted_ray(t_rtv rtv)
 
 t_color	ft_refract_ray(t_rtv rtv, int depth)
 {
+	if (depth > rtv.scene.refraction_depth)
+		return ((t_color){0, 0, 0});
 	rtv.cam.ray_direction = ft_get_refracted_ray(rtv);
 	rtv.cam.ray_origin = rtv.cam.hit.position;
 

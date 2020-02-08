@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/01 20:47:59 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/07 19:14:30 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,8 @@ int				ft_add_ellipsoid(t_xml_tag *tag, t_rtv *env);
 int				ft_add_hyperboloid(t_xml_tag *tag, t_rtv *env);
 int				ft_add_paraboloid(t_xml_tag *tag, t_rtv *env);
 int				ft_add_triangle(t_xml_tag *tag, t_rtv *env);
+int				ft_add_fractal(t_xml_tag *tag, t_rtv *env);
+
 /*
 **  FUNCTIONS TO CALCULATE INTERSECTION FOR EVERY SHAPE
 */

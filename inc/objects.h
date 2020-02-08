@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 14:41:56 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/01 20:25:57 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/07 19:21:15 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # define TYPE_TRIANGLE 7
 # define TYPE_PARABALOID 8
 # define TYPE_HYPERBOILD 6
-# define TYPE_PARSE_COUNT 13
+# define TYPE_FRACTAL 9
+# define TYPE_PARSE_COUNT 14
 # define A abc[0]
 # define B abc[1]
 # define C abc[2]
@@ -199,7 +200,17 @@ typedef struct	s_plane
 	t_vector	limit;
 }				t_plane;
 
-
+typedef struct	s_fractal
+{
+	t_vector				normal;
+	t_color					color;
+	t_material				material;
+	double					reflection;
+	double					refraction;
+	double					transparency;
+	t_intersection_function	*function;
+	t_vector				center;
+}				t_fractal;
 
 typedef struct	s_triangle
 {
@@ -215,7 +226,7 @@ typedef struct	s_triangle
 	t_vector				translation;
 	t_limit					limits;
 	t_vector				side[2];
-	t_vector	limit;
+	t_vector				limit;
 }				t_triangle;
 
 typedef struct	s_point
@@ -240,6 +251,7 @@ typedef union	u_object
 	t_hyperboloid	hyperboloid;
 	t_paraboloid	paraboloid;
 	t_triangle		triangle;
+	t_fractal		fractal;
 }				t_object;
 
 typedef struct	s_object_list
