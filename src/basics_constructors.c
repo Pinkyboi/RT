@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/08 00:32:01 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/09 00:15:20 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ void			ft_get_plane_axis(t_xml_tag *tag, t_plane *plane, int *status, t_coor len
 	plane->rotation = ft_parse_vector(
 		ft_xml_get_value(tag, "rotation", "(0,0,0)"), status);
 	plane->sides.u = ft_rotate_vector(ft_normalise_vector(ft_parse_vector(
-		ft_xml_get_value(tag, "U", "(1, 1, 0)"), status)),plane->rotation);
+		ft_xml_get_value(tag, "U", "(0, 0, 1)"), status)),plane->rotation);
 	plane->sides.v = ft_rotate_vector(ft_normalise_vector(ft_parse_vector(
-		ft_xml_get_value(tag, "V", "(0, 0, 1)"), status)),plane->rotation);
+		ft_xml_get_value(tag, "V", "(1, 0, 0)"), status)),plane->rotation);
 	plane->lenght.u = ft_clip_min(-1, lenghts.x);
 	plane->lenght.v = ft_clip_min(-1, lenghts.y);
 	plane->normal = ft_normalise_vector(ft_cross_product(plane->sides.u, plane->sides.v));

@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/08 04:56:49 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/09 05:59:08 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@
 # define FT_SQR(X) ((X) * (X))
 # define FT_RAD(X) (((X) * M_PI) / 180)
 
+
+# define NEW_COLOR color[1]
+# define OLD_COLOR color[0]
 /*
 ** BMP FILE MACROS
 */
@@ -69,7 +72,7 @@
 # define NUM_THREAD 4
 
 
-double      perlin_noise[NOISE_H][NOISE_W];
+double	perlin_noise[NOISE_H][NOISE_W];
 
 typedef struct	s_img
 {
@@ -144,6 +147,7 @@ typedef struct			s_scene
 	int		width;
 	int		height;
 	int 	filter;
+	int		image_filter;
 	int		aa;
 	int		reflection_depth;
 	int		refraction_depth;
@@ -291,6 +295,7 @@ t_color			ft_add_colors(t_color first, t_color second);
 t_color			ft_scale_colors(t_color first, double scalar);
 int				ft_diff_color(t_color c1, t_color c2);
 int				ft_rgb_to_int(t_color color);
+t_color			ft_int_to_rgb(int color);
 
 /*
 **	FILTERS AND EFFECTS
@@ -302,7 +307,7 @@ t_color			ft_sepia_filter(t_color color);
 t_color			ft_cartoon_filter(t_rtv rtv, t_object object, t_color color);
 t_color			ft_select_filter(t_rtv rtv, t_object object, t_color color);
 t_color			ft_assign_color(double r, double g, double b);
-
+void			ft_filtring_select(t_rtv *rtv);
 /*
 **	OTHER FUNCTION
 */

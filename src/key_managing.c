@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2020/02/01 02:31:48 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/09 05:58:57 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int			ft_frame_loop(void *arg)
 		rtv->pixel_size = 1;
 		rtv->anti_aliasing = rtv->scene.aa;
 		ft_ray_shooter(rtv);
+		ft_filtring_select(rtv);
 	}
 	mlx_put_image_to_window(rtv->mlx.mlx_ptr, rtv->mlx.win,
 			rtv->mlx.img.img_ptr, 0, 0);
