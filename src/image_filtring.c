@@ -6,13 +6,13 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 05:52:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/09 06:03:21 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/09 06:05:55 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static double motion_blur[9][9] =
+static double g_motion_blur[9][9] =
 {
 	{1, 0, 0, 0, 0, 0, 0, 0, 0},
 	{0, 1, 0, 0, 0, 0, 0, 0, 0},
@@ -25,7 +25,7 @@ static double motion_blur[9][9] =
 	{0, 0, 0, 0, 0, 0, 0, 0, 1},
 };
 
-static double blur[9][9] =
+static double g_blur[9][9] =
 {
 	{0, 0, 1, 0, 0, 0, 0, 0, 0},
 	{0, 1, 1, 1, 0, 0, 0, 0, 0},
@@ -38,10 +38,10 @@ static double blur[9][9] =
 	{0, 0, 0, 0, 0, 0, 0, 0, 0},
 };
 
-static double sharp[9][9] =
+static double g_sharp[9][9] =
 {
 	{-1, -1, -1, -1, -1, 0, 0, 0, 0},
-	{-1, 2,  2, 2, -1, 0, 0, 0, 0},
+	{-1, 2, 2, 2, -1, 0, 0, 0, 0},
 	{-1, 2, 8, 2, -1, 0, 0, 0, 0},
 	{-1, 2, 2, 2, -1, 0, 0, 0, 0},
 	{-1, -1, -1, -1, -1, 0, 0, 0, 0},
@@ -105,10 +105,10 @@ void		ft_image_filtring(t_rtv *rtv, double
 void		ft_filtring_select(t_rtv *rtv)
 {
 	rtv->scene.image_filter = 1;
-	if(rtv->scene.image_filter == 1)
+	if (rtv->scene.image_filter == 1)
 		ft_image_filtring(rtv, motion_blur, (t_coor){9, 9}, 9.0);
-	if(rtv->scene.image_filter == 2)
+	if (rtv->scene.image_filter == 2)
 		ft_image_filtring(rtv, blur, (t_coor){5, 5}, 13.0);
-	if(rtv->scene.image_filter == 3)
+	if (rtv->scene.image_filter == 3)
 		ft_image_filtring(rtv, sharp, (t_coor){5, 5}, 8.0);
 }
