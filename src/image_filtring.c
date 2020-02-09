@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 05:52:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/09 06:05:55 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/09 06:06:45 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static double g_blur[9][9] =
 static double g_sharp[9][9] =
 {
 	{-1, -1, -1, -1, -1, 0, 0, 0, 0},
-	{-1, 2, 2, 2, -1, 0, 0, 0, 0},
+	{-1, 2, g_2, 2, -1, 0, 0, 0, 0},
 	{-1, 2, 8, 2, -1, 0, 0, 0, 0},
 	{-1, 2, 2, 2, -1, 0, 0, 0, 0},
 	{-1, -1, -1, -1, -1, 0, 0, 0, 0},
@@ -106,9 +106,9 @@ void		ft_filtring_select(t_rtv *rtv)
 {
 	rtv->scene.image_filter = 1;
 	if (rtv->scene.image_filter == 1)
-		ft_image_filtring(rtv, motion_blur, (t_coor){9, 9}, 9.0);
+		ft_image_filtring(rtv, g_motion_blur, (t_coor){9, 9}, 9.0);
 	if (rtv->scene.image_filter == 2)
-		ft_image_filtring(rtv, blur, (t_coor){5, 5}, 13.0);
+		ft_image_filtring(rtv, g_blur, (t_coor){5, 5}, 13.0);
 	if (rtv->scene.image_filter == 3)
-		ft_image_filtring(rtv, sharp, (t_coor){5, 5}, 8.0);
+		ft_image_filtring(rtv, g_sharp, (t_coor){5, 5}, 8.0);
 }
