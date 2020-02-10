@@ -70,8 +70,8 @@ t_color	ft_cartoon_filter(t_rtv rtv, t_object object, t_color color)
 
 t_color	ft_select_filter(t_rtv rtv, t_object object, t_color color)
 {
-	if (rtv.scene.filter == 1)
-		return (ft_gray_filter(color));
+	// if (rtv.scene.filter == 1)
+	// color = ft_gray_filter(color);
 	if (rtv.scene.filter == 2)
 		return (ft_sepia_filter(color));
 	if (rtv.scene.filter == 3)
@@ -86,7 +86,10 @@ t_color	ft_select_filter(t_rtv rtv, t_object object, t_color color)
 		return ((t_color){color.r, 0, 0});
 	if (rtv.scene.filter == 8)
 		return ((t_color){0, 0, color.b});
+	if (rtv.scene.filter == 10)
+		return ((t_color){0, color.g, color.b});
 	if (rtv.scene.filter == 9)
 		return (ft_cartoon_filter(rtv, object, color));
+	
 	return (color);
 }

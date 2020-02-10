@@ -47,6 +47,58 @@ double			ft_check_intersection(t_rtv rtv)
 	return (0);
 }
 
+int ft_choose_lens(t_object_list *object_node, t_rtv *rtv, double *min)
+{
+	double			temp_min[3];
+	t_cam			cam_clone[3];
+	cam_clone[0] = rtv->cam;
+	cam_clone[1] = rtv->cam;
+	cam_clone[2] = rtv->cam;
+	cam_clone[0].position =ft_add_vector(cam_clone[0].position, (t_vector){1.4, 0});
+	cam_clone[1].position =ft_add_vector(cam_clone[1].position, (t_vector){1, 0});
+	cam_clone[2].position =ft_add_vector(cam_clone[2].position, (t_vector){0, 0});
+	ft_init_cam(&cam_clone[0], *rtv);
+	ft_init_cam(&cam_clone[1], *rtv);
+	ft_init_cam(&cam_clone[2], *rtv);
+	temp_min[0] = object_node->object.point.function(&(cam_clone[0]),
+		&object_node->object.point, *min);
+	temp_min[1] = object_node->object.point.function(&(cam_clone[1]),
+		&object_node->object.point, *min);
+	temp_min[2] = object_node->object.point.function(&(cam_clone[2]),
+		&object_node->object.point, *min);
+	t_color color[3];
+	color[0] = (t_color){0, 0, 0};
+	color[1] = (t_color){0, 0, 0};
+	if (temp_min[0] || temp_min[1])
+	{
+		if(temp_min[0] && (temp_min[0] <= *min + 1))
+		{
+			color[0] = ft_gray_filter(cam_clone[0].hit.color);
+			color[0] = (t_color){0, color[0].g, color[0].b};
+			rtv->cam.hit.object = &object_node->object;
+			rtv->cam.hit =  cam_clone[0].hit;
+			// rtv->cam.hit.color = color[0];
+			*min = temp_min[0];	
+		}
+		if(temp_min[1] && (temp_min[1] <= *min + 1))
+		{
+			color[1] = ft_gray_filter(cam_clone[1].hit.color);
+			color[1] = (t_color){color[1].r, 0, 0};
+			rtv->cam.hit.object = &object_node->object;
+			rtv->cam.hit =  cam_clone[1].hit;
+			// rtv->cam.hit.color = color[1];
+			*min = temp_min[1];	
+		}
+		if(temp_min[1] == temp_min[0])
+			ft_scale_colors(ft_add_colors(color[0], color[1]), 1);
+		else
+			rtv->cam.hit.color = ft_scale_colors(ft_add_colors(color[0], color[1]), 0.6);
+	}
+	else
+		return (0);
+	return(*min);
+}
+
 t_color			ft_get_node_color(t_rtv rtv, int depth)
 {
 	t_color	node_color;
@@ -85,7 +137,7 @@ void			ft_color_best_node(t_rtv *rtv, t_color rgb)
 		ft_create_ray(rtv, sample);
 		while (object_node)
 		{
-			if (ft_choose_intersection(object_node, rtv, &rtv->min))
+			if (ft_choose_lens(object_node, rtv, &rtv->min))
 				best_node = object_node;
 			object_node = object_node->next;
 		}

@@ -35,7 +35,7 @@ int			ft_key_stroke(int key, t_rtv *rtv)
 		(key == DOWN) ? rtv->cam.position.y -= 3 : 0;
 		(key == FOREWORD) ? rtv->cam.position.z += 3 : 0;
 		(key == BACKWARD) ? rtv->cam.position.z -= 3 : 0;
-		ft_init_cam(rtv);
+		ft_init_cam(&rtv->cam, *rtv);
 	}
 	return (0);
 }

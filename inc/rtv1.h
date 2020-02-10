@@ -81,6 +81,7 @@ typedef struct	s_img
 	void		*mlx_img;
 	void		*img_ptr;
 	int			*data;
+	int			*data2;
 	int			size_l;
 	int			bpp;
 	int			endian;
@@ -324,7 +325,7 @@ int				ft_key_stroke(int key, t_rtv *rtv);
 
 
 void			ft_create_ray(t_rtv *rtv, int sample);
-void			ft_init_cam(t_rtv *rtv);
+void			ft_init_cam(t_cam *cam,t_rtv rtv);
 void			ft_map_coordinates(t_rtv *rtv);
 void			ft_print_vect(t_vector v, char *name);
 void			ft_ray_shooter(t_rtv *rtv);

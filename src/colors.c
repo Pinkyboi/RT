@@ -3,12 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 22:04:25 by azarzor           #+#    #+#             */
-/*   Updated: 2020/02/02 00:26:42 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/07 19:18:40 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "rtv1.h"
+#define LIGHT_SPHERE_COUNT 1.0
 
 #include "rtv1.h"
 

@@ -55,7 +55,7 @@ int				main(int argc, char **argv)
 	ft_init_default_camera(&(rtv.cam));
 	ft_init_default_scene(&(rtv.scene));
 	ft_load_shapes(data, &rtv);
-	ft_init_cam(&rtv);
+	ft_init_cam(&rtv.cam, rtv);
 	ft_init_win(&rtv);
 	ft_create_noise();
 	return (0);

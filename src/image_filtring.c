@@ -65,16 +65,17 @@ t_color		ft_filtring_calcul(t_rtv *rtv, double
 		filter_coor.y = -1;
 		while (++filter_coor.y < matrix_prop.y)
 		{
-			new_image.x = ((int)map_coor.x - (int)matrix_prop.x /
-				2 + (int)filter_coor.x + rtv->scene.width) % rtv->scene.width;
-			new_image.y = ((int)map_coor.y - (int)matrix_prop.y /
-				2 + (int)filter_coor.y + rtv->scene.height) % rtv->scene.height;
+			new_image.x = (int)map_coor.x - (int)matrix_prop.x /
+				2 + (int)filter_coor.x;
+			new_image.y = (int)map_coor.y - (int)matrix_prop.y /
+				2 + (int)filter_coor.y;
 			OLD_COLOR = ft_scale_colors(ft_int_to_rgb(rtv->mlx.img.data
 				[(int)(new_image.x +
 				rtv->scene.width * new_image.y)]), 1.0 / 255.0);
-			NEW_COLOR = ft_add_colors(ft_scale_colors(OLD_COLOR,
-				filter_matrix[(int)filter_coor.x]
-				[(int)filter_coor.y]), NEW_COLOR);
+			if (new_image.x > 0 && new_image.x < rtv->scene.width &&
+				new_image.y > 0 && new_image.y < rtv->scene.height)
+				NEW_COLOR = ft_add_colors(ft_scale_colors(OLD_COLOR,
+			filter_matrix[(int)filter_coor.x][(int)filter_coor.y]), NEW_COLOR);
 		}
 	}
 	return (NEW_COLOR);
