@@ -31,7 +31,7 @@ void		ft_intersection_position(t_cam *cam, double first_intersection)
 	cam->hit.position = ft_add_vector(cam->position, distance);
 }
 
-void		ft_create_ray(t_rtv *rtv, int sample)
+void		ft_create_ray(t_rtv *rtv, int sample, t_cam *cam)
 {
 	t_vector			world_point;
 	static double		anti_aliazing[9][2] = {
@@ -46,13 +46,13 @@ void		ft_create_ray(t_rtv *rtv, int sample)
 		{-3.0 / 4.0, -3.0 / 4.0},
 	};
 
-	world_point = ft_add_vector(rtv->cam.bottom_left,
-	ft_add_vector(ft_scale_vector(rtv->cam.h_scalar,
+	world_point = ft_add_vector(cam->bottom_left,
+	ft_add_vector(ft_scale_vector(cam->h_scalar,
 	(rtv->column + anti_aliazing[sample][0] + 0.5) / rtv->scene.height),
-	ft_scale_vector(rtv->cam.w_scalar,
+	ft_scale_vector(cam->w_scalar,
 	(rtv->row + anti_aliazing[sample][1] + 0.5) / rtv->scene.width)));
-	world_point = ft_sub_vector(world_point, rtv->cam.position);
-	rtv->cam.ray_direction = ft_normalise_vector(world_point);
+	world_point = ft_sub_vector(world_point, cam->position);
+	cam->ray_direction = ft_normalise_vector(world_point);
 }
 
 void		ft_init_cam(t_cam *cam, t_rtv rtv)
@@ -78,4 +78,5 @@ void		ft_init_cam(t_cam *cam, t_rtv rtv)
 	cam->bottom_left = ft_add_vector(cam->bottom_left, CAM_FOREWORD);
 	cam->w_scalar = ft_scale_vector(CAM_RIGHT, 2.0 * HALF_WIDTH);
 	cam->h_scalar = ft_scale_vector(CAM_UP, 2.0 * HALF_HEIGHT);
+	cam->right = CAM_RIGHT;
 }

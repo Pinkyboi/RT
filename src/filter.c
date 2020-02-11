@@ -53,7 +53,7 @@ t_color	ft_cartoon_filter(t_rtv rtv, t_object object, t_color color)
 		object_node = rtv.objects;
 		rtv.min = MAX_D;
 		best_node = NULL;
-		ft_create_ray(&rtv, sample);
+		ft_create_ray(&rtv, sample, &rtv.cam);
 		while (object_node)
 		{
 			if (ft_choose_intersection(object_node, &rtv, &rtv.min))

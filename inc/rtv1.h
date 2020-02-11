@@ -134,6 +134,7 @@ typedef struct			s_cam
 	t_vector		bottom_left;
 	t_vector		w_scalar;
 	t_vector		h_scalar;
+	t_vector		right;
 	double			fov;
 }						t_cam;
 
@@ -324,7 +325,7 @@ int				ft_load_shapes(t_xml_data *data, t_rtv *env);
 int				ft_key_stroke(int key, t_rtv *rtv);
 
 
-void			ft_create_ray(t_rtv *rtv, int sample);
+void			ft_create_ray(t_rtv *rtv, int sample, t_cam *cam);
 void			ft_init_cam(t_cam *cam,t_rtv rtv);
 void			ft_map_coordinates(t_rtv *rtv);
 void			ft_print_vect(t_vector v, char *name);
