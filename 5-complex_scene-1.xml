@@ -1,0 +1,9 @@
+<scene ambiant="0.5" AA="0" reflection_depth="5" refraction_depth="5" resolution="500"/>
+<camera position="(0, 5, -100)" lookat="(0, 0, 0)" fov="65"/>
+<light center="(0, 50, 0)" intensity="0.8" color="#FFFFFF"/>
+<llight center="(-5, 10, 30)" intensity="0.8" color="#FFFFFF"/>
+<llight center="(5, 10, 30)" intensity="0.8" color="#FFFFFF"/>
+<plane center="(0, 0, 0)" normal="(0, 1, 0)" color="#D3D3D3"/>
+<plane center="(100, 5, 2)" normal="(0, 1, 0)" color="#D3D3D3"/>
+<triangle center="(100, 7, 2)" side1="(2, 5, 100)" side2="(2, 7, -100)" color="#FF00FF"/>
+<triangle center="(-100, 7, 2)" side1="(-2, 5, -100)" side2="(-2, 7, 100)" color="#FF00FF"/>

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/29 04:34:58 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/11 00:01:06 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void			ft_color_best_node(t_rtv *rtv, t_color rgb)
 			rgb = ft_add_colors(rgb, node_color);
 		}
 	}
+	t_color godray_filter = ft_godray_effect(rtv);
+	rgb = ft_add_colors(rgb, godray_filter);
 	rgb = ft_scale_colors(rgb, (double)1 / (rtv->anti_aliasing + 1));
 	if (best_node)
 	{

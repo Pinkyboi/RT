@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/29 04:35:48 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/09 07:42:46 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			ft_key_stroke(int key, t_rtv *rtv)
 		rtv->render_y_offset = PIXEL_SIZE;
 		rtv->pixel_size = PIXEL_SIZE;
 		move = (t_vector){0, 0, 0};
-		static double	angles[3] = {0, 0, 0};
+		static double	angles[2] = {0, 0};
 		if (key == RIGHT)
 			angles[0] += M_PI/36;
 		if (key == LEFT)

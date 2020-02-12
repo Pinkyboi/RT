@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/07 19:14:30 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/10 22:59:46 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,6 +264,7 @@ double			ft_clip_min_max(int min, int max, double value);
 // t_color			ft_specular(t_light light, t_vector normal);
 t_color			ft_specular(t_light light, t_vector normal, t_vector reflected_light_vect);
 t_color			ft_diffuse(t_light light,t_vector light_vect, t_vector normal, t_color color);
+double			ft_check_shadow(t_rtv rtv, t_light *light, t_vector light_vec, t_color *color);
 // double			ft_calculate_shadow(t_rtv rtv,
 // 		double intersection_dist, t_light light);
 double			ft_calculate_shadow(t_rtv rtv, double intersection_dist,
@@ -387,4 +388,10 @@ t_color		ft_cheeker_texture(double x, double y, double scale);
 t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
 t_color		ft_get_texture_color(t_texture *texture, t_coor uv, t_color original, int mode);
 t_color		ft_noise(t_cam *cam);
+
+/*
+**	GODRAY EFFECT
+*/
+
+t_color	ft_godray_effect(t_rtv *rtv);
 #endif
