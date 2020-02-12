@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/rtv1",
-			"args": ["shadow_test_scene.xml"],
+			"args": ["./rtv1-scenes/1-cone_center.xml"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
