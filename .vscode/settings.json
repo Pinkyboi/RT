@@ -36,6 +36,7 @@
 		"atomic": "c",
 		"__memory": "c",
 		"locale": "c",
-		"system_error": "c"
+		"system_error": "c",
+		"master_raytracer.h": "c"
 	}
 }
