@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 15:50:29 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/31 22:12:04 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/14 15:29:00 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int				main(int argc, char **argv)
 		return (-1);
 	ft_bzero(&rtv, sizeof(t_rtv));
 	ttslist_init(&rtv.textures);
+	ttslist_init(&rtv.buttons);
 	data = ft_read_xml(argv[argc - 1]);
 	if (!data)
 	{
@@ -58,6 +59,7 @@ int				main(int argc, char **argv)
 	ft_init_default_scene(&(rtv.scene));
 	ft_load_shapes(data, &rtv);
 	ft_init_cam(&rtv);
+	ft_load_interface(&rtv.buttons, &rtv);
 	if (argc == 4 && ft_strequ(argv[1], "--no_window"))
 		ft_headless_raytracer(&rtv, argv[2]);
 	else

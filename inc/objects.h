@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 14:41:56 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/07 19:21:15 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/14 12:46:12 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,6 @@ typedef struct	s_hyperboloid
 	t_limit					limits;
 	t_vector				limit;
 }				t_hyperboloid;
-
 
 typedef struct	s_paraboloid
 {

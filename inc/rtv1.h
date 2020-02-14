@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/07 19:14:30 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/14 15:54:03 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 /*
 ** BMP FILE MACROS
 */
+
 #define BMP_MAGIC_HEADER 19778
 #define BMP_INFO_HEADER_SIZE 40
 #define BMP_PLANES_NUMBER 1
@@ -53,6 +54,7 @@
 /*
 **	EVENTS MACROS
 */
+
 # define EXIT 53
 # define FOREWORD 12
 # define BACKWARD 14
@@ -64,6 +66,15 @@
 # define PIXEL_SIZE 5
 # define NUM_THREAD 4
 
+/*
+**	BUTTONS MACRO
+*/
+
+# define BUTTON_ACTIVE_COLOR 0x00FF00
+# define BUTTON_INACTIVE_COLOR 0xFF0000
+# define BUTTON_WIDTH 100
+# define BUTTON_HEIGHT 20
+# define BUTTON_TEXT_COLOR 0x0
 
 double      perlin_noise[NOISE_H][NOISE_W];
 
@@ -148,6 +159,14 @@ typedef struct			s_scene
 	int		refraction_depth;
 }						t_scene;
 
+typedef struct	s_options
+{
+	unsigned int	anti_aliasing;
+	unsigned int	ambiant;
+	unsigned int	diffuse;
+	unsigned int	specular;
+}				t_options;
+
 typedef	struct	s_rtv
 {
 	t_cam			cam;
@@ -156,7 +175,9 @@ typedef	struct	s_rtv
 	t_light_list	*lights;
 	t_light_list	*last_light;
 	t_list_head		textures;
+	t_list_head		buttons;
 	t_actions		actions;
+	t_options		options;
 	t_mlx			mlx;
 	double			min;
 	double			row;
@@ -173,11 +194,22 @@ typedef	struct	s_rtv
 
 typedef int		t_xml_element(t_xml_tag *tag, t_rtv *env);
 
+typedef int		t_button_handler(void *element, int status);
+
 typedef	struct	s_xml_element_parse
 {
 	t_xml_element	*function;
 	char			*type_name;
 }				t_xml_element_parse;
+
+typedef struct	s_button
+{
+	char				*text;
+	int					status;
+	t_button_handler	*handler;
+	void				*arg;
+	t_coor				position;
+}				t_button;
 
 /*
 **  FUNCTIONS TO ADD SHAPES TO THE LIST
@@ -312,7 +344,7 @@ void			ft_create_ray(t_rtv *rtv, int sample);
 void			ft_init_cam(t_rtv *rtv);
 void			ft_map_coordinates(t_rtv *rtv);
 void			ft_print_vect(t_vector v, char *name);
-void			ft_ray_shooter(t_rtv *rtv);
+int				ft_ray_shooter(t_rtv *rtv);
 void			ft_intersection_position(t_cam *cam, double first_intersection);
 void			ft_put_pixel(t_rtv *rtv, int color);
 void			ft_init_win(t_rtv *rtv);
@@ -387,4 +419,13 @@ t_color		ft_cheeker_texture(double x, double y, double scale);
 t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
 t_color		ft_get_texture_color(t_texture *texture, t_coor uv, t_color original, int mode);
 t_color		ft_noise(t_cam *cam);
+
+/*
+**	Interface functions
+*/
+
+void		ft_load_interface(t_list_head *buttons, t_rtv *env);
+void		ft_draw_buttons(t_rtv *env);
+int			ft_click_buttons(int button, int x, int y, t_list_head *buttons);
+
 #endif

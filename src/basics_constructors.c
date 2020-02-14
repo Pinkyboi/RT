@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/02 00:12:07 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/14 12:50:58 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void			ft_add_material(t_xml_tag *tag, t_object *object, int *status, t_rtv *env
 {
 	t_vector	offset;
 
+	ft_bzero(&object->point.material, sizeof(t_material));
 	object->point.reflection = ft_clip_max(1,
 		ft_parse_float(ft_xml_get_value(tag, "reflection", "1"), status));
 	object->point.refraction = ft_clip_min(1,
@@ -124,8 +125,8 @@ int				ft_add_sphere(t_xml_tag *tag, t_rtv *env)
 				"translation", "(0,0,0)"), &status);
 	object.sphere.center = ft_add_vector(object.sphere.center,
 			object.sphere.translation);
-	ft_sphere_cut(env, tag, &object, &status);
 	ft_add_material(tag, &object, &status, env);
+	ft_sphere_cut(env, tag, &object, &status);
 	object.sphere.function = &ft_sphere_intersection;
 	status &= ft_object_push(env, object, TYPE_SPHERE);
 	return (status);
@@ -153,8 +154,8 @@ int				ft_add_cylinder(t_xml_tag *tag, t_rtv *env)
 			object.cylinder.translation);
 	object.cylinder.axis = ft_normalise_vector(ft_rotate_vector(
 				object.cylinder.axis, object.cylinder.rotation));
-	ft_cylinder_cut(env, tag, &object, &status);
 	ft_add_material(tag, &object, &status, env);
+	ft_cylinder_cut(env, tag, &object, &status);
 	object.cylinder.function = &ft_cylinder_intersection;
 	status &= ft_object_push(env, object, TYPE_CYLINDER);
 	return (status);

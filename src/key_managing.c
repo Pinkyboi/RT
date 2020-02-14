@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2020/01/29 04:35:48 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/14 15:57:43 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,20 @@ int			ft_frame_loop(void *arg)
 	t_rtv	*rtv;
 
 	rtv = arg;
-	if (rtv->render_offset >= 0 && rtv->render_y_offset >= 0)
+	if (rtv->render_offset >= 0 && rtv->render_y_offset > 0)
 		ft_ray_shooter(rtv);
 	else if (rtv->anti_aliasing != rtv->scene.aa)
 	{
 		rtv->render_offset = 0;
 		rtv->render_y_offset = 0;
 		rtv->pixel_size = 1;
-		rtv->anti_aliasing = rtv->scene.aa;
-		ft_ray_shooter(rtv);
+		if (rtv->options.anti_aliasing)
+			rtv->anti_aliasing = rtv->scene.aa;
+		//ft_ray_shooter(rtv);
 	}
 	mlx_put_image_to_window(rtv->mlx.mlx_ptr, rtv->mlx.win,
 			rtv->mlx.img.img_ptr, 0, 0);
+	ft_draw_buttons(rtv);
 	return (0);
 }
 
@@ -128,7 +130,8 @@ void		ft_init_win(t_rtv *rtv)
 	rtv->mlx.img.height = rtv->scene.height;
 	rtv->mlx.img.width = rtv->scene.width;
 	mlx_hook(rtv->mlx.win, 2, 0, &ft_key_stroke, rtv);
-	mlx_hook(rtv->mlx.win, 17, 1, (*ft_exit), &rtv);
+	mlx_hook(rtv->mlx.win, 17, 1, (*ft_exit), rtv);
+	mlx_mouse_hook(rtv->mlx.win, ft_click_buttons, &rtv->buttons);
 	mlx_loop_hook(rtv->mlx.mlx_ptr, &ft_frame_loop, rtv);
 	mlx_loop(rtv->mlx.mlx_ptr);
 }

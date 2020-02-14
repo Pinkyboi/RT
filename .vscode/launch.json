@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/rtv1",
-			"args": ["shadow_test_scene.xml"],
+			"args": ["${workspaceFolder}/rtv1-scenes/5-complex_scene-2.xml"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

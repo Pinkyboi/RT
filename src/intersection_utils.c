@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/29 04:34:58 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/14 15:54:34 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void			*ft_ray_loop(void *data)
 	return (NULL);
 }
 
-void			ft_ray_shooter(t_rtv *rtv)
+int				ft_ray_shooter(t_rtv *rtv)
 {
 	pthread_t	thread[NUM_THREAD];
 	t_rtv		rtv_cpy[NUM_THREAD];
@@ -194,4 +194,5 @@ void			ft_ray_shooter(t_rtv *rtv)
 				rtv->render_offset = PIXEL_SIZE;
 		}
 	}
+	return (0);
 }

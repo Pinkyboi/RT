@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 22:04:25 by azarzor           #+#    #+#             */
-/*   Updated: 2020/02/07 19:18:40 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/14 15:58:46 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,11 @@ t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color)
 	t_vector	center;
 	double	radius;
 
-	dif_col = (t_color){0, 0, 0};
-	spec_col = (t_color){0, 0, 0};
 	light_node = rtv->lights;
 	while (light_node)
 	{
+		dif_col = (t_color){0, 0, 0};
+		spec_col = (t_color){0, 0, 0};
 		light = light_node->light;
 		center = light.center;
 		radius = 0;
@@ -137,10 +137,12 @@ t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color)
 			REFLECTED_LIGHT_VECTOR = ft_reflected_light_ray(
 				&light, LIGHT_VECTOR, normal);
 			ft_check_shadow(*rtv, &light, LIGHT_VECTOR, &new_color);
-			dif_col = ft_add_colors(dif_col,
-				ft_diffuse(light, LIGHT_VECTOR, normal, color));
-			spec_col = ft_add_colors(spec_col,
-				ft_specular(light, normal, REFLECTED_LIGHT_VECTOR));
+			if (rtv->options.diffuse)
+				dif_col = ft_add_colors(dif_col,
+					ft_diffuse(light, LIGHT_VECTOR, normal, color));
+			if (rtv->options.specular)
+				spec_col = ft_add_colors(spec_col,
+					ft_specular(light, normal, REFLECTED_LIGHT_VECTOR));
 			if (rtv->cam.hit.object->point.material.specular)
 			{
 				new_color = ft_get_texture_color(rtv->cam.hit.object->point.material.specular,

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 23:21:45 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/27 18:08:34 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/14 12:48:15 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int				ft_add_disk(t_xml_tag *tag, t_rtv *env)
 		ft_rotate_vector(object.plane.normal, object.plane.rotation));
 	object.plane.radius = ft_clip_min(0, ft_parse_float(
 		ft_xml_get_value(tag, "radius", "6"), &status));
-	ft_define_limits(tag, &(object.plane.limits), &status);
 	ft_add_material(tag, &object, &status, env);
+	ft_define_limits(tag, &(object.plane.limits), &status);
 	object.plane.function = &ft_plane_intersection;
 	status &= ft_object_push(env, object, TYPE_PLANE);
 	return (status);
