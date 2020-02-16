@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/09 05:59:08 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/15 08:13:27 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 # define REFLECTED_LIGHT_VECTOR  light_vect[1]
 # define CENTER cube_utils[0]
 # define LENGHTS cube_utils[1]
-# define NOISE_W 1000
-# define NOISE_H 1000
+# define NOISE_W 250
+# define NOISE_H 250
 # define MAX_D 1e30
 # define MIN_D 1e-6
 # define FT_SQR(X) ((X) * (X))
@@ -149,7 +149,7 @@ typedef struct			s_scene
 	int		width;
 	int		height;
 	int 	filter;
-	int		image_filter;
+	int		effect;
 	int		aa;
 	int		reflection_depth;
 	int		refraction_depth;
@@ -276,12 +276,12 @@ double			ft_clip_min_max(double min, double max, double value);
 **	REFLECTION REFRACTION AND PHONG ILLUMINATION
 */
 
-// t_color			ft_diffuse(t_light light, t_vector normal, t_color color);
-// t_color			ft_specular(t_light light, t_vector normal);
+t_color			ft_cartoon_diffuse(t_light light, t_vector light_vect,
+	t_vector normal, t_color color);
+t_color			ft_cartoon_specular(t_light light, t_vector normal,
+	t_vector reflected_light_vect);
 t_color			ft_specular(t_light light, t_vector normal, t_vector reflected_light_vect);
 t_color			ft_diffuse(t_light light,t_vector light_vect, t_vector normal, t_color color);
-// double			ft_calculate_shadow(t_rtv rtv,
-// 		double intersection_dist, t_light light);
 double			ft_calculate_shadow(t_rtv rtv, double intersection_dist,
 					t_light light, t_vector light_vect);
 t_color			ft_reflect_ray(t_rtv rtv, int depth);

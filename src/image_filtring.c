@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 05:52:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/09 06:07:15 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/15 04:50:24 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,10 @@ void		ft_image_filtring(t_rtv *rtv, double
 
 void		ft_filtring_select(t_rtv *rtv)
 {
-	rtv->scene.image_filter = 1;
-	if (rtv->scene.image_filter == 1)
+	if (rtv->scene.effect == 1)
 		ft_image_filtring(rtv, g_motion_blur, (t_coor){9, 9}, 9.0);
-	if (rtv->scene.image_filter == 2)
+	if (rtv->scene.effect == 2)
 		ft_image_filtring(rtv, g_blur, (t_coor){5, 5}, 13.0);
-	if (rtv->scene.image_filter == 3)
+	if (rtv->scene.effect == 3)
 		ft_image_filtring(rtv, g_sharp, (t_coor){5, 5}, 8.0);
 }

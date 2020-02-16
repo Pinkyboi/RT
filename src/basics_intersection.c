@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/02 00:01:39 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/15 20:08:11 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ double			ft_cylinder_intersection(t_cam *cam,
 		t_cylinder *cylinder, double min)
 {
 	double		abc[3];
+	double		delta;
 	t_vector	dist;
 
 	dist = ft_sub_vector(cam->position, cylinder->center);
@@ -45,13 +46,16 @@ double			ft_cylinder_intersection(t_cam *cam,
 		- (ft_dot_vector(dist, cylinder->axis) *
 				ft_dot_vector(dist, cylinder->axis))
 		- (cylinder->radius * cylinder->radius);
-	cam->hit.delta = (B * B) - (4 * A * C);
-	if (cam->hit.delta < 0)
+	delta = (B * B) - (4 * A * C);
+	if (delta < 0)
 		return (0);
-	cam->hit.soluces[0] = (-B + sqrt(cam->hit.delta)) / (2 * A);
-	cam->hit.soluces[1] = (-B - sqrt(cam->hit.delta)) / (2 * A);
+	cam->hit.soluces[0] = (-B + sqrt(delta)) / (2 * A);
+	cam->hit.soluces[1] = (-B - sqrt(delta)) / (2 * A);
 	if (ft_check_min_distance(&cam->hit.soluces[0], &cam->hit.soluces[1], min))
+	{
 		ft_cylinder_normal(cam, cylinder, cam->hit.soluces[0]);
+		// cam->hit.uv = ft_cart_to_cylinder(cam->hit.position, cylinder);
+	}
 	else
 		cam->hit.soluces[0] = 0;
 	return (cam->hit.soluces[0]);
@@ -61,25 +65,27 @@ double			ft_sphere_intersection(t_cam *cam,
 		t_sphere *sphere, double min)
 {
 	double	abc[3];
+	double	delta;
 
 	A = 1;
 	B = 2 * ft_dot_vector(cam->ray_direction,
 			ft_sub_vector(cam->position, sphere->center));
 	C = FT_SQR(ft_vector_size(ft_sub_vector(cam->position, sphere->center)))
 		- (sphere->radius * sphere->radius);
-	cam->hit.delta = (B * B) - (4 * A * C);
-	if (cam->hit.delta < 0)
+	delta = (B * B) - (4 * A * C);
+	if (delta < 0)
 		return (0);
-	cam->hit.soluces[0] = (-B + sqrt(cam->hit.delta)) / 2;
-	cam->hit.soluces[1] = (-B - sqrt(cam->hit.delta)) / 2;
+	cam->hit.soluces[0] = (-B + sqrt(delta)) / 2;
+	cam->hit.soluces[1] = (-B - sqrt(delta)) / 2;
 	if (ft_check_min_distance(&cam->hit.soluces[0], &cam->hit.soluces[1], min))
+	{
 		ft_sphere_normal(cam, sphere, cam->hit.soluces[0]);
+		// cam->hit.uv = ft_cart_to_sphere(cam->hit.position, sphere);
+	}
 	else
 		cam->hit.soluces[0] = 0;
 	return (cam->hit.soluces[0]);
 }
-
-t_color			ft_map_texture(t_cam *cam, t_plane plane);
 
 double			ft_plane_intersection(t_cam *cam, t_plane *plane, double min)
 {
@@ -119,7 +125,6 @@ double			ft_triangle_intersection(t_cam *cam,
 		temp[2] = ft_cross_product(temp[1], triangle->side[0]);
 		test[1] = ft_dot_vector(cam->ray_direction, temp[2]) / det;
 		cam->hit.soluces[0] = ft_dot_vector(triangle->side[1], temp[2]) / det;
-		cam->hit.delta = 1;
 		if (!(test[1] < MIN_D || test[0] + test[1] > 1.0)
 			&& ((cam->hit.soluces[0]) < min && cam->hit.soluces[0] > MIN_D))
 		{

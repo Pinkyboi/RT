@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 21:29:47 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/07 05:50:40 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/15 01:14:01 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,12 @@ t_color        ft_noise(t_rtv rtv, t_color color)
     double yPeriod = 5.0;
     double turbPower = 50.0;
     double turbSize = 200.0;
-    double xyValue = rtv.row * xPeriod / NOISE_W +
+    double xyValue;
+	
+	xyValue = rtv.row * xPeriod / NOISE_W +
         rtv.column * yPeriod / NOISE_H + turbPower *
         ft_turbulence(rtv.row, rtv.column, turbSize);
+	
     double sineValue = fabs(sin(xyValue * 3.14159));
     double color_noise =  sineValue;
     color = (t_color){color_noise,color_noise,color_noise};

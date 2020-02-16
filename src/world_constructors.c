@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:59:48 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/16 21:42:13 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/15 08:51:59 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,26 @@ int				ft_parse_filter(char *filter_name)
 		return (2);
 	if (!ft_strcmp(filter_name, "negatif"))
 		return (3);
-	if (!ft_strcmp(filter_name, "outline"))
-		return (4);
 	if (!ft_strcmp(filter_name, "purple scale"))
 		return (5);
 	if (!ft_strcmp(filter_name, "yellow scale"))
+		return (6);
+	return (-1);
+}
+
+int				ft_parse_effects(char *filter_name)
+{
+	if (!ft_strcmp(filter_name, "motion blur"))
+		return (1);
+	if (!ft_strcmp(filter_name, "blur"))
+		return (2);
+	if (!ft_strcmp(filter_name, "sharpness"))
+		return (3);
+	if (!ft_strcmp(filter_name, "polarisation"))
+		return (4);
+	if (!ft_strcmp(filter_name, "cartoon"))
+		return (5);
+	if (!ft_strcmp(filter_name, "outline"))
 		return (6);
 	return (-1);
 }
@@ -72,6 +87,8 @@ int				ft_load_scene(t_xml_tag *tag, t_rtv *env)
 				"0.4"), &status);
 	env->scene.filter = ft_parse_filter(
 		ft_xml_get_value(tag, "filter", "none"));
+	env->scene.effect = ft_parse_effects(
+		ft_xml_get_value(tag, "effect", "none"));
 	env->scene.aa = ft_clip_max(8,
 				ft_parse_float(ft_xml_get_value(tag, "AA", "0"), &status));
 	env->scene.reflection_depth = ft_parse_float(

@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/07 05:50:37 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/15 04:58:16 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_color	ft_sepia_filter(t_color color)
 	return (ft_assign_color(r, g, b));
 }
 
-t_color	ft_cartoon_filter(t_rtv rtv, t_object object, t_color color)
+t_color	ft_outline_filter(t_rtv rtv, t_object object, t_color color)
 {
 	t_object_list	*object_node;
 	t_object_list	*best_node;
@@ -70,26 +70,15 @@ t_color	ft_cartoon_filter(t_rtv rtv, t_object object, t_color color)
 
 t_color	ft_select_filter(t_rtv rtv, t_object object, t_color color)
 {
-	// if (rtv.scene.filter == 1)
-	// color = ft_gray_filter(color);
 	if (rtv.scene.filter == 2)
 		return (ft_sepia_filter(color));
 	if (rtv.scene.filter == 3)
 		return (ft_assign_color(1 - color.r, 1 - color.g, 1 - color.b));
-	if (rtv.scene.filter == 4)
-		return (ft_cartoon_filter(rtv, object, color));
+	if (rtv.scene.effect == 6 || rtv.scene.effect == 5)
+		return (ft_outline_filter(rtv, object, color));
 	if (rtv.scene.filter == 5)
 		return ((t_color){color.r, 0, color.b});
 	if (rtv.scene.filter == 6)
 		return ((t_color){color.r, color.r, color.b});
-	if(rtv.scene.filter == 7)
-		return ((t_color){color.r, 0, 0});
-	if (rtv.scene.filter == 8)
-		return ((t_color){0, 0, color.b});
-	if (rtv.scene.filter == 10)
-		return ((t_color){0, color.g, color.b});
-	if (rtv.scene.filter == 9)
-		return (ft_cartoon_filter(rtv, object, color));
-	
 	return (color);
 }

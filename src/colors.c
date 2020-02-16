@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 22:04:25 by azarzor           #+#    #+#             */
-/*   Updated: 2020/02/07 19:18:40 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/15 05:21:07 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,12 @@ t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color)
 		REFLECTED_LIGHT_VECTOR = ft_reflected_light_ray(LIGHT_VECTOR, normal);
 		if (ft_check_shadow(*rtv, light_node->light, LIGHT_VECTOR, &color))
 		{
-			t_light	light;
-
-			light = light_node->light;
 			dif_col = ft_add_colors(dif_col,
-				ft_diffuse(light, LIGHT_VECTOR, normal, color));
+				(rtv->scene.effect != 5) ? ft_diffuse(light_node->light, LIGHT_VECTOR, normal, color)
+					: ft_cartoon_diffuse(light_node->light, LIGHT_VECTOR, normal, color));
 			spec_col = ft_add_colors(spec_col,
-			ft_specular(light, rtv->cam.ray_direction, REFLECTED_LIGHT_VECTOR));
+			(rtv->scene.effect != 5) ? ft_specular(light_node->light, rtv->cam.ray_direction, REFLECTED_LIGHT_VECTOR)
+			: ft_cartoon_specular(light_node->light, rtv->cam.ray_direction, REFLECTED_LIGHT_VECTOR));
 		}
 		light_node = light_node->next;
 	}

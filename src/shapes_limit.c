@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/07 01:51:49 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/15 20:03:57 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ double	ft_plane_limit(t_plane plane, t_cam cam)
 			ft_sub_vector(cam.hit.position, plane.center), plane.sides.v);
 	if((plane.lenght.u >= 0 && fabs(x[1]) >= plane.lenght.u)
 		|| (plane.lenght.u >= 0 && fabs(x[0]) >= plane.lenght.v ))
+		return (0);
+	if((ft_axis_limit(cam.hit.position, plane.limits)))
 		return (0);
 	return (cam.hit.soluces[0]);
 }

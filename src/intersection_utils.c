@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/07 05:42:10 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/15 15:09:45 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ double			ft_choose_intersection(t_object_list *object_node,
 
 	temp_min = object_node->object.point.function(&(rtv->cam),
 		&object_node->object.point, *min);
-	if (temp_min)
+	if (temp_min > MIN_D)
 	{
 		rtv->cam.hit.object = &object_node->object;
 		*min = temp_min;
@@ -58,7 +58,9 @@ int ft_choose_lens(t_object_list *object_node, t_rtv *rtv, double *min)
 	cam_clone[0].look_at = ft_add_vector(cam_clone[0].look_at, ft_scale_vector(rtv->cam.right, -0.2));
 	cam_clone[1].look_at = ft_add_vector(cam_clone[1].look_at, ft_scale_vector(rtv->cam.right, 0.2));
 	ft_init_cam(&cam_clone[0], *rtv);
+	ft_init_cam(&cam_clone[1], *rtv);
 	ft_create_ray(rtv, 0, &cam_clone[0]);
+	ft_create_ray(rtv, 0, &cam_clone[1]);
 	temp_min[0] = object_node->object.point.function(&(cam_clone[0]),
 		&object_node->object.point, *min);
 	temp_min[1] = object_node->object.point.function(&(cam_clone[1]),
@@ -131,7 +133,7 @@ void			ft_color_best_node(t_rtv *rtv, t_color rgb)
 		ft_create_ray(rtv, sample, &rtv->cam);
 		while (object_node)
 		{
-			if (ft_choose_lens(object_node, rtv, &rtv->min))
+			if (ft_choose_intersection(object_node, rtv, &rtv->min))
 				best_node = object_node;
 			object_node = object_node->next;
 		}
