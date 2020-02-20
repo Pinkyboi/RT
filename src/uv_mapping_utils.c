@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   uv_mapping_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 16:53:07 by azarzor           #+#    #+#             */
-/*   Updated: 2020/02/01 21:42:04 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/15 10:20:05 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere)
 	mapped.y = (1 - phi / M_PI);
 	mapped.x = (mapped.x * sphere->material.scale) + sphere->material.offset.x;
 	mapped.y = (mapped.y * sphere->material.scale) + sphere->material.offset.y;
-	return(mapped);
+	return (mapped);
 }
 
 t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder)
@@ -34,36 +34,30 @@ t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder)
 	t_coor		mapped;
 	double		length;
 
+	length = 0;
 	if (cylinder->max_lenght == -1)
 		length = 10000.00;
 	else if (cylinder->max_lenght >= 0)
-		length = cylinder->max_lenght;	
-	theta = atan2(-(vect.z - cylinder->center.z), vect.x - cylinder->center.x);
+		length = cylinder->max_lenght;
+	theta = atan2(-(vect.z - cylinder->center.z),
+	vect.x - cylinder->center.x);
 	phi = acos(-(vect.y - cylinder->center.y) / length * 2.00);
 	mapped.x = (theta + M_PI) / (2 * M_PI);
 	mapped.y = phi / M_PI;
-	mapped.x = (mapped.x * cylinder->material.scale) + cylinder->material.offset.x;
-	mapped.y = (mapped.y * cylinder->material.scale) + cylinder->material.offset.y;
-	return(mapped);
+	mapped.x = (mapped.x * cylinder->material.scale) +
+	cylinder->material.offset.x;
+	mapped.y = (mapped.y * cylinder->material.scale) +
+	cylinder->material.offset.y;
+	return (mapped);
 }
 
 t_coor		ft_cart_to_plane(t_cam *cam, t_plane *plane)
 {
-	t_vector	sides[2];
-	t_vector	up;
-	t_coor		uv;
+	t_coor		mapped;
 
-	up = ft_cross_product(ft_rotate_vector(plane->normal,
-		(t_vector){90, 90, 90}), plane->normal);
-	sides[0] = ft_normalise_vector(
-			ft_cross_product(up, plane->normal));
-	sides[1] = ft_normalise_vector(
-			ft_cross_product(sides[0], plane->normal));
-	uv.x = ft_dot_vector(
-			ft_sub_vector(cam->hit.position, plane->center), sides[0]);
-	uv.y = ft_dot_vector(
-			ft_sub_vector(cam->hit.position, plane->center), sides[1]);
-	uv.x = (uv.x + plane->material.offset.x) * plane->material.scale;
-	uv.y = (uv.y + plane->material.offset.y) * plane->material.scale;
-	return (uv);
+	mapped.x = ft_dot_vector(
+			ft_sub_vector(cam->hit.position, plane->center), plane->sides.u);
+	mapped.y = ft_dot_vector(
+			ft_sub_vector(cam->hit.position, plane->center), plane->sides.v);
+	return (mapped);
 }

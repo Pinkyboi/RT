@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_managing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2020/02/14 15:57:43 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/15 08:10:48 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int			ft_key_stroke(int key, t_rtv *rtv)
 		rtv->cam.look_at.z = 5 * sin(angles[0]);
 		rtv->cam.look_at.y = 5 * sin(angles[1]);
 		if (key == FOREWORD)
-			rtv->cam.position = ft_add_vector(rtv->cam.position, ft_normalise_vector(rtv->cam.look_at));
+			rtv->cam.position = ft_add_vector(rtv->cam.position, ft_scale_vector(ft_normalise_vector(rtv->cam.look_at), 5));
 		if (key == BACKWARD)
-			rtv->cam.position = ft_sub_vector(rtv->cam.position, ft_normalise_vector(rtv->cam.look_at));
+			rtv->cam.position = ft_sub_vector(rtv->cam.position, ft_scale_vector(ft_normalise_vector(rtv->cam.look_at),5));
 		rtv->cam.look_at = ft_add_vector(rtv->cam.position, rtv->cam.look_at);
 		/*
 		move = ft_scale_vector(ft_normalise_vector(

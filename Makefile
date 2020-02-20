@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abiri <abiri@student.42.fr>                +#+  +:+       +#+         #
+#    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2020/02/14 15:31:37 by abiri            ###   ########.fr        #
+#    Updated: 2020/02/15 20:23:43 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,11 @@ FILENAMES = basics_constructors.c\
 			world_constructors.c\
 			fractals.c\
 			user_interface.c\
+			box_constructor.c\
+			pill_constructor.c\
+			parallelepiped_constructor.c\
+			image_filtering.c\
+			textures_constructors.c\
 			xml_parser_tools.c
 
 HEADER_FILE = objects.h\

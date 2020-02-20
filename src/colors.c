@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 22:04:25 by azarzor           #+#    #+#             */
-/*   Updated: 2020/02/14 15:58:46 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/20 22:54:41 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 t_object		*ft_get_intersection_object(t_rtv *rtv, double *min)
 {
-	t_object_list *object;
-	t_object *best_object;
+	t_object_list	*object;
+	t_object		*best_object;
 
 	object = rtv->objects;
 	*min = MAX_D;
@@ -40,7 +40,8 @@ t_color			ft_merge_color(t_color first, t_color second)
 	return (result);
 }
 
-t_light			ft_get_shadow_light(t_rtv rtv, t_light light, t_vector light_vec, int depth)
+t_light			ft_get_shadow_light(t_rtv rtv, t_light light,
+	t_vector light_vec, int depth)
 {
 	t_light		this_light;
 	t_object	*shadow_object;
@@ -51,113 +52,142 @@ t_light			ft_get_shadow_light(t_rtv rtv, t_light light, t_vector light_vec, int 
 	shadow_object = ft_get_intersection_object(&rtv, &dist);
 	this_light.intensity = light.intensity;
 	this_light.color = light.color;
-	if (shadow_object && (dist < ft_vector_size(ft_sub_vector(rtv.cam.position, light.center))))
+	if (shadow_object && (dist < ft_vector_size(
+		ft_sub_vector(rtv.cam.position, light.center))))
 	{
 		this_light.intensity *= rtv.cam.hit.transparency;
 		this_light.color = ft_merge_color(this_light.color, rtv.cam.hit.color);
 		rtv.cam.ray_origin = rtv.cam.hit.position;
 		rtv.cam.position = rtv.cam.hit.position;
 		rtv.cam.ray_direction = ft_get_refracted_ray(rtv);
-		if (this_light.intensity == 0)
-			return (this_light);
-		return (ft_get_shadow_light(rtv, this_light, light_vec, depth + 1));
+		return ((this_light.intensity == 0) ? this_light :
+			ft_get_shadow_light(rtv, this_light, light_vec, depth + 1));
 	}
 	else
 		light.intensity *= ft_clip_min(0,
-			ft_dot_vector(ft_normalise_vector(light_vec), ft_normalise_vector(rtv.cam.ray_direction)));
+			ft_dot_vector(ft_normalise_vector(light_vec),
+				ft_normalise_vector(rtv.cam.ray_direction)));
 	return (light);
 }
 
-double	ft_check_shadow(t_rtv rtv, t_light *light, t_vector light_vec, t_color *color)
+double			ft_basic_sphere_intersection(t_cam *cam,
+		t_sphere *sphere, double min)
 {
-	//t_object	*shadow_object;
-	t_light	this_light;
-	double		dist;
+	double	abc[3];
+	double	delta;
 
-	rtv.cam.ray_origin = rtv.cam.hit.position;
-	rtv.cam.position = rtv.cam.hit.position;
-	rtv.cam.ray_direction = light_vec;
-	this_light = ft_get_shadow_light(rtv, *light, light_vec, 1);
-	//light->color = this_light.color;
-	light->intensity = this_light.intensity;
-	return (this_light.intensity);
-	//shadow_object = NULL;
-	//shadow_object = ft_get_intersection_object(&rtv, &dist);
-	//if (shadow_object && (dist < ft_vector_size(ft_sub_vector(rtv.cam.position, light.center))))
-	//	return (0);
+	A = 1;
+	B = 2 * ft_dot_vector(cam->ray_direction,
+			ft_sub_vector(cam->ray_origin, sphere->center));
+	C = FT_SQR(ft_vector_size(ft_sub_vector(cam->ray_origin, sphere->center)))
+		- (sphere->radius * sphere->radius);
+	delta = (B * B) - (4 * A * C);
+	if (delta < 0)
+		return (0);
+	return (1);
 }
 
-t_vector random_point_sphere(double radius, t_vector center)
-{   t_vector v;
+double			ft_check_shadow(t_rtv rtv, t_light *light,
+	t_vector light_vec, t_color *color)
+{
+	t_light	this_light;
 
-    double theta = ((2.0 * M_PI)) * ( (double)rand() / (double)RAND_MAX );
-    double x = ((2.0)) * ( (double)rand() / (double)RAND_MAX ) + 2.0 - 1.0;
-    double s = sqrt(fabs(1.0 - x * x));
-    v.x = x;
-    v.y = s * cos(theta);
-    v.z = s * sin(theta);
-    return(ft_add_vector(center, ft_scale_vector(ft_normalise_vector(v), radius)));
+	(void)*color;
+	rtv.cam.ray_origin = ft_add_vector(
+		ft_scale_vector(rtv.cam.hit.normal, MIN_D), rtv.cam.hit.position);
+	rtv.cam.position = rtv.cam.ray_origin;
+	rtv.cam.ray_direction = light_vec;
+	this_light = ft_get_shadow_light(rtv, *light, light_vec, 1);
+	if (!(ft_basic_sphere_intersection(&(rtv.cam),
+		&(light->light_shape), MAX_D)))
+		this_light.intensity = 0;
+	light->intensity = this_light.intensity;
+	return (this_light.intensity);
+	/*
+	* NO IDEA WHAT THIS IS
+	*t_object	*shadow_object;
+	*light->color = this_light.color;
+	*shadow_object = NULL;
+	*shadow_object = ft_get_intersection_object(&rtv, &dist);
+	*if (shadow_object && (dist < f
+	*t_vector_size(ft_sub_vector(rtv.cam.position, light.center))))
+	*	return (0);*/
+}
+
+t_vector		ft_random_lights(t_light light,
+	t_vector center, double radius)
+{
+	t_vector teta;
+
+	teta.x = ((double)rand() / (double)RAND_MAX) * (100.0 * M_PI);
+	teta.y = ((double)rand() / (double)RAND_MAX) * (100.0 * M_PI);
+	teta.z = ((double)rand() / (double)RAND_MAX) * (100.0 * M_PI);
+	light.center.x = center.x + radius * cos(teta.x);
+	light.center.y = center.y + radius * cos(teta.y);
+	light.center.z = center.z + radius * sin(teta.z);
+	return (light.center);
+}
+
+t_color			ft_choose_shader(t_light light,
+	t_rtv *rtv, t_color color, t_vector normal)
+{
+	t_vector		light_vect[2];
+	t_color			new_color;
+	t_color			shader[2];
+
+	DIFFUSE = (t_color){0, 0, 0};
+	SPECULAR = (t_color){0, 0, 0};
+	LIGHT_VECTOR = (light.light_type == SPOT_LIGHT) ?
+	ft_scale_vector(light.light_direction, -1) : ft_normalise_vector(
+	ft_sub_vector(light.center, rtv->cam.hit.position));
+	REFLECTED_LIGHT_VECTOR = ft_reflected_light_ray(LIGHT_VECTOR, normal);
+	ft_check_shadow(*rtv, &light, LIGHT_VECTOR, &new_color);
+	if (rtv->options.diffuse)
+		DIFFUSE = ft_diffuse(light, LIGHT_VECTOR, normal, color);
+	if (rtv->options.specular)
+		SPECULAR = ft_specular(light,
+	rtv->cam.ray_direction, REFLECTED_LIGHT_VECTOR);
+	if (rtv->cam.hit.object->point.material.specular)
+	{
+		new_color = ft_get_texture_color(
+			rtv->cam.hit.object->point.material.specular,
+			rtv->cam.hit.uv, (t_color){1, 1, 1},
+			rtv->cam.hit.object->point.material.mode);
+		SPECULAR = ft_scale_colors(SPECULAR, new_color.r);
+	}
+	return (ft_add_colors(SPECULAR, DIFFUSE));
 }
 
 t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color)
 {
-	t_color			dif_col;
-	t_color			spec_col;
+	t_color			shader;
 	t_light_list	*light_node;
-	t_vector		light_vect[2];
-	double			shadow_ratio;
 	t_light			light;
-	t_color			new_color;
-	double	tetax;
-	double	tetay;
-	double	tetaz;
-	t_vector	center;
-	double	radius;
+	t_vector		center;
+	int				i;
 
+	shader = (t_color){0, 0, 0};
 	light_node = rtv->lights;
 	while (light_node)
 	{
-		dif_col = (t_color){0, 0, 0};
-		spec_col = (t_color){0, 0, 0};
 		light = light_node->light;
 		center = light.center;
-		radius = 0;
-		for (int i = 0; i < LIGHT_SPHERE_COUNT; i++)
+		i = -1;
+		while (++i < LIGHT_SPHERE_COUNT)
 		{
 			light.color = light_node->light.color;
 			light.intensity = light_node->light.intensity / LIGHT_SPHERE_COUNT;
-			tetax = ((double)rand() / (double)RAND_MAX) * (100.0 * M_PI);
-			tetay = ((double)rand() / (double)RAND_MAX) * (100.0 * M_PI);
-			tetaz = ((double)rand() / (double)RAND_MAX) * (100.0 * M_PI);
-			light.center.x = center.x + radius * cos(tetax);
-			light.center.y = center.y + radius * cos(tetay);
-			light.center.z = center.z + radius * sin(tetaz);
-			LIGHT_VECTOR = ft_normalise_vector(
-				ft_sub_vector(light.center, rtv->cam.hit.position));
-			REFLECTED_LIGHT_VECTOR = ft_reflected_light_ray(
-				&light, LIGHT_VECTOR, normal);
-			ft_check_shadow(*rtv, &light, LIGHT_VECTOR, &new_color);
-			if (rtv->options.diffuse)
-				dif_col = ft_add_colors(dif_col,
-					ft_diffuse(light, LIGHT_VECTOR, normal, color));
-			if (rtv->options.specular)
-				spec_col = ft_add_colors(spec_col,
-					ft_specular(light, normal, REFLECTED_LIGHT_VECTOR));
-			if (rtv->cam.hit.object->point.material.specular)
-			{
-				new_color = ft_get_texture_color(rtv->cam.hit.object->point.material.specular,
-					rtv->cam.hit.uv, (t_color){1, 1, 1}, rtv->cam.hit.object->point.material.mode);
-				spec_col = ft_scale_colors(spec_col, new_color.r);
-			}
+			if (i != 0)
+				light.center = ft_random_lights(light, center, light.radius);
+			shader = ft_add_colors(shader,
+			ft_choose_shader(light, rtv, color, normal));
 		}
 		light_node = light_node->next;
 	}
-	return (ft_add_colors(dif_col, ft_add_colors(spec_col,
-		ft_scale_colors(color, rtv->scene.ambiant))));
+	return (ft_add_colors(shader, ft_scale_colors(color, rtv->scene.ambiant)));
 }
 
-t_vector		ft_reflected_light_ray(t_light *light,
-	t_vector light_vect, t_vector normal)
+t_vector		ft_reflected_light_ray(t_vector light_vect, t_vector normal)
 {
 	t_vector	scaled_normal;
 	double		normal_scalar;
@@ -165,5 +195,5 @@ t_vector		ft_reflected_light_ray(t_light *light,
 	normal_scalar = 2.0 * ft_dot_vector(normal, light_vect);
 	scaled_normal = ft_scale_vector(normal, normal_scalar);
 	return (ft_normalise_vector(ft_sub_vector(
-		scaled_normal, light_vect)));
+		light_vect, scaled_normal)));
 }

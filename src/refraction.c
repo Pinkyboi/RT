@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   refraction.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 20:48:50 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/07 19:28:01 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/15 12:05:50 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ static void	ft_swap(double *n1, double *n2)
 	*n2 = temp;
 }
 
-int		ft_intersect_refracted(t_rtv *rtv, t_object *current_object)
+int		ft_intersect_refracted(t_rtv *rtv)
 {
 	t_object_list	*node;
-	double			temp_min;
 	double			min;
 
 	node = rtv->objects;
@@ -57,7 +56,6 @@ t_vector	ft_get_refracted_ray(t_rtv rtv)
 	double	nn;
 
 	nn = n1 / n2;
-	double cosi;
 
 	double	k = 1 - nn * nn * (1 - NdotI * NdotI);
 	if (k < 0)
@@ -79,7 +77,7 @@ t_color	ft_refract_ray(t_rtv rtv, int depth)
 	rtv.cam.ray_direction = ft_get_refracted_ray(rtv);
 	rtv.cam.ray_origin = rtv.cam.hit.position;
 
-	if (ft_intersect_refracted(&rtv, rtv.cam.hit.object))
+	if (ft_intersect_refracted(&rtv))
 		return (ft_get_node_color(rtv, depth + 1));
 	else
 		return ((t_color){0, 0, 0});

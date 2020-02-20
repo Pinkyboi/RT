@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basics_intersection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/07 19:03:17 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/15 21:59:17 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,14 @@ double			ft_cylinder_intersection(t_cam *cam,
 	cam->hit.soluces[0] = (-B + sqrt(delta)) / (2 * A);
 	cam->hit.soluces[1] = (-B - sqrt(delta)) / (2 * A);
 	if (ft_check_min_distance(&cam->hit.soluces[0], cam->hit.soluces[1], min))
-	{
 		ft_cylinder_normal(cam, cylinder, cam->hit.soluces[0]);
-		cam->hit.uv = ft_cart_to_cylinder(cam->hit.position, cylinder);
-	}
 	else
 		cam->hit.soluces[0] = 0;
 	return (cam->hit.soluces[0]);
 }
 
 double			ft_sphere_intersection(t_cam *cam,
-		t_sphere *sphere, double min)
+	t_sphere *sphere, double min)
 {
 	double	abc[3];
 	double	delta;
@@ -96,16 +93,8 @@ double			ft_plane_intersection(t_cam *cam, t_plane *plane, double min)
 		cam->hit.soluces[0] = ft_dot_vector(temp, plane->normal) / i;
 		if (cam->hit.soluces[0] < min && cam->hit.soluces[0] > MIN_D)
 		{
-			ft_intersection_position(cam, cam->hit.soluces[0]);
-			if (plane->radius < 0 || plane->radius >=
-				ft_vector_size(ft_sub_vector(plane->center, cam->hit.position)))
-			{
-				cam->hit.normal = (i > 0) ?
-					ft_scale_vector(plane->normal, -1) : plane->normal;
-				cam->hit.uv = ft_cart_to_plane(cam, plane);
-				ft_get_hit_info(cam->hit.normal, (t_point*)plane, cam);
-				return (cam->hit.soluces[0]);
-			}
+			ft_plane_normal(cam, plane, i);
+			return (cam->hit.soluces[0]);
 		}
 	}
 	return (0);

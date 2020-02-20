@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/14 16:04:29 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/20 22:10:41 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@
 # define HALF_WIDTH cam_utils[2]
 # define LIGHT_VECTOR light_vect[0]
 # define REFLECTED_LIGHT_VECTOR  light_vect[1]
+# define CENTER cube_utils[0]
+# define LENGHTS cube_utils[1]
+# define NEW_COLOR color[1]
+# define OLD_COLOR color[0]
+# define DIFFUSE shader[0]
+# define SPECULAR shader[1]
+# define SPOT_LIGHT 1
+# define NORMAL_LIGHT 0
 # define NOISE_W 1000
 # define NOISE_H 1000
 # define MAX_D 1e30
@@ -104,8 +112,12 @@ typedef struct	s_light
 	t_vector	center;
 	t_vector	light_vect;
 	t_vector	reflected_light_vect;
+	t_vector	light_direction;
 	t_color		color;
 	double		intensity;
+	double		radius;
+	int			light_type;
+	t_sphere	light_shape;
 }				t_light;
 
 typedef struct	s_light_list
@@ -154,6 +166,7 @@ typedef struct			s_scene
 	int		width;
 	int		height;
 	int 	filter;
+	int		effect;
 	int		aa;
 	int		reflection_depth;
 	int		refraction_depth;
@@ -226,6 +239,9 @@ int				ft_add_hyperboloid(t_xml_tag *tag, t_rtv *env);
 int				ft_add_paraboloid(t_xml_tag *tag, t_rtv *env);
 int				ft_add_triangle(t_xml_tag *tag, t_rtv *env);
 int				ft_add_fractal(t_xml_tag *tag, t_rtv *env);
+int				ft_add_pill(t_xml_tag *tag, t_rtv *env);
+int				ft_add_box(t_xml_tag *tag, t_rtv *env);
+int				ft_add_parallelepiped(t_xml_tag *tag, t_rtv *env);
 
 /*
 **  FUNCTIONS TO CALCULATE INTERSECTION FOR EVERY SHAPE
@@ -261,6 +277,10 @@ void            ft_hyperboloid_normal(t_cam *cam,
         t_hyperboloid *hyperboloid, double distance);
 void            ft_paraboloid_normal(t_cam *cam,
         t_paraboloid *paraboloid, double distance);
+void 	ft_plane_normal(t_cam *cam,
+		t_plane *plane, double i);
+int		ft_axis_limit(t_vector intersection,
+	t_limit limits);
 /*
 **  FUNCTIONS TO CALCULATE CAPPED OBJECTS AND LIMITED OBJECTS
 */
@@ -280,7 +300,7 @@ void			ft_sides_handle(t_xml_tag *tag,
 double		ft_sphere_limit(t_sphere sphere, t_cam cam);
 double		ft_cone_limit(t_cone cone, t_cam cam);
 double		ft_cylinder_limit(t_cylinder cylinder, t_cam cam);
-
+double		ft_plane_limit(t_plane plane, t_cam cam);
 /*
 **	CLIPPING FUNCTIONS
 */
@@ -314,6 +334,7 @@ t_color			ft_add_colors(t_color first, t_color second);
 t_color			ft_scale_colors(t_color first, double scalar);
 int				ft_diff_color(t_color c1, t_color c2);
 int				ft_rgb_to_int(t_color color);
+t_color			ft_int_to_rgb(int color);
 
 /*
 **	FILTERS AND EFFECTS
@@ -350,9 +371,9 @@ void			ft_intersection_position(t_cam *cam, double first_intersection);
 void			ft_put_pixel(t_rtv *rtv, int color);
 void			ft_init_win(t_rtv *rtv);
 // void			ft_reflected_light_ray(t_cam cam, t_light *light, t_vector normal);
-// z
-t_vector		ft_reflected_light_ray(t_light *light,
-	t_vector light_vect, t_vector normal);
+// t_vector		ft_reflected_light_ray(t_light *light,
+// 	t_vector light_vect, t_vector normal);
+t_vector		ft_reflected_light_ray(t_vector light_vect, t_vector normal);
 t_color			ft_parse_color(char *string, int *status);
 t_vector		ft_parse_vector(char *string, int *status);
 double			ft_atof(char *string, int *size);
@@ -429,4 +450,16 @@ void		ft_load_interface(t_list_head *buttons, t_rtv *env);
 void		ft_draw_buttons(t_rtv *env);
 int			ft_click_buttons(int button, int x, int y, t_list_head *buttons);
 
+/*
+** GET SHAPES INFORMATION
+*/
+void			ft_get_plane_axis(t_xml_tag *tag, t_plane *plane, int *status, t_coor lenghts);
+
+/*
+** TEXTURE PART
+*/
+int				ft_get_texture_mapping_type(t_xml_tag *tag);
+t_texture		*ft_load_texture(char *filename, t_rtv *env);
+t_texture		*ft_load_image(char *filename, t_rtv *rtv);
+t_texture		*ft_get_texture(char *filename, t_rtv *env);
 #endif

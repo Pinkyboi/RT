@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes_cut.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/02 00:18:00 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/15 09:24:21 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			ft_sphere_cut(t_rtv *env,
 			object->sphere.cut_orientation, object->sphere.color, new_radius);
 		disk.point.function = &ft_plane_intersection;
 		disk.point.material = object->point.material;
+		disk.plane.limits = object->sphere.limits;
 		ft_object_push(env, disk, TYPE_PLANE);
 	}
 }
@@ -69,8 +70,7 @@ void			ft_demi_sphere_cut(t_rtv *env,
 void			ft_cylinder_cut(t_rtv *env,
 	t_xml_tag *tag, t_object *object, int *status)
 {
-	t_object upper_disk;
-	t_object lower_disk;
+	t_object disks[2];
 	t_vector cut_center;
 
 	ft_define_limits(tag, &(object->cylinder.limits), status);
@@ -82,18 +82,20 @@ void			ft_cylinder_cut(t_rtv *env,
 	{
 		cut_center = ft_add_vector(ft_scale_vector(object->cylinder.axis,
 			object->cylinder.max_lenght / 2), object->cylinder.center);
-		upper_disk.plane = ft_define_plane(cut_center, object->cylinder.axis,
+		disks[0].plane = ft_define_plane(cut_center, object->cylinder.axis,
 			object->cylinder.color, object->cylinder.radius);
 		cut_center = ft_add_vector(ft_scale_vector(object->cylinder.axis,
 			-object->cylinder.max_lenght / 2), object->cylinder.center);
-		lower_disk.plane = ft_define_plane(cut_center, object->cylinder.axis,
+		disks[1].plane = ft_define_plane(cut_center, object->cylinder.axis,
 			object->cylinder.color, object->cylinder.radius);
-		upper_disk.point.function = &ft_plane_intersection;
-		lower_disk.point.function = &ft_plane_intersection;
-		upper_disk.point.material = object->point.material;
-		lower_disk.point.material = object->point.material;
-		ft_object_push(env, upper_disk, TYPE_PLANE);
-		ft_object_push(env, lower_disk, TYPE_PLANE);
+		disks[0].point.function = &ft_plane_intersection;
+		disks[1].point.function = &ft_plane_intersection;
+		disks[0].point.material = object->point.material;
+		disks[1].point.material = object->point.material;
+		disks[0].plane.limits = object->cylinder.limits;
+		disks[1].plane.limits = object->cylinder.limits;
+		ft_object_push(env, disks[0], TYPE_PLANE);
+		ft_object_push(env, disks[1], TYPE_PLANE);
 	}
 }
 
@@ -119,6 +121,7 @@ void			ft_cone_cut(t_rtv *env,
 			object->cone.axis, object->cone.color, new_radius);
 		disk.point.function = &ft_plane_intersection;
 		disk.point.material = object->point.material;
+		disk.plane.limits = object->cone.limits;
 		ft_object_push(env, disk, TYPE_PLANE);
 	}
 }

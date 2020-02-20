@@ -31,6 +31,19 @@ void			ft_init_default_scene(t_scene *scene)
 	scene->height = 720;
 }
 
+void			ft_init_rt(t_xml_data *data, t_rtv *rtv, int argc, char **argv)
+{
+	ft_init_default_camera(&(rtv->cam));
+	ft_init_default_scene(&(rtv->scene));
+	ft_load_shapes(data, rtv);
+	ft_init_cam(rtv);
+	ft_load_interface(&rtv->buttons, rtv);
+	if (argc == 4 && ft_strequ(argv[1], "--no_window"))
+		ft_headless_raytracer(rtv, argv[2]);
+	else
+		ft_init_win(rtv);
+}
+
 int				main(int argc, char **argv)
 {
 	t_rtv		rtv;
@@ -55,14 +68,6 @@ int				main(int argc, char **argv)
 		write(2, "\n", 1);
 		return (-1);
 	}
-	ft_init_default_camera(&(rtv.cam));
-	ft_init_default_scene(&(rtv.scene));
-	ft_load_shapes(data, &rtv);
-	ft_init_cam(&rtv);
-	ft_load_interface(&rtv.buttons, &rtv);
-	if (argc == 4 && ft_strequ(argv[1], "--no_window"))
-		ft_headless_raytracer(&rtv, argv[2]);
-	else
-		ft_init_win(&rtv);
+	ft_init_rt(data, &rtv, argc, argv);
 	return (0);
 }

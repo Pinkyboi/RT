@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   world_constructors.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:59:48 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/28 18:56:30 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/20 21:54:11 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,18 @@ int				ft_add_light(t_xml_tag *tag, t_rtv *env)
 				"(255, 255, 255)"), &status);
 	light.intensity = ft_parse_float(ft_xml_get_value(tag, "intensity",
 				"1"), &status);
+	light.radius = ft_parse_float(ft_xml_get_value(tag, "radius",
+				"1"), &status);
 	light.intensity = ft_clip_min_max(0, 1, light.intensity);
+	light.light_type = (!ft_strcmp(
+		ft_xml_get_value(tag, "type", "normal"), "spot")) ? 1 : 0;
+	if (light.radius > 0)
+	{
+		light.light_shape.center = light.center;
+		light.light_shape.radius = light.radius;
+	}
+	light.light_direction = ft_normalise_vector(
+	ft_parse_vector(ft_xml_get_value(tag, "direction", "(0, -1,0)"), &status));
 	status &= ft_light_push(env, light);
 	return (status);
 }
@@ -54,11 +65,26 @@ int				ft_parse_filter(char *filter_name)
 		return (2);
 	if (!ft_strcmp(filter_name, "negatif"))
 		return (3);
-	if (!ft_strcmp(filter_name, "outline"))
-		return (4);
 	if (!ft_strcmp(filter_name, "purple scale"))
 		return (5);
 	if (!ft_strcmp(filter_name, "yellow scale"))
+		return (6);
+	return (-1);
+}
+
+int				ft_parse_effects(char *filter_name)
+{
+	if (!ft_strcmp(filter_name, "motion blur"))
+		return (1);
+	if (!ft_strcmp(filter_name, "blur"))
+		return (2);
+	if (!ft_strcmp(filter_name, "sharpness"))
+		return (3);
+	if (!ft_strcmp(filter_name, "polarisation"))
+		return (4);
+	if (!ft_strcmp(filter_name, "cartoon"))
+		return (5);
+	if (!ft_strcmp(filter_name, "outline"))
 		return (6);
 	return (-1);
 }
@@ -72,6 +98,8 @@ int				ft_load_scene(t_xml_tag *tag, t_rtv *env)
 				"0.4"), &status);
 	env->scene.filter = ft_parse_filter(
 		ft_xml_get_value(tag, "filter", "none"));
+	env->scene.effect = ft_parse_effects(
+		ft_xml_get_value(tag, "effect", "none"));
 	env->scene.aa = ft_clip_max(8,
 				ft_parse_float(ft_xml_get_value(tag, "AA", "0"), &status));
 	env->scene.reflection_depth = ft_parse_float(

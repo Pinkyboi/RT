@@ -31,6 +31,9 @@ void		ft_intersection_position(t_cam *cam, double first_intersection)
 	cam->hit.position = ft_add_vector(cam->ray_origin, distance);
 }
 
+/**
+ * FIX YOUR FUNCTIONS DOLAN
+**/
 void		ft_depth_of_field(t_rtv *rtv, int sample)
 {
 	t_vector			world_point;
