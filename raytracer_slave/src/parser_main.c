@@ -6,7 +6,7 @@
 /*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:12:32 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/21 00:56:47 by merras           ###   ########.fr       */
+/*   Updated: 2020/02/21 02:21:19 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ static t_xml_tag	*ft_parse_tag(int fd, int *status)
 	*status = 1;
 	if (get_next_line(fd, &line) <= 0)
 		return (NULL);
-	ft_putstr_fd("received line : {{{{{{ ", 2);
-	ft_putstr_fd(line, 2);
-	ft_putstr_fd(" }}}}}}\n", 2);
 	if (!(tag = ft_memalloc(sizeof(t_xml_tag))))
 		return (NULL);
 	if (ft_strequ(line, "!"))

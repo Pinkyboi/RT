@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   headless_rendering.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:45:31 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/12 08:42:48 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/21 02:58:33 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ void	ft_send_final_image(t_rtv *rtv)
 	int	size;
 
 	size = (rtv->max_h - rtv->min_h) * rtv->scene.width * 4;
+	ft_putendl_fd(ft_itoa(size), 2);
 	write(1, &size, 4);
 	write(1, rtv->mlx.img.data, size);
+	write(2, rtv->mlx.img.data, size);
 }
 
 int	ft_headless_raytracer(t_rtv	*rtv, char *filename)
@@ -56,6 +58,6 @@ int	ft_headless_raytracer(t_rtv	*rtv, char *filename)
 	ft_init_rendering_image(rtv);
 	ft_ray_shooter(rtv);
 	ft_send_final_image(rtv);
-	//ft_save_bitmap(&rtv->mlx.img, filename);
+	ft_save_bitmap(&rtv->mlx.img, filename);
 	return (SUCCESS);
 }
