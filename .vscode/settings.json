@@ -37,6 +37,8 @@
 		"__memory": "c",
 		"locale": "c",
 		"system_error": "c",
-		"master_raytracer.h": "c"
+		"master_raytracer.h": "c",
+		"lists_wrappers.h": "c",
+		"utilities_macros.h": "c"
 	}
 }

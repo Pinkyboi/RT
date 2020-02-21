@@ -8,10 +8,10 @@
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/rtv1",
-			"args": ["./rtv1-scenes/1-cone_center.xml"],
+			"program": "/Volumes/Storage/goinfre/merras/projects/rt/modules/slaved/slaved",
+			"args": [],
 			"stopAtEntry": false,
-			"cwd": "${workspaceFolder}",
+			"cwd": "/Volumes/Storage/goinfre/merras/projects/rt/modules/slaved",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb"

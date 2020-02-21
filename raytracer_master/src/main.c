@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 08:48:50 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/14 14:53:03 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/21 00:09:21 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,20 @@ int	ft_display_loop(void *content)
 	return (1);
 }
 
+int	computation_compare_middleware(void *first, void *second)
+{
+	(void)first;
+	(void)second;
+	return (0);
+}
+
 int	ft_show_results(t_cluster *cluster, t_master_env *env)
 {
+	void	**results;
+
 	while (cluster->computation.tasks_queue.size != 0)
 		continue ;
-	env->mlx.img = fetch_computation_blob(cluster);
+	results = fetch_computation_blob(cluster, computation_compare_middleware);
 	return (1);
 }
 
@@ -120,21 +129,32 @@ int main(int argc, char **argv)
 	t_master_env	env;
 	t_cluster		cluster;
 
-	if (argc != 2)
-		return (-1);
-	if (!(ft_init_window(&env.mlx)))
-		return (-1);
-	if (!(init_cluster(argv[1], &cluster)))
-		return (-1);
+	if (argc != 3)
+		return (1);
+	// if (!(ft_init_window(&env.mlx)))
+		// return (2);
+	if ((init_cluster(argv[1], &cluster)))
+	{
+		ft_putstr_fd("error initiating cluster.\n", 2);
+		return (3);
+	}
 	if (!ft_send_textures(&cluster))
-		return (-1);
-	if (!ft_send_scene(&cluster, argv[1]))
-		return (-1);
-	if (!ft_send_tasks(&cluster))
-		return (-1);
-	if (!ft_show_results(&cluster, &env))
-		return (-1);
-	mlx_loop_hook(env.mlx.mlx_ptr, ft_display_loop, &env);
-	mlx_loop(env.mlx.mlx_ptr);
+	{
+		// send finish request before getting out
+		return (4);
+	}
+	if (!ft_send_scene(&cluster, argv[2]))
+	{
+		// send finish request before getting out
+		return (5);
+	}
+	// if (!ft_send_tasks(&cluster))
+		// return (-1);
+	// if (!ft_show_results(&cluster, &env))
+		// return (-1);
+	// mlx_loop_hook(env.mlx.mlx_ptr, ft_display_loop, &env);
+	// mlx_loop(env.mlx.mlx_ptr);
+	while (1)
+		continue ;
 	return (0);
 }
