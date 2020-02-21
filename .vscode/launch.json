@@ -8,10 +8,10 @@
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "/Volumes/Storage/goinfre/merras/projects/rt/modules/slaved/slaved",
-			"args": [],
+			"program": "/Volumes/Storage/goinfre/merras/projects/rt/raytracer_master/raytracer_master",
+			"args": ["../cluster.conf", "rtv1-scenes/1-cylinder_center.xml"],
 			"stopAtEntry": false,
-			"cwd": "/Volumes/Storage/goinfre/merras/projects/rt/modules/slaved",
+			"cwd": "/Volumes/Storage/goinfre/merras/projects/rt/raytracer_master",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb"

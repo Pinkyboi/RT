@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   master_raytracer.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 08:50:37 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/12 09:34:34 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/21 22:43:44 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <dirent.h>
 # include "master_middlewares.h"
 # define TEXTURES_DIR "textures/"
-# define WIDTH 1080
+# define WIDTH (720 * 1.7777777778)
 # define HEIGHT 720
 
 typedef struct	s_img

@@ -43,7 +43,14 @@
 			"system_error": "c",
 			"master_raytracer.h": "c",
 			"lists_wrappers.h": "c",
-			"utilities_macros.h": "c"
+			"utilities_macros.h": "c",
+			"__split_buffer": "c",
+			"deque": "c",
+			"initializer_list": "c",
+			"queue": "c",
+			"stack": "c",
+			"unordered_map": "c",
+			"hashtable": "c"
 		}
 	}
 }

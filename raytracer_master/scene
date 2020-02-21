@@ -1,0 +1,9 @@
+<scene ambiant="0.5" AA="0" reflection_depth="1" refraction_depth="5" filter=" " resolution="720"/>
+<camera position="(76.396449, 258.128544, 8.652867)" lookat="(76.396449, 8.128544, 8.652867)" fov="35" rotation="(0, 0, 0)"/>
+<light center="(1000, 1000, 1000)" intensity="0.8" color="#FFFFFF"/>
+<plane center="(-1500, 0, 0)" normal="(-1, 0, 0)" color="#D3D3D3"/>
+<plane center="(1500, 0, 0)" normal="(-1, 0, 0)" color="#D3D3D3"/>
+<plane center="(0, -1500, 0)" normal="(0, -1, 0)" color="#D3D3D3"/>
+<plane center="(0, 1500, 0)" normal="(0, -1, 0)" color="#D3D3D3"/>
+<plane center="(0, 0, -1500)" normal="(0, 0, -1)" color="#D3D3D3"/>
+<plane center="(0, 0, 1500)" normal="(0, 0, -1)" color="#D3D3D3"/>

@@ -6,7 +6,7 @@
 /*   By: merras <merras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 15:50:29 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/21 02:59:12 by merras           ###   ########.fr       */
+/*   Updated: 2020/02/21 15:40:44 by merras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,7 @@ int				main(void)
 	ft_load_shapes(data, &rtv);
 	ft_init_cam(&rtv);
 	ft_headless_raytracer(&rtv, "thisfile");
+	while (1)
+		continue ;
 	return (0);
 }
