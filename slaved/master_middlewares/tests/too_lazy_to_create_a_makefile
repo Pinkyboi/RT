@@ -1,0 +1,1 @@
+make -C .. && gcc master_samples/character_counter_master.c ../master_middlewares.a -I../includes -I../../libraries/centropy/includes/ -I../../libraries/packet/includes -I../../libraries/cdata_structures/shared_includes ../../libraries/centropy/centropy.a ../../libraries/cdata_structures/cdstruct.a ../../libraries/packet/packet.a -lpthread -o character_count_master
