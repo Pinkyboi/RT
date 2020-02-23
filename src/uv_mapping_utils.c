@@ -27,38 +27,26 @@ t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere)
 	return (mapped);
 }
 
-// t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder)
-// {
-// 	double	theta;
-// 	t_vector relative_center;
-// 	t_vector u,v;
-
-// 	relative_center = ;
-// 	u = (t_vector){1, 0, 0};
-// 	v = (t_vector){0, 0, 1};
-// 	theta = atan2(vect.z - v.z, vect.x - u.x);
-// 	return (mapped);
-// }
-
-t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder, t_vector scaled_axis)
+t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder)
 {
-	t_vector u,v;
-	t_vector relative_u;
-	t_vector relative_center;
+	double		theta;
+	double		phi;
 	t_coor		mapped;
+	double		length;
 
-	u = (t_vector){1, 0, 0};
-	// v = (t_vector){0, 0, 1};
-	relative_center = ft_add_vector(cylinder->center, scaled_axis);
-	relative_u = ft_add_vector(ft_add_vector
-		(cylinder->center, ft_scale_vector(u, cylinder->radius)),scaled_axis);
-	double theta = acos(ft_dot_vector(relative_u,
-		ft_normalise_vector(ft_sub_vector(relative_center, vect))));
-	mapped.x = theta * 2 * cylinder->radius / M_PI;
-	mapped.y = ft_vector_size(scaled_axis);
+	if (cylinder->max_lenght == -1)
+		length = 10.0;
+	else if (cylinder->max_lenght >= 0)
+		length = cylinder->max_lenght;	
+	theta = atan2(-(vect.z - cylinder->center.z), vect.x - cylinder->center.x);
+	phi = (vect.y - cylinder->center.y ) / 20.0;
+	
+	mapped.y = (theta) / (2 * M_PI);
+	mapped.x = phi;
+
+
 	return(mapped);
 }
-
 
 t_coor		ft_cart_to_plane(t_cam *cam, t_plane *plane)
 {

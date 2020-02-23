@@ -146,6 +146,21 @@ void		ft_draw_buttons(t_rtv *env)
 		ft_draw_button(button, &env->mlx);
 }
 
+void		ft_bottom_buttons(t_list_head *buttons, t_rtv *env)
+{
+	t_button	*button;
+
+	button = ft_new_button(ft_strdup("RENDER"), ft_button_re_render,
+		env, (t_coor){0, env->scene.height - 20});
+	env->buttons.push(&env->buttons, button);
+	button = ft_new_button(ft_strdup("SAVE"), ft_button_save,
+		env, (t_coor){env->scene.width - 100, env->scene.height - 20});
+	env->buttons.push(&env->buttons, button);
+	button = ft_new_button(ft_strdup("STEREO"), ft_button_stereo,
+		env, (t_coor){env->scene.width / 2 - 50, env->scene.height - 20});
+	env->buttons.push(&env->buttons, button);
+}
+
 void		ft_load_interface(t_list_head *buttons, t_rtv *env)
 {
 	t_button	*button;
@@ -168,13 +183,5 @@ void		ft_load_interface(t_list_head *buttons, t_rtv *env)
 	button = ft_new_button(ft_strdup("SOFT SHADOWS"), ft_button_toggle_boolean,
 		&env->options.soft_shadows, (t_coor){0, 100});
 	env->buttons.push(&env->buttons, button);
-	button = ft_new_button(ft_strdup("RENDER"), ft_button_re_render,
-		env, (t_coor){0, env->scene.height - 20});
-	env->buttons.push(&env->buttons, button);
-	button = ft_new_button(ft_strdup("SAVE"), ft_button_save,
-		env, (t_coor){env->scene.width - 100, env->scene.height - 20});
-	env->buttons.push(&env->buttons, button);
-	button = ft_new_button(ft_strdup("STEREO"), ft_button_stereo,
-		env, (t_coor){env->scene.width / 2 - 50, env->scene.height - 20});
-	env->buttons.push(&env->buttons, button);
+	ft_bottom_buttons(buttons, env);
 }

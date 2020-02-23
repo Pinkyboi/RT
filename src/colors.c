@@ -50,8 +50,7 @@ t_light			ft_get_shadow_light(t_rtv rtv, t_light light,
 		(depth > rtv.scene.refraction_depth + 1 || !rtv.options.refraction))
 		return (light);
 	shadow_object = ft_get_intersection_object(&rtv, &dist);
-	this_light.intensity = light.intensity;
-	this_light.color = light.color;
+	this_light = light;
 	if (shadow_object && (dist < ft_vector_size(
 		ft_sub_vector(rtv.cam.position, light.center))))
 	{
@@ -88,11 +87,10 @@ double			ft_basic_sphere_intersection(t_cam *cam,
 }
 
 double			ft_check_shadow(t_rtv rtv, t_light *light,
-	t_vector light_vec, t_color *color)
+	t_vector light_vec)
 {
 	t_light	this_light;
 
-	(void)*color;
 	rtv.cam.ray_origin = ft_add_vector(
 		ft_scale_vector(rtv.cam.hit.normal, MIN_D), rtv.cam.hit.position);
 	rtv.cam.position = rtv.cam.ray_origin;
@@ -103,32 +101,9 @@ double			ft_check_shadow(t_rtv rtv, t_light *light,
 		this_light.intensity = 0;
 	light->intensity = this_light.intensity;
 	return (this_light.intensity);
-	/*
-	* NO IDEA WHAT THIS IS
-	*t_object	*shadow_object;
-	*light->color = this_light.color;
-	*shadow_object = NULL;
-	*shadow_object = ft_get_intersection_object(&rtv, &dist);
-	*if (shadow_object && (dist < f
-	*t_vector_size(ft_sub_vector(rtv.cam.position, light.center))))
-	*	return (0);*/
 }
 
-t_vector		ft_random_lights(t_light light,
-	t_vector center, double radius)
-{
-	t_vector teta;
-
-	teta.x = ((double)rand() / (double)RAND_MAX) * (100.0 * M_PI);
-	teta.y = ((double)rand() / (double)RAND_MAX) * (100.0 * M_PI);
-	teta.z = ((double)rand() / (double)RAND_MAX) * (100.0 * M_PI);
-	light.center.x = center.x + radius * cos(teta.x);
-	light.center.y = center.y + radius * cos(teta.y);
-	light.center.z = center.z + radius * sin(teta.z);
-	return (light.center);
-}
-
-t_color			ft_choose_shader(t_light light,
+t_color			ft_shader(t_light light,
 	t_rtv *rtv, t_color color, t_vector normal)
 {
 	t_vector		light_vect[2];
@@ -141,7 +116,7 @@ t_color			ft_choose_shader(t_light light,
 	ft_scale_vector(light.light_direction, -1) : ft_normalise_vector(
 	ft_sub_vector(light.center, rtv->cam.hit.position));
 	REFLECTED_LIGHT_VECTOR = ft_reflected_light_ray(LIGHT_VECTOR, normal);
-	ft_check_shadow(*rtv, &light, LIGHT_VECTOR, &new_color);
+	ft_check_shadow(*rtv, &light, LIGHT_VECTOR);
 	if (rtv->options.diffuse)
 		DIFFUSE = ft_diffuse(light, LIGHT_VECTOR, normal, color);
 	if (rtv->options.specular)
@@ -158,34 +133,49 @@ t_color			ft_choose_shader(t_light light,
 	return (ft_add_colors(SPECULAR, DIFFUSE));
 }
 
+void			ft_random_lights(t_light *light,
+	t_vector center, double radius, int index)
+{
+	t_vector teta;
+
+	if (index)
+	{
+		teta.x = ((double)rand() / (double)RAND_MAX) * (100.0 * M_PI);
+		teta.y = ((double)rand() / (double)RAND_MAX) * (100.0 * M_PI);
+		teta.z = ((double)rand() / (double)RAND_MAX) * (100.0 * M_PI);
+		light->center.x = center.x + radius * cos(teta.x);
+		light->center.y = center.y + radius * cos(teta.y);
+		light->center.z = center.z + radius * sin(teta.z);
+	}
+}
+
 t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color)
 {
-	t_color			shader;
+	t_color			col;
 	t_light_list	*light_node;
 	t_light			light;
 	t_vector		center;
 	int				i;
 
-	shader = (t_color){0, 0, 0};
+	col = (t_color){0, 0, 0};
 	light_node = rtv->lights;
 	while (light_node)
 	{
 		light = light_node->light;
 		center = light.center;
 		i = -1;
-		while (++i < ((rtv->options.soft_shadows) ? rtv->scene.light_samples : 1))
+		while (++i < ((rtv->options.soft_shadows) ?
+			rtv->scene.light_samples : 1))
 		{
 			light.color = light_node->light.color;
 			light.intensity = light_node->light.intensity /
 				((rtv->options.soft_shadows) ? rtv->scene.light_samples : 1);
-			if (i != 0)
-				light.center = ft_random_lights(light, center, light.radius);
-			shader = ft_add_colors(shader,
-			ft_choose_shader(light, rtv, color, normal));
+			ft_random_lights(&light, center, light.radius, i);
+			col = ft_add_colors(col, ft_shader(light, rtv, color, normal));
 		}
 		light_node = light_node->next;
 	}
-	return (ft_add_colors(shader, ft_scale_colors(color, rtv->scene.ambiant)));
+	return (ft_add_colors(col, ft_scale_colors(color, rtv->scene.ambiant)));
 }
 
 t_vector		ft_reflected_light_ray(t_vector light_vect, t_vector normal)

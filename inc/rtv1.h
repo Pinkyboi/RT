@@ -48,6 +48,16 @@
 # define FT_SQR(X) ((X) * (X))
 # define FT_RAD(X) (((X) * M_PI) / 180)
 
+#define WORLD_FACT refraction_fractors[0]
+#define OBJECT_FACT refraction_fractors[1]
+#define DOT_N_R refraction_fractors[2]
+#define SWITCH_FACT refraction_fractors[3]
+#define INTERNAL_REFRACTION refraction_fractors[4]
+#define NORMAL_REF refraction_vectors[0]
+#define SCALED_RAY refraction_vectors[1]
+#define REFRACTED_RAY refraction_vectors[2]
+#define RESULT refraction_vectors[3]
+
 /*
 ** BMP FILE MACROS
 */
@@ -71,7 +81,7 @@
 # define RIGHT 2
 # define DOWN 1
 # define SAVE 36
-# define PIXEL_SIZE 10
+# define PIXEL_SIZE 5
 # define NUM_THREAD 4
 
 /*
@@ -80,7 +90,7 @@
 
 # define BUTTON_ACTIVE_COLOR 0x00FF00
 # define BUTTON_INACTIVE_COLOR 0xFF0000
-# define BUTTON_WIDTH 100
+# define BUTTON_WIDTH 120
 # define BUTTON_HEIGHT 20
 # define BUTTON_TEXT_COLOR 0x0
 
@@ -443,7 +453,7 @@ void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
 
 t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
 t_color		ft_cheeker_texture(double x, double y, double scale);
-t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder, t_vector scaled_axis);
+t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
 t_color		ft_get_texture_color(t_texture *texture, t_coor uv, t_color original, int mode);
 t_color		ft_noise(t_cam *cam);
 

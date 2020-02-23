@@ -91,19 +91,11 @@ void			ft_color_best_node(t_rtv *rtv, t_color rgb)
 			object_node = object_node->next;
 		}
 		if (best_node)
-		{
-			node_color = ft_get_node_color(*rtv, 1);
-			rgb = ft_add_colors(rgb, node_color);
-		}
+			rgb = ft_add_colors(rgb, ft_get_node_color(*rtv, 1));
 	}
 	rgb = ft_scale_colors(rgb, (double)1 / (rtv->anti_aliasing + 1));
-	if (best_node)
-	{
-		ft_put_pixel(rtv, ft_rgb_to_int(
-			ft_select_filter(*rtv, best_node->object, rgb)));
-	}
-	else
-		ft_put_pixel(rtv, 0x0);
+	(best_node) ? ft_put_pixel(rtv, ft_rgb_to_int(ft_select_filter(
+	*rtv, best_node->object, rgb))) : ft_put_pixel(rtv, 0x0);
 }
 
 void			ft_display_loading(t_rtv *rtv)
@@ -128,7 +120,9 @@ void			ft_display_loading(t_rtv *rtv)
 	}
 	y = rtv->scene.height - 5;
 	x = 0;
-	max = (double)rtv->scene.width - ((double)((rtv->render_y_offset) * rtv->pixel_size + (rtv->render_offset)) / (double)(rtv->pixel_size * rtv->pixel_size + rtv->pixel_size)) * (double)rtv->scene.width;
+	max = (double)rtv->scene.width - ((double)((rtv->render_y_offset)
+	* rtv->pixel_size + (rtv->render_offset)) / (double)(rtv->pixel_size
+	* rtv->pixel_size + rtv->pixel_size)) * (double)rtv->scene.width;
 	max = (max == rtv->scene.width) ? 0 : max;
 	while (x < max)
 	{

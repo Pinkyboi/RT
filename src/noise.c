@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-// void        ft_create_noise()
+/* void        ft_create_noise()
 // {
 //     int i;
 //     int j;
@@ -68,4 +68,4 @@
 //     double sineValue = fabs(sin(xyValue * 3.14159));
 //     double color_noise =  sineValue;
 //     return((t_color){color_noise,color_noise,color_noise});
-// }
+// }*/

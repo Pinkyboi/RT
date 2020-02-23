@@ -82,15 +82,15 @@ t_color	ft_select_filter(t_rtv rtv, t_object object, t_color color)
 		return ((t_color){color.r, 0, color.b});
 	if (rtv.scene.filter == 6)
 		return ((t_color){color.r, color.r, color.b});
-	if(rtv.scene.filter == 7)
+	if (rtv.scene.filter == 7)
 	{
 		color = ft_gray_filter(color);
-		return((t_color){0, color.g, color.b});
+		return ((t_color){0, color.g, color.b});
 	}
-	if(rtv.scene.filter == 8)
+	if (rtv.scene.filter == 8)
 	{
 		color = ft_gray_filter(color);
-		return((t_color){color.r, 0, 0});
+		return ((t_color){color.r, 0, 0});
 	}
 	return (color);
 }

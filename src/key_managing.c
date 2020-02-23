@@ -12,10 +12,33 @@
 
 #include "rtv1.h"
 
+void		ft_move_cam(int key, t_rtv *rtv)
+{
+	static double	angles[3] = {0, 0, 0};
+
+	if (key == RIGHT)
+		angles[0] += M_PI / 36;
+	if (key == LEFT)
+		angles[0] -= M_PI / 36;
+	if (key == UP)
+		angles[1] += M_PI / 36;
+	if (key == DOWN)
+		angles[1] -= M_PI / 36;
+	rtv->cam.look_at.x = 5 * cos(angles[0]);
+	rtv->cam.look_at.z = 5 * sin(angles[0]);
+	rtv->cam.look_at.y = 5 * sin(angles[1]);
+	if (key == FOREWORD)
+		rtv->cam.position = ft_add_vector(rtv->cam.position,
+		ft_scale_vector(ft_normalise_vector(rtv->cam.look_at), 5));
+	if (key == BACKWARD)
+		rtv->cam.position = ft_sub_vector(rtv->cam.position,
+		ft_scale_vector(ft_normalise_vector(rtv->cam.look_at), 5));
+	rtv->cam.look_at = ft_add_vector(rtv->cam.position, rtv->cam.look_at);
+	ft_init_cam(&rtv->cam, *rtv);
+}
+
 int			ft_key_stroke(int key, t_rtv *rtv)
 {
-	t_vector move;
-
 	(key == EXIT) ? ft_exit(rtv) : 1;
 	if (key == SAVE)
 		ft_dump_bitmap(&rtv->mlx.img);
@@ -30,25 +53,7 @@ int			ft_key_stroke(int key, t_rtv *rtv)
 		rtv->render_offset = PIXEL_SIZE;
 		rtv->render_y_offset = PIXEL_SIZE;
 		rtv->pixel_size = PIXEL_SIZE;
-		move = (t_vector){0, 0, 0};
-		static double	angles[3] = {0, 0, 0};
-		if (key == RIGHT)
-			angles[0] += M_PI/36;
-		if (key == LEFT)
-			angles[0] -= M_PI/36;
-		if (key == UP)
-			angles[1] += M_PI/36;
-		if (key == DOWN)
-			angles[1] -= M_PI/36;
-		rtv->cam.look_at.x = 5 * cos(angles[0]);
-		rtv->cam.look_at.z = 5 * sin(angles[0]);
-		rtv->cam.look_at.y = 5 * sin(angles[1]);
-		if (key == FOREWORD)
-			rtv->cam.position = ft_add_vector(rtv->cam.position, ft_scale_vector(ft_normalise_vector(rtv->cam.look_at), 5));
-		if (key == BACKWARD)
-			rtv->cam.position = ft_sub_vector(rtv->cam.position, ft_scale_vector(ft_normalise_vector(rtv->cam.look_at),5));
-		rtv->cam.look_at = ft_add_vector(rtv->cam.position, rtv->cam.look_at);
-		ft_init_cam(&rtv->cam, *rtv);
+		ft_move_cam(key, rtv);
 	}
 	return (0);
 }
@@ -78,7 +83,6 @@ void		ft_put_pixel(t_rtv *rtv, int color)
 			(int)(rtv->column * rtv->scene.width + rtv->row)] = color;
 }
 
-int				ft_shoot_stero(t_rtv *rtv);
 int			ft_frame_loop(void *arg)
 {
 	t_rtv	*rtv;
@@ -93,7 +97,6 @@ int			ft_frame_loop(void *arg)
 		rtv->pixel_size = 1;
 		if (rtv->options.anti_aliasing)
 			rtv->anti_aliasing = rtv->scene.aa;
-		//ft_ray_shooter(rtv);
 	}
 	mlx_put_image_to_window(rtv->mlx.mlx_ptr, rtv->mlx.win,
 			rtv->mlx.img.img_ptr, 0, 0);

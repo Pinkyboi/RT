@@ -81,6 +81,53 @@ int		ft_is_transparent(t_material *material, t_coor uv)
 	return (0);
 }
 
+void	ft_bump_map(t_point *point, t_cam *cam)
+{
+	t_color		color;
+	t_vector	bump;
+
+	color = ft_get_texture_color(point->material.bump,
+		cam->hit.uv, (t_color){0.5, 0.5, 0.5}, point->material.mode);
+	bump = (t_vector){color.r - 0.5, color.g - 0.5, color.b - 0.5};
+	cam->hit.normal.x += bump.x;
+	cam->hit.normal.y += bump.y;
+	cam->hit.normal.z += bump.z;
+	cam->hit.normal = ft_normalise_vector(cam->hit.normal);
+}
+
+void	ft_transparency_map(t_point *point, t_cam *cam)
+{
+	t_color color;
+
+	color = ft_get_texture_color(point->material.transparency,
+		cam->hit.uv, (t_color){1 - point->transparency, 0, 0},
+		point->material.mode);
+	cam->hit.transparency = 1 - color.r;
+}
+
+void	ft_reflection_map(t_point *point, t_cam *cam)
+{
+	t_color color;
+
+	color = ft_get_texture_color(point->material.reflection,
+	cam->hit.uv, (t_color){point->reflection, 0, 0},
+	point->material.mode);
+	cam->hit.reflection = color.r;
+}
+
+void	ft_material_maps(t_point *point, t_cam *cam)
+{
+	if (point->material.texture)
+		cam->hit.color = ft_get_texture_color(point->material.texture,
+			cam->hit.uv, cam->hit.color, point->material.mode);
+	if (point->material.bump)
+		ft_bump_map(point, cam);
+	if (point->material.transparency)
+		ft_transparency_map(point, cam);
+	if (point->material.reflection)
+		ft_reflection_map(point, cam);
+}
+
 void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam)
 {
 	t_vector	bump;
@@ -101,33 +148,7 @@ void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam)
 			cam->hit.transparency = 1;
 			return ;
 		}
-		if (point->material.texture)
-			cam->hit.color = ft_get_texture_color(point->material.texture,
-				cam->hit.uv, cam->hit.color, point->material.mode);
-		if (point->material.bump)
-		{
-			color = ft_get_texture_color(point->material.bump,
-				cam->hit.uv, (t_color){0.5, 0.5, 0.5}, point->material.mode);
-			bump = (t_vector){color.r - 0.5, color.g - 0.5, color.b - 0.5};
-			cam->hit.normal.x += bump.x;
-			cam->hit.normal.y += bump.y;
-			cam->hit.normal.z += bump.z;
-			cam->hit.normal = ft_normalise_vector(cam->hit.normal);
-		}
-		if (point->material.transparency)
-		{
-			color = ft_get_texture_color(point->material.transparency,
-				cam->hit.uv, (t_color){1 - point->transparency, 0, 0},
-				point->material.mode);
-			cam->hit.transparency = 1 - color.r;
-		}
-		if (point->material.reflection)
-		{
-			color = ft_get_texture_color(point->material.reflection,
-			cam->hit.uv, (t_color){point->reflection, 0, 0},
-			point->material.mode);
-			cam->hit.reflection = color.r;
-		}
+		ft_material_maps(point, cam);
 	}
 }
 
@@ -170,7 +191,7 @@ void	ft_cylinder_normal(t_cam *cam, t_cylinder *cylinder,
 	scaled_axis = ft_scale_vector(cylinder->axis, scale);
 	normal = ft_normalise_vector(ft_sub_vector(center_to_point,
 					scaled_axis));
-	cam->hit.uv = ft_cart_to_cylinder(cam->hit.position, cylinder, scaled_axis);
+	cam->hit.uv = ft_cart_to_cylinder(cam->hit.position, cylinder);
 	ft_get_hit_info(normal, (t_point *)cylinder, cam);
 }
 

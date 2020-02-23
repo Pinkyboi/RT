@@ -53,16 +53,16 @@ int			ft_shoot_stero(t_rtv *rtv)
 	cam_clone = rtv->cam;
 	image_clone = (int*)malloc(sizeof(int) *
 		rtv->scene.height * rtv->scene.width);
-	rtv->scene.filter = 7;
+	rtv->scene.filter = 8;
 	rtv->cam.position = ft_add_vector(cam_clone.position,
-		ft_scale_vector(cam_clone.right, -0.3));
+		ft_scale_vector(cam_clone.right, -0.6));
 	ft_init_cam(&rtv->cam, *rtv);
 	ft_ray_shooter(rtv);
-	rtv->scene.filter = 8;
+	rtv->scene.filter = 7;
 	ft_memcpy(image_clone, rtv->mlx.img.data, 4 *
 		rtv->scene.width * rtv->scene.height);
 	rtv->cam.position = ft_add_vector(cam_clone.position,
-		ft_scale_vector(cam_clone.right, 0.3));
+		ft_scale_vector(cam_clone.right, 0.6));
 	ft_init_cam(&rtv->cam, *rtv);
 	ft_ray_shooter(rtv);
 	rtv->mlx.img.data = ft_add_images(rtv->mlx.img.data, image_clone, *rtv);

@@ -41,7 +41,6 @@ FILENAMES = basics_constructors.c\
 			headless_rendering.c\
 			main.c\
 			noise.c\
-			obj_parsing.c\
 			parser_main.c\
 			parser_tools.c\
 			parser_types.c\

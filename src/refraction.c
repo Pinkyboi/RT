@@ -21,7 +21,7 @@ static void	ft_swap(double *n1, double *n2)
 	*n2 = temp;
 }
 
-int		ft_intersect_refracted(t_rtv *rtv)
+int			ft_intersect_refracted(t_rtv *rtv)
 {
 	t_object_list	*node;
 	double			min;
@@ -40,36 +40,30 @@ int		ft_intersect_refracted(t_rtv *rtv)
 
 t_vector	ft_get_refracted_ray(t_rtv rtv)
 {
-	t_vector	Nrefr;
-	double	n1, n2;
-	double	NdotI;
+	double		refraction_fractors[5];
+	t_vector	refraction_vectors[4];
 
-	n1 = 1;
-	n2 = rtv.cam.hit.refraction;
-	NdotI = ft_dot_vector(rtv.cam.hit.normal, rtv.cam.ray_direction);
-	Nrefr = rtv.cam.hit.normal;
-	if (NdotI < 0)
-		NdotI = -NdotI;
+	WORLD_FACT = 1;
+	OBJECT_FACT = rtv.cam.hit.refraction;
+	DOT_N_R = ft_dot_vector(rtv.cam.hit.normal, rtv.cam.ray_direction);
+	NORMAL_REF = rtv.cam.hit.normal;
+	if (DOT_N_R < 0)
+		DOT_N_R = -DOT_N_R;
 	else
-		ft_swap(&n1, &n2);
-	double	nn;
-
-	nn = n1 / n2;
-
-	double	k = 1 - nn * nn * (1 - NdotI * NdotI);
-	if (k < 0)
+		ft_swap(&WORLD_FACT, &OBJECT_FACT);
+	SWITCH_FACT = WORLD_FACT / OBJECT_FACT;
+	INTERNAL_REFRACTION = 1 - SWITCH_FACT * SWITCH_FACT *
+		(1 - DOT_N_R * DOT_N_R);
+	if (INTERNAL_REFRACTION < 0)
 		return ((t_vector){0, 0, 0});
-	t_vector	t1;
-	t_vector	t2;
-	t_vector	result;
-
-	t1 = ft_scale_vector(rtv.cam.ray_direction, nn);
-	t2 = ft_scale_vector(rtv.cam.hit.normal, (nn * NdotI - sqrt(k)));
-	result = ft_add_vector(t1, t2);
-	return (ft_normalise_vector(result));
+	SCALED_RAY = ft_scale_vector(rtv.cam.ray_direction, SWITCH_FACT);
+	REFRACTED_RAY = ft_scale_vector(rtv.cam.hit.normal,
+		(SWITCH_FACT * DOT_N_R - sqrt(INTERNAL_REFRACTION)));
+	RESULT = ft_add_vector(SCALED_RAY, REFRACTED_RAY);
+	return (ft_normalise_vector(RESULT));
 }
 
-t_color	ft_refract_ray(t_rtv rtv, int depth)
+t_color		ft_refract_ray(t_rtv rtv, int depth)
 {
 	if (depth > rtv.scene.refraction_depth || !rtv.options.refraction)
 		return ((t_color){0, 0, 0});

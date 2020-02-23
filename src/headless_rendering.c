@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-int	ft_init_rendering_image(t_rtv *rtv)
+int		ft_init_rendering_image(t_rtv *rtv)
 {
 	rtv->mlx.img.height = rtv->scene.height;
 	rtv->mlx.img.width = rtv->scene.width;
@@ -22,7 +22,7 @@ int	ft_init_rendering_image(t_rtv *rtv)
 	return (SUCCESS);
 }
 
-void		ft_init_headless_renderer(t_rtv *rtv)
+void	ft_init_headless_renderer(t_rtv *rtv)
 {
 	rtv->anti_aliasing = 0;
 	rtv->render_offset = 0;
@@ -32,7 +32,7 @@ void		ft_init_headless_renderer(t_rtv *rtv)
 	rtv->actions.mouvement = 0;
 }
 
-int	ft_headless_raytracer(t_rtv	*rtv, char *filename)
+int		ft_headless_raytracer(t_rtv *rtv, char *filename)
 {
 	ft_init_headless_renderer(rtv);
 	ft_init_rendering_image(rtv);
