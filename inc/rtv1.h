@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/23 03:33:19 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/23 04:02:03 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ typedef	struct	s_rtv
 
 typedef int		t_xml_element(t_xml_tag *tag, t_rtv *env);
 
-typedef int		t_button_handler(void *element, int status);
+typedef int		t_button_handler(void *element, int status, t_rtv *env);
 
 typedef	struct	s_xml_element_parse
 {

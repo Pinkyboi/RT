@@ -6,13 +6,13 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 12:36:40 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/23 04:00:04 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/23 04:03:39 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-int			ft_button_toggle_boolean(void *arg, int status)
+int			ft_button_toggle_boolean(void *arg, int status, t_rtv *env)
 {
 	unsigned int	*boolean;
 
@@ -23,14 +23,13 @@ int			ft_button_toggle_boolean(void *arg, int status)
 		*boolean = 0;
 	else
 		*boolean = 1;
+	ft_init_rendrering(env);
 	return (*boolean);
 }
 
-int			ft_button_render(void *arg, int status)
+int			ft_button_render(void *arg, int status, t_rtv *env)
 {
-	t_rtv	*env;
-
-	env = arg;
+	(void)arg;
 	env->render_offset = 0;
 	env->render_y_offset = 0;
 	env->pixel_size = 1;
@@ -42,11 +41,9 @@ int			ft_button_render(void *arg, int status)
 	return (status);
 }
 
-int			ft_button_stereo(void *arg, int status)
+int			ft_button_stereo(void *arg, int status, t_rtv *env)
 {
-	t_rtv	*env;
-
-	env = arg;
+	(void)arg;
 	env->render_offset = 0;
 	env->render_y_offset = 0;
 	env->pixel_size = 1;
@@ -73,33 +70,29 @@ t_button	*ft_new_button(char *text, t_button_handler *handler,
 	return (result);
 }
 
-int			ft_button_save(void *arg, int status)
+int			ft_button_save(void *arg, int status, t_rtv *env)
 {
-	t_rtv	*env;
-
-	env = arg;
+	(void)arg;
 	ft_dump_bitmap(&env->mlx.img);
 	return (status);
 }
 
-int			ft_button_re_render(void *arg, int status)
+int			ft_button_re_render(void *arg, int status, t_rtv *env)
 {
-	t_rtv	*rtv;
-
-	rtv = arg;
-	rtv->render_offset = 0;
-	rtv->render_y_offset = 0;
-	rtv->pixel_size = 1;
-	if (rtv->options.anti_aliasing)
-		rtv->anti_aliasing = rtv->scene.aa;
-	ft_ray_shooter(rtv);
+	(void)arg;
+	env->render_offset = 0;
+	env->render_y_offset = 0;
+	env->pixel_size = 1;
+	if (env->options.anti_aliasing)
+		env->anti_aliasing = env->scene.aa;
+	ft_ray_shooter(env);
 	return (status);
 }
 
-void		ft_activate_button(t_button *button)
+void		ft_activate_button(t_button *button, t_rtv *env)
 {
 	if (button->handler)
-		button->status = button->handler(button->arg, button->status);
+		button->status = button->handler(button->arg, button->status, env);
 }
 
 int			ft_click_buttons(int mouse_button, int x, int y, t_rtv *env)
@@ -116,10 +109,7 @@ int			ft_click_buttons(int mouse_button, int x, int y, t_rtv *env)
 	{
 		if (x > button->position.x && x < button->position.x + BUTTON_WIDTH &&
 			y > button->position.y && y < button->position.y + BUTTON_HEIGHT)
-		{
-			ft_init_rendrering(env);
-			ft_activate_button(button);
-		}
+			ft_activate_button(button, env);
 	}
 	return (0);
 }
