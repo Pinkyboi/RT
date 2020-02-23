@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loading_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:47:13 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/07 19:14:26 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/15 08:41:42 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ const t_xml_element_parse	g_xml_element_parser[] = {
 	{.type_name = "hyperboloid", .function = &ft_add_hyperboloid},
 	{.type_name = "triangle", .function = &ft_add_triangle},
 	{.type_name = "paraboloid", .function = &ft_add_paraboloid},
+	{.type_name = "pill", .function = &ft_add_pill},
+	{.type_name = "box", .function = &ft_add_box},
+	{.type_name = "parallelepiped", .function = &ft_add_parallelepiped},
 	{.type_name = "camera", .function = &ft_load_camera},
 	{.type_name = "scene", .function = &ft_load_scene},
 	{.type_name = "light", .function = &ft_add_light},
@@ -71,7 +74,7 @@ int							ft_light_push(t_rtv *env, t_light light)
 {
 	t_light_list	*list_node;
 
-	if (!(list_node = ft_memalloc(sizeof(t_object_list))))
+	if (!(list_node = ft_memalloc(sizeof(t_light_list))))
 		return (0);
 	list_node->light = light;
 	if (!env->lights || !env->last_light)

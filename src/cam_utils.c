@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cam_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/01 18:12:20 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/22 05:45:31 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ void		ft_intersection_position(t_cam *cam, double first_intersection)
 	cam->hit.position = ft_add_vector(cam->ray_origin, distance);
 }
 
+/**
+ * FIX YOUR FUNCTIONS DOLAN
+**/
 void		ft_depth_of_field(t_rtv *rtv, int sample)
 {
 	t_vector			world_point;
@@ -97,27 +100,28 @@ void		ft_create_ray(t_rtv *rtv, int sample)
 	//ft_depth_of_field(rtv, sample);
 }
 
-void		ft_init_cam(t_rtv *rtv)
+void		ft_init_cam(t_cam *cam, t_rtv rtv)
 {
 	t_vector	n_up;
 	t_vector	cam_vects[4];
 	double		cam_utils[3];
 
 	n_up = ft_new_vector(MIN_D, 1 + MIN_D, MIN_D);
-	rtv->cam.position = ft_add_vector(rtv->cam.position, rtv->cam.translation);
-	CAM_FOREWORD = ft_normalise_vector(ft_sub_vector(rtv->cam.look_at,
-			rtv->cam.position));
-	rtv->cam.right = ft_normalise_vector(
+	cam->position = ft_add_vector(cam->position, cam->translation);
+	CAM_FOREWORD = ft_normalise_vector(ft_sub_vector(cam->look_at,
+			cam->position));
+	CAM_RIGHT = ft_normalise_vector(
 					ft_cross_product(CAM_FOREWORD, n_up));
-	rtv->cam.up = ft_normalise_vector(ft_cross_product(rtv->cam.right,
+	CAM_UP = ft_normalise_vector(ft_cross_product(CAM_RIGHT,
 					ft_scale_vector(CAM_FOREWORD, -1)));
-	RATIO = (double)rtv->scene.height / (double)rtv->scene.width;
-	HALF_HEIGHT = tan(FT_RAD(rtv->cam.fov) / 2);
+	RATIO = (double)rtv.scene.height / (double)rtv.scene.width;
+	HALF_HEIGHT = tan(FT_RAD(cam->fov) / 2);
 	HALF_WIDTH = HALF_HEIGHT / RATIO;
-	rtv->cam.bottom_left = ft_sub_vector(rtv->cam.position, ft_add_vector(
-					ft_scale_vector(rtv->cam.up, HALF_HEIGHT),
-					ft_scale_vector(rtv->cam.right, HALF_WIDTH)));
-	rtv->cam.bottom_left = ft_add_vector(rtv->cam.bottom_left, CAM_FOREWORD);
-	rtv->cam.w_scalar = ft_scale_vector(rtv->cam.right, 2.0 * HALF_WIDTH);
-	rtv->cam.h_scalar = ft_scale_vector(rtv->cam.up, 2.0 * HALF_HEIGHT);
+	cam->bottom_left = ft_sub_vector(cam->position, ft_add_vector(
+					ft_scale_vector(CAM_UP, HALF_HEIGHT),
+					ft_scale_vector(CAM_RIGHT, HALF_WIDTH)));
+	cam->bottom_left = ft_add_vector(cam->bottom_left, CAM_FOREWORD);
+	cam->w_scalar = ft_scale_vector(CAM_RIGHT, 2.0 * HALF_WIDTH);
+	cam->h_scalar = ft_scale_vector(CAM_UP, 2.0 * HALF_HEIGHT);
+	cam->right = CAM_RIGHT;
 }

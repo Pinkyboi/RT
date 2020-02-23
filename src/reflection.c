@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 21:35:10 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/15 07:53:08 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/23 03:36:28 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_vector	ft_reflected_ray(t_vector normal, t_vector ray)
 int			ft_intersect_reflected(t_rtv *rtv)
 {
 	t_object_list	*node;
-	double			temp_min;
 	double			min;
 
 	node = rtv->objects;
@@ -44,7 +43,6 @@ int			ft_intersect_reflected(t_rtv *rtv)
 
 t_color		ft_reflect_ray(t_rtv rtv, int depth)
 {
-	t_color	other_colors;
 	double	reflection;
 
 	if (!rtv.scene.reflection_depth || depth > rtv.scene.reflection_depth

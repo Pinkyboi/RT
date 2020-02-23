@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 02:09:05 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/16 21:57:16 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/22 06:06:19 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,15 @@ t_color	ft_select_filter(t_rtv rtv, t_object object, t_color color)
 		return ((t_color){color.r, 0, color.b});
 	if (rtv.scene.filter == 6)
 		return ((t_color){color.r, color.r, color.b});
+	if(rtv.scene.filter == 7)
+	{
+		color = ft_gray_filter(color);
+		return((t_color){0, color.g, color.b});
+	}
+	if(rtv.scene.filter == 8)
+	{
+		color = ft_gray_filter(color);
+		return((t_color){color.r, 0, 0});
+	}
 	return (color);
 }

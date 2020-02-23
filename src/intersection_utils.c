@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/15 10:15:33 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/23 03:37:08 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,27 +173,15 @@ int				ft_ray_shooter(t_rtv *rtv)
 	int			i;
 
 	i = -1;
-	rtv->effects = 0;
 	while (++i < NUM_THREAD)
 	{
 		rtv_cpy[i] = *rtv;
-		// rtv_cpy[i].lights = copy_lights(rtv->lights);
 		rtv_cpy[i].min_w = (rtv->scene.width / NUM_THREAD) * i;
 		rtv_cpy[i].max_w = (rtv->scene.width / NUM_THREAD) * (i + 1);
 		pthread_create(&thread[i], NULL, ft_ray_loop, &rtv_cpy[i]);
 	}
 	while (i--)
 		pthread_join(thread[i], NULL);
-	if (rtv->render_y_offset >= 0)
-	{
-		if (rtv->render_offset > 0)
-			rtv->render_offset--;
-		else
-		{
-			rtv->render_y_offset--;
-			if (rtv->render_y_offset > 0)
-				rtv->render_offset = PIXEL_SIZE;
-		}
-	}
+	ft_update_offset(rtv);
 	return (0);
 }

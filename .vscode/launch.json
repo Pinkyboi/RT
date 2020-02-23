@@ -1,20 +1,21 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
 		{
-			"name": "(lldb) Launch",
+			"name": "gcc build and debug active file",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/rtv1",
-			"args": ["${workspaceFolder}/rtv1-scenes/5-complex_scene-2.xml"],
+			"program": "/Users/abenaiss/Desktop/mergeNoise/rtv1",
+			"args": ["5-complex_scene-2.xml"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
 			"externalConsole": false,
-			"MIMode": "lldb"
-		},
-    ]
+			"MIMode": "lldb",
+			"preLaunchTask": "gcc build active file"
+		}
+	]
 }

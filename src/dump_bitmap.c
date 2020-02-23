@@ -13,7 +13,7 @@
 #include "rtv1.h"
 #include <sys/time.h>
 
-int	ft_write_header(int fd, t_img *image)
+int		ft_write_header(int fd, t_img *image)
 {
 	uint16_t	magic;
 	uint32_t	size;
@@ -34,7 +34,7 @@ int	ft_write_header(int fd, t_img *image)
 	return (SUCCESS);
 }
 
-int	ft_write_bitmap_info(int fd, t_img *image)
+int		ft_write_bitmap_info(int fd, t_img *image)
 {
 	uint16_t	int_2bytes;
 	uint32_t	int_4bytes;
@@ -78,7 +78,7 @@ char	*ft_get_image_name(void)
 	return (result);
 }
 
-int	ft_dump_bitmap(t_img *image)
+int		ft_dump_bitmap(t_img *image)
 {
 	int		fd;
 	int		size;
@@ -99,7 +99,7 @@ int	ft_dump_bitmap(t_img *image)
 	return (SUCCESS);
 }
 
-int	ft_save_bitmap(t_img *image, char *filename)
+int		ft_save_bitmap(t_img *image, char *filename)
 {
 	int		fd;
 	int		size;

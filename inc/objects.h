@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 14:41:56 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/14 12:46:12 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/21 22:51:30 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define TYPE_PARABALOID 8
 # define TYPE_HYPERBOILD 6
 # define TYPE_FRACTAL 9
-# define TYPE_PARSE_COUNT 14
+# define TYPE_PARSE_COUNT 17
 # define A abc[0]
 # define B abc[1]
 # define C abc[2]
@@ -181,6 +181,20 @@ typedef struct	s_cone
 	t_vector				limit;
 }				t_cone;
 
+typedef struct	s_sides
+{
+	t_vector u;
+	t_vector v;
+	t_vector w;
+}				t_sides;
+
+typedef struct	s_lenght
+{
+	double u;
+	double v;
+	double w;
+}				t_lenght;
+
 typedef struct	s_plane
 {
 	t_vector				normal;
@@ -195,8 +209,9 @@ typedef struct	s_plane
 	t_vector				translation;
 	t_limit					limits;
 	double					radius;
-	t_vector				side[2];
-	t_vector	limit;
+	t_lenght				lenght;
+	t_sides				sides;
+	double				side;
 }				t_plane;
 
 typedef struct	s_fractal

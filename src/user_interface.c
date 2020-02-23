@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 12:36:40 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/15 09:49:38 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/23 03:48:55 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,38 @@ int			ft_button_toggle_boolean(void *arg, int status)
 	else
 		*boolean = 1;
 	return (*boolean);
+}
+
+int			ft_button_render(void *arg, int status)
+{
+	t_rtv	*env;
+
+	env = arg;
+	env->render_offset = 0;
+	env->render_y_offset = 0;
+	env->pixel_size = 1;
+	if (env->options.anti_aliasing)
+		env->anti_aliasing = env->scene.aa;
+	else
+		env->anti_aliasing = 0;
+	ft_ray_shooter(env);
+	return (status);
+}
+
+int			ft_button_stereo(void *arg, int status)
+{
+	t_rtv	*env;
+
+	env = arg;
+	env->render_offset = 0;
+	env->render_y_offset = 0;
+	env->pixel_size = 1;
+	if (env->options.anti_aliasing)
+		env->anti_aliasing = env->scene.aa;
+	else
+		env->anti_aliasing = 0;
+	ft_shoot_stero(env);
+	return (status);
 }
 
 t_button	*ft_new_button(char *text, t_button_handler *handler,
@@ -154,5 +186,8 @@ void		ft_load_interface(t_list_head *buttons, t_rtv *env)
 	env->buttons.push(&env->buttons, button);
 	button = ft_new_button(ft_strdup("SAVE"), ft_button_save,
 		env, (t_coor){env->scene.width - 100, env->scene.height - 20});
+	env->buttons.push(&env->buttons, button);
+	button = ft_new_button(ft_strdup("STEREO"), ft_button_stereo,
+		env, (t_coor){env->scene.width / 2 - 50, env->scene.height - 20});
 	env->buttons.push(&env->buttons, button);
 }

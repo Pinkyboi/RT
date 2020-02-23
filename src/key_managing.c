@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2020/02/15 09:51:12 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/23 03:53:21 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,11 @@ int			ft_key_stroke(int key, t_rtv *rtv)
 		rtv->cam.look_at.z = 5 * sin(angles[0]);
 		rtv->cam.look_at.y = 5 * sin(angles[1]);
 		if (key == FOREWORD)
-			rtv->cam.position = ft_add_vector(rtv->cam.position, ft_normalise_vector(rtv->cam.look_at));
+			rtv->cam.position = ft_add_vector(rtv->cam.position, ft_scale_vector(ft_normalise_vector(rtv->cam.look_at), 5));
 		if (key == BACKWARD)
-			rtv->cam.position = ft_sub_vector(rtv->cam.position, ft_normalise_vector(rtv->cam.look_at));
+			rtv->cam.position = ft_sub_vector(rtv->cam.position, ft_scale_vector(ft_normalise_vector(rtv->cam.look_at),5));
 		rtv->cam.look_at = ft_add_vector(rtv->cam.position, rtv->cam.look_at);
-		/*
-		move = ft_scale_vector(ft_normalise_vector(
-			ft_sub_vector(rtv->cam.look_at, rtv->cam.position)), 3);*/
-
-		/*(key == LEFT) ? rtv->cam.position.x -= 3 : 0;
-		(key == RIGHT) ? rtv->cam.position.x += 3 : 0;
-		(key == UP) ? rtv->cam.position.y += 3 : 0;
-		(key == DOWN) ? rtv->cam.position.y -= 3 : 0;
-		(key == FOREWORD) ? rtv->cam.position.z += 3 : 0;
-		(key == BACKWARD) ? rtv->cam.position.z -= 3 : 0;*/
-		ft_init_cam(rtv);
+		ft_init_cam(&rtv->cam, *rtv);
 	}
 	return (0);
 }
@@ -88,6 +78,7 @@ void		ft_put_pixel(t_rtv *rtv, int color)
 			(int)(rtv->column * rtv->scene.width + rtv->row)] = color;
 }
 
+int				ft_shoot_stero(t_rtv *rtv);
 int			ft_frame_loop(void *arg)
 {
 	t_rtv	*rtv;
@@ -116,7 +107,6 @@ void		ft_init_rendrering(t_rtv *rtv)
 	rtv->render_offset = PIXEL_SIZE;
 	rtv->render_y_offset = PIXEL_SIZE;
 	rtv->pixel_size = PIXEL_SIZE;
-	rtv->anti_aliasing = 0;
 	rtv->actions.mouvement = 0;
 }
 

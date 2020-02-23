@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/15 10:16:08 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/23 03:44:23 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ double			ft_cylinder_intersection(t_cam *cam,
 }
 
 double			ft_sphere_intersection(t_cam *cam,
-		t_sphere *sphere, double min)
+	t_sphere *sphere, double min)
 {
 	double	abc[3];
 	double	delta;
@@ -90,16 +90,8 @@ double			ft_plane_intersection(t_cam *cam, t_plane *plane, double min)
 		cam->hit.soluces[0] = ft_dot_vector(temp, plane->normal) / i;
 		if (cam->hit.soluces[0] < min && cam->hit.soluces[0] > MIN_D)
 		{
-			ft_intersection_position(cam, cam->hit.soluces[0]);
-			if (plane->radius < 0 || plane->radius >=
-				ft_vector_size(ft_sub_vector(plane->center, cam->hit.position)))
-			{
-				cam->hit.normal = (i > 0) ?
-					ft_scale_vector(plane->normal, -1) : plane->normal;
-				cam->hit.uv = ft_cart_to_plane(cam, plane);
-				ft_get_hit_info(cam->hit.normal, (t_point*)plane, cam);
-				return (cam->hit.soluces[0]);
-			}
+			ft_plane_normal(cam, plane, i);
+			return (cam->hit.soluces[0]);
 		}
 	}
 	return (0);

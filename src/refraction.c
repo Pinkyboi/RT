@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 20:48:50 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/15 08:58:06 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/23 03:36:13 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ static void	ft_swap(double *n1, double *n2)
 	*n2 = temp;
 }
 
-int		ft_intersect_refracted(t_rtv *rtv, t_object *current_object)
+int		ft_intersect_refracted(t_rtv *rtv)
 {
 	t_object_list	*node;
-	double			temp_min;
 	double			min;
 
 	node = rtv->objects;
@@ -56,7 +55,6 @@ t_vector	ft_get_refracted_ray(t_rtv rtv)
 	double	nn;
 
 	nn = n1 / n2;
-	double cosi;
 
 	double	k = 1 - nn * nn * (1 - NdotI * NdotI);
 	if (k < 0)
@@ -78,7 +76,7 @@ t_color	ft_refract_ray(t_rtv rtv, int depth)
 	rtv.cam.ray_direction = ft_get_refracted_ray(rtv);
 	rtv.cam.ray_origin = ft_add_vector(rtv.cam.hit.position,
 		ft_scale_vector(rtv.cam.ray_direction, MIN_D));
-	if (ft_intersect_refracted(&rtv, rtv.cam.hit.object))
+	if (ft_intersect_refracted(&rtv))
 		return (ft_get_node_color(rtv, depth + 1));
 	else
 		return ((t_color){0, 0, 0});
