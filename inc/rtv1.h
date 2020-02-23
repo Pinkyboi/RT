@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/14 16:04:29 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/15 09:41:14 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@
 # define RIGHT 2
 # define DOWN 1
 # define SAVE 36
-# define PIXEL_SIZE 5
+# define PIXEL_SIZE 10
 # define NUM_THREAD 4
 
 /*
@@ -106,6 +106,7 @@ typedef struct	s_light
 	t_vector	reflected_light_vect;
 	t_color		color;
 	double		intensity;
+	double		radius;
 }				t_light;
 
 typedef struct	s_light_list
@@ -157,6 +158,7 @@ typedef struct			s_scene
 	int		aa;
 	int		reflection_depth;
 	int		refraction_depth;
+	int		light_samples;
 }						t_scene;
 
 typedef struct	s_options
@@ -165,6 +167,9 @@ typedef struct	s_options
 	unsigned int	ambiant;
 	unsigned int	diffuse;
 	unsigned int	specular;
+	unsigned int	refraction;
+	unsigned int	reflection;
+	unsigned int	soft_shadows;
 }				t_options;
 
 typedef	struct	s_rtv
@@ -190,7 +195,6 @@ typedef	struct	s_rtv
 	int				render_y_offset;
 	int				anti_aliasing;
 	int				pixel_size;
-	int				light_samples;
 }				t_rtv;
 
 typedef int		t_xml_element(t_xml_tag *tag, t_rtv *env);
@@ -397,6 +401,7 @@ t_coor			ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
 t_coor			ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
 t_coor			ft_cart_to_plane(t_cam *cam, t_plane *plane);
 int				ft_headless_raytracer(t_rtv	*rtv, char *filename);
+void			ft_init_rendrering(t_rtv *rtv);
 
 /*
 **	BMP_SAVING
@@ -427,6 +432,6 @@ t_color		ft_noise(t_cam *cam);
 
 void		ft_load_interface(t_list_head *buttons, t_rtv *env);
 void		ft_draw_buttons(t_rtv *env);
-int			ft_click_buttons(int button, int x, int y, t_list_head *buttons);
+int			ft_click_buttons(int button, int x, int y, t_rtv *env);
 
 #endif

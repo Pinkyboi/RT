@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reflection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 21:35:10 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/21 15:22:54 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/02/15 07:53:08 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ t_color		ft_reflect_ray(t_rtv rtv, int depth)
 	t_color	other_colors;
 	double	reflection;
 
-	if (!rtv.scene.reflection_depth || depth > rtv.scene.reflection_depth)
+	if (!rtv.scene.reflection_depth || depth > rtv.scene.reflection_depth
+		|| !rtv.options.reflection)
 		return ((t_color){0, 0, 0});
 	rtv.cam.ray_origin = rtv.cam.hit.position;
 	rtv.cam.ray_direction = ft_reflected_ray(rtv.cam.hit.normal,

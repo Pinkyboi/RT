@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/07 19:03:17 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/15 10:16:08 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ double			ft_cylinder_intersection(t_cam *cam,
 	cam->hit.soluces[0] = (-B + sqrt(delta)) / (2 * A);
 	cam->hit.soluces[1] = (-B - sqrt(delta)) / (2 * A);
 	if (ft_check_min_distance(&cam->hit.soluces[0], cam->hit.soluces[1], min))
-	{
 		ft_cylinder_normal(cam, cylinder, cam->hit.soluces[0]);
-		cam->hit.uv = ft_cart_to_cylinder(cam->hit.position, cylinder);
-	}
 	else
 		cam->hit.soluces[0] = 0;
 	return (cam->hit.soluces[0]);
@@ -75,10 +72,7 @@ double			ft_sphere_intersection(t_cam *cam,
 	cam->hit.soluces[0] = (-B + sqrt(delta)) / 2;
 	cam->hit.soluces[1] = (-B - sqrt(delta)) / 2;
 	if (ft_check_min_distance(&cam->hit.soluces[0], cam->hit.soluces[1], min))
-	{
 		ft_sphere_normal(cam, sphere, cam->hit.soluces[0]);
-		cam->hit.uv = ft_cart_to_sphere(cam->hit.position, sphere);
-	}
 	else
 		cam->hit.soluces[0] = 0;
 	return (cam->hit.soluces[0]);

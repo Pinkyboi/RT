@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/14 15:54:34 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/15 10:15:33 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ double			ft_choose_intersection(t_object_list *object_node,
 {
 	double			temp_min;
 
+	rtv->cam.hit.uv = (t_coor){0, 0};
 	temp_min = object_node->object.point.function(&(rtv->cam),
 		&object_node->object.point, *min);
 	if (temp_min)

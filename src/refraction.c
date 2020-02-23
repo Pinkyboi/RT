@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 20:48:50 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/07 19:28:01 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/15 08:58:06 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ int		ft_intersect_refracted(t_rtv *rtv, t_object *current_object)
 	min = MAX_D;
 	while (node)
 	{
-		if (node->object.point.reflection == 1)
-			ft_choose_intersection(node, rtv, &min);
+		ft_choose_intersection(node, rtv, &min);
 		node = node->next;
 	}
 	if (min != MAX_D)
@@ -74,11 +73,11 @@ t_vector	ft_get_refracted_ray(t_rtv rtv)
 
 t_color	ft_refract_ray(t_rtv rtv, int depth)
 {
-	if (depth > rtv.scene.refraction_depth)
+	if (depth > rtv.scene.refraction_depth || !rtv.options.refraction)
 		return ((t_color){0, 0, 0});
 	rtv.cam.ray_direction = ft_get_refracted_ray(rtv);
-	rtv.cam.ray_origin = rtv.cam.hit.position;
-
+	rtv.cam.ray_origin = ft_add_vector(rtv.cam.hit.position,
+		ft_scale_vector(rtv.cam.ray_direction, MIN_D));
 	if (ft_intersect_refracted(&rtv, rtv.cam.hit.object))
 		return (ft_get_node_color(rtv, depth + 1));
 	else

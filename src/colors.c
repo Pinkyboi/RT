@@ -6,12 +6,11 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 22:04:25 by azarzor           #+#    #+#             */
-/*   Updated: 2020/02/14 15:58:46 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/15 09:25:03 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#define LIGHT_SPHERE_COUNT 1.0
 
 t_object		*ft_get_intersection_object(t_rtv *rtv, double *min)
 {
@@ -46,7 +45,8 @@ t_light			ft_get_shadow_light(t_rtv rtv, t_light light, t_vector light_vec, int 
 	t_object	*shadow_object;
 	double		dist;
 
-	if (depth > rtv.scene.refraction_depth + 1)
+	if (depth > 1 &&
+		(depth > rtv.scene.refraction_depth + 1 || !rtv.options.refraction))
 		return (light);
 	shadow_object = ft_get_intersection_object(&rtv, &dist);
 	this_light.intensity = light.intensity;
@@ -111,8 +111,9 @@ t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color)
 	double	tetax;
 	double	tetay;
 	double	tetaz;
-	t_vector	center;
 	double	radius;
+	int		samples;
+	t_vector	center;
 
 	light_node = rtv->lights;
 	while (light_node)
@@ -121,11 +122,12 @@ t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color)
 		spec_col = (t_color){0, 0, 0};
 		light = light_node->light;
 		center = light.center;
-		radius = 0;
-		for (int i = 0; i < LIGHT_SPHERE_COUNT; i++)
+		samples = rtv->options.soft_shadows ? rtv->scene.light_samples : 1;
+		radius = rtv->options.soft_shadows ? light.radius : 0;
+		for (int i = 0; i < samples; i++)
 		{
 			light.color = light_node->light.color;
-			light.intensity = light_node->light.intensity / LIGHT_SPHERE_COUNT;
+			light.intensity = light_node->light.intensity / samples;
 			tetax = ((double)rand() / (double)RAND_MAX) * (100.0 * M_PI);
 			tetay = ((double)rand() / (double)RAND_MAX) * (100.0 * M_PI);
 			tetaz = ((double)rand() / (double)RAND_MAX) * (100.0 * M_PI);
@@ -152,6 +154,8 @@ t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color)
 		}
 		light_node = light_node->next;
 	}
+	if (!rtv->options.ambiant)
+		color = (t_color){0, 0, 0};
 	return (ft_add_colors(dif_col, ft_add_colors(spec_col,
 		ft_scale_colors(color, rtv->scene.ambiant))));
 }

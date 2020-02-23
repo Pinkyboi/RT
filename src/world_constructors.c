@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:59:48 by abiri             #+#    #+#             */
-/*   Updated: 2020/01/28 18:56:30 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/15 09:26:47 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int				ft_add_light(t_xml_tag *tag, t_rtv *env)
 				"(255, 255, 255)"), &status);
 	light.intensity = ft_parse_float(ft_xml_get_value(tag, "intensity",
 				"1"), &status);
+	light.radius = ft_parse_float(ft_xml_get_value(tag, "radius",
+				"0"), &status);
 	light.intensity = ft_clip_min_max(0, 1, light.intensity);
 	status &= ft_light_push(env, light);
 	return (status);
@@ -80,6 +82,8 @@ int				ft_load_scene(t_xml_tag *tag, t_rtv *env)
 				ft_xml_get_value(tag, "refraction_depth", "3"), &status);
 	env->scene.height = ft_parse_float(
 				ft_xml_get_value(tag, "resolution", "720"), &status);
+	env->scene.light_samples = ft_parse_float(
+				ft_xml_get_value(tag, "light_samples", "1"), &status);
 	if (env->scene.height < 50)
 		env->scene.height = 50;
 	env->scene.width = (1.77777777778 * env->scene.height);

@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2020/02/14 15:57:43 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/15 09:51:12 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int			ft_key_stroke(int key, t_rtv *rtv)
 		key == DOWN || key == FOREWORD || key == BACKWARD)
 	{
 		rtv->actions.mouvement = 1;
-		rtv->anti_aliasing = 0;
+		if (rtv->options.anti_aliasing)
+			rtv->anti_aliasing = rtv->scene.aa;
+		else
+			rtv->anti_aliasing = 0;
 		rtv->render_offset = PIXEL_SIZE;
 		rtv->render_y_offset = PIXEL_SIZE;
 		rtv->pixel_size = PIXEL_SIZE;
@@ -131,7 +134,7 @@ void		ft_init_win(t_rtv *rtv)
 	rtv->mlx.img.width = rtv->scene.width;
 	mlx_hook(rtv->mlx.win, 2, 0, &ft_key_stroke, rtv);
 	mlx_hook(rtv->mlx.win, 17, 1, (*ft_exit), rtv);
-	mlx_mouse_hook(rtv->mlx.win, ft_click_buttons, &rtv->buttons);
+	mlx_mouse_hook(rtv->mlx.win, ft_click_buttons, rtv);
 	mlx_loop_hook(rtv->mlx.mlx_ptr, &ft_frame_loop, rtv);
 	mlx_loop(rtv->mlx.mlx_ptr);
 }

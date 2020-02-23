@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/07 19:15:45 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/15 10:15:54 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void	ft_sphere_normal(t_cam *cam, t_sphere *sphere, double distance)
 	cam->hit.soluces[0] = ft_sphere_limit(*sphere, *cam);
 	radius = ft_sub_vector(cam->hit.position, sphere->center);
 	normal = ft_normalise_vector(radius);
+	cam->hit.uv = ft_cart_to_sphere(cam->hit.position, sphere);
 	ft_get_hit_info(normal, (t_point *)sphere, cam);
 }
 
@@ -151,6 +152,7 @@ void	ft_cylinder_normal(t_cam *cam, t_cylinder *cylinder,
 	scaled_axis = ft_scale_vector(cylinder->axis, scale);
 	normal = ft_normalise_vector(ft_sub_vector(center_to_point,
 					scaled_axis));
+	cam->hit.uv = ft_cart_to_cylinder(cam->hit.position, cylinder);
 	ft_get_hit_info(normal, (t_point *)cylinder, cam);
 }
 
