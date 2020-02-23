@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 12:36:40 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/23 03:48:55 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/23 04:00:04 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,23 +163,20 @@ void		ft_load_interface(t_list_head *buttons, t_rtv *env)
 	button = ft_new_button(ft_strdup("AA"), ft_button_toggle_boolean,
 		&env->options.anti_aliasing, (t_coor){0, 0});
 	env->buttons.push(&env->buttons, button);
-	button = ft_new_button(ft_strdup("AMBIANT"), ft_button_toggle_boolean,
-		&env->options.ambiant, (t_coor){0, 20});
-	env->buttons.push(&env->buttons, button);
 	button = ft_new_button(ft_strdup("DIFFUSE"), ft_button_toggle_boolean,
-		&env->options.diffuse, (t_coor){0, 40});
+		&env->options.diffuse, (t_coor){0, 20});
 	env->buttons.push(&env->buttons, button);
 	button = ft_new_button(ft_strdup("SPECULAR"), ft_button_toggle_boolean,
-		&env->options.specular, (t_coor){0, 60});
+		&env->options.specular, (t_coor){0, 40});
 	env->buttons.push(&env->buttons, button);
 	button = ft_new_button(ft_strdup("REFLECTION"), ft_button_toggle_boolean,
-		&env->options.reflection, (t_coor){0, 80});
+		&env->options.reflection, (t_coor){0, 60});
 	env->buttons.push(&env->buttons, button);
 	button = ft_new_button(ft_strdup("REFRACTION"), ft_button_toggle_boolean,
-		&env->options.refraction, (t_coor){0, 100});
+		&env->options.refraction, (t_coor){0, 80});
 	env->buttons.push(&env->buttons, button);
 	button = ft_new_button(ft_strdup("SOFT SHADOWS"), ft_button_toggle_boolean,
-		&env->options.soft_shadows, (t_coor){0, 120});
+		&env->options.soft_shadows, (t_coor){0, 100});
 	env->buttons.push(&env->buttons, button);
 	button = ft_new_button(ft_strdup("RENDER"), ft_button_re_render,
 		env, (t_coor){0, env->scene.height - 20});
