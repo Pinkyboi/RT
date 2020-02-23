@@ -74,7 +74,7 @@ int							ft_light_push(t_rtv *env, t_light light)
 {
 	t_light_list	*list_node;
 
-	if (!(list_node = ft_memalloc(sizeof(t_object_list))))
+	if (!(list_node = ft_memalloc(sizeof(t_light_list))))
 		return (0);
 	list_node->light = light;
 	if (!env->lights || !env->last_light)

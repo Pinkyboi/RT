@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/15 21:55:56 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/21 22:55:56 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,8 +169,8 @@ void	ft_cylinder_normal(t_cam *cam, t_cylinder *cylinder,
 	scaled_axis = ft_scale_vector(cylinder->axis, scale);
 	normal = ft_normalise_vector(ft_sub_vector(center_to_point,
 					scaled_axis));
+	cam->hit.uv = ft_cart_to_cylinder(cam->hit.position, cylinder, scaled_axis);
 	ft_get_hit_info(normal, (t_point *)cylinder, cam);
-	cam->hit.uv = ft_cart_to_cylinder(cam->hit.position, cylinder);
 }
 
 void	ft_cone_normal(t_cam *cam, t_cone *cone, double distance)

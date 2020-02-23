@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:54:44 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/15 20:23:50 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/21 22:22:33 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ double	ft_mandelbrot_distance_estimator(t_vector pos, int *iter)
 	float r = 0.0;
 	int	Iterations = 100;
 	double	Bailout = 2.0;
-	double	Power = 2;
+	double	power = 2;
 	*iter = 0;
 	for (int i = 0; i < Iterations ; i++) {
 		r = ft_vector_size(z);
@@ -231,11 +231,11 @@ double	ft_mandelbrot_distance_estimator(t_vector pos, int *iter)
 		// convert to polar coordinates
 		float theta = acos(z.z/r);
 		float phi = atan2(z.y, z.x);
-		dr =  r*Power*dr + 1.0;
+		dr =  r*power*dr + 1.0;
 		// scale and rotate the point
 		float zr = r*r;
-		theta = theta*Power;
-		phi = phi*Power;
+		theta = theta*power;
+		phi = phi*power;
 		// convert back to cartesian coordinates
 		z = ft_scale_vector((t_vector){sin(theta)*cos(phi), sin(phi)*sin(theta), cos(theta)}, zr);
 		z = ft_add_vector(z, pos);

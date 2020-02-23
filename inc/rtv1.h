@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/20 22:10:41 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/22 05:47:16 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,10 +363,12 @@ int				ft_key_stroke(int key, t_rtv *rtv);
 
 
 void			ft_create_ray(t_rtv *rtv, int sample);
-void			ft_init_cam(t_rtv *rtv);
+void		ft_init_cam(t_cam *cam, t_rtv rtv);
 void			ft_map_coordinates(t_rtv *rtv);
 void			ft_print_vect(t_vector v, char *name);
+int				ft_shoot_stero(t_rtv *rtv);
 int				ft_ray_shooter(t_rtv *rtv);
+void			ft_update_offset(t_rtv *rtv);
 void			ft_intersection_position(t_cam *cam, double first_intersection);
 void			ft_put_pixel(t_rtv *rtv, int color);
 void			ft_init_win(t_rtv *rtv);
@@ -415,7 +417,6 @@ int				ft_check_min_distance(double *x1, double x2, double min);
 int				ft_intersect_reflected(t_rtv *rtv);
 t_vector		ft_get_refracted_ray(t_rtv rtv);
 t_coor			ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
-t_coor			ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
 t_coor			ft_cart_to_plane(t_cam *cam, t_plane *plane);
 int				ft_headless_raytracer(t_rtv	*rtv, char *filename);
 
@@ -438,7 +439,7 @@ void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
 
 t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
 t_color		ft_cheeker_texture(double x, double y, double scale);
-t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
+t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder, t_vector scaled_axis);
 t_color		ft_get_texture_color(t_texture *texture, t_coor uv, t_color original, int mode);
 t_color		ft_noise(t_cam *cam);
 
@@ -448,7 +449,7 @@ t_color		ft_noise(t_cam *cam);
 
 void		ft_load_interface(t_list_head *buttons, t_rtv *env);
 void		ft_draw_buttons(t_rtv *env);
-int			ft_click_buttons(int button, int x, int y, t_list_head *buttons);
+int			ft_click_buttons(int mouse_button, int x, int y, t_rtv *env);
 
 /*
 ** GET SHAPES INFORMATION
@@ -462,4 +463,5 @@ int				ft_get_texture_mapping_type(t_xml_tag *tag);
 t_texture		*ft_load_texture(char *filename, t_rtv *env);
 t_texture		*ft_load_image(char *filename, t_rtv *rtv);
 t_texture		*ft_get_texture(char *filename, t_rtv *env);
+
 #endif

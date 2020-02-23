@@ -112,7 +112,7 @@ _lGREEN = \x1b[92m
 _lBLUE = \x1b[94m
 _RED = \x1b[31m
 _END = \x1b[0m
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -g -Wall -Werror -Wextra
 
 all: $(NAME)
 $(NAME):

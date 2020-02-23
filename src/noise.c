@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 21:29:47 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/01 02:51:07 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/21 22:22:33 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@
 // {
 //     double xPeriod = 1.0;
 //     double yPeriod = 5.0;
-//     double turbPower = 50.0;
+//     double turbpower = 50.0;
 //     double turbSize = 200.0;
 //     double xyValue = cam->hit.uv.x * 10 * xPeriod / NOISE_W +
-//         cam->hit.uv.y * 10 * yPeriod / NOISE_H + turbPower *
+//         cam->hit.uv.y * 10 * yPeriod / NOISE_H + turbpower *
 //         ft_turbulence(cam->hit.uv.x * 10, cam->hit.uv.y * 10, turbSize);
 //     double sineValue = fabs(sin(xyValue * 3.14159));
 //     double color_noise =  sineValue;

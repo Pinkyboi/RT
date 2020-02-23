@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2020/02/15 08:10:48 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/22 06:14:56 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,7 @@ int			ft_key_stroke(int key, t_rtv *rtv)
 		if (key == BACKWARD)
 			rtv->cam.position = ft_sub_vector(rtv->cam.position, ft_scale_vector(ft_normalise_vector(rtv->cam.look_at),5));
 		rtv->cam.look_at = ft_add_vector(rtv->cam.position, rtv->cam.look_at);
-		/*
-		move = ft_scale_vector(ft_normalise_vector(
-			ft_sub_vector(rtv->cam.look_at, rtv->cam.position)), 3);*/
-
-		/*(key == LEFT) ? rtv->cam.position.x -= 3 : 0;
-		(key == RIGHT) ? rtv->cam.position.x += 3 : 0;
-		(key == UP) ? rtv->cam.position.y += 3 : 0;
-		(key == DOWN) ? rtv->cam.position.y -= 3 : 0;
-		(key == FOREWORD) ? rtv->cam.position.z += 3 : 0;
-		(key == BACKWARD) ? rtv->cam.position.z -= 3 : 0;*/
-		ft_init_cam(rtv);
+		ft_init_cam(&rtv->cam, *rtv);
 	}
 	return (0);
 }
@@ -85,6 +75,7 @@ void		ft_put_pixel(t_rtv *rtv, int color)
 			(int)(rtv->column * rtv->scene.width + rtv->row)] = color;
 }
 
+int				ft_shoot_stero(t_rtv *rtv);
 int			ft_frame_loop(void *arg)
 {
 	t_rtv	*rtv;
@@ -131,7 +122,7 @@ void		ft_init_win(t_rtv *rtv)
 	rtv->mlx.img.width = rtv->scene.width;
 	mlx_hook(rtv->mlx.win, 2, 0, &ft_key_stroke, rtv);
 	mlx_hook(rtv->mlx.win, 17, 1, (*ft_exit), rtv);
-	mlx_mouse_hook(rtv->mlx.win, ft_click_buttons, &rtv->buttons);
+	mlx_mouse_hook(rtv->mlx.win, ft_click_buttons, rtv);
 	mlx_loop_hook(rtv->mlx.mlx_ptr, &ft_frame_loop, rtv);
 	mlx_loop(rtv->mlx.mlx_ptr);
 }

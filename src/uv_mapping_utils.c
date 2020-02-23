@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 16:53:07 by azarzor           #+#    #+#             */
-/*   Updated: 2020/02/15 10:20:05 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/21 23:20:38 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,38 @@ t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere)
 	return (mapped);
 }
 
-t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder)
-{
-	double		theta;
-	double		phi;
-	t_coor		mapped;
-	double		length;
+// t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder)
+// {
+// 	double	theta;
+// 	t_vector relative_center;
+// 	t_vector u,v;
 
-	length = 0;
-	if (cylinder->max_lenght == -1)
-		length = 10000.00;
-	else if (cylinder->max_lenght >= 0)
-		length = cylinder->max_lenght;
-	theta = atan2(-(vect.z - cylinder->center.z),
-	vect.x - cylinder->center.x);
-	phi = acos(-(vect.y - cylinder->center.y) / length * 2.00);
-	mapped.x = (theta + M_PI) / (2 * M_PI);
-	mapped.y = phi / M_PI;
-	mapped.x = (mapped.x * cylinder->material.scale) +
-	cylinder->material.offset.x;
-	mapped.y = (mapped.y * cylinder->material.scale) +
-	cylinder->material.offset.y;
-	return (mapped);
+// 	relative_center = ;
+// 	u = (t_vector){1, 0, 0};
+// 	v = (t_vector){0, 0, 1};
+// 	theta = atan2(vect.z - v.z, vect.x - u.x);
+// 	return (mapped);
+// }
+
+t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder, t_vector scaled_axis)
+{
+	t_vector u,v;
+	t_vector relative_u;
+	t_vector relative_center;
+	t_coor		mapped;
+
+	u = (t_vector){1, 0, 0};
+	// v = (t_vector){0, 0, 1};
+	relative_center = ft_add_vector(cylinder->center, scaled_axis);
+	relative_u = ft_add_vector(ft_add_vector
+		(cylinder->center, ft_scale_vector(u, cylinder->radius)),scaled_axis);
+	double theta = acos(ft_dot_vector(relative_u,
+		ft_normalise_vector(ft_sub_vector(relative_center, vect))));
+	mapped.x = theta * 2 * cylinder->radius / M_PI;
+	mapped.y = ft_vector_size(scaled_axis);
+	return(mapped);
 }
+
 
 t_coor		ft_cart_to_plane(t_cam *cam, t_plane *plane)
 {

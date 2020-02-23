@@ -63,6 +63,7 @@ FILENAMES = basics_constructors.c\
 			parallelepiped_constructor.c\
 			image_filtering.c\
 			textures_constructors.c\
+			stereoscopie.c\
 			xml_parser_tools.c
 
 HEADER_FILE = objects.h\
@@ -77,7 +78,7 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(FILENAMES:.c=.o))
 
 HEADER_FILES = $(addprefix $(INC_DIR)/, $(HEADER_FILE))
 
-FLAGS = -Ofast -g
+FLAGS = -g
 
 FTMATHS = ./libs/ft_maths
 
