@@ -27,25 +27,23 @@ t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere)
 	return (mapped);
 }
 
-t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder)
+t_coor		ft_cart_to_cylinder(t_vector vect,
+	t_cylinder *cylinder, t_vector scaled_axis)
 {
-	double		theta;
-	double		phi;
 	t_coor		mapped;
-	double		length;
+	t_vector	new_point;
+	double		theta;
 
-	if (cylinder->max_lenght == -1)
-		length = 10.0;
-	else if (cylinder->max_lenght >= 0)
-		length = cylinder->max_lenght;	
-	theta = atan2(-(vect.z - cylinder->center.z), vect.x - cylinder->center.x);
-	phi = (vect.y - cylinder->center.y ) / 20.0;
-	
-	mapped.y = (theta) / (2 * M_PI);
-	mapped.x = phi;
-
-
-	return(mapped);
+	new_point = ft_add_vector(vect, ft_scale_vector(scaled_axis, -1));
+	theta = atan2(-(new_point.z - cylinder->center.z),
+		new_point.x - cylinder->center.x);
+	mapped.x = theta * cylinder->radius;
+	mapped.y = ft_vector_size(scaled_axis);
+	mapped.x = (mapped.x * cylinder->material.scale)
+		+ cylinder->material.offset.x;
+	mapped.y = (mapped.y * cylinder->material.scale)
+		+ cylinder->material.offset.y;
+	return (mapped);
 }
 
 t_coor		ft_cart_to_plane(t_cam *cam, t_plane *plane)
@@ -56,5 +54,31 @@ t_coor		ft_cart_to_plane(t_cam *cam, t_plane *plane)
 			ft_sub_vector(cam->hit.position, plane->center), plane->sides.u);
 	mapped.y = ft_dot_vector(
 			ft_sub_vector(cam->hit.position, plane->center), plane->sides.v);
+	return (mapped);
+}
+
+t_coor		ft_cart_to_cone(t_vector vect, t_cone *cone)
+{
+	double		lenght;
+	double		side_lenght;
+	t_sphere	sphere;
+	t_coor		mapped;
+
+	if (cone->max_lenght < 0)
+		lenght = 1000;
+	else
+		lenght = cone->max_lenght;
+	side_lenght = sqrt(FT_SQR(lenght) + FT_SQR(lenght * cone->tilt));
+	sphere.radius = ((side_lenght * lenght) /
+	sqrt(FT_SQR(lenght) + FT_SQR(lenght)))
+	/ (1 + (side_lenght) / sqrt(FT_SQR(lenght) + FT_SQR(lenght)));
+	if (cone->max_lenght < 0)
+		sphere.center = cone->center;
+	else
+		sphere.center = ft_add_vector(cone->center, ft_scale_vector(cone->axis,
+			lenght - sphere.radius));
+	mapped = ft_cart_to_sphere(vect, &sphere);
+	mapped.x = (mapped.x * cone->material.scale) + cone->material.offset.x;
+	mapped.y = (mapped.y * cone->material.scale) + cone->material.offset.y;
 	return (mapped);
 }

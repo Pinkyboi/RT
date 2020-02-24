@@ -429,8 +429,6 @@ t_object_list	*copy_objects(t_object_list* head);
 int				ft_check_min_distance(double *x1, double x2, double min);
 int				ft_intersect_reflected(t_rtv *rtv);
 t_vector		ft_get_refracted_ray(t_rtv rtv);
-t_coor			ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
-t_coor			ft_cart_to_plane(t_cam *cam, t_plane *plane);
 int				ft_headless_raytracer(t_rtv	*rtv, char *filename);
 void			ft_init_rendrering(t_rtv *rtv);
 
@@ -452,8 +450,11 @@ void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
 */
 
 t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
+t_coor		ft_cart_to_cone(t_vector vect, t_cone *cone);
+t_coor		ft_cart_to_plane(t_cam *cam, t_plane *plane);
 t_color		ft_cheeker_texture(double x, double y, double scale);
-t_coor		ft_cart_to_cylinder(t_vector vect, t_cylinder *cylinder);
+t_coor		ft_cart_to_cylinder(t_vector vect,
+				t_cylinder *cylinder, t_vector scaled_axis);
 t_color		ft_get_texture_color(t_texture *texture, t_coor uv, t_color original, int mode);
 t_color		ft_noise(t_cam *cam);
 

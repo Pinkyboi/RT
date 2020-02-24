@@ -191,7 +191,7 @@ void	ft_cylinder_normal(t_cam *cam, t_cylinder *cylinder,
 	scaled_axis = ft_scale_vector(cylinder->axis, scale);
 	normal = ft_normalise_vector(ft_sub_vector(center_to_point,
 					scaled_axis));
-	cam->hit.uv = ft_cart_to_cylinder(cam->hit.position, cylinder);
+	cam->hit.uv = ft_cart_to_cylinder(cam->hit.position, cylinder, scaled_axis);
 	ft_get_hit_info(normal, (t_point *)cylinder, cam);
 }
 
@@ -218,6 +218,7 @@ void	ft_cone_normal(t_cam *cam, t_cone *cone, double distance)
 								(1 + FT_SQR(cone->tilt)));
 	normal = ft_normalise_vector(ft_sub_vector(center_to_point,
 					scaled_axis));
+	cam->hit.uv = ft_cart_to_cone(cam->hit.position, cone);
 	ft_get_hit_info(normal, (t_point *)cone, cam);
 }
 
