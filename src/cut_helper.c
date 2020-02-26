@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 05:58:14 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/26 22:36:34 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/26 23:30:38 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ t_plane			ft_define_plane(t_vector center, t_vector normal,
 	plane.normal = normal;
 	plane.color = color;
 	plane.radius = radius;
-	plane.reflection = 1;
-	plane.refraction = 1;
-	plane.transparency = 0;
+	plane.material.reflection_index = 1;
+	plane.material.refraction_index = 1;
+	plane.material.transparency_index = 0;
 	return (plane);
 }
 

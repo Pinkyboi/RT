@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 14:41:56 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/21 22:51:30 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/26 23:55:45 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,15 @@
 # define TEXTURE_MODE_TRANSPARENCY 8
 # define TEXTURE_MODE_REPEAT 16
 
-typedef double	t_intersection_function();
-
 typedef struct	s_color
 {
 	double	r;
 	double	g;
 	double	b;
 }				t_color;
+
+typedef double	t_intersection_function();
+typedef t_color	t_procedural_texture_function(double x, double y);
 
 typedef struct s_limit
 {
@@ -65,6 +66,14 @@ typedef struct	s_material
 	t_texture	*specular;
 	t_texture	*transparency;
 	t_texture	*reflection;
+	t_procedural_texture_function	*proced_bump;
+	t_procedural_texture_function	*proced_texture;
+	t_procedural_texture_function	*proced_specular;
+	t_procedural_texture_function	*proced_transparency;
+	t_procedural_texture_function	*proced_reflection;
+	double		refraction_index;
+	double		reflection_index;
+	double		transparency_index;
 	t_coor		offset;
 	double		scale;
 	int			mode;
@@ -75,9 +84,6 @@ typedef struct	s_sphere
 	t_vector				normal;
 	t_color					color;
 	t_material				material;
-	double					reflection;
-	double					refraction;
-	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	double					radius;
@@ -94,9 +100,6 @@ typedef struct	s_ellipsoid
 	t_vector				normal;
 	t_color					color;
 	t_material				material;
-	double					reflection;
-	double					refraction;
-	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				translation;
@@ -110,9 +113,6 @@ typedef struct	s_cylinder
 	t_vector				normal;
 	t_color					color;
 	t_material				material;
-	double					reflection;
-	double					refraction;
-	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				axis;
@@ -130,9 +130,6 @@ typedef struct	s_hyperboloid
 	t_vector				normal;
 	t_color					color;
 	t_material				material;
-	double					reflection;
-	double					refraction;
-	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				rotation;
@@ -148,9 +145,6 @@ typedef struct	s_paraboloid
 	t_vector				normal;
 	t_color					color;
 	t_material material;
-	double					reflection;
-	double					refraction;
-	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				rotation;
@@ -165,9 +159,6 @@ typedef struct	s_cone
 	t_vector				normal;
 	t_color					color;
 	t_material				material;
-	double					reflection;
-	double					refraction;
-	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				axis;
@@ -200,9 +191,6 @@ typedef struct	s_plane
 	t_vector				normal;
 	t_color					color;
 	t_material				material;
-	double					reflection;
-	double					refraction;
-	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				rotation;
@@ -219,9 +207,6 @@ typedef struct	s_fractal
 	t_vector				normal;
 	t_color					color;
 	t_material				material;
-	double					reflection;
-	double					refraction;
-	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 }				t_fractal;
@@ -231,9 +216,6 @@ typedef struct	s_triangle
 	t_vector				normal;
 	t_color					color;
 	t_material				material;
-	double					reflection;
-	double					refraction;
-	double					transparency;
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				rotation;
@@ -248,9 +230,6 @@ typedef struct	s_point
 	t_vector				normal;
 	t_color					color;
 	t_material				material;
-	double					reflection;
-	double					refraction;
-	double					transparency;
 	t_intersection_function	*function;
 }				t_point;
 

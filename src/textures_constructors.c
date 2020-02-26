@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_constructors.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 00:26:45 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/20 00:26:47 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/27 00:13:00 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,29 @@ t_texture		*ft_load_image(char *filename, t_rtv *rtv)
 	return (result);
 }
 
-t_texture		*ft_load_texture(char *filename, t_rtv *env)
+t_procedural_texture_function *ft_load_procedural_texture(char *filename)
+{
+	if (ft_strequ(filename, "cheeker"))
+		return (ft_cheeker_texture);
+	return (NULL);
+}
+
+t_texture		*ft_load_texture(char *filename, t_rtv *env,
+	t_texture **texture, t_procedural_texture_function **function)
 {
 	t_texture	*result;
 
 	if (!filename)
 		return (NULL);
+	if (filename[0] == ':')
+	{
+		*function = ft_load_procedural_texture(&filename[1]);
+		return (NULL);
+	}
 	result = ft_get_texture(filename, env);
 	if (!result)
 		result = ft_load_image(filename, env);
+	*texture = result;
 	return (result);
 }
 

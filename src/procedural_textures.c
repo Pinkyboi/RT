@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   procedural_textures.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 22:47:55 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/15 09:37:03 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/27 00:09:36 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_color			ft_cheeker_texture(double x, double y, double scale)
+t_color			ft_cheeker_texture(double x, double y)
 {
+	double scale;
+
+	scale = 10;
 	if ((double)((x * scale)) - floor((x * scale)) < 0.5 ||
 		((double)(y * scale)) - floor((double)(y * scale)) < 0.5)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quadrics_normals.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 23:15:12 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/01/13 10:39:13 by abiri            ###   ########.fr       */
+/*   Updated: 2020/02/26 23:34:53 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	ft_ellipsoid_normal(t_cam *cam, t_ellipsoid *ellipsoid, double distance)
 	{
 		cam->hit.normal = ft_normalise_vector(normal);
 		cam->hit.color = ellipsoid->color;
-		cam->hit.reflection = ellipsoid->reflection;
-		cam->hit.refraction = ellipsoid->refraction;
+		cam->hit.reflection = ellipsoid->material.reflection_index;
+		cam->hit.refraction = ellipsoid->material.refraction_index;
 	}
 }
 
@@ -46,8 +46,8 @@ void	ft_hyperboloid_normal(t_cam *cam, t_hyperboloid *hyperboloid,
 	{
 		cam->hit.normal = ft_normalise_vector(normal);
 		cam->hit.color = hyperboloid->color;
-		cam->hit.reflection = hyperboloid->reflection;
-		cam->hit.refraction = hyperboloid->refraction;
+		cam->hit.reflection = hyperboloid->material.reflection_index;
+		cam->hit.refraction = hyperboloid->material.refraction_index;
 	}
 }
 
@@ -66,7 +66,7 @@ void	ft_paraboloid_normal(t_cam *cam, t_paraboloid *paraboloid,
 	{
 		cam->hit.normal = ft_normalise_vector(normal);
 		cam->hit.color = paraboloid->color;
-		cam->hit.reflection = paraboloid->reflection;
-		cam->hit.refraction = paraboloid->refraction;
+		cam->hit.reflection = paraboloid->material.reflection_index;
+		cam->hit.refraction = paraboloid->material.refraction_index;
 	}
 }
