@@ -34,13 +34,17 @@ t_color			ft_brick_texture(double x, double y)
 {
 	int		tx;
 	int		ty;
-	double	oddity;
+	double	odd;
 	double	edge;
+	double	scale;
 
-	tx = (int)(4 * x);
-	ty = (int)(4 * y);
-	oddity = ((tx & 0x01) == ((ty & 0x01)) ? 1 : 0);
-	edge = ((((4.0 * x) - tx < 0.1) && oddity) ||
-		(((4.0 * y) - ty < 0.1) && oddity)) ? 1 : 0;
+	x = fabs(x);
+	y = fabs(y);
+	scale = 1;
+	tx = (int)(scale * x);
+	ty = (int)(scale * y);
+	odd = ((tx & 0x01) == ((ty & 0x01)));
+	edge = (((scale * x - tx < 0.1) && odd) ||
+		((scale * y - ty < 0.1)));
 	return ((edge ? (t_color){1, 1, 1} : (t_color){1, 0, 0}));
 }

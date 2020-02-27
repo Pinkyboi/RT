@@ -453,6 +453,7 @@ t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
 t_coor		ft_cart_to_cone(t_vector vect, t_cone *cone);
 t_coor		ft_cart_to_plane(t_cam *cam, t_plane *plane);
 t_color		ft_cheeker_texture(double x, double y);
+t_color			ft_brick_texture(double x, double y);
 t_coor		ft_cart_to_cylinder(t_vector vect,
 				t_cylinder *cylinder, t_vector scaled_axis);
 t_color		ft_get_texture_color(t_texture *texture, t_coor uv, t_color original, int mode);
