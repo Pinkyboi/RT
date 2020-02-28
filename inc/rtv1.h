@@ -39,6 +39,12 @@
 # define OLD_COLOR color[0]
 # define DIFFUSE shader[0]
 # define SPECULAR shader[1]
+# define A_ sides[0]
+# define AA sides[1]
+# define AB sides[2]
+# define B_ sides[3]
+# define BA sides[4]
+# define BB sides[5]
 # define SPOT_LIGHT 1
 # define NORMAL_LIGHT 0
 # define NOISE_W 1000
@@ -452,8 +458,6 @@ void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
 t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
 t_coor		ft_cart_to_cone(t_vector vect, t_cone *cone);
 t_coor		ft_cart_to_plane(t_cam *cam, t_plane *plane);
-t_color		ft_cheeker_texture(double x, double y);
-t_color			ft_brick_texture(double x, double y);
 t_coor		ft_cart_to_cylinder(t_vector vect,
 				t_cylinder *cylinder, t_vector scaled_axis);
 t_color		ft_get_texture_color(t_texture *texture, t_coor uv, t_color original, int mode);
@@ -481,4 +485,13 @@ t_texture		*ft_load_texture(char *filename, t_rtv *env,
 t_texture		*ft_load_image(char *filename, t_rtv *rtv);
 t_texture		*ft_get_texture(char *filename, t_rtv *env);
 
+/*
+** NOISE AND PROCEDURAL TEXTURES
+*/
+double		ft_turbulence(double x, double y, double z, double size);
+t_color		ft_cheeker_texture(double x, double y);
+t_color		ft_brick_texture(double x, double y);
+t_color     ft_wood(double x, double y);
+t_color		ft_marble(double x, double y);
+t_color		ft_pastel(double x, double y);
 #endif

@@ -54,6 +54,12 @@ t_procedural_texture_function *ft_load_procedural_texture(char *filename)
 		return (ft_cheeker_texture);
 	if (ft_strequ(filename, "brick"))
 		return (ft_brick_texture);
+	if (ft_strequ(filename, "pastel"))
+		return (ft_pastel);
+	if (ft_strequ(filename, "marble"))
+		return (ft_marble);
+	if (ft_strequ(filename, "wood"))
+		return (ft_wood);
 	return (NULL);
 }
 
