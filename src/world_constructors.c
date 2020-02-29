@@ -80,12 +80,10 @@ int				ft_parse_effects(char *filter_name)
 		return (2);
 	if (!ft_strcmp(filter_name, "sharpness"))
 		return (3);
-	if (!ft_strcmp(filter_name, "polarisation"))
-		return (4);
 	if (!ft_strcmp(filter_name, "cartoon"))
-		return (5);
+		return (4);
 	if (!ft_strcmp(filter_name, "outline"))
-		return (6);
+		return (5);
 	return (-1);
 }
 

@@ -12,11 +12,21 @@
 
 #include "rtv1.h"
 
+double				ft_get_mapped_specular(t_rtv *rtv)
+{
+	t_color			specular;
+
+	specular = ft_get_texture_color(
+			rtv->cam.hit.object->point.material.specular,
+			rtv->cam.hit.uv, (t_color){1, 1, 1},
+			rtv->cam.hit.object->point.material.mode);
+	return (specular.r);
+}
+
 t_color				ft_shader(t_light light,
 	t_rtv *rtv, t_color color, t_vector normal)
 {
 	t_vector		light_vect[2];
-	t_color			new_color;
 	t_color			shader[2];
 
 	DIFFUSE = (t_color){0, 0, 0};
@@ -26,19 +36,19 @@ t_color				ft_shader(t_light light,
 	ft_sub_vector(light.center, rtv->cam.hit.position));
 	REFLECTED_LIGHT_VECTOR = ft_reflected_light_ray(LIGHT_VECTOR, normal);
 	ft_check_shadow(*rtv, &light, LIGHT_VECTOR);
-	if (rtv->options.diffuse)
+	if (rtv->options.diffuse && rtv->scene.effect != 4)
 		DIFFUSE = ft_diffuse(light, LIGHT_VECTOR, normal, color);
-	if (rtv->options.specular)
+	if (rtv->options.specular && rtv->scene.effect != 4)
 		SPECULAR = ft_specular(light,
 	rtv->cam.ray_direction, REFLECTED_LIGHT_VECTOR);
+	if (rtv->options.diffuse && rtv->scene.effect == 4)
+		DIFFUSE = ft_cartoon_diffuse(light, LIGHT_VECTOR, normal, color);
+	if (rtv->options.specular && rtv->scene.effect == 4)
+		SPECULAR = ft_cartoon_specular(light,
+	rtv->cam.ray_direction, REFLECTED_LIGHT_VECTOR);
 	if (rtv->cam.hit.object->point.material.specular)
-	{
-		new_color = ft_get_texture_color(
-			rtv->cam.hit.object->point.material.specular,
-			rtv->cam.hit.uv, (t_color){1, 1, 1},
-			rtv->cam.hit.object->point.material.mode);
-		SPECULAR = ft_scale_colors(SPECULAR, new_color.r);
-	}
+		SPECULAR = ft_scale_colors(SPECULAR,
+			ft_get_mapped_specular(rtv));
 	return (ft_add_colors(SPECULAR, DIFFUSE));
 }
 

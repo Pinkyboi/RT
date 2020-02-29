@@ -335,6 +335,10 @@ double			ft_clip_min_max(int min, int max, double value);
 
 t_color			ft_specular(t_light light, t_vector normal, t_vector reflected_light_vect);
 t_color			ft_diffuse(t_light light,t_vector light_vect, t_vector normal, t_color color);
+t_color			ft_cartoon_diffuse(t_light light, t_vector light_vect,
+	t_vector normal, t_color color);
+t_color			ft_cartoon_specular(t_light light, t_vector normal,
+	t_vector reflected_light_vect);
 t_color			ft_reflect_ray(t_rtv rtv, int depth);
 t_color			ft_get_node_color(t_rtv rtv, int depth);
 t_color			ft_refract_ray(t_rtv rtv, int depth);
@@ -523,8 +527,6 @@ double			ft_basic_sphere_intersection(t_cam *cam,
 		t_sphere *sphere, double min);
 double			ft_check_shadow(t_rtv rtv, t_light *light,
 	t_vector light_vec);
-double			ft_calculate_shadow(t_rtv rtv, double intersection_dist,
-					t_light light, t_vector light_vect);
 t_object		*ft_get_intersection_object(t_rtv *rtv, double *min);
 
 /*

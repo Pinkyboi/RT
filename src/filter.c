@@ -41,7 +41,7 @@ static t_color	ft_sepia_filter(t_color color)
 	return (ft_assign_color(r, g, b));
 }
 
-static t_color	ft_cartoon_filter(t_rtv rtv, t_object object, t_color color)
+static t_color	ft_outline_effect(t_rtv rtv, t_object object, t_color color)
 {
 	t_object_list	*object_node;
 	t_object_list	*best_node;
@@ -76,11 +76,11 @@ t_color			ft_select_filter(t_rtv rtv, t_object object, t_color color)
 		return (ft_sepia_filter(color));
 	if (rtv.scene.filter == 3)
 		return (ft_assign_color(1 - color.r, 1 - color.g, 1 - color.b));
+	if (rtv.scene.effect == 4 || rtv.scene.effect == 5)
+		return (ft_outline_effect(rtv, object, color));
 	if (rtv.scene.filter == 4)
-		return (ft_cartoon_filter(rtv, object, color));
-	if (rtv.scene.filter == 5)
 		return ((t_color){color.r, 0, color.b});
-	if (rtv.scene.filter == 6)
+	if (rtv.scene.filter == 5)
 		return ((t_color){color.r, color.r, color.b});
 	if (rtv.scene.filter == 7)
 	{
