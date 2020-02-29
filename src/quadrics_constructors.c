@@ -102,10 +102,8 @@ int				ft_add_cone(t_xml_tag *tag, t_rtv *env)
 	object.cone.tilt = tan(FT_RAD((object.cone.angle / 2)));
 	object.cone.rotation = ft_parse_vector(ft_xml_get_value(tag, "rotation",
 				"(0,0,0)"), &status);
-	object.cone.translation = ft_parse_vector(ft_xml_get_value(tag,
-				"translation", "(0,0,0)"), &status);
-	object.cone.center = ft_add_vector(object.cone.center,
-			object.cone.translation);
+	object.cone.center = ft_add_vector(object.cone.center, ft_parse_vector(
+	ft_xml_get_value(tag, "translation", "(0,0,0)"), &status));
 	object.cone.axis = ft_normalise_vector(ft_rotate_vector(object.cone.axis,
 				object.cone.rotation));
 	ft_add_material(tag, &object, &status, env);

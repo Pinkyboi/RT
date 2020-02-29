@@ -12,111 +12,142 @@
 
 #include "rtv1.h"
 
-#include "rtv1.h"
-static int permutation[] = {151,160,137,91,90,15,
-	131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,
-	190, 6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,
-	88,237,149,56,87,174,20,125,136,171,168, 68,175,74,165,71,134,139,48,27,166,
-	77,146,158,231,83,111,229,122,60,211,133,230,220,105,92,41,55,46,245,40,244,
-	102,143,54, 65,25,63,161, 1,216,80,73,209,76,132,187,208, 89,18,169,200,196,
-	135,130,116,188,159,86,164,100,109,198,173,186, 3,64,52,217,226,250,124,123,
-	5,202,38,147,118,126,255,82,85,212,207,206,59,227,47,16,58,17,182,189,28,42,
-	223,183,170,213,119,248,152, 2,44,154,163, 70,221,153,101,155,167, 43,172,9,
-	129,22,39,253, 19,98,108,110,79,113,224,232,178,185, 112,104,218,246,97,228,
-	251,34,242,193,238,210,144,12,191,179,162,241, 81,51,145,235,249,14,239,107,
-	49,192,214, 31,181,199,106,157,184, 84,204,176,115,121,50,45,127, 4,150,254,
-	138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180
+static int g_permutation[] = {
+	151, 160, 137, 91, 90, 15,
+	131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140, 36, 103, 30, 69, 142, 8,
+	99, 37, 240, 21, 10, 23,
+	190, 6, 148, 247, 120, 234, 75, 0, 26, 197, 62, 94, 252, 219, 203, 117,
+	35, 11, 32, 57, 177, 33,
+	88, 237, 149, 56, 87, 174, 20, 125, 136, 171, 168, 68, 175, 74, 165, 71,
+	134, 139, 48, 27, 166,
+	77, 146, 158, 231, 83, 111, 229, 122, 60, 211, 133, 230, 220, 105, 92,
+	41, 55, 46, 245, 40, 244,
+	102, 143, 54, 65, 25, 63, 161, 1, 216, 80, 73, 209, 76, 132, 187, 208,
+	89, 18, 169, 200, 196,
+	135, 130, 116, 188, 159, 86, 164, 100, 109, 198, 173, 186, 3, 64, 52,
+	217, 226, 250, 124, 123,
+	5, 202, 38, 147, 118, 126, 255, 82, 85, 212, 207, 206, 59, 227, 47, 16,
+	58, 17, 182, 189, 28, 42,
+	223, 183, 170, 213, 119, 248, 152, 2, 44, 154, 163, 70, 221, 153, 101,
+	155, 167, 43, 172, 9,
+	129, 22, 39, 253, 19, 98, 108, 110, 79, 113, 224, 232, 178, 185, 112,
+	104, 218, 246, 97, 228,
+	251, 34, 242, 193, 238, 210, 144, 12, 191, 179, 162, 241, 81, 51, 145,
+	235, 249, 14, 239, 107,
+	49, 192, 214, 31, 181, 199, 106, 157, 184, 84, 204, 176, 115, 121, 50,
+	45, 127, 4, 150, 254,
+	138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66,
+	215, 61, 156, 180,
+	151, 160, 137, 91, 90, 15,
+	131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140, 36, 103, 30, 69, 142, 8,
+	99, 37, 240, 21, 10, 23,
+	190, 6, 148, 247, 120, 234, 75, 0, 26, 197, 62, 94, 252, 219, 203, 117,
+	35, 11, 32, 57, 177, 33,
+	88, 237, 149, 56, 87, 174, 20, 125, 136, 171, 168, 68, 175, 74, 165, 71,
+	134, 139, 48, 27, 166,
+	77, 146, 158, 231, 83, 111, 229, 122, 60, 211, 133, 230, 220, 105, 92,
+	41, 55, 46, 245, 40, 244,
+	102, 143, 54, 65, 25, 63, 161, 1, 216, 80, 73, 209, 76, 132, 187, 208,
+	89, 18, 169, 200, 196,
+	135, 130, 116, 188, 159, 86, 164, 100, 109, 198, 173, 186, 3, 64, 52,
+	217, 226, 250, 124, 123,
+	5, 202, 38, 147, 118, 126, 255, 82, 85, 212, 207, 206, 59, 227, 47, 16,
+	58, 17, 182, 189, 28, 42,
+	223, 183, 170, 213, 119, 248, 152, 2, 44, 154, 163, 70, 221, 153, 101,
+	155, 167, 43, 172, 9,
+	129, 22, 39, 253, 19, 98, 108, 110, 79, 113, 224, 232, 178, 185, 112,
+	104, 218, 246, 97, 228,
+	251, 34, 242, 193, 238, 210, 144, 12, 191, 179, 162, 241, 81, 51, 145,
+	235, 249, 14, 239, 107,
+	49, 192, 214, 31, 181, 199, 106, 157, 184, 84, 204, 176, 115, 121, 50,
+	45, 127, 4, 150, 254,
+	138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66,
+	215, 61, 156, 180,
 };
 
-double ft_interpostion(double a, double b, double c)
-{
-	return b + a * (c - b);
-}
-
-double ft_fade(double n)
-{
-	return n * n * n * (n * (n * 6 - 15) + 10);
-}
-
-double ft_perlin_grad(int hash, float x, float y, float z)
+double			ft_perlin_grad(int hash, float x, float y, float z)
 {
 	double grad;
+
 	grad = (hash & 15);
-	grad = (grad == 0) ?  x + y : 0;
-	grad = (grad == 1) ? -x + y : 0;
-	grad = (grad == 2) ?  x - y : 0;
-	grad = (grad == 3) ? -x - y : 0;
-	grad = (grad == 4) ?  x + z : 0;
-	grad = (grad == 5) ? -x + z : 0;
-	grad = (grad == 6) ?  x - z : 0;
-	grad = (grad == 7) ? -x - z : 0;
-	grad = (grad == 8) ?  y + z : 0;
-	grad = (grad == 9) ? -y + z : 0;
-	grad = (grad == 10) ?  y - z : 0;
-	grad = (grad == 11) ? -y - z : 0;
-	grad = (grad == 12) ?  y + x : 0;
-	grad = (grad == 13) ? -y + z : 0;
-	grad = (grad == 14) ?  y - x : 0;
-	grad = (grad == 15) ? -y - z : 0;
+	grad = (grad == 0) ? x + y : grad;
+	grad = (grad == 1) ? -x + y : grad;
+	grad = (grad == 2) ? x - y : grad;
+	grad = (grad == 3) ? -x - y : grad;
+	grad = (grad == 4) ? x + z : grad;
+	grad = (grad == 5) ? -x + z : grad;
+	grad = (grad == 6) ? x - z : grad;
+	grad = (grad == 7) ? -x - z : grad;
+	grad = (grad == 8) ? y + z : grad;
+	grad = (grad == 9) ? -y + z : grad;
+	grad = (grad == 10) ? y - z : grad;
+	grad = (grad == 11) ? -y - z : grad;
+	grad = (grad == 12) ? y + x : grad;
+	grad = (grad == 13) ? -y + z : grad;
+	grad = (grad == 14) ? y - x : grad;
+	grad = (grad == 15) ? -y - z : grad;
 	return (grad);
 }
 
-double ft_cubic_interpolation(t_vector left_side, t_vector right_side, t_vector point)
+static double	ft_cubic_interpolation(t_vector left_side,
+	t_vector right_side, t_vector point)
 {
 	int sides[8];
-	A_ = permutation[(int)right_side.x] + right_side.y;
-	AA = permutation[A_] + right_side.z;
-	AB = permutation[A_ + 1] + right_side.z;
-	B_ = permutation[(int)right_side.x + 1] + right_side.y;
-	BA = permutation[B_] + right_side.z;
-	BB = permutation[B_ + 1] + right_side.z;
-	return(ft_interpostion(left_side.z,
-				ft_interpostion(left_side.y,
-					ft_interpostion(left_side.x,
-						ft_perlin_grad(permutation[AA], point.x, point.y, point.z),
-						ft_perlin_grad(permutation[BA], point.x - 1, point.y, point.z)),
-					ft_interpostion(left_side.x,
-						ft_perlin_grad(permutation[AB], point.x, point.y - 1, point.z),
-						ft_perlin_grad(permutation[BB], point.x - 1, point.y - 1, point.z))),
-				ft_interpostion(left_side.y,
-					ft_interpostion(left_side.x,
-						ft_perlin_grad(permutation[AA+1], point.x, point.y, point.z - 1),
-						ft_perlin_grad(permutation[BA+1], point.x - 1, point.y, point.z-1)),
-					ft_interpostion(left_side.x,
-						ft_perlin_grad(permutation[AB+1], point.x, point.y - 1, point.z - 1),
-						ft_perlin_grad(permutation[BB+1], point.x - 1, point.y - 1, point.z - 1)))));
+
+	A_ = g_permutation[(int)right_side.x] + right_side.y;
+	AA = g_permutation[A_] + right_side.z;
+	AB = g_permutation[A_ + 1] + right_side.z;
+	B_ = g_permutation[(int)right_side.x + 1] + right_side.y;
+	BA = g_permutation[B_] + right_side.z;
+	BB = g_permutation[B_ + 1] + right_side.z;
+	return (FT_INTERPOLATION(left_side.z,
+	FT_INTERPOLATION(left_side.y,
+	FT_INTERPOLATION(left_side.x,
+	ft_perlin_grad(g_permutation[AA], point.x, point.y, point.z),
+	ft_perlin_grad(g_permutation[BA], point.x - 1, point.y, point.z)),
+	FT_INTERPOLATION(left_side.x,
+	ft_perlin_grad(g_permutation[AB], point.x, point.y - 1, point.z),
+	ft_perlin_grad(g_permutation[BB], point.x - 1, point.y - 1, point.z))),
+	FT_INTERPOLATION(left_side.y,
+	FT_INTERPOLATION(left_side.x,
+	ft_perlin_grad(g_permutation[AA + 1], point.x, point.y, point.z - 1),
+	ft_perlin_grad(g_permutation[BA + 1], point.x - 1, point.y, point.z - 1)),
+	FT_INTERPOLATION(left_side.x,
+	ft_perlin_grad(g_permutation[AB + 1], point.x, point.y - 1, point.z - 1),
+	ft_perlin_grad(g_permutation[BB + 1], point.x - 1,
+	point.y - 1, point.z - 1)))));
 }
 
-double ft_noise_3(t_vector point)
+static double	ft_noise_3(t_vector point)
 {
-	int         i;
-	t_vector    right_side;
-	t_vector    left_side;
+	int			i;
+	t_vector	right_side;
+	t_vector	left_side;
 
 	i = -1;
-	right_side.x = (int)point.x % 256,
-		right_side.y = (int)point.y % 256,
-		right_side.z = (int)point.z % 256;
+	right_side.x = (int)(point.x) % 256;
+	right_side.y = (int)(point.y) % 256;
+	right_side.z = (int)(point.z) % 256;
 	point.x -= (int)(point.x);
 	point.y -= (int)(point.y);
 	point.z -= (int)(point.z);
-	left_side.x = ft_fade(point.x);
-	left_side.y = ft_fade(point.y);
-	left_side.z = ft_fade(point.z);
+	left_side.x = FT_FADE(point.x);
+	left_side.y = FT_FADE(point.y);
+	left_side.z = FT_FADE(point.z);
 	return (ft_cubic_interpolation(left_side, right_side, point));
 }
 
-double ft_turbulence(double x, double y, double z, double size)
+double			ft_turbulence(double x, double y, double z, double size)
 {
 	double value;
-	double initialSize;
+	double intital_size;
 
 	value = 0.0;
-	initialSize = size;
-	while(size >= 1)
+	intital_size = size;
+	while (size >= 1)
 	{
 		value += ft_noise_3((t_vector){x / size, y / size, z / size}) * size;
 		size /= 2.0;
 	}
-	return(value / initialSize);
+	return (value / intital_size);
 }

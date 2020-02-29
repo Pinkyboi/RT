@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 22:47:55 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/28 21:54:54 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/02/28 23:33:17 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,17 @@ t_color			ft_pastel(double x, double y)
 	double	color_noise;
 	t_color	color;
 
-	x *= 30;
-	y *= 10;
 	color_noise = ft_turbulence(x, y, 0, 60) * 20;
 	color_noise = color_noise - (int)color_noise;
 	if (color_noise > 0 && color_noise < 0.2)
 		color = (t_color){232.0 / 255.0, 187.0 / 255.0, 201.0 / 255.0};
-	if (color_noise < 0.4)
+	else if (color_noise < 0.4)
 		color = (t_color){154.0 / 255.0, 62.0 / 255.0, 130.0 / 255.0};
-	if (color_noise < 0.6)
+	else if (color_noise < 0.6)
 		color = (t_color){140.0 / 255.0, 209.0 / 255.0, 224.0 / 255.0};
-	if (color_noise < 0.8)
+	else if (color_noise < 0.8)
 		color = (t_color){34.0 / 255.0, 74.0 / 255.0, 142.0 / 255.0};
-	if (color_noise >= 0.8)
+	else
 		color = (t_color){213.0 / 255.0, 119.0 / 255.0, 61.0 / 255.0};
 	return (color);
 }
@@ -90,8 +88,6 @@ t_color			ft_wood(double x, double y)
 	double	noise_value;
 	double	wave_value;
 
-	x *= 200;
-	y *= 200;
 	x_factor = (x - 512 / 2) / (double)(512);
 	y_factor = (y - 512 / 2) / (double)(512);
 	noise_value = sqrt(x_factor * x_factor + y_factor * y_factor)

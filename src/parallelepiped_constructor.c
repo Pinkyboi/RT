@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_plane		ft_get_parallelepiped_side(t_plane *plane, t_vector center,
+static t_plane		ft_get_parallelepiped_side(t_plane *plane, t_vector center,
 	t_vector lenghts, t_sides sides)
 {
 	t_plane		second_plane;
@@ -33,7 +33,7 @@ t_plane		ft_get_parallelepiped_side(t_plane *plane, t_vector center,
 	return (second_plane);
 }
 
-void		ft_get_parallelepiped_edges(t_rtv *env,
+static void			ft_get_parallelepiped_edges(t_rtv *env,
 	int *status, t_object *sides, t_vector *cube_utils)
 {
 	int i;
@@ -55,7 +55,7 @@ void		ft_get_parallelepiped_edges(t_rtv *env,
 		*status &= ft_object_push(env, sides[i - 7], TYPE_PLANE);
 }
 
-int			ft_add_parallelepiped(t_xml_tag *tag, t_rtv *env)
+int					ft_add_parallelepiped(t_xml_tag *tag, t_rtv *env)
 {
 	t_object	sides[6];
 	t_vector	cube_utils[2];

@@ -34,7 +34,7 @@ void			ft_sphere_cut(t_rtv *env,
 			FT_SQR(ft_vector_size(ft_sub_vector(cut_center,
 				object->sphere.center))));
 		disk.plane = ft_define_plane(cut_center,
-			object->sphere.cut_orientation, object->sphere.color, new_radius);
+			object->sphere.cut_orientation, object, new_radius);
 		disk.point.function = &ft_plane_intersection;
 		disk.point.material = object->point.material;
 		disk.plane.limits = object->sphere.limits;
@@ -61,7 +61,7 @@ void			ft_demi_sphere_cut(t_rtv *env,
 		FT_SQR(ft_vector_size(ft_sub_vector(cut_center,
 			object->sphere.center))));
 	disk.plane = ft_define_plane(cut_center,
-		object->sphere.cut_orientation, object->sphere.color, new_radius);
+		object->sphere.cut_orientation, object, new_radius);
 	disk.point.function = &ft_plane_intersection;
 	disk.point.material = object->point.material;
 	ft_object_push(env, disk, TYPE_PLANE);
@@ -83,15 +83,13 @@ void			ft_cylinder_cut(t_rtv *env,
 		cut_center = ft_add_vector(ft_scale_vector(object->cylinder.axis,
 			object->cylinder.max_lenght / 2), object->cylinder.center);
 		disks[0].plane = ft_define_plane(cut_center, object->cylinder.axis,
-			object->cylinder.color, object->cylinder.radius);
+			object, object->cylinder.radius);
 		cut_center = ft_add_vector(ft_scale_vector(object->cylinder.axis,
 			-object->cylinder.max_lenght / 2), object->cylinder.center);
 		disks[1].plane = ft_define_plane(cut_center, object->cylinder.axis,
-			object->cylinder.color, object->cylinder.radius);
+			object, object->cylinder.radius);
 		disks[0].point.function = &ft_plane_intersection;
 		disks[1].point.function = &ft_plane_intersection;
-		disks[0].point.material = object->point.material;
-		disks[1].point.material = object->point.material;
 		disks[0].plane.limits = object->cylinder.limits;
 		disks[1].plane.limits = object->cylinder.limits;
 		ft_object_push(env, disks[0], TYPE_PLANE);
@@ -118,7 +116,7 @@ void			ft_cone_cut(t_rtv *env,
 		new_radius = tan(FT_RAD(object->cone.angle / 2))
 			* object->cone.max_lenght;
 		disk.plane = ft_define_plane(cut_center,
-			object->cone.axis, object->cone.color, new_radius);
+			object->cone.axis, object, new_radius);
 		disk.point.function = &ft_plane_intersection;
 		disk.point.material = object->point.material;
 		disk.plane.limits = object->cone.limits;

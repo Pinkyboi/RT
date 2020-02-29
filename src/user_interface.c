@@ -27,34 +27,6 @@ int			ft_button_toggle_boolean(void *arg, int status, t_rtv *env)
 	return (*boolean);
 }
 
-int			ft_button_render(void *arg, int status, t_rtv *env)
-{
-	(void)arg;
-	env->render_offset = 0;
-	env->render_y_offset = 0;
-	env->pixel_size = 1;
-	if (env->options.anti_aliasing)
-		env->anti_aliasing = env->scene.aa;
-	else
-		env->anti_aliasing = 0;
-	ft_ray_shooter(env);
-	return (status);
-}
-
-int			ft_button_stereo(void *arg, int status, t_rtv *env)
-{
-	(void)arg;
-	env->render_offset = 0;
-	env->render_y_offset = 0;
-	env->pixel_size = 1;
-	if (env->options.anti_aliasing)
-		env->anti_aliasing = env->scene.aa;
-	else
-		env->anti_aliasing = 0;
-	ft_shoot_stero(env);
-	return (status);
-}
-
 t_button	*ft_new_button(char *text, t_button_handler *handler,
 	void *arg, t_coor position)
 {
@@ -68,25 +40,6 @@ t_button	*ft_new_button(char *text, t_button_handler *handler,
 	result->text = text;
 	result->status = 0;
 	return (result);
-}
-
-int			ft_button_save(void *arg, int status, t_rtv *env)
-{
-	(void)arg;
-	ft_dump_bitmap(&env->mlx.img);
-	return (status);
-}
-
-int			ft_button_re_render(void *arg, int status, t_rtv *env)
-{
-	(void)arg;
-	env->render_offset = 0;
-	env->render_y_offset = 0;
-	env->pixel_size = 1;
-	if (env->options.anti_aliasing)
-		env->anti_aliasing = env->scene.aa;
-	ft_ray_shooter(env);
-	return (status);
 }
 
 void		ft_activate_button(t_button *button, t_rtv *env)
@@ -112,53 +65,6 @@ int			ft_click_buttons(int mouse_button, int x, int y, t_rtv *env)
 			ft_activate_button(button, env);
 	}
 	return (0);
-}
-
-void		ft_draw_button(t_button *button, t_mlx *mlx_data)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < BUTTON_HEIGHT)
-	{
-		x = 0;
-		while (x < BUTTON_WIDTH)
-		{
-			mlx_pixel_put(mlx_data->mlx_ptr, mlx_data->win,
-			x + button->position.x, y + button->position.y,
-			(button->status) ? BUTTON_ACTIVE_COLOR : BUTTON_INACTIVE_COLOR);
-			x++;
-		}
-		y++;
-	}
-	if (button->text)
-		mlx_string_put(mlx_data->mlx_ptr, mlx_data->win, button->position.x,
-			button->position.y, BUTTON_TEXT_COLOR, button->text);
-}
-
-void		ft_draw_buttons(t_rtv *env)
-{
-	t_button *button;
-
-	env->buttons.iterator = env->buttons.first;
-	while ((button = ttslist_iter_content(&env->buttons)))
-		ft_draw_button(button, &env->mlx);
-}
-
-void		ft_bottom_buttons(t_list_head *buttons, t_rtv *env)
-{
-	t_button	*button;
-
-	button = ft_new_button(ft_strdup("RENDER"), ft_button_re_render,
-		env, (t_coor){0, env->scene.height - 20});
-	env->buttons.push(&env->buttons, button);
-	button = ft_new_button(ft_strdup("SAVE"), ft_button_save,
-		env, (t_coor){env->scene.width - 100, env->scene.height - 20});
-	env->buttons.push(&env->buttons, button);
-	button = ft_new_button(ft_strdup("STEREO"), ft_button_stereo,
-		env, (t_coor){env->scene.width / 2 - 50, env->scene.height - 20});
-	env->buttons.push(&env->buttons, button);
 }
 
 void		ft_load_interface(t_list_head *buttons, t_rtv *env)

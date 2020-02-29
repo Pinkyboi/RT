@@ -21,7 +21,7 @@ static void	ft_swap(double *n1, double *n2)
 	*n2 = temp;
 }
 
-int			ft_intersect_refracted(t_rtv *rtv)
+static int	ft_intersect_refracted(t_rtv *rtv)
 {
 	t_object_list	*node;
 	double			min;

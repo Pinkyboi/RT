@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-void			ft_atof_integer(char *string, double *number, size_t *index)
+static void		ft_atof_integer(char *string, double *number, size_t *index)
 {
 	while (string[*index])
 	{
@@ -24,7 +24,7 @@ void			ft_atof_integer(char *string, double *number, size_t *index)
 	}
 }
 
-void			ft_atof_floating(char *string, double *number, size_t *index)
+static void		ft_atof_floating(char *string, double *number, size_t *index)
 {
 	double	mult;
 

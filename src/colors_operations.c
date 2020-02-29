@@ -47,3 +47,13 @@ t_color	ft_assign_color(double r, double g, double b)
 	color.b = b;
 	return (color);
 }
+
+t_color	ft_merge_color(t_color first, t_color second)
+{
+	t_color result;
+
+	result.r = (first.r < second.r) ? first.r : second.r;
+	result.g = (first.g < second.g) ? first.g : second.g;
+	result.b = (first.b < second.b) ? first.b : second.b;
+	return (result);
+}

@@ -12,22 +12,20 @@
 
 #include "rtv1.h"
 
-t_plane			ft_define_plane(t_vector center, t_vector normal,
-					t_color color, double radius)
+t_plane					ft_define_plane(t_vector center, t_vector normal,
+					t_object *object, double radius)
 {
 	t_plane plane;
 
 	plane.center = center;
 	plane.normal = normal;
-	plane.color = color;
+	plane.color = object->point.color;
 	plane.radius = radius;
-	plane.material.reflection_index = 1;
-	plane.material.refraction_index = 1;
-	plane.material.transparency_index = 0;
+	plane.material = object->point.material;
 	return (plane);
 }
 
-t_coor			ft_swap_limits(t_coor limits)
+static t_coor			ft_swap_limits(t_coor limits)
 {
 	double	min_save;
 
@@ -40,7 +38,7 @@ t_coor			ft_swap_limits(t_coor limits)
 	return (limits);
 }
 
-void			ft_define_limits(t_xml_tag *tag,
+void					ft_define_limits(t_xml_tag *tag,
 	t_limit *limit, int *status)
 {
 	limit->x_limit = ft_swap_limits(ft_parse_coor(
@@ -54,7 +52,7 @@ void			ft_define_limits(t_xml_tag *tag,
 	"limit_z", "(-1000000000000000000000,1000000000000000000000)"), status));
 }
 
-void			ft_sides_handle(t_xml_tag *tag,
+void					ft_sides_handle(t_xml_tag *tag,
 	t_object *object, int *status)
 {
 	t_vector vertex_edge[2];

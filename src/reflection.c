@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_vector	ft_reflected_ray(t_vector normal, t_vector ray)
+static t_vector	ft_reflected_ray(t_vector normal, t_vector ray)
 {
 	t_vector	reflected;
 	double		scalar;
@@ -24,7 +24,7 @@ t_vector	ft_reflected_ray(t_vector normal, t_vector ray)
 	return (reflected);
 }
 
-int			ft_intersect_reflected(t_rtv *rtv)
+static int		ft_intersect_reflected(t_rtv *rtv)
 {
 	t_object_list	*node;
 	double			min;
@@ -41,7 +41,7 @@ int			ft_intersect_reflected(t_rtv *rtv)
 	return (0);
 }
 
-t_color		ft_reflect_ray(t_rtv rtv, int depth)
+t_color			ft_reflect_ray(t_rtv rtv, int depth)
 {
 	double	reflection;
 

@@ -51,7 +51,7 @@ static double g_sharp[9][9] =
 	{0, 0, 0, 0, 0, 0, 0, 0, 0},
 };
 
-t_color		ft_filtring_calcul(t_rtv *rtv, double
+static t_color	ft_filtring_calcul(t_rtv *rtv, double
 		filter_matrix[9][9], t_coor matrix_prop, t_coor map_coor)
 {
 	t_coor	new_image;
@@ -81,7 +81,7 @@ t_color		ft_filtring_calcul(t_rtv *rtv, double
 	return (NEW_COLOR);
 }
 
-void		ft_image_filtring(t_rtv *rtv, double
+static void		ft_image_filtring(t_rtv *rtv, double
 		filter_matrix[9][9], t_coor matrix_prop, double factor)
 {
 	t_color	newcolor;
@@ -103,7 +103,7 @@ void		ft_image_filtring(t_rtv *rtv, double
 	}
 }
 
-void		ft_filtring_select(t_rtv *rtv)
+void			ft_filtring_select(t_rtv *rtv)
 {
 	if (rtv->scene.effect == 1)
 		ft_image_filtring(rtv, g_motion_blur, (t_coor){9, 9}, 9.0);

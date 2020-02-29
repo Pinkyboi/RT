@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-int			ft_get_pill_edges(t_xml_tag *tag, t_rtv *env, t_object *body)
+static int	ft_get_pill_edges(t_xml_tag *tag, t_rtv *env, t_object *body)
 {
 	t_object	edges;
 	int			status;

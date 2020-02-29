@@ -53,6 +53,8 @@
 # define MIN_D 1e-6
 # define FT_SQR(X) ((X) * (X))
 # define FT_RAD(X) (((X) * M_PI) / 180)
+# define FT_INTERPOLATION(A, B, C) (B + A * (C - B))
+# define FT_FADE(N) (N * N * N * (N * (N * 6 - 15) + 10))
 
 #define WORLD_FACT refraction_fractors[0]
 #define OBJECT_FACT refraction_fractors[1]
@@ -245,7 +247,7 @@ typedef struct	s_button
 }				t_button;
 
 /*
-**  FUNCTIONS TO ADD SHAPES TO THE LIST
+**  functions to add shapes
 */
 int				ft_add_sphere(t_xml_tag *tag, t_rtv *env);
 int				ft_add_cylinder(t_xml_tag *tag, t_rtv *env);
@@ -263,7 +265,7 @@ int				ft_add_box(t_xml_tag *tag, t_rtv *env);
 int				ft_add_parallelepiped(t_xml_tag *tag, t_rtv *env);
 
 /*
-**  FUNCTIONS TO CALCULATE INTERSECTION FOR EVERY SHAPE
+**  shapes intersections functions
 */
 double			ft_sphere_intersection(t_cam *cam,
 		t_sphere *sphere, double min);
@@ -282,7 +284,7 @@ double			ft_paraboloid_intersection(t_cam *cam,
 double			ft_triangle_intersection(t_cam *cam,
         t_triangle *triangle, double min);
 /*
-**  FUNCTIONS TO CALCULATE NORMAL OF EVERY SHAPE
+**  shapes normals calculations functions
 */
 void			ft_sphere_normal(t_cam *cam,
         t_sphere *sphere, double distance);
@@ -301,11 +303,10 @@ void 	ft_plane_normal(t_cam *cam,
 int		ft_axis_limit(t_vector intersection,
 	t_limit limits);
 /*
-**  FUNCTIONS TO CALCULATE CAPPED OBJECTS AND LIMITED OBJECTS
+**  limited objects calculations functions
 */
 void			ft_define_limits(t_xml_tag *tag,
 	t_limit *limit, int *status);
-t_coor			ft_swap_limits(t_coor limits);
 void            ft_sphere_cut(t_rtv *env,
 	t_xml_tag *tag, t_object *object, int *status);
 void			ft_cylinder_cut(t_rtv *env,
@@ -321,7 +322,7 @@ double		ft_cone_limit(t_cone cone, t_cam cam);
 double		ft_cylinder_limit(t_cylinder cylinder, t_cam cam);
 double		ft_plane_limit(t_plane plane, t_cam cam);
 /*
-**	CLIPPING FUNCTIONS
+**	clipping functions
 */
 
 double			ft_clip_min(int min, double value);
@@ -329,24 +330,18 @@ double			ft_clip_max(int max, double value);
 double			ft_clip_min_max(int min, int max, double value);
 
 /*
-**	REFLECTION REFRACTION AND PHONG ILLUMINATION
+**	reflection, reflaction and shaders
 */
 
-// t_color			ft_diffuse(t_light light, t_vector normal, t_color color);
-// t_color			ft_specular(t_light light, t_vector normal);
 t_color			ft_specular(t_light light, t_vector normal, t_vector reflected_light_vect);
 t_color			ft_diffuse(t_light light,t_vector light_vect, t_vector normal, t_color color);
-// double			ft_calculate_shadow(t_rtv rtv,
-// 		double intersection_dist, t_light light);
-double			ft_calculate_shadow(t_rtv rtv, double intersection_dist,
-					t_light light, t_vector light_vect);
 t_color			ft_reflect_ray(t_rtv rtv, int depth);
 t_color			ft_get_node_color(t_rtv rtv, int depth);
 t_color			ft_refract_ray(t_rtv rtv, int depth);
 t_color			ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color);
 void			ft_add_material(t_xml_tag *tag, t_object *object, int *status, t_rtv *env);
 /*
-** COLOR OPERATIONS
+** color operations
 */
 
 t_color			ft_add_colors(t_color first, t_color second);
@@ -354,17 +349,18 @@ t_color			ft_scale_colors(t_color first, double scalar);
 int				ft_diff_color(t_color c1, t_color c2);
 int				ft_rgb_to_int(t_color color);
 t_color			ft_int_to_rgb(int color);
+t_color			ft_merge_color(t_color first, t_color second);
 
 /*
-**	FILTERS AND EFFECTS
+**	filter and effects
 */
 
-t_color			ft_gray_filter(t_color color);
-t_color			ft_negatif_filter(t_color color);
-t_color			ft_sepia_filter(t_color color);
-t_color			ft_cartoon_filter(t_rtv rtv, t_object object, t_color color);
 t_color			ft_select_filter(t_rtv rtv, t_object object, t_color color);
 t_color			ft_assign_color(double r, double g, double b);
+
+/**
+**	 
+**/
 
 /*
 **	OTHER FUNCTION
@@ -391,9 +387,6 @@ void			ft_update_offset(t_rtv *rtv);
 void			ft_intersection_position(t_cam *cam, double first_intersection);
 void			ft_put_pixel(t_rtv *rtv, int color);
 void			ft_init_win(t_rtv *rtv);
-// void			ft_reflected_light_ray(t_cam cam, t_light *light, t_vector normal);
-// t_vector		ft_reflected_light_ray(t_light *light,
-// 	t_vector light_vect, t_vector normal);
 t_vector		ft_reflected_light_ray(t_vector light_vect, t_vector normal);
 t_color			ft_parse_color(char *string, int *status);
 t_vector		ft_parse_vector(char *string, int *status);
@@ -420,26 +413,18 @@ int				ft_antialiasing(t_rtv *rtv, t_vector normal, t_color color);
 t_coor			ft_parse_coor(char *string, int *status);
 
 t_plane			ft_define_plane(t_vector center, t_vector normal,
-					t_color color, double radius);
+					t_object *object, double radius);
 
 
 void        	ft_create_noise(void);
 
-
-t_light_list	*copy_lights(t_light_list* head);
-t_object_list	*copy_objects(t_object_list* head);
-
-
-
-
 int				ft_check_min_distance(double *x1, double x2, double min);
-int				ft_intersect_reflected(t_rtv *rtv);
 t_vector		ft_get_refracted_ray(t_rtv rtv);
 int				ft_headless_raytracer(t_rtv	*rtv, char *filename);
 void			ft_init_rendrering(t_rtv *rtv);
 
 /*
-**	BMP_SAVING
+**	bmp image saving functions
 */
 
 int	ft_dump_bitmap(t_img *image);
@@ -449,19 +434,28 @@ int	ft_save_bitmap(t_img *image, char *filename);
 int			ft_exit(t_rtv *rtv);
 void		ft_clear_mlx(t_mlx *mlx, t_rtv *rtv);
 
-void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
-
 /*
-**	MAPPING_AND_TEXTURES
+** get color for the ray shooted
 */
 
-t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
-t_coor		ft_cart_to_cone(t_vector vect, t_cone *cone);
-t_coor		ft_cart_to_plane(t_cam *cam, t_plane *plane);
-t_coor		ft_cart_to_cylinder(t_vector vect,
-				t_cylinder *cylinder, t_vector scaled_axis);
+double			ft_choose_intersection(t_object_list *object_node,
+					t_rtv *rtv, double *min);
+double			ft_check_intersection(t_rtv rtv);
+t_color			ft_get_node_color(t_rtv rtv, int depth);
+void			ft_color_best_node(t_rtv *rtv, t_color rgb);
+
+
+/*
+**	texture related functions
+*/
+
 t_color		ft_get_texture_color(t_texture *texture, t_coor uv, t_color original, int mode);
-t_color		ft_noise(t_cam *cam);
+int			ft_get_texture_mapping_type(t_xml_tag *tag);
+t_texture	*ft_load_texture(char *filename, t_rtv *env,
+	t_texture **texture, t_procedural_texture_function **function);
+t_texture	*ft_load_image(char *filename, t_rtv *rtv);
+t_texture	*ft_get_texture(char *filename, t_rtv *env);
+
 
 /*
 **	Interface functions
@@ -470,6 +464,10 @@ t_color		ft_noise(t_cam *cam);
 void		ft_load_interface(t_list_head *buttons, t_rtv *env);
 void		ft_draw_buttons(t_rtv *env);
 int			ft_click_buttons(int mouse_button, int x, int y, t_rtv *env);
+void		ft_bottom_buttons(t_list_head *buttons, t_rtv *env);
+t_button	*ft_new_button(char *text, t_button_handler *handler,
+	void *arg, t_coor position);
+void		ft_draw_buttons(t_rtv *env);
 
 /*
 ** GET SHAPES INFORMATION
@@ -477,21 +475,69 @@ int			ft_click_buttons(int mouse_button, int x, int y, t_rtv *env);
 void			ft_get_plane_axis(t_xml_tag *tag, t_plane *plane, int *status, t_coor lenghts);
 
 /*
-** TEXTURE PART
+** object mapping and texture type mapping
 */
-int				ft_get_texture_mapping_type(t_xml_tag *tag);
-t_texture		*ft_load_texture(char *filename, t_rtv *env,
-	t_texture **texture, t_procedural_texture_function **function);
-t_texture		*ft_load_image(char *filename, t_rtv *rtv);
-t_texture		*ft_get_texture(char *filename, t_rtv *env);
+t_coor		ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
+t_coor		ft_cart_to_cone(t_vector vect, t_cone *cone);
+t_coor		ft_cart_to_plane(t_cam *cam, t_plane *plane);
+t_coor		ft_cart_to_cylinder(t_vector vect,
+				t_cylinder *cylinder, t_vector scaled_axis);
+void		ft_bump_map(t_point *point, t_cam *cam);
+void		ft_transparency_map(t_point *point, t_cam *cam);
+void		ft_reflection_map(t_point *point, t_cam *cam);
+void		ft_material_maps(t_point *point, t_cam *cam);
 
 /*
-** NOISE AND PROCEDURAL TEXTURES
+**	get the hit color and texture informatioon
 */
+
+t_color	ft_get_texture_color(t_texture *texture,
+	t_coor uv, t_color original, int mode);
+t_color	ft_get_procedural_texture_color(
+	t_procedural_texture_function *texture, t_coor uv);
+int		ft_is_transparent(t_material *material, t_coor uv);
+int		ft_get_texture_cut(t_material *material, t_coor uv);
+void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
+
+/*
+** noise and procedural textures
+*/
+
 double		ft_turbulence(double x, double y, double z, double size);
 t_color		ft_cheeker_texture(double x, double y);
 t_color		ft_brick_texture(double x, double y);
 t_color     ft_wood(double x, double y);
 t_color		ft_marble(double x, double y);
 t_color		ft_pastel(double x, double y);
+t_color		ft_noise(t_cam *cam);
+t_color		ft_get_procedural_texture_color(t_procedural_texture_function
+				*texture, t_coor uv);
+
+/*
+** shadows related functions
+*/
+
+t_light			ft_get_shadow_light(t_rtv rtv, t_light light,
+	t_vector light_vec, int depth);
+double			ft_basic_sphere_intersection(t_cam *cam,
+		t_sphere *sphere, double min);
+double			ft_check_shadow(t_rtv rtv, t_light *light,
+	t_vector light_vec);
+double			ft_calculate_shadow(t_rtv rtv, double intersection_dist,
+					t_light light, t_vector light_vect);
+t_object		*ft_get_intersection_object(t_rtv *rtv, double *min);
+
+/*
+** mlx functions
+*/
+void		ft_init_win(t_rtv *rtv);
+void		ft_init_rendrering(t_rtv *rtv);
+void		ft_put_pixel(t_rtv *rtv, int color);
+int			ft_key_stroke(int key, t_rtv *rtv);
+
+/*
+** ui elements
+*/
+
+
 #endif

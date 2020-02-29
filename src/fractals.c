@@ -229,7 +229,7 @@ double	ft_mandelbrot_distance_estimator(t_vector pos, int *iter)
 			break;
 		}
 		// convert to polar coordinates
-		float theta = acos(z.z/r);
+		float theta = acos(z.z / r);
 		float phi = atan2(z.y, z.x);
 		dr =  r * power * dr + 1.0;
 		// scale and rotate the point
@@ -246,20 +246,25 @@ double	ft_mandelbrot_distance_estimator(t_vector pos, int *iter)
 
 float trace(t_vector from, t_vector direction, int *status)
 {
-	float totalDistance = 0.0;
-	int steps;
-	float distance = INFINITY;
+	float		totalDistance;
+	int			steps;
+	float		distance;
+	t_vector	p;
+
+	distance = INFINITY;
+	totalDistance = 0.0;
 	*status = 0;
-	for (steps=0; steps < MAXIMUM_RAY_STEPS; steps++) {
-		t_vector p = ft_add_vector(from, ft_scale_vector(direction, totalDistance));
+	steps = -1;
+	while (++steps < MAXIMUM_RAY_STEPS)
+	{
+		p = ft_add_vector(from,
+			ft_scale_vector(direction, totalDistance));
 		distance = ft_mandelbrot_distance_estimator(p, status);
-		// printf("distance : %f\n", distance);
-		// distance = ft_sphere_distance(p);
 		totalDistance += distance;
 		if (distance < MINIMUM_RAY_DISTANCE)
 			break ;
 	}
-	return 1.0 - ((float)steps) / ((float)MAXIMUM_RAY_STEPS);
+	return (1.0 - ((float)steps) / ((float)MAXIMUM_RAY_STEPS));
 }
 
 t_color			ft_int_to_color(int color)

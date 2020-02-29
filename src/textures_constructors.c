@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_texture		*ft_get_texture(char *filename, t_rtv *env)
+t_texture						*ft_get_texture(char *filename, t_rtv *env)
 {
 	t_texture	*result;
 
@@ -25,7 +25,7 @@ t_texture		*ft_get_texture(char *filename, t_rtv *env)
 	return (NULL);
 }
 
-t_texture		*ft_load_image(char *filename, t_rtv *rtv)
+t_texture						*ft_load_image(char *filename, t_rtv *rtv)
 {
 	t_texture	*result;
 	int			fd;
@@ -48,7 +48,7 @@ t_texture		*ft_load_image(char *filename, t_rtv *rtv)
 	return (result);
 }
 
-t_procedural_texture_function *ft_load_procedural_texture(char *filename)
+t_procedural_texture_function	*ft_load_procedural_texture(char *filename)
 {
 	if (ft_strequ(filename, "cheeker"))
 		return (ft_cheeker_texture);
@@ -63,7 +63,7 @@ t_procedural_texture_function *ft_load_procedural_texture(char *filename)
 	return (NULL);
 }
 
-t_texture		*ft_load_texture(char *filename, t_rtv *env,
+t_texture						*ft_load_texture(char *filename, t_rtv *env,
 	t_texture **texture, t_procedural_texture_function **function)
 {
 	t_texture	*result;
@@ -82,7 +82,7 @@ t_texture		*ft_load_texture(char *filename, t_rtv *env,
 	return (result);
 }
 
-int				ft_get_texture_mapping_type(t_xml_tag *tag)
+int								ft_get_texture_mapping_type(t_xml_tag *tag)
 {
 	t_xml_prop	*prop;
 	int			result;

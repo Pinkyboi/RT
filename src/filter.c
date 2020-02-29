@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_color	ft_gray_filter(t_color color)
+static t_color	ft_gray_filter(t_color color)
 {
 	double	light_scale;
 	double	gray_scale;
@@ -26,7 +26,7 @@ t_color	ft_gray_filter(t_color color)
 	return (ft_assign_color(gray_scale, gray_scale, gray_scale));
 }
 
-t_color	ft_sepia_filter(t_color color)
+static t_color	ft_sepia_filter(t_color color)
 {
 	double	r;
 	double	g;
@@ -41,7 +41,7 @@ t_color	ft_sepia_filter(t_color color)
 	return (ft_assign_color(r, g, b));
 }
 
-t_color	ft_cartoon_filter(t_rtv rtv, t_object object, t_color color)
+static t_color	ft_cartoon_filter(t_rtv rtv, t_object object, t_color color)
 {
 	t_object_list	*object_node;
 	t_object_list	*best_node;
@@ -68,7 +68,7 @@ t_color	ft_cartoon_filter(t_rtv rtv, t_object object, t_color color)
 	return (color);
 }
 
-t_color	ft_select_filter(t_rtv rtv, t_object object, t_color color)
+t_color			ft_select_filter(t_rtv rtv, t_object object, t_color color)
 {
 	if (rtv.scene.filter == 1)
 		return (ft_gray_filter(color));

@@ -28,7 +28,6 @@ FILENAMES = basics_constructors.c\
 			colors_calcul.c\
 			colors_operations.c\
 			colors_utils.c\
-			copy_list.c\
 			cut_helper.c\
 			destroy.c\
 			dump_bitmap.c\
@@ -63,6 +62,14 @@ FILENAMES = basics_constructors.c\
 			image_filtering.c\
 			textures_constructors.c\
 			stereoscopie.c\
+			shadows.c\
+			material.c\
+			texture_maps.c\
+			hit_texture_color.c\
+			color_intersection.c\
+			mlx_managing.c\
+			bottom_buttons.c\
+			draw_buttons.c\
 			xml_parser_tools.c
 
 HEADER_FILE = objects.h\
