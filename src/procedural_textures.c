@@ -76,7 +76,7 @@ t_color			ft_marble(double x, double y)
 
 	noise_value = 0;
 	noise_value = ft_turbulence(x * 20, y * 20, 0, 6) * 5.0;
-	color = (sin((y + noise_value * 100) * 2 * M_PI / 200.f) + 1) / 2.f;
+	color = (sin((y + noise_value * 100) * 2 * M_PI / 200.f) + 1) / 2.0;
 	return ((t_color){color, color, color});
 }
 

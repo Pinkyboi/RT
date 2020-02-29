@@ -15,6 +15,8 @@
 # include <math.h>
 # include <stdlib.h>
 
+# define FT_RAD(X) (((X) * M_PI) / 180)
+
 typedef struct		s_vector
 {
 	double	x;
@@ -42,7 +44,8 @@ double				ft_dot_vector(t_vector v1, t_vector v2);
 t_vector			ft_rotate_vectorx(t_vector a, double angle);
 t_vector			ft_rotate_vectory(t_vector a, double angle);
 t_vector			ft_rotate_vectorz(t_vector a, double angle);
-int     			ft_vector_null(t_vector v);
+t_vector			ft_rotate_vector(t_vector a, t_vector angles);
+int					ft_vector_null(t_vector v);
 int					ft_vector_limit(t_vector v1, t_vector v2);
 
 #endif

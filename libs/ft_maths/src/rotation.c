@@ -12,11 +12,6 @@
 
 #include "../inc/ft_maths.h"
 
-double		ft_vector_size(t_vector u)
-{
-	return (sqrt(u.x * u.x + u.y * u.y + u.z * u.z));
-}
-
 t_vector	ft_rotate_vectorx(t_vector a, double angle)
 {
 	t_vector	result;
@@ -45,4 +40,14 @@ t_vector	ft_rotate_vectorz(t_vector a, double angle)
 	result.y = a.x * sin(angle) + a.y * cos(angle);
 	result.z = a.z;
 	return (result);
+}
+
+t_vector	ft_rotate_vector(t_vector a, t_vector angles)
+{
+	t_vector	result;
+
+	result = ft_rotate_vectorx(a, FT_RAD(angles.x));
+	result = ft_rotate_vectory(result, FT_RAD(angles.y));
+	result = ft_rotate_vectorz(result, FT_RAD(angles.z));
+	return (ft_normalise_vector(result));
 }

@@ -24,7 +24,8 @@
 # define TYPE_PARABALOID 8
 # define TYPE_HYPERBOILD 6
 # define TYPE_FRACTAL 9
-# define TYPE_PARSE_COUNT 17
+# define TYPE_HOLO_CUBE 10
+# define TYPE_PARSE_COUNT 18
 # define A abc[0]
 # define B abc[1]
 # define C abc[2]
@@ -144,7 +145,7 @@ typedef struct	s_paraboloid
 {
 	t_vector				normal;
 	t_color					color;
-	t_material material;
+	t_material				material;
 	t_intersection_function	*function;
 	t_vector				center;
 	t_vector				rotation;
@@ -153,6 +154,19 @@ typedef struct	s_paraboloid
 	t_limit					limits;
 	t_vector				limit;
 }				t_paraboloid;
+
+typedef struct	s_holo_cube
+{
+	t_vector				normal;
+	t_color					color;
+	t_material				material;
+	t_intersection_function	*function;
+	t_vector				center;
+	t_vector				translation;
+	double					radius;
+	t_limit					limits;
+	t_vector				limit;
+}				t_holo_cube;
 
 typedef struct	s_cone
 {
@@ -243,6 +257,7 @@ typedef union	u_object
 	t_ellipsoid		ellipsoid;
 	t_hyperboloid	hyperboloid;
 	t_paraboloid	paraboloid;
+	t_holo_cube		holo_cube;
 	t_triangle		triangle;
 	t_fractal		fractal;
 }				t_object;

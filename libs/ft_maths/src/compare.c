@@ -23,3 +23,8 @@ int     ft_vector_limit(t_vector v1, t_vector v2)
     return((v1.x > v2.x || v1.y > v2.y
         || v1.z > v2.z)? 1 : 0);
 }
+
+double		ft_vector_size(t_vector u)
+{
+	return (sqrt(u.x * u.x + u.y * u.y + u.z * u.z));
+}

@@ -54,7 +54,8 @@ int		ft_write_bitmap_info(int fd, t_img *image)
 	int_2bytes = BMP_BITS_PER_PIXEL;
 	if (write(fd, &int_2bytes, 2) != 2)
 		return (ERROR);
-	if (write(fd, BMP_INFO_HEADER_ADVANCED, 24) != 24)
+	if (write(fd, "\0\0\0\0\0\0\0\0\0\0\
+		0\0\0\0\0\0\0\0\0\0\0\0\0\0", 24) != 24)
 		return (ERROR);
 	return (SUCCESS);
 }

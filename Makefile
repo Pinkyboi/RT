@@ -18,7 +18,7 @@ _RED = \x1b[31m
 _BOLD = \x1b[1m
 _END = \x1b[0m
 CC = gcc
-NAME = rtv1
+NAME = rt
 
 FILENAMES = basics_constructors.c\
 			basics_intersection.c\
@@ -70,6 +70,8 @@ FILENAMES = basics_constructors.c\
 			mlx_managing.c\
 			bottom_buttons.c\
 			draw_buttons.c\
+			holo_cube.c\
+			complex_constructors.c\
 			xml_parser_tools.c
 
 HEADER_FILE = objects.h\

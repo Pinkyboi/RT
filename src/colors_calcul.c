@@ -15,14 +15,13 @@
 t_color			ft_diffuse(t_light light, t_vector light_vect,
 	t_vector normal, t_color color)
 {
-	t_color		rgb;
+	t_color	rgb;
+	double	ln;
 
-	rgb.r = ft_clip_min_max(0, 1, ft_dot_vector(normal, light_vect))
-		* color.r * light.color.r * light.intensity;
-	rgb.g = ft_clip_min_max(0, 1, ft_dot_vector(normal, light_vect))
-		* color.g * light.color.g * light.intensity;
-	rgb.b = ft_clip_min_max(0, 1, ft_dot_vector(normal, light_vect))
-		* color.b * light.color.b * light.intensity;
+	ln = ft_clip_min_max(0, 1, ft_dot_vector(light_vect, normal));
+	rgb.r = ln * color.r * light.color.r * light.intensity;
+	rgb.g = ln * color.g * light.color.g * light.intensity;
+	rgb.b = ln * color.b * light.color.b * light.intensity;
 	return (rgb);
 }
 
@@ -31,28 +30,25 @@ t_color			ft_specular(t_light light, t_vector normal,
 {
 	t_color rgb;
 	double	alpha;
+	double	ln;
 
 	alpha = 100;
-	rgb.r = pow(ft_clip_min(0, ft_dot_vector(normal,
-					reflected_light_vect)), alpha)
-					* (light.color.r * light.intensity);
-	rgb.g = pow(ft_clip_min(0, ft_dot_vector(normal,
-					reflected_light_vect)), alpha)
-					* (light.color.g * light.intensity);
-	rgb.b = pow(ft_clip_min(0, ft_dot_vector(normal,
-					reflected_light_vect)), alpha)
-					* (light.color.b * light.intensity);
+	ln = pow(ft_clip_min(0,
+		ft_dot_vector(normal, reflected_light_vect)), alpha);
+	rgb.r = ln * light.color.r * light.intensity;
+	rgb.g = ln * light.color.g * light.intensity;
+	rgb.b = ln * light.color.b * light.intensity;
 	return (rgb);
 }
 
 t_color			ft_cartoon_diffuse(t_light light, t_vector light_vect,
 	t_vector normal, t_color color)
 {
-	t_color		rgb;
+	t_color	rgb;
 	double	ln;
 
-	ln =  ft_clip_min(0, ft_dot_vector(light_vect, normal));
-	ln = (double)((int)((ln * 10) / 5) * 5)/10;
+	ln = ft_clip_min(0, ft_dot_vector(light_vect, normal));
+	ln = (double)((int)((ln * 10) / 5) * 5) / 10;
 	rgb.r = ln * color.r * light.color.r * light.intensity;
 	rgb.g = ln * color.g * light.color.g * light.intensity;
 	rgb.b = ln * color.b * light.color.b * light.intensity;
@@ -62,13 +58,14 @@ t_color			ft_cartoon_diffuse(t_light light, t_vector light_vect,
 t_color			ft_cartoon_specular(t_light light, t_vector normal,
 	t_vector reflected_light_vect)
 {
-	t_color rgb;
+	t_color	rgb;
 	double	alpha;
-	double ln;
+	double	ln;
 
 	alpha = 40;
-	ln = pow(ft_clip_min(0, ft_dot_vector(normal, reflected_light_vect)), alpha);
-	ln = (double)((int)((ln * 10) / 5) * 5)/10;
+	ln = pow(ft_clip_min(0,
+		ft_dot_vector(normal, reflected_light_vect)), alpha);
+	ln = (double)((int)((ln * 10) / 5) * 5) / 10;
 	rgb.r = ln * (light.color.r * light.intensity);
 	rgb.g = ln * (light.color.g * light.intensity);
 	rgb.b = ln * (light.color.b * light.intensity);

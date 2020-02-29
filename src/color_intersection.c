@@ -28,26 +28,6 @@ double			ft_choose_intersection(t_object_list *object_node,
 	return (temp_min);
 }
 
-double			ft_check_intersection(t_rtv rtv)
-{
-	t_object_list	*object_node;
-	double			min;
-	double			temp_min;
-
-	min = MAX_D;
-	object_node = rtv.objects;
-	while (object_node)
-	{
-		temp_min = ft_choose_intersection(object_node, &rtv, &min);
-		if (temp_min)
-			min = temp_min;
-		object_node = object_node->next;
-	}
-	if (min)
-		return (min);
-	return (0);
-}
-
 t_color			ft_get_node_color(t_rtv rtv, int depth)
 {
 	t_color	node_color;

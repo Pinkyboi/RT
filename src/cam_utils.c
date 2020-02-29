@@ -13,16 +13,6 @@
 #include "rtv1.h"
 #include <stdio.h>
 
-t_vector	ft_rotate_vector(t_vector a, t_vector angles)
-{
-	t_vector	result;
-
-	result = ft_rotate_vectorx(a, FT_RAD(angles.x));
-	result = ft_rotate_vectory(result, FT_RAD(angles.y));
-	result = ft_rotate_vectorz(result, FT_RAD(angles.z));
-	return (ft_normalise_vector(result));
-}
-
 void		ft_intersection_position(t_cam *cam, double first_intersection)
 {
 	t_vector	distance;
