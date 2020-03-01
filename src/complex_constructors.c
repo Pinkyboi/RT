@@ -6,7 +6,7 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 08:17:36 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/03/01 04:12:20 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/01 05:29:26 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,29 @@ int				ft_add_torus(t_xml_tag *tag, t_rtv *env)
 	ft_add_material(tag, &object, &status, env);
 	object.torus.function = &ft_torus_intersection;
 	status &= ft_object_push(env, object, TYPE_TORUS);
+	return (status);
+}
+
+int				ft_add_cube(t_xml_tag *tag, t_rtv *env)
+{
+	t_object	object;
+	int			status;
+
+	status = 1;
+	object.cube.bounds[0] = ft_parse_vector(ft_xml_get_value(tag, "minimum",
+				"(0,0,0)"), &status);
+	object.cube.bounds[1] = ft_parse_vector(ft_xml_get_value(tag, "maximum",
+				"(0,0,0)"), &status);
+	object.cube.color = ft_parse_color(ft_xml_get_value(tag, "color",
+				"(255,255,255)"), &status);
+	object.cube.translation = ft_parse_vector(ft_xml_get_value(tag,
+				"translation", "(0,0,0)"), &status);
+	object.cube.bounds[0] = ft_add_vector(object.cube.bounds[0],
+			object.cube.translation);
+	object.cube.bounds[1] = ft_add_vector(object.cube.bounds[1],
+			object.cube.translation);
+	ft_add_material(tag, &object, &status, env);
+	object.cube.function = &ft_cube_intersection;
+	status &= ft_object_push(env, object, TYPE_CUBE);
 	return (status);
 }

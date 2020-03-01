@@ -6,7 +6,7 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:47:13 by abiri             #+#    #+#             */
-/*   Updated: 2020/03/01 04:12:31 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/01 05:30:28 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ const t_xml_element_parse	g_xml_element_parser[] = {
 	{.type_name = "parallelepiped", .function = &ft_add_parallelepiped},
 	{.type_name = "holo_cube", .function = &ft_add_holo_cube},
 	{.type_name = "torus", .function = &ft_add_torus},
+	{.type_name = "cube", .function = &ft_add_cube},
 	{.type_name = "camera", .function = &ft_load_camera},
 	{.type_name = "scene", .function = &ft_load_scene},
 	{.type_name = "light", .function = &ft_add_light},

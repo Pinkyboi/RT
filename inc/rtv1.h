@@ -6,7 +6,7 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/03/01 04:53:10 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/01 05:29:44 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,6 +309,7 @@ int						ft_add_box(t_xml_tag *tag, t_rtv *env);
 int						ft_add_parallelepiped(t_xml_tag *tag, t_rtv *env);
 int						ft_add_holo_cube(t_xml_tag *tag, t_rtv *env);
 int						ft_add_torus(t_xml_tag *tag, t_rtv *env);
+int						ft_add_cube(t_xml_tag *tag, t_rtv *env);
 /*
 **  shapes intersections functions
 */
@@ -331,7 +332,9 @@ double					ft_triangle_intersection(t_cam *cam,
 double					ft_holo_cube_intersection(t_cam *cam,
 		t_holo_cube *holo_cube, double min);
 double					ft_torus_intersection(t_cam *cam,
-			t_torus *torus, double min);
+		t_torus *torus, double min);
+double					ft_cube_intersection(t_cam *cam,
+		t_cube *cube, double min);
 /*
 **  shapes normals calculations functions
 */
@@ -355,6 +358,8 @@ int						ft_axis_limit(t_vector intersection,
 		t_limit limits);
 void					ft_torus_normal(t_cam *cam,
 		t_torus *torus);
+void					ft_cube_normal(t_cam *cam,
+		t_cube *box);
 /*
 **  limited objects calculations functions
 */

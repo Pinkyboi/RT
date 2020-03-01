@@ -6,7 +6,7 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 14:41:56 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/03/01 03:36:40 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/01 05:29:08 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define TYPE_FRACTAL 9
 # define TYPE_HOLO_CUBE 10
 # define TYPE_TORUS 11
+# define TYPE_CUBE 12
 # define TYPE_PARSE_COUNT 18
 # define A abc[0]
 # define B abc[1]
@@ -191,6 +192,18 @@ typedef struct 	s_torus
 	double					soluces[4];
 }				t_torus;
 
+typedef struct 	s_cube
+{
+	t_vector				normal;
+	t_color					color;
+	t_material				material;
+	t_intersection_function	*function;
+	t_vector				translation;
+	t_limit					limits;
+	t_vector				bounds[2];
+	t_vector				limit;
+}				t_cube;
+
 typedef struct	s_cone
 {
 	t_vector				normal;
@@ -284,6 +297,7 @@ typedef union	u_object
 	t_triangle		triangle;
 	t_fractal		fractal;
 	t_torus			torus;
+	t_cube			cube;
 }				t_object;
 
 typedef struct	s_object_list
