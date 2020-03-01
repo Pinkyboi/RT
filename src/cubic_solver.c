@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-static int	ft_case_one_c(double s[2], double *q)
+static int	ft_case_one_coef(double s[2], double *q)
 {
 	int		num;
 	double	u;
@@ -32,7 +32,7 @@ static int	ft_case_one_c(double s[2], double *q)
 	return (num);
 }
 
-static int	ft_case_two_c(double s[3], double *q, double *p, double *cb_p)
+static int	ft_case_two_coef(double s[3], double *q, double *p, double *cb_p)
 {
 	double	phi;
 	double	t;
@@ -45,7 +45,7 @@ static int	ft_case_two_c(double s[3], double *q, double *p, double *cb_p)
 	return (3);
 }
 
-static int	ft_case_three_c(double s[3], double *q, double *d)
+static int	ft_case_three_coef(double s[3], double *q, double *d)
 {
 	double	sqrt_d;
 	double	u;
@@ -74,11 +74,11 @@ int			ft_solve_cubic(double w[4], double s[3])
 	c.cb_p = c.p * c.p * c.p;
 	c.d = c.q * c.q + c.cb_p;
 	if (IS_ZERO(c.d))
-		num = ft_case_one_c(s, &c.q);
+		num = ft_case_one_coef(s, &c.q);
 	else if (c.d < 0.0f)
-		num = ft_case_two_c(s, &c.q, &c.p, &c.cb_p);
+		num = ft_case_two_coef(s, &c.q, &c.p, &c.cb_p);
 	else
-		num = ft_case_three_c(s, &c.q, &c.d);
+		num = ft_case_three_coef(s, &c.q, &c.d);
 	sub = 1.0 / 3.0 * c.a;
 	i = -1;
 	while (++i < num)

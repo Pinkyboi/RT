@@ -23,7 +23,7 @@ t_list_node		*ttslist_new_node(void *content, size_t content_size)
 	return (new_node);
 }
 
-void			ttslist_init(t_list_head	*head)
+void			ttslist_init(t_list_head *head)
 {
 	tts_bzero(head, sizeof(t_list_head));
 	head->push = &ttslist_push_new;

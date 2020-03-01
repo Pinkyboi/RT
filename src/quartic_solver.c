@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-int		ft_solve_quadric(double c[3], double s[2])
+static int	ft_solve_quadric(double c[3], double s[2])
 {
 	double	p;
 	double	q;

@@ -33,6 +33,7 @@ int				ft_add_holo_cube(t_xml_tag *tag, t_rtv *env)
 	status &= ft_object_push(env, object, TYPE_HOLO_CUBE);
 	return (status);
 }
+
 int				ft_add_torus(t_xml_tag *tag, t_rtv *env)
 {
 	t_object	object;
@@ -64,9 +65,9 @@ int				ft_add_cube(t_xml_tag *tag, t_rtv *env)
 
 	status = 1;
 	object.cube.bounds[0] = ft_parse_vector(ft_xml_get_value(tag, "minimum",
-				"(0,0,0)"), &status);
+				"(-10,-10,-10)"), &status);
 	object.cube.bounds[1] = ft_parse_vector(ft_xml_get_value(tag, "maximum",
-				"(0,0,0)"), &status);
+				"(10,10,10)"), &status);
 	object.cube.color = ft_parse_color(ft_xml_get_value(tag, "color",
 				"(255,255,255)"), &status);
 	object.cube.translation = ft_parse_vector(ft_xml_get_value(tag,

@@ -50,7 +50,7 @@ t_list_node	*ttslist_push_front(t_list_head *head, t_list_node *newnode)
 	return (newnode);
 }
 
-t_list_node *ttslist_push_front_new(t_list_head *head, void *content)
+t_list_node	*ttslist_push_front_new(t_list_head *head, void *content)
 {
 	return (ttslist_push_front(head, ttslist_new_node(content, 0)));
 }

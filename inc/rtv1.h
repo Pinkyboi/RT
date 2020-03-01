@@ -554,7 +554,6 @@ double					ft_check_shadow(t_rtv rtv, t_light *light,
 /*
 **	MathSolvers
 */
-int						ft_solve_quadric(double c[3], double s[2]);
 int						ft_solve_quartic(double w[5], double s[4]);
 int						ft_solve_cubic(double w[4], double s[3]);
 /*

@@ -12,7 +12,7 @@
 
 #include "ttslist.h"
 
-void		*ttslist_iter_content(t_list_head	*head)
+void		*ttslist_iter_content(t_list_head *head)
 {
 	void				*result;
 
@@ -23,7 +23,7 @@ void		*ttslist_iter_content(t_list_head	*head)
 	return (result);
 }
 
-t_list_node	*ttslist_iter(t_list_head	*head)
+t_list_node	*ttslist_iter(t_list_head *head)
 {
 	t_list_node			*result;
 
