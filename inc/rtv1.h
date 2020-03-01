@@ -49,6 +49,7 @@
 # define POW1(x) (pow((double)(x), 1.0 / 3.0))
 # define POW2(x) (pow((double)-(x), 1.0 / 3.0))
 # define CBRT(x) ((x) > 0.0 ? POW1(x) : ((x) < 0.0 ? -POW2(x) : 0.0))
+
 /*
 ** code comprehension macros
 */
@@ -206,7 +207,7 @@ typedef struct			s_scene
 	int					light_samples;
 }						t_scene;
 
-typedef struct	s_options
+typedef struct			s_options
 {
 	unsigned int		anti_aliasing;
 	unsigned int		ambiant;
@@ -393,7 +394,8 @@ t_color					ft_cartoon_diffuse(t_light light, t_vector light_vect,
 t_color					ft_reflect_ray(t_rtv rtv, int depth);
 t_color					ft_get_node_color(t_rtv rtv, int depth);
 t_color					ft_refract_ray(t_rtv rtv, int depth);
-t_color					ft_mix_colors(t_rtv *rtv, t_vector normal, t_color color);
+t_color					ft_mix_colors(t_rtv *rtv,
+	t_vector normal, t_color color);
 void					ft_add_material(t_xml_tag *tag,
 	t_object *object, int *status, t_rtv *env);
 /*
@@ -408,7 +410,8 @@ t_color					ft_merge_color(t_color first, t_color second);
 /*
 **	filter and effects
 */
-t_color					ft_select_filter(t_rtv rtv, t_object object, t_color color);
+t_color					ft_select_filter(t_rtv rtv,
+	t_object object, t_color color);
 t_color					ft_assign_color(double r, double g, double b);
 /*
 **	parsing related functions
@@ -428,7 +431,7 @@ int						ft_object_push(t_rtv *env, t_object object,
 **	OTHER FUNCTION
 */
 double					ft_choose_intersection(t_object_list *object_node,
-		t_rtv *rtv, double *min);
+	t_rtv *rtv, double *min);
 int						ft_light_push(t_rtv *env, t_light light);
 int						ft_load_shapes(t_xml_data *data, t_rtv *env);
 int						ft_key_stroke(int key, t_rtv *rtv);
@@ -437,16 +440,20 @@ void					ft_map_coordinates(t_rtv *rtv);
 int						ft_shoot_stero(t_rtv *rtv);
 int						ft_ray_shooter(t_rtv *rtv);
 void					ft_update_offset(t_rtv *rtv);
-void					ft_intersection_position(t_cam *cam, double first_intersection);
+void					ft_intersection_position(t_cam *cam,
+	double first_intersection);
 void					ft_put_pixel(t_rtv *rtv, int color);
 void					ft_init_win(t_rtv *rtv);
-t_vector				ft_reflected_light_ray(t_vector light_vect, t_vector normal);
+t_vector				ft_reflected_light_ray(t_vector light_vect,
+	t_vector normal);
 int						ft_add_light(t_xml_tag *tag, t_rtv *env);
 size_t					ft_escape_whitespaces(char *str);
-int						ft_antialiasing(t_rtv *rtv, t_vector normal, t_color color);
+int						ft_antialiasing(t_rtv *rtv,
+	t_vector normal, t_color color);
 t_plane					ft_define_plane(t_vector center, t_vector normal,
-					t_object *object, double radius);
-int						ft_check_min_distance(double *x1, double x2, double min);
+	t_object *object, double radius);
+int						ft_check_min_distance(double *x1,
+	double x2, double min);
 t_vector				ft_get_refracted_ray(t_rtv rtv);
 int						ft_headless_raytracer(t_rtv	*rtv, char *filename);
 void					ft_init_rendrering(t_rtv *rtv);
@@ -482,7 +489,8 @@ t_texture				*ft_get_texture(char *filename, t_rtv *env);\
 */
 void					ft_load_interface(t_list_head *buttons, t_rtv *env);
 void					ft_draw_buttons(t_rtv *env);
-int						ft_click_buttons(int mouse_button, int x, int y, t_rtv *env);
+int						ft_click_buttons(int mouse_button,
+	int x, int y, t_rtv *env);
 void					ft_bottom_buttons(t_list_head *buttons, t_rtv *env);
 t_button				*ft_new_button(char *text, t_button_handler *handler,
 	void *arg, t_coor position);
@@ -513,19 +521,21 @@ t_color					ft_get_procedural_texture_color(
 	t_procedural_texture_function *texture, t_coor uv);
 int						ft_is_transparent(t_material *material, t_coor uv);
 int						ft_get_texture_cut(t_material *material, t_coor uv);
-void					ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam);
+void					ft_get_hit_info(t_vector normal,
+	t_point *point, t_cam *cam);
 /*
 ** noise and procedural textures
 */
-double					ft_turbulence(double x, double y, double z, double size);
+double					ft_turbulence(double x,
+	double y, double z, double size);
 t_color					ft_cheeker_texture(double x, double y);
 t_color					ft_brick_texture(double x, double y);
 t_color					ft_wood(double x, double y);
 t_color					ft_marble(double x, double y);
 t_color					ft_pastel(double x, double y);
 t_color					ft_noise(t_cam *cam);
-t_color					ft_get_procedural_texture_color(t_procedural_texture_function
-				*texture, t_coor uv);
+t_color					ft_get_procedural_texture_color(
+	t_procedural_texture_function *texture, t_coor uv);
 /*
 ** shadows related functions
 */
