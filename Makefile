@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
+#    By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2020/02/15 20:23:43 by abenaiss         ###   ########.fr        #
+#    Updated: 2020/03/01 03:14:49 by azarzor          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,10 @@ FILENAMES = basics_constructors.c\
 			draw_buttons.c\
 			holo_cube.c\
 			complex_constructors.c\
-			xml_parser_tools.c
+			xml_parser_tools.c \
+			quartic_solver.c \
+			cubic_solver.c\
+			torus.c
 
 HEADER_FILE = objects.h\
 			  parser.h\

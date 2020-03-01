@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/26 23:56:24 by abiri            ###   ########.fr       */
+/*   Updated: 2020/03/01 04:53:10 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,13 @@
 # define FT_RAD(X) (((X) * M_PI) / 180)
 # define FT_INTERPOLATION(A, B, C) (B + A * (C - B))
 # define FT_FADE(N) (N * N * N * (N * (N * 6 - 15) + 10))
-
+# define FT_QUAR(X) ((X) * (X) * (X) * (X))
+# define FT_CUB(X) ((X) * (X) * (X))
+# define EQN_EPS 1e-9
+# define IS_ZERO(x) ((x) > -EQN_EPS && (x) < EQN_EPS)
+# define POW1(x) (pow((double)(x), 1.0 / 3.0))
+# define POW2(x) (pow((double)-(x), 1.0 / 3.0))
+# define CBRT(x) ((x) > 0.0 ? POW1(x) : ((x) < 0.0 ? -POW2(x) : 0.0))
 /*
 ** code comprehension macros
 */
@@ -76,6 +82,7 @@
 # define B_ sides[3]
 # define BA sides[4]
 # define BB sides[5]
+# define RAY_DIR cam->ray_direction
 
 /*
 ** bmp save macos
@@ -235,6 +242,34 @@ typedef	struct			s_rtv
 	int					pixel_size;
 }						t_rtv;
 
+typedef struct			s_cubic
+{
+	double				a;
+	double				b;
+	double				c;
+	double				d;
+	double				sq_a;
+	double				p;
+	double				q;
+	double				cb_p;
+}						t_cubic;
+
+typedef struct			s_quartic
+{
+	double				a;
+	double				b;
+	double				c;
+	double				d;
+	double				z;
+	double				u;
+	double				v;
+	double				sub;
+	double				sq_a;
+	double				p;
+	double				q;
+	double				r;
+}						t_quartic;
+
 typedef int				t_xml_element(t_xml_tag *tag, t_rtv *env);
 
 typedef int				t_button_handler(void *element, int status, t_rtv *env);
@@ -272,7 +307,7 @@ int						ft_add_pill(t_xml_tag *tag, t_rtv *env);
 int						ft_add_box(t_xml_tag *tag, t_rtv *env);
 int						ft_add_parallelepiped(t_xml_tag *tag, t_rtv *env);
 int						ft_add_holo_cube(t_xml_tag *tag, t_rtv *env);
-
+int						ft_add_torus(t_xml_tag *tag, t_rtv *env);
 /*
 **  shapes intersections functions
 */
@@ -294,6 +329,8 @@ double					ft_triangle_intersection(t_cam *cam,
 		t_triangle *triangle, double min);
 double					ft_holo_cube_intersection(t_cam *cam,
 		t_holo_cube *holo_cube, double min);
+double					ft_torus_intersection(t_cam *cam,
+			t_torus *torus, double min);
 /*
 **  shapes normals calculations functions
 */
@@ -315,6 +352,8 @@ void					ft_holo_cube_normal(t_cam *cam,
 		t_holo_cube *holo_cube);
 int						ft_axis_limit(t_vector intersection,
 		t_limit limits);
+void					ft_torus_normal(t_cam *cam,
+		t_torus *torus);
 /*
 **  limited objects calculations functions
 */
@@ -412,6 +451,8 @@ t_vector				ft_get_refracted_ray(t_rtv rtv);
 int						ft_headless_raytracer(t_rtv	*rtv, char *filename);
 void					ft_init_rendrering(t_rtv *rtv);
 void					ft_init_cam(t_cam *cam, t_rtv rtv);
+double					ft_min_sol(double s[4], int res);
+void					ft_depth_of_field(t_rtv *rtv);
 /*
 **	bmp image saving functions
 */
@@ -495,6 +536,12 @@ double					ft_basic_sphere_intersection(t_cam *cam,
 		t_sphere *sphere, double min);
 double					ft_check_shadow(t_rtv rtv, t_light *light,
 	t_vector light_vec);
+/*
+**	MathSolvers
+*/
+int						ft_solve_quadric(double c[3], double s[2]);
+int						ft_solve_quartic(double w[5], double s[4]);
+int						ft_solve_cubic(double w[4], double s[3]);
 /*
 ** mlx functions
 */

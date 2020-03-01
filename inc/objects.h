@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 14:41:56 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/26 23:55:45 by abiri            ###   ########.fr       */
+/*   Updated: 2020/03/01 03:36:40 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define TYPE_HYPERBOILD 6
 # define TYPE_FRACTAL 9
 # define TYPE_HOLO_CUBE 10
+# define TYPE_TORUS 11
 # define TYPE_PARSE_COUNT 18
 # define A abc[0]
 # define B abc[1]
@@ -34,7 +35,11 @@
 # define TEXTURE_MODE_CUT 4
 # define TEXTURE_MODE_TRANSPARENCY 8
 # define TEXTURE_MODE_REPEAT 16
-
+# define C4 coeff[4]
+# define C3 coeff[3]
+# define C2 coeff[2]
+# define C1 coeff[1]
+# define C0 coeff[0]
 typedef struct	s_color
 {
 	double	r;
@@ -166,7 +171,25 @@ typedef struct	s_holo_cube
 	double					radius;
 	t_limit					limits;
 	t_vector				limit;
+	double					coeff[5];
+	double					soluces[4];
 }				t_holo_cube;
+
+typedef struct 	s_torus
+{
+	t_vector				normal;
+	t_color					color;
+	t_material				material;
+	t_intersection_function	*function;
+	t_vector				translation;
+	t_limit					limits;
+	t_vector				center;
+	t_vector				limit;
+	double					b_radius;
+	double					s_radius;
+	double					coeff[5];
+	double					soluces[4];
+}				t_torus;
 
 typedef struct	s_cone
 {
@@ -260,6 +283,7 @@ typedef union	u_object
 	t_holo_cube		holo_cube;
 	t_triangle		triangle;
 	t_fractal		fractal;
+	t_torus			torus;
 }				t_object;
 
 typedef struct	s_object_list

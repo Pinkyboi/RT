@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "__functional_03": "c",
-        "functional": "c"
+        "functional": "c",
+        "rtv1.h": "c"
     }
 }
