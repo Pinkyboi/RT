@@ -6,7 +6,7 @@
 #    By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/17 15:42:28 by abiri             #+#    #+#              #
-#    Updated: 2020/03/01 05:32:48 by azarzor          ###   ########.fr        #
+#    Updated: 2020/03/01 19:36:02 by azarzor          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,8 @@ FILENAMES = basics_constructors.c\
 			quartic_solver.c \
 			cubic_solver.c\
 			torus.c\
-			cube.c
+			cube.c\
+			depth_of_field.c
 
 HEADER_FILE = objects.h\
 			  parser.h\

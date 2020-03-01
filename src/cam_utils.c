@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cam_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/22 05:45:31 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/03/01 19:32:02 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void		ft_create_ray(t_rtv *rtv, int sample)
 	world_point = ft_sub_vector(world_point, rtv->cam.position);
 	rtv->cam.ray_direction = ft_normalise_vector(world_point);
 	rtv->cam.ray_origin = rtv->cam.position;
+	if (1)
+		ft_depth_of_field(rtv);
 }
 
 void		ft_init_cam(t_cam *cam, t_rtv rtv)

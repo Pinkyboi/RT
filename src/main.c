@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 15:50:29 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/22 05:48:38 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/03/01 19:35:35 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void			ft_init_default_scene(t_scene *scene)
 	scene->ambiant = 0;
 	scene->filter = 0;
 	scene->aa = 0;
+	scene->dof = 10;
+	scene->dof_focus = 25;
 	scene->reflection_depth = 3;
 	scene->refraction_depth = 3;
 	scene->width = 1.7777777778 * 720;

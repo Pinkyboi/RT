@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_managing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:12:32 by azarzor           #+#    #+#             */
-/*   Updated: 2020/02/23 03:53:21 by abiri            ###   ########.fr       */
+/*   Updated: 2020/03/01 19:34:59 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int			ft_key_stroke(int key, t_rtv *rtv)
 	if (key == SAVE)
 		ft_dump_bitmap(&rtv->mlx.img);
 	if (key == LEFT || key == RIGHT || key == UP ||
-		key == DOWN || key == FOREWORD || key == BACKWARD)
+		key == DOWN || key == FOREWORD || key == BACKWARD ||
+		key == KEY_R || key == KEY_T)
 	{
 		rtv->actions.mouvement = 1;
 		if (rtv->options.anti_aliasing)
@@ -53,6 +54,8 @@ int			ft_key_stroke(int key, t_rtv *rtv)
 		rtv->render_offset = PIXEL_SIZE;
 		rtv->render_y_offset = PIXEL_SIZE;
 		rtv->pixel_size = PIXEL_SIZE;
+		(key == KEY_R) ? rtv->scene.dof_focus += 5 : 0;
+		(key == KEY_T) ? rtv->scene.dof_focus -= 5 : 0;
 		ft_move_cam(key, rtv);
 	}
 	return (0);

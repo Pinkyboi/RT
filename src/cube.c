@@ -6,7 +6,7 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 05:27:09 by azarzor           #+#    #+#             */
-/*   Updated: 2020/03/01 05:41:23 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/01 17:15:58 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,13 @@ void					ft_cube_normal(t_cam *cam, t_cube *cube)
 	hit = ft_sub_vector(cam->hit.position, center);
 	cube->normal = ft_normalise_vector(
 		ft_new_vector(hit.x / d.x, hit.y / d.y, hit.z / d.z));
-	ft_get_hit_info(cube->normal, (t_point *)cube, cam);
-}
+	if (cam->hit.soluces[0])
+	{
+		cam->hit.normal = cube->normal;
+		cam->hit.color = cube->color;
+		cam->hit.reflection = cube->material.reflection_index;
+		cam->hit.refraction = cube->material.refraction_index;
+	}}
 
 static double			ft_cube_calc(t_cam *cam, t_vector *sol, t_cube *cube)
 {

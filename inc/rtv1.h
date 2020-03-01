@@ -6,7 +6,7 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/03/01 05:29:44 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/01 19:34:19 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@
 # define LEFT 0
 # define RIGHT 2
 # define DOWN 1
+# define KEY_R 15
+# define KEY_T 17
 # define SAVE 36
 # define PIXEL_SIZE 5
 # define NUM_THREAD 4
@@ -205,6 +207,8 @@ typedef struct			s_scene
 	int					reflection_depth;
 	int					refraction_depth;
 	int					light_samples;
+	int					dof;
+	int					dof_focus;
 }						t_scene;
 
 typedef struct			s_options
