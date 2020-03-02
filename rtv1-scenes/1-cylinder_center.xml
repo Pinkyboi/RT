@@ -1,4 +1,6 @@
-<camera position="(0, 10, 50)" lookat="(0, 0, 0)" fov="35"/>
-<light center="(0, 0, 100)" intensity="0.8" color="#FFFFFF"/>
-<light center="(-20, 0, 20)" intensity="0.1" color="#FFFFFF"/>
-<cylinder lenght="10" radius="3" center="(0, 0, -10)" color="(255, 150, 50)" axis="(0, 1, 0)"/>
+<scene ambiant="0.5" AA="4" reflection_depth="10" refraction_depth="10" resolution="720" light_samples="20"/>
+<camera position="(0, 0, 50)" lookat="(0, 0, 0)" fov="30"/>
+<light center="(150, 66, 120)"  radius="1" intensity="0.8" color="#FFFFFF"/>
+<toruss center="(0, 0, 0)" big_radius="5.0" small_radius="2.0" color="#FF00FF"/>
+<holo_cube center="(0, 0, 0)" radius="11.8" color="#FF0000"/>
+<spherse center="(0, 0, 0)" radius="5.0" color="(255,0,0)"/>

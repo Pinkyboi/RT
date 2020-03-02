@@ -6,40 +6,49 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 07:00:38 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/03/01 17:15:12 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/02 23:45:27 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-double					ft_min_sol(double s[4], int res)
+double	smallest_double(double *tab, int size)
 {
-	double	min;
-	int		i;
+	int		index;
+	int		jndex;
+	double	save;
 
+	index = -1;
+	while (++index < size)
+		if (tab[index] < 0)
+			tab[index] = MAX_D;
+	index = 0;
+	while (index < size)
+	{
+		jndex = index + 1;
+		while (jndex < size)
+		{
+			if (tab[jndex] < tab[index])
+			{
+				save = tab[index];
+				tab[index] = tab[jndex];
+				tab[jndex] = save;
+			}
+			jndex++;
+		}
+		index++;
+	}
+	return (tab[0]);
+}
+double					ft_min_sol(double s[4], double t, int res)
+{
 	if (res == 0)
 		return (0);
-	min = MIN_D;
-	i = -1;
-	while (++i < res)
-		if (s[i] > MIN_D)
-		{
-			min = s[i];
-			break ;
-		}
-	if (i == res)
-		return (0);
-	i = -1;
-	while (++i < res)
-	{
-		if (min > MIN_D && min < s[i])
-			min = s[i];
-	}
-	if (min > MIN_D)
-		return (min);
+	smallest_double(s, res);
+	if (s[0] > MIN_D && s[0] < MAX_D && s[0] < t)
+		return (s[0]);
 	return (0.0);
 }
-
 void					ft_holo_cube_normal(t_cam *cam, t_holo_cube *holo_cube)
 {
 	t_vector	distance;
@@ -68,7 +77,9 @@ static	double			ft_holo_cube_calc(t_cam *cam,
 		ft_holo_cube_normal(cam, holo_cube);
 		return (cam->hit.soluces[0]);
 	}
-	return (0);
+	else
+		cam->hit.soluces[0] = 0;
+	return (cam->hit.soluces[0]);
 }
 
 double					ft_holo_cube_intersection(t_cam *cam,
@@ -96,6 +107,6 @@ double					ft_holo_cube_intersection(t_cam *cam,
 	C0 = FT_QUAR(center.x) + FT_QUAR(center.y) + FT_QUAR(center.z)
 			- 5.0 * ft_dot_vector(center, center) + holo_cube->radius;
 	result = ft_solve_quartic(coeff, sol);
-	cam->hit.soluces[0] = ft_min_sol(sol, result);
+	cam->hit.soluces[0] = ft_min_sol(sol, min, result);
 	return (ft_holo_cube_calc(cam, holo_cube, min));
 }

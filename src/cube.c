@@ -6,7 +6,7 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 05:27:09 by azarzor           #+#    #+#             */
-/*   Updated: 2020/03/01 17:15:58 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/02 23:44:22 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,23 @@ void					ft_cube_normal(t_cam *cam, t_cube *cube)
 	t_vector	d;
 	t_vector	hit;
 	double		bias;
+	t_vector	normal;
 
 	bias = 1.00001;
 	ft_intersection_position(cam, cam->hit.soluces[0]);
 	center = ft_scale_vector(
 		ft_add_vector(cube->bounds[0], cube->bounds[1]), 0.5);
 	d = ft_scale_vector(
-		ft_add_vector(cube->bounds[0], cube->bounds[1]), 0.5);
+		ft_sub_vector(cube->bounds[0], cube->bounds[1]), 0.5);
 	d.x = fabs(d.x) * bias;
 	d.y = fabs(d.y) * bias;
 	d.z = fabs(d.z) * bias;
 	hit = ft_sub_vector(cam->hit.position, center);
+	normal = ft_normalise_vector(
+		(t_vector){hit.x / d.x, hit.y / d.y, hit.z / d.z});
 	if (cam->hit.soluces[0])
 	{
-		cam->hit.normal = ft_normalise_vector(
-		(t_vector){hit.x / d.x, hit.y / d.y, hit.z / d.z});
+		cam->hit.normal = normal;
 		cam->hit.color = cube->color;
 		cam->hit.reflection = cube->material.reflection_index;
 		cam->hit.refraction = cube->material.refraction_index;
@@ -44,7 +46,7 @@ static double			ft_cube_calc(t_cam *cam, t_vector *sol, t_cube *cube)
 {
 	cam->hit.soluces[0] = sol[0].x;
 	ft_cube_normal(cam, cube);
-	return (sol[0].x);
+	return (cam->hit.soluces[0]);
 }
 
 double					ft_cube_intersection(t_cam *cam,

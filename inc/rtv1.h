@@ -6,7 +6,7 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/03/01 19:34:19 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/02 23:45:49 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -467,8 +467,9 @@ t_vector				ft_get_refracted_ray(t_rtv rtv);
 int						ft_headless_raytracer(t_rtv	*rtv, char *filename);
 void					ft_init_rendrering(t_rtv *rtv);
 void					ft_init_cam(t_cam *cam, t_rtv rtv);
-double					ft_min_sol(double s[4], int res);
 void					ft_depth_of_field(t_rtv *rtv);
+double					smallest_double(double *tab, int size);
+double					ft_min_sol(double s[4], double t, int res);
 /*
 **	bmp image saving functions
 */
