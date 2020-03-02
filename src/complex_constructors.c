@@ -62,12 +62,17 @@ int				ft_add_cube(t_xml_tag *tag, t_rtv *env)
 {
 	t_object	object;
 	int			status;
+	double		side;
 
 	status = 1;
-	object.cube.bounds[0] = ft_parse_vector(ft_xml_get_value(tag, "minimum",
-				"(-10,-10,-10)"), &status);
-	object.cube.bounds[1] = ft_parse_vector(ft_xml_get_value(tag, "maximum",
-				"(10,10,10)"), &status);
+	side = ft_parse_float(ft_xml_get_value(tag, "side",
+				"10"), &status);
+	object.cube.center = ft_parse_vector(ft_xml_get_value(tag, "center",
+			"(0, 0, 0)"), &status);
+	object.cube.bounds[0] = ft_sub_vector(object.cube.center,
+		(t_vector){side / 2, side / 2, side / 2});
+	object.cube.bounds[1] = ft_add_vector(object.cube.center,
+		(t_vector){side / 2, side / 2, side / 2});
 	object.cube.color = ft_parse_color(ft_xml_get_value(tag, "color",
 				"(255,255,255)"), &status);
 	object.cube.translation = ft_parse_vector(ft_xml_get_value(tag,

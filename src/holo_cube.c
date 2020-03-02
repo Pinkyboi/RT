@@ -46,18 +46,17 @@ void					ft_holo_cube_normal(t_cam *cam, t_holo_cube *holo_cube)
 	t_vector	normal;
 
 	ft_intersection_position(cam, cam->hit.soluces[0]);
-	distance = ft_add_vector(cam->ray_origin,
-			ft_scale_vector(cam->ray_direction, cam->hit.soluces[0]));
+	distance = cam->hit.position;
 	normal.x = 4 * FT_CUB(distance.x) - 10 * distance.x;
 	normal.y = 4 * FT_CUB(distance.y) - 10 * distance.y;
 	normal.z = 4 * FT_CUB(distance.z) - 10 * distance.z;
-	holo_cube->normal = ft_normalise_vector(normal);
 	if (cam->hit.soluces[0])
 	{
 		cam->hit.normal = ft_normalise_vector(normal);
 		cam->hit.color = holo_cube->color;
 		cam->hit.reflection = holo_cube->material.reflection_index;
 		cam->hit.refraction = holo_cube->material.refraction_index;
+		cam->hit.transparency = holo_cube->material.transparency_index;
 	}
 }
 

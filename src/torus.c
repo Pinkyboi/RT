@@ -35,6 +35,7 @@ void					ft_torus_normal(t_cam *cam, t_torus *torus)
 		cam->hit.color = torus->color;
 		cam->hit.reflection = torus->material.reflection_index;
 		cam->hit.refraction = torus->material.refraction_index;
+		cam->hit.transparency = torus->material.transparency_index;
 	}
 }
 

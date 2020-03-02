@@ -28,6 +28,7 @@ void	ft_ellipsoid_normal(t_cam *cam, t_ellipsoid *ellipsoid, double distance)
 		cam->hit.color = ellipsoid->color;
 		cam->hit.reflection = ellipsoid->material.reflection_index;
 		cam->hit.refraction = ellipsoid->material.refraction_index;
+		cam->hit.transparency = ellipsoid->material.transparency_index;
 	}
 }
 
@@ -48,6 +49,7 @@ void	ft_hyperboloid_normal(t_cam *cam, t_hyperboloid *hyperboloid,
 		cam->hit.color = hyperboloid->color;
 		cam->hit.reflection = hyperboloid->material.reflection_index;
 		cam->hit.refraction = hyperboloid->material.refraction_index;
+		cam->hit.transparency = hyperboloid->material.transparency_index;
 	}
 }
 
@@ -68,5 +70,6 @@ void	ft_paraboloid_normal(t_cam *cam, t_paraboloid *paraboloid,
 		cam->hit.color = paraboloid->color;
 		cam->hit.reflection = paraboloid->material.reflection_index;
 		cam->hit.refraction = paraboloid->material.refraction_index;
+		cam->hit.transparency = paraboloid->material.transparency_index;
 	}
 }

@@ -18,7 +18,7 @@ t_color			ft_diffuse(t_light light, t_vector light_vect,
 	t_color	rgb;
 	double	ln;
 
-	ln = ft_clip_min_max(0, 1, ft_dot_vector(light_vect, normal));
+	ln = ft_clip_min(0, ft_dot_vector(light_vect, normal));
 	rgb.r = ln * color.r * light.color.r * light.intensity;
 	rgb.g = ln * color.g * light.color.g * light.intensity;
 	rgb.b = ln * color.b * light.color.b * light.intensity;

@@ -29,15 +29,16 @@ void					ft_cube_normal(t_cam *cam, t_cube *cube)
 	d.y = fabs(d.y) * bias;
 	d.z = fabs(d.z) * bias;
 	hit = ft_sub_vector(cam->hit.position, center);
-	cube->normal = ft_normalise_vector(
-		ft_new_vector(hit.x / d.x, hit.y / d.y, hit.z / d.z));
 	if (cam->hit.soluces[0])
 	{
-		cam->hit.normal = cube->normal;
+		cam->hit.normal = ft_normalise_vector(
+		(t_vector){hit.x / d.x, hit.y / d.y, hit.z / d.z});
 		cam->hit.color = cube->color;
 		cam->hit.reflection = cube->material.reflection_index;
 		cam->hit.refraction = cube->material.refraction_index;
-	}}
+		cam->hit.transparency = cube->material.transparency_index;
+	}
+}
 
 static double			ft_cube_calc(t_cam *cam, t_vector *sol, t_cube *cube)
 {
@@ -54,9 +55,9 @@ double					ft_cube_intersection(t_cam *cam,
 
 	sol[2] = (t_vector){1.0 / cam->ray_direction.x,
 		1.0 / cam->ray_direction.y, 1.0 / cam->ray_direction.z};
-	sign[0] = sol[2].x < 0.00001;
-	sign[1] = sol[2].y < 0.00001;
-	sign[2] = sol[2].z < 0.00001;
+	sign[0] = sol[2].x < MIN_D;
+	sign[1] = sol[2].y < MIN_D;
+	sign[2] = sol[2].z < MIN_D;
 	sol[0].x = (cube->bounds[sign[0]].x - cam->ray_origin.x) * sol[2].x;
 	sol[1].x = (cube->bounds[1 - sign[0]].x - cam->ray_origin.x) * sol[2].x;
 	sol[0].y = (cube->bounds[sign[1]].y - cam->ray_origin.y) * sol[2].y;

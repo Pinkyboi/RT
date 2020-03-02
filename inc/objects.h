@@ -196,6 +196,7 @@ typedef struct						s_torus
 typedef struct						s_cube
 {
 	t_vector						normal;
+	t_vector						center;
 	t_color							color;
 	t_material						material;
 	t_intersection_function			*function;
@@ -207,7 +208,6 @@ typedef struct						s_cube
 
 typedef struct						s_cone
 {
-	t_vector						normal;
 	t_color							color;
 	t_material						material;
 	t_intersection_function			*function;
