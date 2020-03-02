@@ -77,8 +77,7 @@ t_coor		ft_cart_to_cone(t_vector vect, t_cone *cone)
 	else
 		sphere.center = ft_add_vector(cone->center, ft_scale_vector(cone->axis,
 			lenght - sphere.radius));
+	sphere.material = cone->material;
 	mapped = ft_cart_to_sphere(vect, &sphere);
-	mapped.x = (mapped.x * cone->material.scale) + cone->material.offset.x;
-	mapped.y = (mapped.y * cone->material.scale) + cone->material.offset.y;
 	return (mapped);
 }
