@@ -1,5 +1,0 @@
-<scene ambiant="0.5" AA="4" reflection_depth="5" refraction_depth="5" resolution="720" light_samples="20"/>
-<camera position="(0, 10, 100)" lookat="(0, 0, 0)" fov="60"/>
-<light center="(0, 10, 100)" intensity="0.8" color="#FFFFFF"/>
-<holo_cube center="(0, 0, 0)" radius="11.8" color="(255, 255, 0)"/>
-<torus center="(10, 10, 0)" big_radius="11.8" small_radius="6.8" color="(255, 255, 0)"/>

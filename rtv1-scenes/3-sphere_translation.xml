@@ -1,3 +1,0 @@
-<camera position="(0, 0, 20)" lookat="(0, 0, 0)" fov="35"/>
-<light center="(0, 0, 5)" intensity="0.8" color="#FFFFFF"/>
-<sphere center="(0, 0, 0)" color="(150, 50, 50)" radius="1" translation="(2, 2, 0)"/>
