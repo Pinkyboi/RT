@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_color			ft_cheeker_texture(double x, double y)
+t_color			ft_checker_texture(double x, double y)
 {
 	double scale;
 

@@ -1,0 +1,14 @@
+<scene ambiant="0.5" AA="4" resolution="720" light_samples="20" refraction_depth="10"/>
+<camera position="(0, 0, 60)"/>
+<light center="(0, 100, 100)"  radius="1" intensity="0.5" color="#FFFFFF"/>
+<plane center="(0, -1, -10)" V="(0, 1, 0)" U="(1, 0, 0)" color="#D3D3D3"/>
+<sphere center="(-20,0,0)" transparency="0" radius="5"/>
+<sphere center="(-10,0,0)" refraction="1.0" transparency="0.4" radius="5"/>
+<sphere center="(0,0,0)"   refraction="1.1" transparency="0.6" radius="5"/>
+<sphere center="(10,0,0)"  refraction="1.2" transparency="0.8" radius="5"/>
+<sphere center="(20,0,0)" transparency="1" radius="5"/>
+<cube center="(-20,0,0)" color="(255,127,80)" side="3"/>
+<cube center="(-10,0,0)" color="(255,127,80)" side="3"/>
+<cube center="(0,0,0)"   color="(255,127,80)" side="3"/>
+<cube center="(10,0,0)"  color="(255,127,80)" side="3"/>
+<cube center="(20,0,0)"  color="(255,127,80)" side="3"/>

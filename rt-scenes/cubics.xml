@@ -1,0 +1,8 @@
+<scene ambiant="0.5" resolution="720" light_samples="20"/>
+<camera position="(0, 0, 50)"/>
+<light center="(0, 0, 50)"  radius="1" intensity="0.5" color="#FFFFFF"/>
+<light center="(0, 200, 50)"  radius="3" intensity="0.5" color="#FFFFFF"/>
+<hyperboloid sheets="2" translation="(10,0,-20)" color="(241, 110, 154)"/>
+<hyperboloid sheets="1" translation="(-10,0,0)" color="(236, 64, 122)"/>
+<paraboloid sheets="1" translation="(0,0,-10)" color="(64, 236, 179)"/>
+<ellipsoid axis="(3, 3, 1)" translation="(10,0, 20)" color="(249, 178, 37)"/>

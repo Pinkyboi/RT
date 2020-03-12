@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:12:32 by abiri             #+#    #+#             */
-/*   Updated: 2019/12/04 16:04:26 by abiri            ###   ########.fr       */
+/*   Updated: 2020/03/04 12:18:20 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static t_xml_tag	*ft_parse_tag(int fd, int *status)
 
 	*status = 1;
 	if (get_next_line(fd, &line) <= 0)
+		return (NULL);
+	if (ft_strequ(line, "!"))
 		return (NULL);
 	if (!(tag = ft_memalloc(sizeof(t_xml_tag))))
 		return (NULL);
@@ -97,16 +99,20 @@ t_xml_data			*ft_read_xml(char *filename)
 	int			fd;
 	int			status;
 
-	if ((fd = open(filename, O_RDONLY)) < 0)
+	if (filename && (fd = open(filename, O_RDONLY)) < 0)
 		return (NULL);
+	if (!filename)
+		fd = 0;
 	if (!(data = ft_memalloc(sizeof(t_xml_data))))
 	{
-		close(fd);
+		if (filename)
+			close(fd);
 		return (NULL);
 	}
 	while ((newtag = ft_parse_tag(fd, &status)))
 		ft_xml_push_tag(data, newtag);
-	close(fd);
+	if (filename)
+		close(fd);
 	if (status == 0)
 		return (ft_xml_free_data(data));
 	return (data);

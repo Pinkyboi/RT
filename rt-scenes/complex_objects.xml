@@ -1,0 +1,6 @@
+<scene ambiant="0.5" AA="4" resolution="720" light_samples="20"/>
+<camera position="(0, 0, 60)"/>
+<light center="(0, 100, 100)"  radius="1" intensity="0.8" color="#FFFFFF"/>
+<torus center="(0,-2,0)" big_radius="5.0" small_radius="2.0" color="(0, 0, 128)"/>
+<holo_cube center="(5,0,15)" radius="11.8" color="(126, 186, 146)"/>
+<cube center="(-10,0,15)" side="10" color="(126, 186, 146)"/>

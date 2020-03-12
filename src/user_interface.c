@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user_interface.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 12:36:40 by abiri             #+#    #+#             */
-/*   Updated: 2020/02/23 04:03:39 by abiri            ###   ########.fr       */
+/*   Updated: 2020/03/04 21:48:23 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,13 @@ int			ft_click_buttons(int mouse_button, int x, int y, t_rtv *env)
 	{
 		if (x > button->position.x && x < button->position.x + BUTTON_WIDTH &&
 			y > button->position.y && y < button->position.y + BUTTON_HEIGHT)
+		{
 			ft_activate_button(button, env);
+			clicked = 1;
+		}
 	}
+	if (!clicked)
+		ft_change_lookat(mouse_button, x, y, env);
 	return (0);
 }
 
@@ -89,5 +94,6 @@ void		ft_load_interface(t_list_head *buttons, t_rtv *env)
 	button = ft_new_button(ft_strdup("SOFT SHADOWS"), ft_button_toggle_boolean,
 		&env->options.soft_shadows, (t_coor){0, 100});
 	env->buttons.push(&env->buttons, button);
+	ft_toogle_dof(buttons, env);
 	ft_bottom_buttons(buttons, env);
 }

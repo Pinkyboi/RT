@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 07:22:58 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/23 03:37:08 by abiri            ###   ########.fr       */
+/*   Updated: 2020/03/04 21:28:39 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static void			*ft_ray_loop(void *data)
 		while (rtv->row <= rtv->max_w)
 		{
 			rgb = (t_color){0, 0, 0};
+			if (rtv->scene.dof && rtv->options.depth_of_field)
+				ft_color_best_node_dof(rtv, rgb);
 			ft_color_best_node(rtv, rgb);
 			rtv->row += rtv->pixel_size;
 		}

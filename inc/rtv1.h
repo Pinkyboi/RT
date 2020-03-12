@@ -6,7 +6,7 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:13:19 by abiri             #+#    #+#             */
-/*   Updated: 2020/03/02 23:45:49 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/04 21:45:21 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@
 # define LIGHT_VECTOR light_vect[0]
 # define REFLECTED_LIGHT_VECTOR  light_vect[1]
 # define CENTER cube_utils[0]
-# define LENGHTS cube_utils[1]
+# define LENGTHS cube_utils[1]
 # define NEW_COLOR color[1]
 # define OLD_COLOR color[0]
 # define DIFFUSE shader[0]
@@ -116,8 +116,8 @@
 **	buttons macros
 */
 
-# define BUTTON_ACTIVE_COLOR 0x00FF00
-# define BUTTON_INACTIVE_COLOR 0xFF0000
+# define BUTTON_ACTIVE_COLOR (t_color){0.4, 0.7, 0.4}
+# define BUTTON_INACTIVE_COLOR (t_color){0.7, 0.7, 0.7}
 # define BUTTON_WIDTH 120
 # define BUTTON_HEIGHT 20
 # define BUTTON_TEXT_COLOR 0x0
@@ -220,6 +220,7 @@ typedef struct			s_options
 	unsigned int		refraction;
 	unsigned int		reflection;
 	unsigned int		soft_shadows;
+	unsigned int		depth_of_field;
 }						t_options;
 
 typedef	struct			s_rtv
@@ -239,6 +240,8 @@ typedef	struct			s_rtv
 	double				column;
 	double				min_w;
 	double				max_w;
+	double				min_h;
+	double				max_h;
 	t_scene				scene;
 	int					effects;
 	int					render_offset;
@@ -339,6 +342,10 @@ double					ft_torus_intersection(t_cam *cam,
 		t_torus *torus, double min);
 double					ft_cube_intersection(t_cam *cam,
 		t_cube *cube, double min);
+double					trace(t_vector from, t_vector direction,
+		t_fractal *fractal, int *status);
+double					ft_mandelbrot_distance_estimator(t_vector pos,
+		int *iter, t_fractal fractal);
 /*
 **  shapes normals calculations functions
 */
@@ -422,6 +429,7 @@ t_color					ft_merge_color(t_color first, t_color second);
 t_color					ft_select_filter(t_rtv rtv,
 	t_object object, t_color color);
 t_color					ft_assign_color(double r, double g, double b);
+void					ft_filtring_select(t_rtv *rtv);
 /*
 **	parsing related functions
 */
@@ -468,8 +476,13 @@ int						ft_headless_raytracer(t_rtv	*rtv, char *filename);
 void					ft_init_rendrering(t_rtv *rtv);
 void					ft_init_cam(t_cam *cam, t_rtv rtv);
 void					ft_depth_of_field(t_rtv *rtv);
-double					smallest_double(double *tab, int size);
+void					ft_toogle_dof(t_list_head *buttons, t_rtv *env);
+void					ft_change_lookat(int mouse_button,
+			int x, int y, t_rtv *env);
+double					ft_smallest_double(double *tab, int size);
 double					ft_min_sol(double s[4], double t, int res);
+void					ft_specific_ray_shoot(t_rtv *rtv);
+
 /*
 **	bmp image saving functions
 */
@@ -484,6 +497,7 @@ double					ft_choose_intersection(t_object_list *object_node,
 					t_rtv *rtv, double *min);
 t_color					ft_get_node_color(t_rtv rtv, int depth);
 void					ft_color_best_node(t_rtv *rtv, t_color rgb);
+void					ft_color_best_node_dof(t_rtv *rtv, t_color rgb);
 /*
 **	texture related functions
 */
@@ -505,17 +519,19 @@ void					ft_bottom_buttons(t_list_head *buttons, t_rtv *env);
 t_button				*ft_new_button(char *text, t_button_handler *handler,
 	void *arg, t_coor position);
 void					ft_draw_buttons(t_rtv *env);
+int						ft_button_toggle_boolean(void *arg,
+	int status, t_rtv *env);
 /*
 ** get shapes informations
 */
 void					ft_get_plane_axis(t_xml_tag *tag,
-	t_plane *plane, int *status, t_coor lenghts);
+	t_plane *plane, int *status, t_coor lengths);
 /*
 ** object mapping and texture type mapping
 */
 t_coor					ft_cart_to_sphere(t_vector vect, t_sphere *sphere);
 t_coor					ft_cart_to_cone(t_vector vect, t_cone *cone);
-t_coor					ft_cart_to_plane(t_cam *cam, t_plane *plane);
+t_coor					ft_cart_to_plane(t_vector vect, t_plane *plane);
 t_coor					ft_cart_to_cylinder(t_vector vect,
 				t_cylinder *cylinder, t_vector scaled_axis);
 void					ft_bump_map(t_point *point, t_cam *cam);
@@ -538,7 +554,7 @@ void					ft_get_hit_info(t_vector normal,
 */
 double					ft_turbulence(double x,
 	double y, double z, double size);
-t_color					ft_cheeker_texture(double x, double y);
+t_color					ft_checker_texture(double x, double y);
 t_color					ft_brick_texture(double x, double y);
 t_color					ft_wood(double x, double y);
 t_color					ft_marble(double x, double y);
@@ -553,7 +569,7 @@ t_light					ft_get_shadow_light(t_rtv rtv, t_light light,
 	t_vector light_vec, int depth);
 t_object				*ft_get_intersection_object(t_rtv *rtv, double *min);
 double					ft_basic_sphere_intersection(t_cam *cam,
-		t_sphere *sphere, double min);
+		t_sphere *sphere);
 double					ft_check_shadow(t_rtv rtv, t_light *light,
 	t_vector light_vec);
 /*

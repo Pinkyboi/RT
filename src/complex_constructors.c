@@ -6,7 +6,7 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 08:17:36 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/03/01 05:29:26 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/04 23:01:16 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int				ft_add_holo_cube(t_xml_tag *tag, t_rtv *env)
 	status = 1;
 	object.holo_cube.center = ft_parse_vector(ft_xml_get_value(tag, "center",
 				"(0,0,0)"), &status);
-	object.holo_cube.radius = ft_parse_float(ft_xml_get_value(tag, "radius",
-				"5"), &status);
+	object.holo_cube.radius = ft_clip_min(0, ft_parse_float(
+		ft_xml_get_value(tag, "radius", "5"), &status));
 	object.holo_cube.color = ft_parse_color(ft_xml_get_value(tag, "color",
 				"(255,255,255)"), &status);
 	object.holo_cube.translation = ft_parse_vector(ft_xml_get_value(tag,
@@ -42,10 +42,10 @@ int				ft_add_torus(t_xml_tag *tag, t_rtv *env)
 	status = 1;
 	object.torus.center = ft_parse_vector(ft_xml_get_value(tag, "center",
 				"(0,0,0)"), &status);
-	object.torus.b_radius = ft_parse_float(ft_xml_get_value(tag, "big_radius",
-				"5"), &status);
-	object.torus.s_radius = ft_parse_float(ft_xml_get_value(tag, "small_radius",
-				"2"), &status);
+	object.torus.b_radius = ft_clip_min(0, ft_parse_float(
+		ft_xml_get_value(tag, "big_radius", "5"), &status));
+	object.torus.s_radius = ft_clip_min(0, ft_parse_float(
+		ft_xml_get_value(tag, "small_radius", "2"), &status));
 	object.torus.color = ft_parse_color(ft_xml_get_value(tag, "color",
 				"(255,255,255)"), &status);
 	object.torus.translation = ft_parse_vector(ft_xml_get_value(tag,
@@ -65,8 +65,8 @@ int				ft_add_cube(t_xml_tag *tag, t_rtv *env)
 	double		side;
 
 	status = 1;
-	side = ft_parse_float(ft_xml_get_value(tag, "side",
-				"10"), &status);
+	side = fabs(ft_parse_float(ft_xml_get_value(tag, "side",
+				"10"), &status));
 	object.cube.center = ft_parse_vector(ft_xml_get_value(tag, "center",
 			"(0, 0, 0)"), &status);
 	object.cube.bounds[0] = ft_sub_vector(object.cube.center,

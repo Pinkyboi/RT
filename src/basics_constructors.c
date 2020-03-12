@@ -65,7 +65,7 @@ int				ft_add_cylinder(t_xml_tag *tag, t_rtv *env)
 }
 
 void			ft_get_plane_axis(t_xml_tag *tag,
-	t_plane *plane, int *status, t_coor lenghts)
+	t_plane *plane, int *status, t_coor lengths)
 {
 	plane->rotation = ft_parse_vector(
 		ft_xml_get_value(tag, "rotation", "(0,0,0)"), status);
@@ -73,8 +73,8 @@ void			ft_get_plane_axis(t_xml_tag *tag,
 		ft_xml_get_value(tag, "U", "(0, 0, 1)"), status)), plane->rotation);
 	plane->sides.v = ft_rotate_vector(ft_normalise_vector(ft_parse_vector(
 		ft_xml_get_value(tag, "V", "(1, 0, 0)"), status)), plane->rotation);
-	plane->lenght.u = ft_clip_min(-1, lenghts.x);
-	plane->lenght.v = ft_clip_min(-1, lenghts.y);
+	plane->length.u = ft_clip_min(-1, lengths.x);
+	plane->length.v = ft_clip_min(-1, lengths.y);
 	plane->normal = ft_normalise_vector(
 		ft_cross_product(plane->sides.u, plane->sides.v));
 }
@@ -83,11 +83,11 @@ int				ft_add_plane(t_xml_tag *tag, t_rtv *env)
 {
 	t_object	object;
 	int			status;
-	t_coor		lenghts;
+	t_coor		lengths;
 
 	status = 1;
-	lenghts = ft_parse_coor(ft_xml_get_value(tag,
-		"lenght", "(-1, -1)"), &status);
+	lengths = ft_parse_coor(ft_xml_get_value(tag,
+		"length", "(-1, -1)"), &status);
 	object.plane.center = ft_parse_vector(ft_xml_get_value(tag, "center",
 				"(0,0,0)"), &status);
 	object.plane.color = ft_parse_color(ft_xml_get_value(tag, "color",
@@ -98,7 +98,7 @@ int				ft_add_plane(t_xml_tag *tag, t_rtv *env)
 			object.plane.translation);
 	object.plane.radius = ft_clip_min(-1, ft_parse_float(
 				ft_xml_get_value(tag, "radius", "-1"), &status));
-	ft_get_plane_axis(tag, &object.plane, &status, lenghts);
+	ft_get_plane_axis(tag, &object.plane, &status, lengths);
 	ft_define_limits(tag, &(object.plane.limits), &status);
 	ft_add_material(tag, &object, &status, env);
 	object.plane.function = &ft_plane_intersection;

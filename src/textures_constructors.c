@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 00:26:45 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/27 00:13:00 by abiri            ###   ########.fr       */
+/*   Updated: 2020/03/04 19:42:46 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_texture						*ft_get_texture(char *filename, t_rtv *env)
 	env->textures.iterator = env->textures.first;
 	while ((result = ttslist_iter_content(&env->textures)))
 	{
-		if (ft_strequ(filename, result->texture_name))
+		if (result->texture_name && ft_strequ(filename, result->texture_name))
 			return (result);
 	}
 	return (NULL);
@@ -50,8 +50,8 @@ t_texture						*ft_load_image(char *filename, t_rtv *rtv)
 
 t_procedural_texture_function	*ft_load_procedural_texture(char *filename)
 {
-	if (ft_strequ(filename, "cheeker"))
-		return (ft_cheeker_texture);
+	if (ft_strequ(filename, "checker"))
+		return (ft_checker_texture);
 	if (ft_strequ(filename, "brick"))
 		return (ft_brick_texture);
 	if (ft_strequ(filename, "pastel"))

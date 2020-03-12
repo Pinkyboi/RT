@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 14:41:56 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/03/01 05:29:08 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/04 11:29:58 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ typedef struct						s_color
 	double							b;
 }									t_color;
 
-typedef double				t_intersection_function();
-typedef t_color				t_procedural_texture_function(double x, double y);
+typedef double						t_intersection_function();
+typedef t_color						t_procedural_texture_function(
+									double x, double y);
 
 typedef struct						s_limit
 {
@@ -97,7 +98,7 @@ typedef struct						s_sphere
 	double							radius;
 	t_vector						translation;
 	t_vector						rotation;
-	double							max_lenght;
+	double							max_length;
 	t_vector						cut_orientation;
 	t_limit							limits;
 	t_vector						axis;
@@ -127,8 +128,8 @@ typedef struct						s_cylinder
 	double							radius;
 	t_vector						rotation;
 	t_vector						translation;
-	double							max_lenght;
-	double							lenght;
+	double							max_length;
+	double							length;
 	t_limit							limits;
 	t_vector						limit;
 }									t_cylinder;
@@ -218,8 +219,8 @@ typedef struct						s_cone
 	double							tilt;
 	t_vector						rotation;
 	t_vector						translation;
-	double							max_lenght;
-	t_vector						lenght;
+	double							max_length;
+	t_vector						length;
 	t_limit							limits;
 	t_vector						limit;
 }									t_cone;
@@ -231,12 +232,12 @@ typedef struct						s_sides
 	t_vector						w;
 }									t_sides;
 
-typedef struct						s_lenght
+typedef struct						s_length
 {
 	double							u;
 	double							v;
 	double							w;
-}									t_lenght;
+}									t_length;
 
 typedef struct						s_plane
 {
@@ -249,7 +250,7 @@ typedef struct						s_plane
 	t_vector						translation;
 	t_limit							limits;
 	double							radius;
-	t_lenght						lenght;
+	t_length						length;
 	t_sides							sides;
 	double							side;
 }									t_plane;
@@ -261,6 +262,15 @@ typedef struct						s_fractal
 	t_material						material;
 	t_intersection_function			*function;
 	t_vector						center;
+	double							max_iter;
+	double							max_steps;
+	double							bailout;
+	double							power;
+	double							zr;
+	double							dr;
+	double							r;
+	double							phi;
+	double							theta;
 }									t_fractal;
 
 typedef struct						s_triangle

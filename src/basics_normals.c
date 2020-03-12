@@ -6,7 +6,7 @@
 /*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:58:29 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/27 00:16:20 by abiri            ###   ########.fr       */
+/*   Updated: 2020/03/04 11:31:49 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	ft_get_hit_info(t_vector normal, t_point *point, t_cam *cam)
 {
-	t_vector	bump;
-	t_color		color;
-
 	if (cam->hit.soluces[0])
 	{
 		cam->hit.normal = normal;
@@ -65,7 +62,7 @@ void	ft_cylinder_normal(t_cam *cam, t_cylinder *cylinder,
 	scale = ft_dot_vector(cam->ray_direction, cylinder->axis) * distance;
 	scale += ft_dot_vector(ft_sub_vector(cam->position,
 				cylinder->center), cylinder->axis);
-	cylinder->lenght = scale;
+	cylinder->length = scale;
 	ft_intersection_position(&temp_cam, distance);
 	cam->hit.soluces[0] = ft_cylinder_limit(*cylinder, temp_cam);
 	if (!cam->hit.soluces[0])
@@ -125,8 +122,9 @@ void	ft_plane_normal(t_cam *cam, t_plane *plane, double i)
 	cam->hit.soluces[0] = ft_plane_limit(*plane, clone);
 	if (!cam->hit.soluces[0])
 		return ;
-	cam->hit.normal = (i > 0) ?
-		ft_scale_vector(normal, -1) : normal;
 	ft_intersection_position(cam, distance);
+	cam->hit.uv = ft_cart_to_plane(cam->hit.position, plane);
 	ft_get_hit_info(normal, (t_point*)plane, cam);
+	cam->hit.normal = (i > 0) ?
+		ft_scale_vector(plane->normal, -1) : plane->normal;
 }

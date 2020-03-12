@@ -46,37 +46,41 @@ t_coor		ft_cart_to_cylinder(t_vector vect,
 	return (mapped);
 }
 
-t_coor		ft_cart_to_plane(t_cam *cam, t_plane *plane)
+t_coor		ft_cart_to_plane(t_vector vect, t_plane *plane)
 {
 	t_coor		mapped;
 
 	mapped.x = ft_dot_vector(
-			ft_sub_vector(cam->hit.position, plane->center), plane->sides.u);
+			ft_sub_vector(vect, plane->center), plane->sides.u);
 	mapped.y = ft_dot_vector(
-			ft_sub_vector(cam->hit.position, plane->center), plane->sides.v);
+			ft_sub_vector(vect, plane->center), plane->sides.v);
+	mapped.x = (mapped.x * plane->material.scale) +
+		plane->material.offset.x + 0.5;
+	mapped.y = (mapped.y * plane->material.scale) +
+		plane->material.offset.y + 0.5;
 	return (mapped);
 }
 
 t_coor		ft_cart_to_cone(t_vector vect, t_cone *cone)
 {
-	double		lenght;
-	double		side_lenght;
+	double		length;
+	double		side_length;
 	t_sphere	sphere;
 	t_coor		mapped;
 
-	if (cone->max_lenght < 0)
-		lenght = 1000;
+	if (cone->max_length < 0)
+		length = 1000;
 	else
-		lenght = cone->max_lenght;
-	side_lenght = sqrt(FT_SQR(lenght) + FT_SQR(lenght * cone->tilt));
-	sphere.radius = ((side_lenght * lenght) /
-	sqrt(FT_SQR(lenght) + FT_SQR(lenght)))
-	/ (1 + (side_lenght) / sqrt(FT_SQR(lenght) + FT_SQR(lenght)));
-	if (cone->max_lenght < 0)
+		length = cone->max_length;
+	side_length = sqrt(FT_SQR(length) + FT_SQR(length * cone->tilt));
+	sphere.radius = ((side_length * length) /
+	sqrt(FT_SQR(length) + FT_SQR(length)))
+	/ (1 + (side_length) / sqrt(FT_SQR(length) + FT_SQR(length)));
+	if (cone->max_length < 0)
 		sphere.center = cone->center;
 	else
 		sphere.center = ft_add_vector(cone->center, ft_scale_vector(cone->axis,
-			lenght - sphere.radius));
+			length - sphere.radius));
 	sphere.material = cone->material;
 	mapped = ft_cart_to_sphere(vect, &sphere);
 	return (mapped);

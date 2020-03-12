@@ -94,28 +94,28 @@ static double	ft_cubic_interpolation(t_vector left_side,
 {
 	int sides[8];
 
-	A_ = g_permutation[(int)right_side.x] + right_side.y;
-	AA = g_permutation[A_] + right_side.z;
-	AB = g_permutation[A_ + 1] + right_side.z;
-	B_ = g_permutation[(int)right_side.x + 1] + right_side.y;
-	BA = g_permutation[B_] + right_side.z;
-	BB = g_permutation[B_ + 1] + right_side.z;
-	return (FT_INTERPOLATION(left_side.z,
-	FT_INTERPOLATION(left_side.y,
-	FT_INTERPOLATION(left_side.x,
-	ft_perlin_grad(g_permutation[AA], point.x, point.y, point.z),
-	ft_perlin_grad(g_permutation[BA], point.x - 1, point.y, point.z)),
-	FT_INTERPOLATION(left_side.x,
-	ft_perlin_grad(g_permutation[AB], point.x, point.y - 1, point.z),
-	ft_perlin_grad(g_permutation[BB], point.x - 1, point.y - 1, point.z))),
-	FT_INTERPOLATION(left_side.y,
-	FT_INTERPOLATION(left_side.x,
-	ft_perlin_grad(g_permutation[AA + 1], point.x, point.y, point.z - 1),
-	ft_perlin_grad(g_permutation[BA + 1], point.x - 1, point.y, point.z - 1)),
-	FT_INTERPOLATION(left_side.x,
-	ft_perlin_grad(g_permutation[AB + 1], point.x, point.y - 1, point.z - 1),
-	ft_perlin_grad(g_permutation[BB + 1], point.x - 1,
+	A_ = g_permutation[((int)right_side.x) % 512] + right_side.y;
+	AA = g_permutation[((int)A_) % 512] + right_side.z;
+	AB = g_permutation[((int)A_ + 1) % 512] + right_side.z;
+	B_ = g_permutation[((int)right_side.x + 1) % 512] + right_side.y;
+	BA = g_permutation[((int)B_) % 512] + right_side.z;
+	BB = g_permutation[((int)B_ + 1) % 512] + right_side.z;
+	return (FT_INTERPOLATION(left_side.z, FT_INTERPOLATION(left_side.y,
+	FT_INTERPOLATION(left_side.x, ft_perlin_grad(g_permutation[(AA) % 512],
+	point.x, point.y, point.z), ft_perlin_grad(g_permutation[(BA) % 512],
+	point.x - 1, point.y, point.z)), FT_INTERPOLATION(left_side.x,
+	ft_perlin_grad(g_permutation[(AB) % 512], point.x, point.y - 1, point.z),
+	ft_perlin_grad(g_permutation[(BB) % 512],
+	point.x - 1, point.y - 1, point.z))), FT_INTERPOLATION(left_side.y,
+	FT_INTERPOLATION(left_side.x, ft_perlin_grad(g_permutation[(AA + 1) % 512],
+	point.x, point.y, point.z - 1),
+	ft_perlin_grad(g_permutation[(BA + 1) % 512],
+	point.x - 1, point.y, point.z - 1)), FT_INTERPOLATION(left_side.x,
+	ft_perlin_grad(g_permutation[(AB + 1) % 512],
+	point.x, point.y - 1, point.z - 1),
+	ft_perlin_grad(g_permutation[(BB + 1) % 512], point.x - 1,
 	point.y - 1, point.z - 1)))));
+	return (0);
 }
 
 static double	ft_noise_3(t_vector point)
@@ -146,7 +146,8 @@ double			ft_turbulence(double x, double y, double z, double size)
 	intital_size = size;
 	while (size >= 1)
 	{
-		value += ft_noise_3((t_vector){x / size, y / size, z / size}) * size;
+		value += ft_noise_3((t_vector){fabs(x) / size,
+			fabs(y) / size, fabs(z) / size}) * size;
 		size /= 2.0;
 	}
 	return (value / intital_size);

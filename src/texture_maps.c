@@ -68,10 +68,10 @@ void	ft_material_maps(t_point *point, t_cam *cam)
 	else if (point->material.texture)
 		cam->hit.color = ft_get_texture_color(point->material.texture,
 			cam->hit.uv, cam->hit.color, point->material.mode);
-	if (point->material.bump)
+	if (point->material.bump || point->material.proced_bump)
 		ft_bump_map(point, cam);
-	if (point->material.transparency)
+	if (point->material.transparency || point->material.proced_transparency)
 		ft_transparency_map(point, cam);
-	if (point->material.reflection)
+	if (point->material.reflection || point->material.proced_reflection)
 		ft_reflection_map(point, cam);
 }

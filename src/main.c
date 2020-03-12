@@ -6,7 +6,7 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 15:50:29 by abiri             #+#    #+#             */
-/*   Updated: 2020/03/01 19:35:35 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/04 21:36:38 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void			ft_init_default_camera(t_cam *cam)
 
 void			ft_init_default_scene(t_scene *scene)
 {
-	scene->ambiant = 0;
+	scene->ambiant = 0.4;
 	scene->filter = 0;
 	scene->aa = 0;
-	scene->dof = 10;
-	scene->dof_focus = 25;
+	scene->dof = 0;
+	scene->dof_focus = 10;
 	scene->reflection_depth = 3;
 	scene->refraction_depth = 3;
 	scene->width = 1.7777777778 * 720;
@@ -40,6 +40,8 @@ void			ft_init_rt(t_xml_data *data, t_rtv *rtv, int argc, char **argv)
 	ft_load_shapes(data, rtv);
 	ft_init_cam(&rtv->cam, *rtv);
 	ft_load_interface(&rtv->buttons, rtv);
+	rtv->min_h = 0;
+	rtv->max_h = rtv->scene.height;
 	if (argc == 4 && ft_strequ(argv[1], "--no_window"))
 		ft_headless_raytracer(rtv, argv[2]);
 	else

@@ -6,13 +6,13 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 07:00:38 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/03/02 23:45:27 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/04 21:33:38 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-double	smallest_double(double *tab, int size)
+double					ft_smallest_double(double *tab, int size)
 {
 	int		index;
 	int		jndex;
@@ -40,22 +40,26 @@ double	smallest_double(double *tab, int size)
 	}
 	return (tab[0]);
 }
+
 double					ft_min_sol(double s[4], double t, int res)
 {
 	if (res == 0)
 		return (0);
-	smallest_double(s, res);
+	ft_smallest_double(s, res);
 	if (s[0] > MIN_D && s[0] < MAX_D && s[0] < t)
 		return (s[0]);
 	return (0.0);
 }
+
 void					ft_holo_cube_normal(t_cam *cam, t_holo_cube *holo_cube)
 {
 	t_vector	distance;
 	t_vector	normal;
 
 	ft_intersection_position(cam, cam->hit.soluces[0]);
-	distance = cam->hit.position;
+	normal = ft_new_vector(0, 0, 0);
+	distance = ft_add_vector(cam->ray_origin,
+			ft_scale_vector(cam->ray_direction, cam->hit.soluces[0]));
 	normal.x = 4 * FT_CUB(distance.x) - 10 * distance.x;
 	normal.y = 4 * FT_CUB(distance.y) - 10 * distance.y;
 	normal.z = 4 * FT_CUB(distance.z) - 10 * distance.z;

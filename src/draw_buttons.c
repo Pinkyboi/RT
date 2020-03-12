@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_buttons.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 04:16:03 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/29 04:16:04 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/03/04 20:42:59 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,27 @@
 
 static void		ft_draw_button(t_button *button, t_mlx *mlx_data)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	int		index;
+	t_color color;
+	t_color	button_color;
 
-	y = 0;
-	while (y < BUTTON_HEIGHT)
+	y = -1;
+	while (++y < BUTTON_HEIGHT)
 	{
-		x = 0;
-		while (x < BUTTON_WIDTH)
+		x = -1;
+		while (++x < BUTTON_WIDTH)
 		{
-			mlx_pixel_put(mlx_data->mlx_ptr, mlx_data->win,
-			x + button->position.x, y + button->position.y,
-			(button->status) ? BUTTON_ACTIVE_COLOR : BUTTON_INACTIVE_COLOR);
-			x++;
+			index = (((int)button->position.y + y) % mlx_data->img.height) *
+mlx_data->img.width + (x + (int)button->position.x) % mlx_data->img.width;
+			color = ft_scale_colors(ft_int_to_rgb(
+				mlx_data->img.data[index < 0 ? 0 : index]), 0.01);
+			button_color = ((button->status) ? BUTTON_ACTIVE_COLOR :
+				ft_add_colors(color, BUTTON_INACTIVE_COLOR));
+			mlx_pixel_put(mlx_data->mlx_ptr, mlx_data->win, x +
+button->position.x, y + button->position.y, ft_rgb_to_int(button_color));
 		}
-		y++;
 	}
 	if (button->text)
 		mlx_string_put(mlx_data->mlx_ptr, mlx_data->win, button->position.x,

@@ -1,0 +1,8 @@
+<scene ambiant="0.5" AA="4" resolution="720" light_samples="20"/>
+<camera position="(0, 0, 60)"/>
+<light center="(0, 100, 100)"  radius="1" intensity="0.5" color="#FFFFFF"/>
+<sphere center="(0,0,0)" texture_mapping=":checker" radius="4" mapping_position="(0, 0, 0.60)"/>
+<sphere center="(10,0,0)" texture_mapping=":brick" radius="4"  mapping_position="(0, 0, 10)"/>
+<sphere center="(-10,0,0)" color="#FF00FF" bump_mapping=":marble" radius="4"  mapping_position="(0, 0, 5)"/>
+<sphere center="(20,0,0)" texture_mapping=":wood" radius="4"  mapping_position="(0, 0, 80)"/>
+<sphere center="(-20,0,0)" texture_mapping=":pastel" radius="4"  mapping_position="(0, 0, 40)"/>

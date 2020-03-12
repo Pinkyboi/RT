@@ -6,7 +6,7 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 00:09:38 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/03/01 19:22:33 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/04 21:50:44 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void			ft_color_best_node(t_rtv *rtv, t_color rgb)
 	t_object_list	*object_node;
 	t_object_list	*best_node;
 	int				sample;
-	t_color			node_color;
 
 	sample = -1;
 	while (++sample < rtv->anti_aliasing + 1)
@@ -83,7 +82,6 @@ void			ft_color_best_node_dof(t_rtv *rtv, t_color rgb)
 	t_object_list	*object_node;
 	t_object_list	*best_node;
 	int				sample;
-	t_color			node_color;
 
 	sample = -1;
 	while (++sample < rtv->scene.dof + 1)
@@ -104,4 +102,18 @@ void			ft_color_best_node_dof(t_rtv *rtv, t_color rgb)
 	rgb = ft_scale_colors(rgb, (double)1 / (rtv->scene.dof + 1));
 	(best_node) ? ft_put_pixel(rtv, ft_rgb_to_int(ft_select_filter(
 	*rtv, best_node->object, rgb))) : ft_put_pixel(rtv, 0x0);
+}
+
+void			ft_specific_ray_shoot(t_rtv *rtv)
+{
+	t_object_list	*object_node;
+
+	object_node = rtv->objects;
+	rtv->min = MAX_D;
+	ft_create_ray(rtv, 0);
+	while (object_node)
+	{
+		ft_choose_intersection(object_node, rtv, &rtv->min);
+		object_node = object_node->next;
+	}
 }

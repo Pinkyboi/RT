@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"__mutex_base": "c",
+		"cdata_structures.h": "c",
+		"lists_wrappers.h": "c"
+	}
+}

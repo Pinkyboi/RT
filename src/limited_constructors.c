@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   limited_constructors.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 23:21:45 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/14 12:48:15 by abiri            ###   ########.fr       */
+/*   Updated: 2020/03/04 23:11:18 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int				ft_add_demi_sphere(t_xml_tag *tag, t_rtv *env)
 	status = 1;
 	object.sphere.center = ft_parse_vector(ft_xml_get_value(tag, "center",
 				"(0,0,0)"), &status);
-	object.sphere.radius = ft_parse_float(ft_xml_get_value(tag, "radius",
-				"5"), &status);
+	object.sphere.radius = ft_clip_min(1, ft_parse_float(
+		ft_xml_get_value(tag, "radius", "5"), &status));
 	object.sphere.color = ft_parse_color(ft_xml_get_value(tag, "color",
 				"(255,255,255)"), &status);
 	object.sphere.translation = ft_parse_vector(ft_xml_get_value(tag,

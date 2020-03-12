@@ -6,7 +6,7 @@
 /*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 05:27:09 by azarzor           #+#    #+#             */
-/*   Updated: 2020/03/02 23:44:22 by azarzor          ###   ########.fr       */
+/*   Updated: 2020/03/04 21:43:43 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void					ft_cube_normal(t_cam *cam, t_cube *cube)
 	t_vector	d;
 	t_vector	hit;
 	double		bias;
-	t_vector	normal;
 
 	bias = 1.00001;
 	ft_intersection_position(cam, cam->hit.soluces[0]);
@@ -30,11 +29,10 @@ void					ft_cube_normal(t_cam *cam, t_cube *cube)
 	d.y = fabs(d.y) * bias;
 	d.z = fabs(d.z) * bias;
 	hit = ft_sub_vector(cam->hit.position, center);
-	normal = ft_normalise_vector(
-		(t_vector){hit.x / d.x, hit.y / d.y, hit.z / d.z});
 	if (cam->hit.soluces[0])
 	{
-		cam->hit.normal = normal;
+		cam->hit.normal = ft_normalise_vector((t_vector){hit.x / d.x,
+				hit.y / d.y, hit.z / d.z});
 		cam->hit.color = cube->color;
 		cam->hit.reflection = cube->material.reflection_index;
 		cam->hit.refraction = cube->material.refraction_index;
@@ -55,8 +53,7 @@ double					ft_cube_intersection(t_cam *cam,
 	t_vector		sol[3];
 	int				sign[3];
 
-	sol[2] = (t_vector){1.0 / cam->ray_direction.x,
-		1.0 / cam->ray_direction.y, 1.0 / cam->ray_direction.z};
+	sol[2] = (t_vector){1.0 / RAY_DIR.x, 1.0 / RAY_DIR.y, 1.0 / RAY_DIR.z};
 	sign[0] = sol[2].x < MIN_D;
 	sign[1] = sol[2].y < MIN_D;
 	sign[2] = sol[2].z < MIN_D;

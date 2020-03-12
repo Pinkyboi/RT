@@ -1,0 +1,6 @@
+<scene ambiant="0.5" AA="4" resolution="720" light_samples="20" refraction_depth="5"/>
+<camera position="(50, 20, 20)" lookat="(0, 0, 0)" fov="40"/>
+<light center="(0, 0, 0)"  radius="1" intensity="0.8" color="#FFFFFF"/>
+<sphere center="(0, 0, 30)" radius="3" texture_mapping="earth_DIFF.tex" specular_mapping="earth_SPEC.tex" bump_mapping="earth_NORM.tex"/>
+<sphere center="(20, 0, 0)" radius="2" texture_mapping="mars_DIFF.tex"/>
+<sphere center="(0, 0, 0)" radius="10" color="#FCD440" refraction="2.6" transparency="0.9"/>

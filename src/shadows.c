@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shadows.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: azarzor <azarzor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 23:36:40 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/28 23:36:41 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/03/04 21:35:01 by azarzor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_light			ft_get_shadow_light(t_rtv rtv, t_light light,
 }
 
 double			ft_basic_sphere_intersection(t_cam *cam,
-		t_sphere *sphere, double min)
+		t_sphere *sphere)
 {
 	double	abc[3];
 	double	delta;
@@ -82,12 +82,12 @@ double			ft_check_shadow(t_rtv rtv, t_light *light,
 	t_light	this_light;
 
 	rtv.cam.ray_origin = ft_add_vector(
-		ft_scale_vector(rtv.cam.hit.normal, MIN_D), rtv.cam.hit.position);
+		ft_scale_vector(rtv.cam.hit.normal, 0.00001), rtv.cam.hit.position);
 	rtv.cam.position = rtv.cam.ray_origin;
 	rtv.cam.ray_direction = light_vec;
 	this_light = ft_get_shadow_light(rtv, *light, light_vec, 1);
 	if (!(ft_basic_sphere_intersection(&(rtv.cam),
-		&(light->light_shape), MAX_D)))
+		&(light->light_shape))))
 		this_light.intensity = 0;
 	light->intensity = this_light.intensity;
 	return (this_light.intensity);

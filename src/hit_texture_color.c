@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_texture_color.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abiri <abiri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 23:58:19 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/02/28 23:58:20 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/03/04 23:21:27 by abiri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ t_color	ft_get_procedural_texture_color(t_procedural_texture_function *texture,
 
 int		ft_get_texture_cut(t_material *material, t_coor uv)
 {
+	if (!material->texture)
+		return (0);
 	uv.x = (int)(uv.x * material->texture->width);
 	uv.y = (int)(uv.y * material->texture->height);
 	if (uv.x < 0 || uv.x >= material->texture->width
@@ -70,19 +72,18 @@ int		ft_is_transparent(t_material *material, t_coor uv)
 	u_int32_t	color;
 	t_texture	*texture;
 
+	color = 0x0;
+	texture = material->texture;
 	if (texture)
 	{
-		texture = material->texture;
 		if (!(material->mode & TEXTURE_MODE_CENTER))
 		{
 			uv.x = ft_modulus((int)(uv.x * texture->width), texture->width);
 			uv.y = ft_modulus((int)(uv.y * texture->height), texture->height);
 		}
 		else
-		{
-			uv.x = (int)(uv.x * texture->width);
-			uv.y = (int)(uv.y * texture->height);
-		}
+			uv = (t_coor){(int)(uv.x * texture->width),
+				(int)(uv.y * texture->height)};
 		if (uv.y < 0 || uv.y >= texture->height
 			|| uv.x < 0 || uv.x >= texture->width)
 			return (1);
@@ -90,7 +91,7 @@ int		ft_is_transparent(t_material *material, t_coor uv)
 	}
 	else if (material->proced_transparency)
 		color = ft_rgb_to_int(material->proced_transparency(uv.x, uv.y));
-	if (!((color & 0xFF000000) >> 24))
+	if (!((color & 0xFF000000)))
 		return (1);
 	return (0);
 }

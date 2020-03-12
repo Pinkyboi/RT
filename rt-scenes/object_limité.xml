@@ -1,0 +1,10 @@
+<scene ambiant="0.5" resolution="720" light_samples="20"/>
+<camera position="(0, 0, 50)"/>
+<light center="(0, 0, 10)"  radius="1" intensity="0.5" color="#FFFFFF"/>
+<light center="(0, 200, 20)"  radius="3" intensity="0.5" color="#FFFFFF"/>
+<light center="(0, 100, 100)"  radius="1" intensity="0.5" color="#FFFFFF"/>
+<cylinder length="10" rotation="(0, 0, 60)" color="#FA8072" limit_x="(-2, 1000000)" limit_z="(-2, 1000000)"/>
+<cone length="8" angle="40" center="(0, -2, 5)" rotation="(40, 0, 90)" color="#FA8072"/>
+<sphere length="6" orientation="(1, 0.5,1)" center="(-10,0,-10)" radius="4"/>
+<plane center="(0, 0, -20)" U="(0,1,0)" V="(1,0,0)" length="(20, 10)"/>
+<plane color="#FA8072" center="(-11, 5, -15)" U="(0,1,0)" V="(1,0,0)" radius="10"/>
