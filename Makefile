@@ -115,7 +115,7 @@ LIBTTSLISTDIR = ./libs/ttslist
 
 LIBTTSLIST = $(LIBTTSLISTDIR)/libttslist.a
 
-INCLUDES = -I ./inc -I $(LIBFTDIR) -I ./libs/ft_maths/inc -I $(LIBTTSLISTDIR)/includes
+INCLUDES = -I ./inc -I $(LIBFTDIR) -I ./libs/ft_maths/inc -I $(LIBTTSLISTDIR)/includes -I ./libs/MinilibX/elcapitan
 
 # detecting the os and linking with the good minilibx
 
@@ -123,7 +123,7 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S), Linux)
 	LIBRARIES = -L $(LIBFTDIR) -lft -L ./minilibx -lmlx -lX11 -lXext -L $(FTMATHS) -lftmaths -lm -L $(LIBTTSLISTDIR) -lttslist
 else
-	LIBRARIES = -L $(LIBFTDIR) -lft -lmlx -framework OpenGL -framework AppKit -L $(FTMATHS) -lftmaths -L $(LIBTTSLISTDIR) -lttslist
+	LIBRARIES = -L $(LIBFTDIR) -lft -L ./libs/MinilibX -lmlx -framework OpenGL -framework AppKit -L $(FTMATHS) -lftmaths -L $(LIBTTSLISTDIR) -lttslist
 endif
 
 DELAY = 0

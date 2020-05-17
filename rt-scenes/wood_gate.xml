@@ -1,0 +1,6 @@
+<scene ambiant="0.4" AA="4" reflection_depth="5" refraction_depth="5" resolution="720" light_samples="20"/>
+<camera position="(10, 20, 120)" lookat="(0, 20, 0)" fov="40"/>
+<light center="(0, 200, 0)"  radius="25" intensity="1" color="#FFFFFF" type="parallel"/>
+<light center="(0, 20, 20)"  radius="10" intensity="1" direction="(-1, -1, 0)" color="#FFFFFF" type="parallel"/>
+<plane center="(0, -1, 0)" length="(60, 60)"  U="(0, 0, 1)" V="(1, 0, 0)"  color="#D3D3D3" reflection="0.8"/>
+<sphere center="(-10, 20, 10)" translation="(3, 0, 0)" color="#0000FF" radius="10" translation="(0, 2, 0)" texture_mapping="./textures/WOOD_GATE_DIFFUSE.tex" normal_mapping="./textures/WOOD_GATE_NORMAL.tex" specular_mapping="./textures/WOOD_GATE_SPECULAR.tex"/>
