@@ -2,8 +2,7 @@
 A raytracing program built from scratch in C language, using MinilibX minimal graphics library, with pseudo-xml files as input, a dynamic render realtime viewer, and the ability to save bmp at your resolution of choice, and the ability to render on multiple devices for faster distributed rendering.
 
 > This project's main goal is learning raytracing from scratch, making a simple pseudo-xml parser expandable by design, and distributing computational tasks using C sockets to implement cluster rendering.
-
-![a scene displaying the use of bump mapping to alter refraction](https://i.ibb.co/y4t46qq/1580384119194446.png "a scene displaying the use of bump mapping to alter refraction")
+![a scene displaying the use of bump mapping to alter refraction](https://i.ibb.co/sjtxBYV/test2.png "a scene displaying the use of bump mapping to alter refraction")
 ## Features
 - Simple shapes : sphere, cone, cylinder, ...
 - Complex shapes : hyperboloid, torus, hollow cube, ...
@@ -52,7 +51,7 @@ The GUI mode gives you the freedom of moving the camera, enabling and disabling 
 ![light going thru a cut object](https://i.ibb.co/GJwD6G3/158967922388267.png "light going thru a cut object")
 ![light going thru cut object, but with soft shadows on](https://i.ibb.co/hHWwqKY/diapositive.png "light going thru cut object, but with soft shadows on")
 ![inside a transparent refractive sphere](https://i.ibb.co/QMSt2Qr/1580384043170700.png "inside a transparent refractive sphere")
-![sphere with earth normal mapping](https://i.ibb.co/s2RcYZD/1580384243833543.png "sphere with earth normal mapping")
+![partially transparent sphere with earth normal mapping](https://i.ibb.co/y4t46qq/1580384119194446.png "partially transparent sphere with earth normal mapping")
 ![Simple scene with reflection](https://i.ibb.co/1rgdcb0/1583013314639682.png "Simple scene with reflection")
 ![scene with procedurally generator textures](https://i.ibb.co/CbWGkH4/1589678433499213.png "scene with procedurally generator textures")
 ## Authors
